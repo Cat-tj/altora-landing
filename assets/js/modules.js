@@ -4,9 +4,9 @@
    pemilih modul di halaman masuk.
    ============================================================ */
 window.ALTORA_MODULES = [
-  { key: 'cafe', name: 'Altora Cafe', host: 'cafe.altora.my.id',
+  { key: 'resto', name: 'Altora Resto', host: 'resto.altora.my.id',
     icon: 'i-coffee', tone: 'purple', hex: '#7C5CE8',
-    short: 'Kelola cafe lebih efisien, dari meja hingga dapur.',
+    short: 'Kelola resto & cafe lebih efisien, dari meja hingga dapur.',
     feats: ['Kasir & meja', 'Resep & bahan baku', 'Pesanan QR meja', 'Laporan penjualan'] },
 
   { key: 'market', name: 'Altora Market', host: 'market.altora.my.id',

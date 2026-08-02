@@ -49,7 +49,7 @@
     { icon: 'i-sync', tone: 'pink', q: 'Bisakah saya mencoba Altora terlebih dahulu?',
       a: 'Tentu! Anda bisa mencoba demo gratis dan melihat fitur-fiturnya sebelum berlangganan.' },
     { icon: 'i-building', tone: 'navy', q: 'Bagaimana jika saya punya lebih dari satu jenis bisnis?',
-      a: 'Bisa. Anda dapat berlangganan beberapa modul sekaligus, misalnya Cafe dan Laundry. Setiap modul punya halaman masuk sendiri sesuai jenis bisnisnya.' },
+      a: 'Bisa. Anda dapat berlangganan beberapa modul sekaligus, misalnya Resto dan Laundry. Setiap modul punya halaman masuk sendiri sesuai jenis bisnisnya.' },
     { icon: 'i-layers', tone: 'teal', q: 'Apakah saya bisa pindah paket nanti?',
       a: 'Bisa, kapan saja. Naik atau turun paket bisa dilakukan seiring bisnis Anda berkembang, dan tim kami membantu proses penyesuaiannya.' }
   ];

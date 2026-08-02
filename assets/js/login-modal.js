@@ -34,7 +34,7 @@
         '<p class="lm-lead">Setiap modul punya halaman masuk sendiri. Punya lebih dari satu? Masuk ke masing-masing modul sesuai bisnis yang ingin dikelola.</p>' +
         '<ul class="lm-grid">' +
           modules.map(function (m) {
-            return '<li><a href="https://' + m.host + '" style="--accent:' + m.hex + '">' +
+            return '<li><a href="https://' + m.host + '/login" style="--accent:' + m.hex + '">' +
               '<span class="lm-icon" style="background:' + m.hex + '">' + icon(m.icon) + '</span>' +
               '<span class="lm-body"><b>' + m.name + '</b><code>' + m.host + '</code></span>' +
               icon('i-arrow') +
