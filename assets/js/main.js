@@ -26,13 +26,13 @@
       feats: ['Kasir POS', 'Stok & Inventori', 'Laporan Penjualan', 'Multi User'] },
     { name: 'Pro', icon: 'i-crown', tone: 'purple', tick: '#7C5CE8', popular: true,
       desc: 'Untuk bisnis yang sudah berkembang.',
-      feats: ['Semua di Starter, plus:', 'Purchase Order', 'Laporan Lanjutan', 'Manajemen Promo', 'Akses Multi Cabang'] },
+      feats: ['Semua di Starter', 'Purchase Order', 'Laporan Lanjutan', 'Manajemen Promo', 'Akses Multi Cabang'] },
     { name: 'Business', icon: 'i-brief', tone: 'blue', tick: '#3B82F6',
       desc: 'Untuk bisnis skala besar dan multi-outlet.',
-      feats: ['Semua di Pro, plus:', 'Manajemen Gudang', 'Laporan Keuangan', 'Approval & Hak Akses', 'Integrasi API'] },
+      feats: ['Semua di Pro', 'Manajemen Gudang', 'Laporan Keuangan', 'Approval & Hak Akses', 'Integrasi API'] },
     { name: 'Enterprise', icon: 'i-building', tone: 'pink', tick: '#EC5B9E',
       desc: 'Solusi khusus untuk kebutuhan enterprise Anda.',
-      feats: ['Semua di Business, plus:', 'Kustomisasi Sistem', 'Dedicated Support', 'SLA & Security Tingkat Tinggi', 'On-Premise (Opsional)'] }
+      feats: ['Semua di Business', 'Kustomisasi Sistem', 'Dedicated Support', 'SLA & Security Tingkat Tinggi', 'On-Premise (Opsional)'] }
   ];
 
   var FAQS = [
@@ -47,7 +47,11 @@
     { icon: 'i-store', tone: 'green', q: 'Apakah bisa digunakan untuk banyak cabang?',
       a: 'Bisa. Altora mendukung multi-cabang dengan kontrol terpusat secara real-time.' },
     { icon: 'i-sync', tone: 'pink', q: 'Bisakah saya mencoba Altora terlebih dahulu?',
-      a: 'Tentu! Anda bisa mencoba demo gratis dan melihat fitur-fiturnya sebelum berlangganan.' }
+      a: 'Tentu! Anda bisa mencoba demo gratis dan melihat fitur-fiturnya sebelum berlangganan.' },
+    { icon: 'i-building', tone: 'navy', q: 'Bagaimana jika saya punya lebih dari satu jenis bisnis?',
+      a: 'Bisa. Anda dapat berlangganan beberapa modul sekaligus, misalnya Cafe dan Laundry. Setiap modul punya halaman masuk sendiri sesuai jenis bisnisnya.' },
+    { icon: 'i-layers', tone: 'teal', q: 'Apakah saya bisa pindah paket nanti?',
+      a: 'Bisa, kapan saja. Naik atau turun paket bisa dilakukan seiring bisnis Anda berkembang, dan tim kami membantu proses penyesuaiannya.' }
   ];
 
   /* ── render: industries ──────────────────────────── */
@@ -84,10 +88,10 @@
   if (plansEl) {
     plansEl.innerHTML = PLANS.map(function (p, i) {
       return '<article class="plan reveal' + (p.popular ? ' pop' : '') + '" data-d="' + (i % 4) + '">' +
+        (p.popular ? '<span class="tag">Populer</span>' : '') +
         '<div class="plan-top">' +
           '<span class="mi mi-' + p.tone + '">' + icon(p.icon) + '</span>' +
           '<h3>' + p.name + '</h3>' +
-          (p.popular ? '<span class="tag">Populer</span>' : '') +
         '</div>' +
         '<p>' + p.desc + '</p>' +
         '<ul>' + p.feats.map(function (f) {

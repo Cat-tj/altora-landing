@@ -23,6 +23,7 @@ assets/css/login.css    # layout khusus halaman masuk
 assets/js/modules.js    # daftar 8 modul Altora (dipakai dua halaman)
 assets/js/main.js       # data section beranda + interaksi
 assets/js/login.js      # render pemilih modul + filter
+assets/js/login-modal.js # modal pemilih modul di beranda
 assets/img/             # logo dan foto mascot (WebP, transparan)
 ```
 
@@ -46,7 +47,13 @@ Daftar modul beserta subdomainnya ada di
 [`assets/js/modules.js`](assets/js/modules.js) — file yang sama juga mengisi
 kartu industri di beranda, jadi menambah modul baru cukup di satu tempat.
 Kalau alamat masuknya bukan root subdomain, sesuaikan `href` di
-[`assets/js/login.js`](assets/js/login.js).
+[`assets/js/login.js`](assets/js/login.js) dan
+[`assets/js/login-modal.js`](assets/js/login-modal.js).
+
+Di beranda, tombol Login tetap sebuah `<a href="login.html">`, lalu
+`login-modal.js` mencegat klik biasa dan menampilkan pilihan yang sama dalam
+modal. Jadi tautannya tetap bisa di-bookmark, bisa dibuka di tab baru, dan
+halaman tetap berfungsi kalau skripnya gagal dimuat.
 
 ## Catatan aset
 
