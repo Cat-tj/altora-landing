@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Altora — Sistem Manajemen Bisnis Terintegrasi</title>
+<meta name="description" content="Kasir, produk, barang masuk, promo, dan laporan toko dalam satu alur yang sederhana. Altora bantu bisnis Anda jualan lancar dan stok tetap terkendali.">
+<meta name="theme-color" content="#F3EEFA">
+<link rel="icon" href="assets/img/altora-symbol.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<!-- ══ icon sprite ══ -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+<symbol id="i-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.4 8.4-8 9.6C7.4 20.4 4 17 4 12V6l8-3z"/><path d="M9 12l2 2 4-4"/></symbol>
+<symbol id="i-device" viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="2.5"/><path d="M11 18.5h2"/></symbol>
+<symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></symbol>
+<symbol id="i-cart" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.6 12.4a2 2 0 002 1.6h7.8a2 2 0 002-1.6L21 7H6"/></symbol>
+<symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></symbol>
+<symbol id="i-boxes" viewBox="0 0 24 24"><rect x="3" y="4" width="7" height="7" rx="1.5"/><rect x="14" y="4" width="7" height="7" rx="1.5"/><rect x="8.5" y="13.5" width="7" height="7" rx="1.5"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8l-5-5z"/><path d="M14 3v5h5"/><path d="M9 17v-3M12 17v-5M15 17v-2"/></symbol>
+<symbol id="i-clipboard" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1"/><path d="M9 10h6M9 14h6M9 18h3"/></symbol>
+<symbol id="i-graph" viewBox="0 0 24 24"><path d="M4 19h16"/><path d="M4 15l4-5 4 3 5-7"/><path d="M17 6h3v3"/></symbol>
+<symbol id="i-coffee" viewBox="0 0 24 24"><path d="M4 9h13v5a5 5 0 01-5 5H9a5 5 0 01-5-5V9z"/><path d="M17 10h1.5a2.5 2.5 0 010 5H17"/><path d="M8 3v2.5M12 3v2.5"/></symbol>
+<symbol id="i-basket" viewBox="0 0 24 24"><path d="M3 9h18l-1.6 9.2a2 2 0 01-2 1.8H6.6a2 2 0 01-2-1.8L3 9z"/><path d="M8 9l2.5-5M16 9l-2.5-5"/></symbol>
+<symbol id="i-washer" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="3"/><circle cx="12" cy="14" r="4"/><circle cx="8" cy="7" r=".6" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M10.5 18.5h3"/></symbol>
+<symbol id="i-scissors" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.6"/><circle cx="6" cy="18" r="2.6"/><path d="M8.2 7.6L20 18M8.2 16.4L20 6"/></symbol>
+<symbol id="i-factory" viewBox="0 0 24 24"><path d="M3 21V10l5 3.5V10l5 3.5V10l5 3.5V4h3v17H3z"/><path d="M7 17h2M12 17h2"/></symbol>
+<symbol id="i-building" viewBox="0 0 24 24"><path d="M4 21V6a2 2 0 012-2h6a2 2 0 012 2v15"/><path d="M14 10h4a2 2 0 012 2v9"/><path d="M7.5 8h3M7.5 12h3M7.5 16h3M17 14h.8M17 18h.8"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0112 0"/><path d="M16 5.2a3.2 3.2 0 010 6M17.5 20a6 6 0 00-1.6-4.1"/></symbol>
+<symbol id="i-store" viewBox="0 0 24 24"><path d="M4 10v10h16V10"/><path d="M3 4h18l1 5a3 3 0 01-5.6 1.6A3 3 0 0112 10a3 3 0 01-4.4.6A3 3 0 012 9l1-5z"/><path d="M10 20v-5h4v5"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-5.6 7-11a7 7 0 10-14 0c0 5.4 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+<symbol id="i-trend" viewBox="0 0 24 24"><path d="M3 17l6-6 4 3 8-8"/><path d="M17 6h4v4"/></symbol>
+<symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 19a4.5 4.5 0 01-.6-8.96A6 6 0 0118 10.5a4.25 4.25 0 01-.4 8.5H7z"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10" width="15" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 018 0v3"/></symbol>
+<symbol id="i-monitor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M9 20.5h6M12 16.5v4"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v11"/><path d="M8 10.5l4 4 4-4"/><path d="M4 18.5h16"/></symbol>
+<symbol id="i-headset" viewBox="0 0 24 24"><path d="M4 15v-3a8 8 0 0116 0v3"/><rect x="2.5" y="14" width="4.5" height="6" rx="2"/><rect x="17" y="14" width="4.5" height="6" rx="2"/><path d="M19.2 20v.5a2.5 2.5 0 01-2.5 2.5H13"/></symbol>
+<symbol id="i-sync" viewBox="0 0 24 24"><path d="M4 12a8 8 0 0113.6-5.6L20 8"/><path d="M20 4v4h-4"/><path d="M20 12a8 8 0 01-13.6 5.6L4 16"/><path d="M4 20v-4h4"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 9a6 6 0 1112 0c0 4 1.5 5.5 2 6H4c.5-.5 2-2 2-6z"/><path d="M10 19a2 2 0 004 0"/></symbol>
+<symbol id="i-pie" viewBox="0 0 24 24"><path d="M12 3a9 9 0 109 9h-9V3z"/><path d="M15.5 2.5A8 8 0 0121.5 8.5h-6v-6z"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.2l3.2 2"/></symbol>
+<symbol id="i-smile" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8.5 14.5a4.5 4.5 0 007 0"/><path d="M9 9.5h.01M15 9.5h.01"/></symbol>
+<symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z"/><path d="M18.5 15.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8.8-2.2z"/></symbol>
+<symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1.1 5.9L12 16.9l-5.3 2.8 1.1-5.9L3.5 9.7l5.9-.8L12 3.5z"/></symbol>
+<symbol id="i-rocket" viewBox="0 0 24 24"><path d="M13.5 3.5c3.5 0 7 3.5 7 7 0 4-3 7.5-7.5 10L9 17l-2-2 3.5-4.5C13 6 9.5 3.5 13.5 3.5z"/><circle cx="14.5" cy="9.5" r="1.8"/><path d="M7 17c-1.5 1-2 3-2 4 1 0 3-.5 4-2"/></symbol>
+<symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.8 6.5L12 13l8.2-6.5"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 010 18 14 14 0 010-18z"/></symbol>
+<symbol id="i-call" viewBox="0 0 24 24"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 006.5 6.5L17 13l4 1.5v3a2.5 2.5 0 01-2.8 2.5C10.7 19.3 4.7 13.3 4 5.8A2.5 2.5 0 016.5 3z"/></symbol>
+<symbol id="i-puzzle" viewBox="0 0 24 24"><path d="M10 3.5h4v2a2 2 0 104 0v-.5h2.5V9h-.5a2 2 0 100 4h.5v5.5H16v-.5a2 2 0 10-4 0v.5H6.5V13h.5a2 2 0 100-4h-.5V5h3.5v-1.5z"/></symbol>
+<symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></symbol>
+<symbol id="i-usercheck" viewBox="0 0 24 24"><circle cx="10" cy="8" r="3.5"/><path d="M3.5 20a6.5 6.5 0 0113 0"/><path d="M16.5 12.5l1.8 1.8 3.2-3.4"/></symbol>
+<symbol id="i-crown" viewBox="0 0 24 24"><path d="M4 18h16l1-11-5 4-4-6-4 6-5-4 1 11z"/></symbol>
+<symbol id="i-brief" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2"/><path d="M3 12h18"/></symbol>
+<symbol id="i-leaf" viewBox="0 0 24 24"><path d="M12 3l6 5.5V15a6 6 0 11-12 0V8.5L12 3z"/><path d="M12 21V10"/></symbol>
+<symbol id="i-quote" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M9.5 5C6.4 6.6 4.5 9.6 4.5 13v6h7v-7H8c0-2.4 1-4.2 3-5.4L9.5 5zm10 0c-3.1 1.6-5 4.6-5 8v6h7v-7H18c0-2.4 1-4.2 3-5.4L19.5 5z"/></symbol>
+<symbol id="i-fb" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M14 9V7.2c0-.9.2-1.2 1.3-1.2H17V3h-2.6C11.4 3 10.4 4.4 10.4 7v2H8.5v3h1.9v9H14v-9h2.4l.4-3H14z"/></symbol>
+<symbol id="i-ig" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="16.8" cy="7.2" r="1" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-yt" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M22 12s0-3.3-.4-4.9a2.6 2.6 0 00-1.8-1.8C18.1 5 12 5 12 5s-6.1 0-7.8.4A2.6 2.6 0 002.4 7.2C2 8.7 2 12 2 12s0 3.3.4 4.9c.2.9.9 1.5 1.8 1.7C5.9 19 12 19 12 19s6.1 0 7.8-.4a2.6 2.6 0 001.8-1.7C22 15.3 22 12 22 12zM10 15.2V8.8l5.5 3.2-5.5 3.2z"/></symbol>
+<symbol id="i-in" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M6.9 8.5H3.6V21h3.3V8.5zM5.2 3a1.9 1.9 0 100 3.9 1.9 1.9 0 000-3.9zM20.4 21h-3.3v-6.1c0-1.5-.5-2.5-1.9-2.5-1 0-1.6.7-1.9 1.4-.1.2-.1.6-.1.9V21H9.9V8.5h3.3v1.8a3.3 3.3 0 013-1.7c2.2 0 4.2 1.5 4.2 4.6V21z"/></symbol>
+<symbol id="i-tiktok" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M16.5 3h-3v13.1a2.5 2.5 0 11-2-2.4v-3a5.5 5.5 0 105 5.4V9.4a7 7 0 003.5 1.1V7.5a4 4 0 01-3.5-4.5z"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 20.5l-1.4-1.3C5.6 14.7 3 12.3 3 9.3 3 6.9 4.9 5 7.3 5c1.4 0 2.7.6 3.7 1.7C12 5.6 13.3 5 14.7 5 17.1 5 19 6.9 19 9.3c0 3-2.6 5.4-7.6 9.9L12 20.5z"/></symbol>
+</defs></svg>
+
+<!-- ══════════ NAV ══════════ -->
+<header class="nav-wrap" id="nav">
+  <nav class="nav" aria-label="Utama">
+    <a class="brand" href="#top">
+      <img src="assets/img/altora-symbol.svg" alt="" width="34" height="30">
+      <span>ALTORA</span>
+    </a>
+
+    <ul class="nav-links">
+      <li class="has-menu">
+        <button class="nav-link" aria-expanded="false" aria-controls="menu-solusi">
+          Solusi <svg class="ico ico-sm"><use href="#i-chevron"/></svg>
+        </button>
+        <div class="mega" id="menu-solusi">
+          <a href="#modul"><span class="mi mi-purple"><svg class="ico"><use href="#i-coffee"/></svg></span><b>Altora Cafe</b><i>Pesanan, resep &amp; meja</i></a>
+          <a href="#modul"><span class="mi mi-green"><svg class="ico"><use href="#i-cart"/></svg></span><b>Altora Market</b><i>Minimarket &amp; kelontong</i></a>
+          <a href="#modul"><span class="mi mi-blue"><svg class="ico"><use href="#i-basket"/></svg></span><b>Altora Supermarket</b><i>Grosir &amp; multi-outlet</i></a>
+          <a href="#modul"><span class="mi mi-cyan"><svg class="ico"><use href="#i-washer"/></svg></span><b>Altora Laundry</b><i>Kiloan &amp; pengantaran</i></a>
+          <a href="#modul"><span class="mi mi-pink"><svg class="ico"><use href="#i-phone"/></svg></span><b>Altora Counter</b><i>Servis &amp; aksesoris</i></a>
+          <a href="#modul"><span class="mi mi-orange"><svg class="ico"><use href="#i-scissors"/></svg></span><b>Altora Jasa</b><i>Salon, spa &amp; barbershop</i></a>
+          <a href="#modul"><span class="mi mi-navy"><svg class="ico"><use href="#i-factory"/></svg></span><b>Altora Pabrik</b><i>Produksi &amp; maintenance</i></a>
+          <a href="#modul"><span class="mi mi-teal"><svg class="ico"><use href="#i-building"/></svg></span><b>Altora Company</b><i>Multi-cabang &amp; e-sign</i></a>
+        </div>
+      </li>
+      <li><a class="nav-link" href="#modul">Fitur</a></li>
+      <li><a class="nav-link" href="#harga">Harga</a></li>
+      <li><a class="nav-link" href="#faq">FAQ</a></li>
+      <li><a class="nav-link" href="#tentang">Tentang</a></li>
+    </ul>
+
+    <div class="nav-cta">
+      <a class="btn btn-ghost" href="#harga">Login</a>
+      <a class="btn btn-green" href="#cta">Mulai Gratis <svg class="ico ico-sm"><use href="#i-arrow"/></svg></a>
+    </div>
+
+    <button class="burger" id="burger" aria-label="Buka menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#modul">Solusi</a>
+    <a href="#modul">Fitur</a>
+    <a href="#harga">Harga</a>
+    <a href="#faq">FAQ</a>
+    <a href="#tentang">Tentang</a>
+    <div class="mobile-menu-cta">
+      <a class="btn btn-ghost" href="#harga">Login</a>
+      <a class="btn btn-green" href="#cta">Mulai Gratis <svg class="ico ico-sm"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ══════════ HERO ══════════ -->
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span></div>
+
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow reveal">Kasir &amp; stok praktis untuk toko retail</p>
+      <h1 class="reveal" data-d="1">Jualan lancar,<br>stok tetap<br>terkendali.</h1>
+      <p class="lead reveal" data-d="2">Kasir, produk, barang masuk, promo, dan laporan toko dalam alur yang sederhana untuk operasional harian.</p>
+      <div class="hero-actions reveal" data-d="3">
+        <a class="btn btn-green btn-lg" href="#cta">Mulai Gratis <svg class="ico"><use href="#i-arrow"/></svg></a>
+        <a class="btn btn-white btn-lg" href="#alur">Lihat Demo</a>
+      </div>
+      <ul class="hero-trust reveal" data-d="4">
+        <li><svg class="ico ico-sm"><use href="#i-shield"/></svg> Tanpa kartu kredit</li>
+        <li><svg class="ico ico-sm"><use href="#i-device"/></svg> Bisa dari HP &amp; desktop</li>
+        <li><svg class="ico ico-sm"><use href="#i-zap"/></svg> Setup cepat</li>
+      </ul>
+    </div>
+
+    <div class="hero-stage reveal" data-d="2">
+      <!-- receipt -->
+      <div class="receipt float-slow">
+        <b>ALTORA MARKET</b>
+        <span>Toko Kasir</span>
+        <hr>
+        <p><span>3x Indomie Goreng</span><span>9.000</span></p>
+        <p><span>1x Aqua 600ml</span><span>4.775</span></p>
+        <hr>
+        <p><span>Diskon</span><span>—</span></p>
+        <p class="tot"><span>TOTAL</span><span>13.775</span></p>
+      </div>
+
+      <!-- app window -->
+      <div class="app">
+        <div class="app-bar">
+          <i class="dot r"></i><i class="dot y"></i><i class="dot g"></i>
+          <span class="url">kasir.altora.id <em>/ dashboard</em></span>
+          <span class="pill pill-live"><i></i> Langsung</span>
+        </div>
+        <div class="app-body">
+          <div class="app-head">
+            <h3>Market · Hari ini</h3>
+            <span class="synced"><i></i> Tersinkron</span>
+          </div>
+          <div class="tabs"><button class="on">Kasir</button><button>Stok</button><button>Finance</button></div>
+
+          <div class="tiles">
+            <div class="tile"><span class="tl">Omzet hari ini</span><b class="mono">Rp2,1jt</b><em class="up">+5% vs kemarin</em></div>
+            <div class="tile"><span class="tl">Transaksi</span><b class="mono">88</b><em class="up">+9 dari kemarin</em></div>
+            <div class="tile"><span class="tl">Stok menipis</span><b class="mono">6 produk</b><em class="warn">Perlu restock</em></div>
+            <div class="tile"><span class="tl">Barang masuk</span><b class="mono">2 PO</b><em class="up">1 diproses</em></div>
+          </div>
+
+          <div class="trx">
+            <div class="trx-top"><b>Transaksi #204</b><span class="pill pill-done">Selesai</span></div>
+            <div class="trx-mid"><span>3× Indomie Goreng · 1× Aqua</span><b class="mono">13.775</b></div>
+            <div class="bar"><i></i></div>
+          </div>
+
+          <p class="chart-label mono">Omzet · 14 hari</p>
+          <svg class="spark" viewBox="0 0 460 60" preserveAspectRatio="none" aria-hidden="true">
+            <path class="spark-line" d="M0,46 L35,42 L70,47 L105,36 L140,40 L175,28 L210,33 L245,22 L280,26 L315,16 L350,20 L385,11 L420,14 L460,6"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- floating chips -->
+      <div class="chip c1 float-a"><span class="ci ci-green"><svg class="ico"><use href="#i-box"/></svg></span><div><b>Stok menipis</b><i>6 produk perlu restock</i></div><svg class="ico ico-sm ch"><use href="#i-chevron"/></svg></div>
+      <div class="chip c2 float-b"><span class="ci ci-purple"><svg class="ico"><use href="#i-trend"/></svg></span><div><b>Omzet hari ini</b><i>Rp2,1jt <em>(+5%)</em></i></div><svg class="ico ico-sm ch"><use href="#i-chevron"/></svg></div>
+      <div class="chip c3 float-c"><span class="ci ci-blue"><svg class="ico"><use href="#i-cart"/></svg></span><div><b>Transaksi hari ini</b><i>88 transaksi</i></div><svg class="ico ico-sm ch"><use href="#i-chevron"/></svg></div>
+
+      <img class="person person-hero" src="assets/img/person-hero.webp" alt="Staf Altora membawa tablet" width="510" height="1241" loading="eager" decoding="async">
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ PROBLEM ══════════ -->
+<section class="sec problem" id="masalah">
+  <div class="wrap">
+    <p class="eyebrow reveal">Masih ribet seperti ini?</p>
+    <h2 class="reveal" data-d="1">Masih hadapi masalah ini?</h2>
+
+    <div class="problem-grid">
+      <div class="problem-list">
+        <article class="pcard reveal" data-d="1">
+          <span class="pi pi-red"><svg class="ico"><use href="#i-boxes"/></svg><i class="badge"><svg class="ico"><use href="#i-x"/></svg></i></span>
+          <div><h3>Stok sering tidak akurat</h3><p>Sulit tahu stok real-time dan barang yang harus di-restock.</p></div>
+        </article>
+        <article class="pcard reveal" data-d="2">
+          <span class="pi pi-purple"><svg class="ico"><use href="#i-file"/></svg><i class="badge"><svg class="ico"><use href="#i-x"/></svg></i></span>
+          <div><h3>Laporan tidak sesuai</h3><p>Data penjualan berbeda-beda, sulit dipercaya.</p></div>
+        </article>
+        <article class="pcard reveal" data-d="3">
+          <span class="pi pi-amber"><svg class="ico"><use href="#i-graph"/></svg><i class="badge"><svg class="ico"><use href="#i-x"/></svg></i></span>
+          <div><h3>Tidak tahu produk untung</h3><p>Tidak ada informasi produk terlaris &amp; paling menguntungkan.</p></div>
+        </article>
+        <article class="pcard reveal" data-d="4">
+          <span class="pi pi-blue"><svg class="ico"><use href="#i-clipboard"/></svg><i class="badge"><svg class="ico"><use href="#i-x"/></svg></i></span>
+          <div><h3>Operasional masih manual</h3><p>Catatan, pengecekan, dan rekap masih memakan waktu.</p></div>
+        </article>
+      </div>
+
+      <div class="problem-mid reveal" data-d="2">
+        <img class="person" src="assets/img/person-problem.webp" alt="Pemilik toko yang sedang berpikir" width="585" height="938" loading="lazy" decoding="async">
+      </div>
+
+      <aside class="solve reveal" data-d="3">
+        <h3>Altora bantu Anda bereskan semua masalah tersebut dengan mudah.</h3>
+        <hr>
+        <ul>
+          <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span> Stok akurat &amp; update real-time</li>
+          <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span> Laporan otomatis &amp; dapat dipercaya</li>
+          <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span> Pantau profit toko setiap saat</li>
+          <li><span class="tick"><svg class="ico"><use href="#i-check"/></svg></span> Kelola banyak cabang dalam satu akun</li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ INDUSTRIES ══════════ -->
+<section class="sec industri" id="tentang">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow reveal">Cocok untuk berbagai jenis bisnis</p>
+        <h2 class="reveal" data-d="1">Satu sistem, banyak bisnis.<br>Altora <span class="grad">menyesuaikan</span> cara Anda bekerja.</h2>
+        <p class="lead reveal" data-d="2">Altora dirancang fleksibel untuk berbagai jenis usaha.<br>Fitur dan alurnya disesuaikan dengan kebutuhan bisnis Anda.</p>
+      </div>
+      <blockquote class="quote reveal" data-d="2">
+        <span class="qi"><svg class="ico"><use href="#i-spark"/></svg></span>
+        <p>Satu sistem untuk semua kebutuhan bisnis Anda, tanpa instalasi rumit.</p>
+        <svg class="ico qm"><use href="#i-quote"/></svg>
+      </blockquote>
+    </div>
+
+    <div class="ind-grid" id="indGrid"></div>
+
+    <div class="stats reveal">
+      <div class="stats-copy">
+        <h3><span class="grad">Altora dipercaya</span> oleh berbagai jenis bisnis</h3>
+        <p>Bergabunglah dengan ribuan pelaku usaha yang sudah merasakan manfaatnya.</p>
+      </div>
+      <div class="stats-row">
+        <div class="stat"><span class="si si-purple"><svg class="ico"><use href="#i-users"/></svg></span><b class="mono" data-count="10000" data-suffix="+">0</b><span class="sn">Pengguna Aktif</span><i>Setiap hari menggunakan Altora</i></div>
+        <div class="stat"><span class="si si-green"><svg class="ico"><use href="#i-store"/></svg></span><b class="mono" data-count="1500" data-suffix="+">0</b><span class="sn">Bisnis Terpercaya</span><i>Dari berbagai industri</i></div>
+        <div class="stat"><span class="si si-blue"><svg class="ico"><use href="#i-pin"/></svg></span><b class="mono" data-count="250" data-suffix="+">0</b><span class="sn">Kota di Indonesia</span><i>Menggunakan Altora</i></div>
+        <div class="stat"><span class="si si-amber"><svg class="ico"><use href="#i-trend"/></svg></span><b class="mono" data-count="99.9" data-suffix="%">0</b><span class="sn">Uptime Sistem</span><i>Aman &amp; stabil setiap saat</i></div>
+      </div>
+      <img class="person person-stats" src="assets/img/person-stats.webp" alt="" width="593" height="1179" loading="lazy" decoding="async" aria-hidden="true">
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ MODULES ══════════ -->
+<section class="sec modul" id="modul">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow reveal">Modul &amp; fitur Altora</p>
+        <h2 class="reveal" data-d="1">Satu sistem, banyak solusi.<br><span class="grad">Pilih yang sesuai dengan bisnis Anda.</span></h2>
+        <p class="lead reveal" data-d="2">Altora hadir dalam berbagai modul yang dirancang khusus untuk kebutuhan setiap jenis bisnis. Semua terintegrasi dalam satu ekosistem.</p>
+      </div>
+      <div class="pillars reveal" data-d="2">
+        <div><span class="mi mi-green"><svg class="ico"><use href="#i-puzzle"/></svg></span><b>Terintegrasi</b><i>Semua modul terhubung dalam satu sistem</i></div>
+        <div><span class="mi mi-blue"><svg class="ico"><use href="#i-cloud"/></svg></span><b>Real-time</b><i>Data tersinkron otomatis di semua modul</i></div>
+        <div><span class="mi mi-navy"><svg class="ico"><use href="#i-lock"/></svg></span><b>Aman</b><i>Keamanan data tingkat enterprise</i></div>
+        <div><span class="mi mi-orange"><svg class="ico"><use href="#i-device"/></svg></span><b>Multi Device</b><i>Akses dari HP, tablet, atau komputer</i></div>
+      </div>
+    </div>
+
+    <div class="mod-grid" id="modGrid"></div>
+
+    <div class="mod-foot">
+      <aside class="mod-hi reveal">
+        <span class="mi mi-purple"><svg class="ico"><use href="#i-spark"/></svg></span>
+        <h3>Fitur Unggulan di Semua Modul</h3>
+        <p>Semua modul Altora dilengkapi fitur inti yang sama untuk mendukung operasional bisnis Anda.</p>
+        <a class="btn btn-purple" href="#harga">Lihat Semua Fitur</a>
+      </aside>
+      <div class="mod-feats reveal" data-d="1">
+        <div><span class="mi mi-green"><svg class="ico"><use href="#i-sync"/></svg></span><b>Sinkronisasi Real-time</b><i>Semua data tersinkron otomatis di semua perangkat &amp; cabang.</i></div>
+        <div><span class="mi mi-purple"><svg class="ico"><use href="#i-usercheck"/></svg></span><b>Multi User &amp; Hak Akses</b><i>Atur peran dan hak akses sesuai kebutuhan tim Anda.</i></div>
+        <div><span class="mi mi-orange"><svg class="ico"><use href="#i-graph"/></svg></span><b>Laporan Lengkap</b><i>Dashboard interaktif &amp; laporan siap pakai, export mudah.</i></div>
+        <div><span class="mi mi-blue"><svg class="ico"><use href="#i-cloud"/></svg></span><b>Backup &amp; Keamanan Data</b><i>Data aman dengan backup harian dan enkripsi.</i></div>
+        <div><span class="mi mi-pink"><svg class="ico"><use href="#i-headset"/></svg></span><b>Support 24/7</b><i>Tim support siap membantu kapan pun Anda butuh.</i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FLOW ══════════ -->
+<section class="sec alur" id="alur">
+  <div class="wrap">
+    <div class="alur-top">
+      <div class="alur-copy">
+        <p class="eyebrow reveal">Cara kerja Altora</p>
+        <h2 class="reveal" data-d="1">Dari transaksi hingga laporan,<br><span class="grad">semuanya terhubung.</span></h2>
+        <p class="lead reveal" data-d="2">Altora mengotomatiskan setiap proses bisnis toko Anda dalam satu sistem yang terintegrasi.</p>
+        <div class="note reveal" data-d="3">
+          <span class="tick tick-lg"><svg class="ico"><use href="#i-check"/></svg></span>
+          <div><b>Semua data terhubung otomatis</b><p>kurangi kesalahan, hemat waktu, dan fokus pada pertumbuhan bisnis Anda.</p></div>
+        </div>
+      </div>
+
+      <div class="alur-stage reveal" data-d="2">
+        <div class="console">
+          <div class="console-side">
+            <div class="cs-brand"><img src="assets/img/altora-symbol.svg" alt="" width="20" height="18"><span>ALTORA</span></div>
+            <a class="on"><svg class="ico ico-sm"><use href="#i-store"/></svg>Beranda</a>
+            <a><svg class="ico ico-sm"><use href="#i-cart"/></svg>Kasir</a>
+            <a><svg class="ico ico-sm"><use href="#i-box"/></svg>Stok</a>
+            <a><svg class="ico ico-sm"><use href="#i-basket"/></svg>Pembelian</a>
+            <a><svg class="ico ico-sm"><use href="#i-boxes"/></svg>Produk</a>
+            <a><svg class="ico ico-sm"><use href="#i-pie"/></svg>Finance</a>
+            <a><svg class="ico ico-sm"><use href="#i-file"/></svg>Laporan</a>
+            <a><svg class="ico ico-sm"><use href="#i-sync"/></svg>Pengaturan</a>
+          </div>
+          <div class="console-main">
+            <h4>Dashboard</h4>
+            <div class="console-tiles">
+              <div><span>Omzet Hari Ini</span><b class="mono">Rp2,1jt</b><em class="up">+5% vs kemarin</em></div>
+              <div><span>Transaksi</span><b class="mono">88</b><em class="up">+9 dari kemarin</em></div>
+            </div>
+            <div class="console-chart">
+              <span>Grafik Penjualan</span>
+              <svg viewBox="0 0 300 80" preserveAspectRatio="none" aria-hidden="true">
+                <path class="spark-line pur" d="M0,64 L43,58 L86,66 L129,44 L171,52 L214,30 L257,36 L300,10"/>
+              </svg>
+              <ul class="mono"><li>Sen</li><li>Sel</li><li>Rab</li><li>Kam</li><li>Jum</li><li>Sab</li></ul>
+            </div>
+            <div class="console-top">
+              <span>Penjualan Terbaik</span>
+              <ol><li>Indomie Goreng</li><li>Aqua 600ml</li><li>Kopi Latte</li></ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="chip a1 float-a"><span class="ci ci-green"><svg class="ico"><use href="#i-check"/></svg></span><div><b>Stok Tersinkron</b><i>Data stok update otomatis di semua perangkat.</i></div></div>
+        <div class="chip a2 float-c"><span class="ci ci-purple"><svg class="ico"><use href="#i-pie"/></svg></span><div><b>Laporan Real-time</b><i>Pantau bisnis kapan saja, di mana saja.</i></div></div>
+
+        <img class="person person-flow" src="assets/img/person-flow.webp" alt="Staf Altora memperkenalkan dashboard" width="625" height="1220" loading="lazy" decoding="async">
+      </div>
+    </div>
+
+    <p class="eyebrow reveal">Alur kerja Altora</p>
+    <ol class="steps" id="steps"></ol>
+
+    <div class="result reveal">
+      <div class="result-lead">
+        <span class="ri"><svg class="ico"><use href="#i-spark"/></svg></span>
+        <div><h3>Hasilnya?</h3><p>Bisnis lebih efisien, data lebih akurat, keputusan lebih cepat dan tepat.</p></div>
+      </div>
+      <div class="result-row">
+        <div><span class="ri2 ri-blue"><svg class="ico"><use href="#i-clock"/></svg></span><b>Hemat waktu</b><i>Pekerjaan manual berkurang drastis</i></div>
+        <div><span class="ri2 ri-green"><svg class="ico"><use href="#i-shield"/></svg></span><b>Kurangi kesalahan</b><i>Data tersimpan aman dan akurat</i></div>
+        <div><span class="ri2 ri-teal"><svg class="ico"><use href="#i-trend"/></svg></span><b>Keputusan lebih baik</b><i>Semua data tersedia dalam satu dashboard</i></div>
+        <div><span class="ri2 ri-purple"><svg class="ico"><use href="#i-smile"/></svg></span><b>Bisnis lebih tenang</b><i>Fokus pada pelanggan dan pertumbuhan</i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ PRICING ══════════ -->
+<section class="sec harga" id="harga">
+  <div class="wrap">
+    <div class="price-top">
+      <div class="price-intro">
+        <p class="eyebrow eyebrow-purple reveal">Paket fleksibel</p>
+        <h2 class="reveal" data-d="1">Pilih paket yang sesuai<br><span class="grad">kebutuhan bisnis Anda</span></h2>
+        <p class="lead reveal" data-d="2">Setiap bisnis punya kebutuhan berbeda.<br>Pilih paket yang paling pas untuk Anda.</p>
+
+        <aside class="advise reveal" data-d="3">
+          <span class="mi mi-purple"><svg class="ico"><use href="#i-headset"/></svg></span>
+          <h3>Butuh rekomendasi paket yang paling sesuai?</h3>
+          <p>Tim kami siap membantu Anda menemukan solusi terbaik untuk bisnis Anda.</p>
+          <a class="btn btn-purple" href="#cta"><svg class="ico ico-sm"><use href="#i-mail"/></svg> Contact Us <svg class="ico ico-sm"><use href="#i-arrow"/></svg></a>
+          <small>Diskusi gratis, tanpa komitmen</small>
+          <img class="person person-support" src="assets/img/person-support.webp" alt="" width="801" height="1363" loading="lazy" decoding="async" aria-hidden="true">
+        </aside>
+      </div>
+
+      <div class="price-side">
+        <p class="price-note reveal"><span class="mi mi-purple sm"><svg class="ico"><use href="#i-star"/></svg></span> Semua paket termasuk update otomatis, backup data, dan support.</p>
+        <div class="plans" id="plans"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FAQ ══════════ -->
+<section class="sec faq-sec" id="faq">
+  <div class="wrap">
+    <div class="faq-panel">
+      <div class="faq-intro">
+        <p class="eyebrow eyebrow-purple reveal">FAQ</p>
+        <h2 class="reveal" data-d="1">Pertanyaan yang<br>sering <span class="grad">ditanyakan</span></h2>
+        <p class="lead reveal" data-d="2">Temukan jawaban cepat untuk pertanyaan seputar Altora.</p>
+        <img class="person person-faq" src="assets/img/person-faq.webp" alt="" width="1300" height="990" loading="lazy" decoding="async" aria-hidden="true">
+      </div>
+
+      <div class="faq-body">
+        <div class="faq-grid" id="faqGrid"></div>
+        <a class="faq-more" href="#cta">Masih ada pertanyaan lain? Hubungi tim kami <svg class="ico ico-sm"><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CTA ══════════ -->
+<section class="sec cta-sec" id="cta">
+  <div class="wrap">
+    <div class="cta-panel">
+      <div class="cta-copy">
+        <p class="badge-pill reveal"><svg class="ico ico-sm"><use href="#i-star"/></svg> Siap membawa bisnis Anda ke level berikutnya?</p>
+        <h2 class="reveal" data-d="1">Kelola bisnis lebih mudah,<br>tumbuh lebih cepat bersama <span class="grad">Altora.</span></h2>
+        <p class="lead reveal" data-d="2">Mulai perjalanan digital bisnis Anda hari ini.<br>Lebih efisien, lebih terkontrol, lebih menguntungkan.</p>
+        <div class="cta-actions reveal" data-d="3">
+          <a class="btn btn-purple btn-lg" href="#cta"><svg class="ico"><use href="#i-rocket"/></svg> Contact Us for More Info <svg class="ico"><use href="#i-arrow"/></svg></a>
+          <a class="btn btn-outline btn-lg" href="#cta"><svg class="ico"><use href="#i-calendar"/></svg> Jadwalkan Demo</a>
+        </div>
+        <ul class="cta-trust reveal" data-d="4">
+          <li><svg class="ico ico-sm"><use href="#i-check"/></svg> Tanpa biaya tersembunyi</li>
+          <li><svg class="ico ico-sm"><use href="#i-check"/></svg> Setup cepat</li>
+          <li><svg class="ico ico-sm"><use href="#i-check"/></svg> Bantuan onboarding</li>
+        </ul>
+      </div>
+
+      <div class="cta-stage reveal" data-d="2">
+        <span class="cta-blob" aria-hidden="true"></span>
+        <div class="chip t1 float-b"><span class="ci ci-purple"><svg class="ico"><use href="#i-graph"/></svg></span><div><b>Laporan Real-time</b><i>Pantau bisnis kapan saja</i></div></div>
+        <div class="chip t2 float-a"><span class="ci ci-green"><svg class="ico"><use href="#i-shield"/></svg></span><div><b>Data Aman</b><i>Terenkripsi &amp; tersimpan dengan aman</i></div></div>
+        <div class="chip t3 float-c"><span class="ci ci-amber"><svg class="ico"><use href="#i-users"/></svg></span><div><b>Support 24/7</b><i>Tim kami siap membantu kapan pun Anda butuh</i></div></div>
+        <img class="person person-cta" src="assets/img/person-cta.webp" alt="Staf Altora menyambut" width="575" height="1282" loading="lazy" decoding="async">
+      </div>
+    </div>
+
+    <div class="benefits reveal">
+      <div><span class="bi"><svg class="ico"><use href="#i-zap"/></svg></span><div><b>Lebih Efisien</b><i>Otomatisasi proses bisnis dan hemat waktu.</i></div></div>
+      <div><span class="bi"><svg class="ico"><use href="#i-graph"/></svg></span><div><b>Keputusan Lebih Tepat</b><i>Data akurat untuk setiap keputusan penting.</i></div></div>
+      <div><span class="bi"><svg class="ico"><use href="#i-users"/></svg></span><div><b>Kontrol Penuh</b><i>Pantau seluruh operasional dari satu dashboard.</i></div></div>
+      <div><span class="bi"><svg class="ico"><use href="#i-trend"/></svg></span><div><b>Bisnis Lebih Bertumbuh</b><i>Fokus pada strategi, kami bantu operasional Anda.</i></div></div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div class="f-brand">
+      <a class="brand brand-light" href="#top">
+        <img src="assets/img/altora-symbol-light.svg" alt="" width="36" height="31">
+        <span>ALTORA</span>
+      </a>
+      <p>Sistem manajemen bisnis terintegrasi untuk membantu Anda mengelola operasional, keuangan, dan pertumbuhan bisnis dalam satu platform.</p>
+      <div class="socials">
+        <a href="#" aria-label="Facebook"><svg class="ico"><use href="#i-fb"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg class="ico"><use href="#i-ig"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg class="ico"><use href="#i-yt"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg class="ico"><use href="#i-in"/></svg></a>
+        <a href="#" aria-label="TikTok"><svg class="ico"><use href="#i-tiktok"/></svg></a>
+      </div>
+    </div>
+
+    <nav class="f-col"><h4>Produk</h4><a href="#modul">Altora Cafe</a><a href="#modul">Altora Market</a><a href="#modul">Altora Supermarket</a><a href="#modul">Altora Laundry</a><a href="#modul">Altora Counter</a><a href="#modul">Altora Jasa</a><a href="#modul">Altora Pabrik</a><a href="#modul">Altora Company</a></nav>
+    <nav class="f-col"><h4>Solusi</h4><a href="#tentang">Retail &amp; Minimarket</a><a href="#tentang">F&amp;B</a><a href="#tentang">Jasa &amp; Servis</a><a href="#tentang">Manufaktur</a><a href="#tentang">Multi Cabang</a><a href="#tentang">Semua Solusi</a></nav>
+    <nav class="f-col"><h4>Sumber Daya</h4><a href="#modul">Fitur</a><a href="#harga">Harga</a><a href="#faq">FAQ</a><a href="#">Blog</a><a href="#">Panduan</a><a href="#">Integrasi</a></nav>
+    <nav class="f-col"><h4>Perusahaan</h4><a href="#tentang">Tentang Kami</a><a href="#">Karir</a><a href="#">Partner</a><a href="#cta">Kontak</a><a href="#">Kebijakan Privasi</a><a href="#">Syarat &amp; Ketentuan</a></nav>
+
+    <div class="f-col f-contact">
+      <h4>Contact Us</h4>
+      <a href="tel:+6285159322166"><svg class="ico ico-sm"><use href="#i-call"/></svg> +62 851-5932-2166</a>
+      <a href="mailto:hello@altora.id"><svg class="ico ico-sm"><use href="#i-mail"/></svg> hello@altora.id</a>
+      <a href="#"><svg class="ico ico-sm"><use href="#i-globe"/></svg> www.altora.my.id</a>
+      <p><svg class="ico ico-sm"><use href="#i-pin"/></svg> <span>Jl. Jend. Sudirman No.239/3<br>Damai, Klandasan Ilir,<br>Balikpapan Kota, 76114</span></p>
+    </div>
+  </div>
+
+  <div class="wrap footer-base">
+    <span>© <span id="yr">2026</span> Altora. All rights reserved.</span>
+    <span class="made">Made with <svg class="ico ico-sm heart"><use href="#i-heart"/></svg> in Indonesia</span>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
