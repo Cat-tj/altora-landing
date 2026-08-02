@@ -10,39 +10,7 @@
 
   /* ── data ────────────────────────────────────────── */
 
-  var MODULES = [
-    { key: 'cafe', name: 'Altora Cafe', icon: 'i-coffee', tone: 'purple', hex: '#7C5CE8',
-      short: 'Kelola cafe lebih efisien, dari meja hingga dapur.',
-      feats: ['Kasir & meja', 'Resep & bahan baku', 'Pesanan QR meja', 'Laporan penjualan'] },
-
-    { key: 'market', name: 'Altora Market', icon: 'i-cart', tone: 'green', hex: '#12A374',
-      short: 'Solusi lengkap untuk minimarket & toko kelontong.',
-      feats: ['Kasir POS', 'Stok real-time', 'Promo & diskon', 'Laporan & analitik'] },
-
-    { key: 'supermarket', name: 'Altora Supermarket', icon: 'i-basket', tone: 'blue', hex: '#3B82F6',
-      short: 'Kelola stok besar, grosir bertingkat, dan multi-outlet.',
-      feats: ['Grosir & retail', 'Multi cabang', 'Purchase order', 'Transfer antar gudang'] },
-
-    { key: 'laundry', name: 'Altora Laundry', icon: 'i-washer', tone: 'cyan', hex: '#22B8CF',
-      short: 'Kelola order kiloan, paket, cicilan, dan pengantaran.',
-      feats: ['Order kiloan & satuan', 'Paket & harga', 'Pengantaran', 'Laporan keuangan'] },
-
-    { key: 'counter', name: 'Altora Counter', icon: 'i-phone', tone: 'pink', hex: '#EC5B9E',
-      short: 'Cocok untuk counter HP, servis, dan aksesoris.',
-      feats: ['Servis & perbaikan', 'Aksesoris & stok', 'Stok sparepart', 'Garansi & nota servis'] },
-
-    { key: 'jasa', name: 'Altora Jasa', icon: 'i-scissors', tone: 'orange', hex: '#F59E0B',
-      short: 'Untuk barbershop, salon, spa, dan berbagai jasa.',
-      feats: ['Booking online', 'Jadwal & terapis', 'Membership', 'Laporan & komisi'] },
-
-    { key: 'pabrik', name: 'Altora Pabrik', icon: 'i-factory', tone: 'navy', hex: '#3E4E7E',
-      short: 'Kelola bahan baku, produksi, dan maintenance mesin.',
-      feats: ['BOM & produksi', 'Bahan baku', 'QC & maintenance', 'Laporan produksi'] },
-
-    { key: 'company', name: 'Altora Company', icon: 'i-building', tone: 'teal', hex: '#14B8A6',
-      short: 'Kelola multi-cabang, dokumen, e-sign, dan audit log.',
-      feats: ['Multi cabang', 'E-sign & dokumen', 'Audit log', 'Manajemen user'] }
-  ];
+  var MODULES = window.ALTORA_MODULES || [];
 
   var STEPS = [
     { n: 1, icon: 'i-cart', hex: '#12A374', bg: '#DCF0E7', title: 'Transaksi di Kasir', text: 'Kasir mencatat penjualan dengan cepat dan mudah.' },

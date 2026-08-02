@@ -16,9 +16,13 @@ Lalu buka <http://localhost:4321>.
 ## Struktur
 
 ```
-index.html              # seluruh markup + sprite ikon SVG
+index.html              # beranda — markup + sprite ikon SVG
+login.html              # halaman masuk, pemilih modul
 assets/css/styles.css   # design token, layout, dan breakpoint
-assets/js/main.js       # data section + interaksi
+assets/css/login.css    # layout khusus halaman masuk
+assets/js/modules.js    # daftar 8 modul Altora (dipakai dua halaman)
+assets/js/main.js       # data section beranda + interaksi
+assets/js/login.js      # render pemilih modul + filter
 assets/img/             # logo dan foto mascot (WebP, transparan)
 ```
 
@@ -30,6 +34,19 @@ DOM saat load. Menambah atau mengubah satu entri di situ otomatis mengubah
 kartu yang tampil — tidak perlu menyentuh markup.
 
 Section lain (hero, problem, CTA, footer) ditulis langsung di `index.html`.
+
+## Halaman masuk
+
+`login.html` tidak meminta email atau password. Tiap modul Altora berjalan di
+subdomainnya sendiri dan punya form masuk masing-masing, jadi halaman ini
+berperan sebagai pemilih: pengguna memilih modul, lalu diarahkan ke
+`https://<modul>.altora.my.id`.
+
+Daftar modul beserta subdomainnya ada di
+[`assets/js/modules.js`](assets/js/modules.js) — file yang sama juga mengisi
+kartu industri di beranda, jadi menambah modul baru cukup di satu tempat.
+Kalau alamat masuknya bukan root subdomain, sesuaikan `href` di
+[`assets/js/login.js`](assets/js/login.js).
 
 ## Catatan aset
 
