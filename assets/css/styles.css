@@ -730,8 +730,8 @@ h3{font-size:1.06rem;line-height:1.35;letter-spacing:-.015em;font-weight:700}
 .benefits i{font-style:normal;font-size:.79rem;color:var(--muted);line-height:1.5;display:block}
 
 /* ── footer ─────────────────────────────────────────── */
-.footer{background:#1B1A5E;color:#fff;padding:clamp(48px,6vw,72px) 0 0;position:relative;
-  background:linear-gradient(150deg,#221D63 0%,#1B1A56 55%,#191748 100%)}
+.footer{color:#fff;padding:clamp(48px,6vw,72px) 0 0;position:relative;
+  background:linear-gradient(135deg,#1E1B4B 0%,#3730A3 25%,#4F46E5 50%,#6D28D9 75%,#7C3AED 100%)}
 .footer-grid{display:grid;grid-template-columns:minmax(0,1.5fr) repeat(4,minmax(0,.85fr)) minmax(0,1.15fr);gap:clamp(20px,2.5vw,36px)}
 .f-brand p{margin:20px 0 22px;font-size:.85rem;line-height:1.65;color:rgba(255,255,255,.62);max-width:34ch}
 .socials{display:flex;gap:10px}
