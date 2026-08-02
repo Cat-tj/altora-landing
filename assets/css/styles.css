@@ -575,7 +575,7 @@ h3{font-size:1.06rem;line-height:1.35;letter-spacing:-.015em;font-weight:700}
 .step:last-child::after{display:none}
 
 .result{
-  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.4fr);gap:clamp(20px,3vw,40px);align-items:center;
+  display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,3fr);gap:clamp(20px,2.4vw,34px);align-items:center;
   padding:clamp(24px,3vw,34px) clamp(24px,3vw,36px);border-radius:var(--r-xl);
   background:#F2F8F6;border:1px solid #E1EFEA;
 }
@@ -585,9 +585,11 @@ h3{font-size:1.06rem;line-height:1.35;letter-spacing:-.015em;font-weight:700}
 .result-lead h3{font-size:1.22rem;font-weight:800;color:var(--green);margin-bottom:4px}
 .result-lead p{font-size:.85rem;color:var(--muted);line-height:1.5}
 .result-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
-.result-row > div{display:flex;gap:12px;align-items:flex-start}
-.result-row > div+div{border-left:1px solid #DDEBE6;padding-left:20px}
-.ri2{width:38px;height:38px;border-radius:11px}
+/* Icon above the text, not beside it — at four-across the icon column would
+   eat a quarter of the width and force every title onto two lines. */
+.result-row > div{display:block}
+.result-row > div+div{border-left:1px solid #DDEBE6;padding-left:18px}
+.ri2{width:38px;height:38px;border-radius:11px;margin-bottom:11px}
 .ri2 .ico{width:19px;height:19px}
 .ri-blue{background:#E3EDFD;color:var(--blue)}
 .ri-green{background:#DBF0E5;color:var(--green-2)}
@@ -749,6 +751,43 @@ h3{font-size:1.06rem;line-height:1.35;letter-spacing:-.015em;font-weight:700}
 }
 .made{display:flex;align-items:center;gap:7px}
 .heart{color:var(--purple-2);stroke:none}
+
+/* ============================================================
+   TOMBOL WHATSAPP MELAYANG
+   ============================================================ */
+.wa{
+  position:fixed;right:22px;bottom:22px;z-index:90;
+  display:inline-flex;align-items:center;
+  height:56px;padding:0 14px;border-radius:999px;
+  background:#25D366;color:#fff;
+  box-shadow:0 14px 30px -12px rgba(37,211,102,.85),0 2px 10px rgba(24,20,52,.14);
+  transition:transform .3s cubic-bezier(.22,1,.36,1),box-shadow .3s;
+}
+.wa .ico{width:28px;height:28px;flex:none}
+.wa span{
+  max-width:0;overflow:hidden;white-space:nowrap;
+  font-weight:700;font-size:.92rem;letter-spacing:-.01em;
+  transition:max-width .38s cubic-bezier(.22,1,.36,1),margin-left .38s cubic-bezier(.22,1,.36,1);
+}
+.wa:hover,.wa:focus-visible{
+  transform:translateY(-3px);outline:none;
+  box-shadow:0 20px 40px -14px rgba(37,211,102,.95),0 2px 10px rgba(24,20,52,.16);
+}
+/* Label hanya melebar di perangkat yang benar-benar punya hover; di layar
+   sentuh tombolnya tetap bulat supaya tidak menutupi konten. */
+@media (hover:hover){
+  .wa:hover span,.wa:focus-visible span{max-width:190px;margin-left:10px}
+}
+.wa:focus-visible{box-shadow:0 0 0 4px rgba(37,211,102,.35),0 14px 30px -12px rgba(37,211,102,.85)}
+
+@media (max-width:620px){
+  .wa{right:16px;bottom:16px;height:52px;padding:0 12px}
+  .wa .ico{width:26px;height:26px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .wa,.wa span{transition:none}
+}
 
 /* ============================================================
    MODAL PEMILIH MODUL
