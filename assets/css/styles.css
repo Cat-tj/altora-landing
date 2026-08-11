@@ -574,29 +574,99 @@ h3{font-size:1.06rem;line-height:1.35;letter-spacing:-.015em;font-weight:700}
 }
 .step:last-child::after{display:none}
 
+/* ── outcome / results ───────────────────────────────── */
 .result{
-  display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,3fr);gap:clamp(20px,2.4vw,34px);align-items:center;
-  padding:clamp(24px,3vw,34px) clamp(24px,3vw,36px);border-radius:var(--r-xl);
-  background:#F2F8F6;border:1px solid #E1EFEA;
+  display:grid;
+  gap:32px;
+  width:100%;
+  max-width:1280px;
+  margin-inline:auto;
+  padding:40px 44px;
+  border:1px solid #E1EFEA;
+  border-radius:30px;
+  background:#F2F8F6;
 }
-.result-lead{display:flex;gap:16px;align-items:center}
-.result-lead .ri{display:grid;place-items:center;flex:none;width:56px;height:56px;border-radius:50%;background:var(--green);color:#fff}
-.result-lead .ri .ico{width:26px;height:26px}
-.result-lead h3{font-size:1.22rem;font-weight:800;color:var(--green);margin-bottom:4px}
-.result-lead p{font-size:.85rem;color:var(--muted);line-height:1.5}
-.result-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
-/* Icon above the text, not beside it — at four-across the icon column would
-   eat a quarter of the width and force every title onto two lines. */
-.result-row > div{display:block}
-.result-row > div+div{border-left:1px solid #DDEBE6;padding-left:18px}
-.ri2{width:38px;height:38px;border-radius:11px;margin-bottom:11px}
-.ri2 .ico{width:19px;height:19px}
+.result-header{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+.result-header .ri{
+  display:grid;
+  place-items:center;
+  width:52px;
+  height:52px;
+  margin-bottom:14px;
+  border-radius:50%;
+  background:var(--green);
+  color:#fff;
+}
+.result-header .ri .ico{width:24px;height:24px}
+.result-header h3{
+  margin-bottom:8px;
+  color:var(--green);
+  font-size:clamp(1.75rem,2.25vw,2rem);
+  font-weight:800;
+  line-height:1.18;
+  letter-spacing:-.025em;
+}
+.result-header p{
+  max-width:56ch;
+  color:var(--muted);
+  font-size:.94rem;
+  line-height:1.55;
+}
+.result-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:18px;
+}
+.result-card{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  min-width:0;
+  min-height:180px;
+  padding:24px;
+  border:1px solid rgba(225,239,234,.95);
+  border-radius:20px;
+  background:#fff;
+}
+.result-card .ri2{
+  width:42px;
+  height:42px;
+  margin-bottom:16px;
+  border-radius:12px;
+}
+.result-card .ri2 .ico{width:20px;height:20px}
 .ri-blue{background:#E3EDFD;color:var(--blue)}
 .ri-green{background:#DBF0E5;color:var(--green-2)}
 .ri-teal{background:#DAF1EE;color:var(--teal)}
 .ri-purple{background:var(--purple-soft);color:var(--purple)}
-.result-row b{display:block;font-size:.87rem;font-weight:700;margin-bottom:3px;line-height:1.3}
-.result-row i{font-style:normal;font-size:.76rem;color:var(--muted);line-height:1.45;display:block}
+.result-card h4{
+  max-width:100%;
+  margin-bottom:8px;
+  color:var(--ink);
+  font-size:1.1rem;
+  font-weight:700;
+  line-height:1.35;
+  letter-spacing:-.015em;
+  overflow-wrap:normal;
+}
+.result-card p{
+  color:var(--muted);
+  font-size:.91rem;
+  line-height:1.58;
+}
+@media (hover:hover){
+  .result-card{transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease}
+  .result-card:hover{
+    transform:translateY(-2px);
+    border-color:rgba(14,122,87,.25);
+    box-shadow:0 8px 20px rgba(14,122,87,.06);
+  }
+}
 
 /* ── pricing ────────────────────────────────────────── */
 .harga{background:linear-gradient(180deg,#FBF8FE 0%,#F7F3FD 100%)}
@@ -881,6 +951,10 @@ h3{font-size:1.06rem;line-height:1.35;letter-spacing:-.015em;font-weight:700}
   .person-flow{right:-2%}
 }
 
+@media (max-width:1279px){
+  .result-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
 @media (max-width:1180px){
   .nav-links{gap:0}
   .nav-link{padding:10px 12px;font-size:.9rem}
@@ -919,9 +993,8 @@ h3{font-size:1.06rem;line-height:1.35;letter-spacing:-.015em;font-weight:700}
   .person-flow{right:0;bottom:0;width:26%}
   .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
   .step::after{display:none}
-  .result{grid-template-columns:1fr}
-  .result-row{grid-template-columns:1fr 1fr;gap:20px}
-  .result-row > div+div{border-left:0;padding-left:0}
+  .result{padding:36px 40px}
+  .result-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .faq-panel{grid-template-columns:1fr}
   .faq-intro .person{width:60%;max-width:300px;margin:24px auto 0}
   .cta-panel{grid-template-columns:1fr;gap:40px}
@@ -942,7 +1015,11 @@ h3{font-size:1.06rem;line-height:1.35;letter-spacing:-.015em;font-weight:700}
   .problem-mid{order:0}
   .faq-grid{grid-template-columns:1fr}
   .steps{grid-template-columns:1fr}
-  .stats-row,.result-row,.benefits{grid-template-columns:1fr}
+  .stats-row,.benefits{grid-template-columns:1fr}
+  .result{gap:28px;padding:28px 20px}
+  .result-header h3{font-size:1.5rem}
+  .result-grid{grid-template-columns:1fr;gap:16px}
+  .result-card{min-height:0;padding:22px}
   .benefits > div:nth-child(n+2){border-top:1px solid #E7E1F3;padding-top:20px}
   .pillars{grid-template-columns:1fr}
   .footer-grid{grid-template-columns:1fr 1fr}
