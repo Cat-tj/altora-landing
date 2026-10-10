@@ -7,9 +7,9 @@
 - Short name: Altora
 - Former identity: Algora Teknologi Indonesia (Algora)
 - Official website: https://altora.id/
-- Rebrand information: https://altora.id/algora.html
+- Rebrand information: https://altora.id/algora
 - Primary locations: Balikpapan and Samarinda, East Kalimantan, Indonesia
-- Contact: hello@altora.id
+- Contact: hello@altora.id, WhatsApp +62 851-9091-1170 (https://wa.me/6285190911170)
 
 ## What Altora does
 - Custom software and operational systems
@@ -21,8 +21,8 @@
 - Websites, SEO, data platforms, and system integration
 
 ## Key pages
-- Services: https://altora.id/services.html
-- Projects: https://altora.id/portfolio.html
-- About: https://altora.id/about.html
-- Contact: https://altora.id/contact.html
-- Support: https://altora.id/support.html
+- Services: https://altora.id/services
+- Projects: https://altora.id/portfolio
+- About: https://altora.id/about
+- Contact: https://altora.id/contact
+- Support: https://altora.id/support

@@ -2,9 +2,9 @@
 (function(){
 'use strict';
 var path=location.pathname.replace(/\.html$/,'').replace(/\/$/,'')||'/';
-var isId=path==='/id'||path.indexOf('/id/')===0;
-var localeRoot=isId?'/id':'';
-var route=isId?(path.replace(/^\/id/,'')||'/'):path;
+var isId=true;
+var localeRoot='';
+var route=path;
 var asset='/assets';
 var icon=asset+'/img/altora-logo-icon-v2.svg?v=20260919-padded';
 var t=isId?{

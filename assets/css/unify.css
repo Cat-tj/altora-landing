@@ -1,0 +1,62 @@
+/* Lapisan penyeragam: dimuat paling akhir di semua halaman.
+   Satu sumber untuk warna CTA, skala judul, dan tombol navigasi. */
+:root{
+  --cta:linear-gradient(100deg,var(--purple,#7C5CE8),#8B4FE0);
+  --cta-solid:#7C5CE8;
+  --cta-hover:#6A4AD6;
+  --cta-shadow:0 10px 24px -10px rgba(124,92,232,.8);
+  --cta-shadow-hover:0 18px 34px -12px rgba(124,92,232,.9);
+  --h1-size:clamp(2.2rem,1.3rem + 3vw,3.5rem);
+  --h2-size:clamp(1.7rem,1.15rem + 1.8vw,2.6rem);
+  --h1-track:-.035em;
+  --h2-track:-.03em;
+}
+
+/* CTA utama: ungu di semua halaman (btn-green lama ikut ungu) */
+.btn-green,.btn-purple,
+.project-pompy .btn-purple,.project-unmul .btn-purple{
+  background:var(--cta)!important;color:#fff!important;border:0!important;
+  box-shadow:var(--cta-shadow)!important;
+}
+.btn-green:hover,.btn-purple:hover,
+.project-pompy .btn-purple:hover,.project-unmul .btn-purple:hover{
+  background:linear-gradient(100deg,var(--cta-hover),#7B3FD0)!important;
+  box-shadow:var(--cta-shadow-hover)!important;
+}
+
+/* Tombol "Konsultasi" di navbar: outline ungu, sama di beranda & halaman lain */
+.nav-cta .btn-green,.universal-shell .nav-cta .btn-green,.mobile-menu-cta .btn-green{
+  background:rgba(255,255,255,.9)!important;color:var(--cta-solid)!important;
+  border:1.5px solid #D9CDF8!important;box-shadow:none!important;
+}
+.nav-cta .btn-green:hover,.universal-shell .nav-cta .btn-green:hover,.mobile-menu-cta .btn-green:hover{
+  background:#fff!important;color:var(--cta-hover)!important;border-color:var(--cta-solid)!important;
+  box-shadow:0 8px 20px -12px rgba(92,59,157,.45)!important;
+}
+
+/* Skala judul seragam; tracking dilonggarkan agar kata tidak menempel */
+main h1,body>section h1,.hero h1,header+section h1,.company-page h1,.project-page h1{
+  font-size:var(--h1-size)!important;letter-spacing:var(--h1-track)!important;line-height:1.06!important;
+}
+main h2,body>section h2,.company-page h2,.project-page h2{
+  font-size:var(--h2-size)!important;letter-spacing:var(--h2-track)!important;line-height:1.12!important;
+}
+
+/* Kontak di mobile: grid jalur kontak satu kolom, foto tidak melebihi layar */
+@media (max-width:720px){
+  .contact-paths{grid-template-columns:1fr!important}
+  .company-hero-grid .company-person{width:100%!important;max-width:100%!important}
+  .company-hero-grid .company-person img{max-width:100%;height:auto}
+}
+
+/* Hero 2 kolom wajib turun jadi 1 kolom di layar sempit (aturan desktop lama lebih spesifik) */
+@media (max-width:850px){
+  .company-page .company-hero-grid,.company-hero-grid,.project-hero-grid{grid-template-columns:1fr!important;gap:32px!important}
+}
+
+/* Tautan sumber di artikel proyek boleh turun baris di layar sempit */
+.project-source-links{flex-wrap:wrap}
+.project-source-links a{min-width:0;overflow-wrap:anywhere}
+
+/* Pengaman: dekorasi absolut tidak boleh memicu scroll horizontal */
+main{overflow-x:clip}
