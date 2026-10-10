@@ -195,3 +195,6 @@ main{overflow-x:clip}
 .pd-cta-inner p{margin:0;max-width:56ch;color:rgba(255,255,255,.82);line-height:1.65}
 .pd-cta-inner .btn{background:#fff!important;color:#3E2A97!important;box-shadow:none!important}
 @media (max-width:760px){.pd-compare-grid{grid-template-columns:1fr}.pd-grid{grid-template-columns:1fr}}
+
+/* Halaman 404 */
+.nf-page{min-height:60vh}.nf-page .ct-hero{padding-bottom:clamp(64px,8vw,104px)}
