@@ -208,3 +208,7 @@ main{overflow-x:clip}
 .nf-page{min-height:60vh}.nf-page .ct-hero{padding-bottom:clamp(64px,8vw,104px)}
 .universal-shell .btn{font-family:"Plus Jakarta Sans",system-ui,sans-serif!important;font-weight:700!important}
 .universal-shell .mobile-menu a[aria-current="page"]{color:#7C5CE8;background:#F4F0FF;border-radius:12px}
+
+/* Gambar Altora Smart Farming (portrait): fokus ke ponsel saat dipotong */
+.sf-card-img{object-fit:cover;object-position:62% 72%}
+.sf-shot img{max-height:560px;object-fit:cover;object-position:60% 68%}

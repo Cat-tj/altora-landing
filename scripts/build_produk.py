@@ -15,13 +15,14 @@ ICONS = {
     'sensor': '<circle cx="12" cy="12" r="2.2"/><path d="M8.2 8.2a5.4 5.4 0 0 0 0 7.6M15.8 8.2a5.4 5.4 0 0 1 0 7.6M5.4 5.4a9.3 9.3 0 0 0 0 13.2M18.6 5.4a9.3 9.3 0 0 1 0 13.2"/>',
     'monitor': '<rect height="12" rx="2" width="18" x="3" y="4"/><path d="M9 20h6M12 16v4M7 12l3-3 2.5 2.5L17 7"/>',
     'cart': '<path d="M3 4h2.2l2.2 10.5h10.2L20 7.5H6.4"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/>',
+    'leaf': '<path d="M5 19c0-8 5-13 14-14-1 9-6 14-14 14Z"/><path d="M5 19 13 11"/>',
     'layers': '<path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/>',
 }
 
 GROUPS = [
     ('sdm', 'SDM & kehadiran', 'Kelola tim, jadwal, dan absensi tanpa rekap manual.'),
     ('aman', 'Keamanan & akses', 'Pantau area dan kendalikan akses dari infrastruktur yang sudah ada.'),
-    ('lapangan', 'Armada & lapangan', 'Lihat kondisi kendaraan, sensor, dan lokasi dalam satu tampilan.'),
+    ('lapangan', 'Armada, lahan & lapangan', 'Lihat kondisi kendaraan, lahan, sensor, dan lokasi dalam satu tampilan.'),
     ('segera', 'Segera hadir', 'Sedang disiapkan untuk retail, F&B, dan operasional multi-cabang.'),
 ]
 
@@ -50,6 +51,10 @@ PRODUCTS = [
          desc='Sensor untuk memantau asap, api, suhu, kelembapan, dan kondisi lapangan agar tim menerima alert saat diperlukan.',
          feats=['Deteksi asap & api', 'Monitoring suhu & kelembapan', 'Status perangkat & alert', 'Sensor gateway & dashboard'],
          cta='Konsultasi Altora Sense', proof='/portfolio/iot-monitoring-lahan'),
+    dict(id='farming', group='lapangan', icon='leaf', tone='green', name='Altora Smart Farming', tagline='IoT Monitoring Lahan Pertanian',
+         desc='Aplikasi pemantauan lahan dari sensor lapangan: kelembapan tanah, kondisi tanaman, suhu, dan kelembapan udara langsung di ponsel petugas.',
+         feats=['Kelembapan tanah per petak', 'Status & kondisi tanaman', 'Suhu & kelembapan udara', 'Catatan field check'],
+         cta='Konsultasi Smart Farming', proof='/portfolio/iot-monitoring-lahan'),
     dict(id='command', group='lapangan', icon='monitor', tone='purple', name='Altora Command', tagline='Command Center & Operations Monitoring',
          desc='Tampilan operasional terpusat untuk memantau CCTV AI, armada, sensor, dan status perangkat sesuai kebutuhan lokasi Anda.',
          feats=['Tampilan operasional terpadu', 'Monitoring CCTV, armada & sensor', 'Visibilitas alert & insiden', 'Setup command center custom'],
@@ -104,7 +109,7 @@ desc = ('Produk siap pakai dari Altora Indonesia: Altora Teams (HRIS), Vision (A
         'FMS (fleet management), Smart Attendance, Sense (IoT), dan Command Center.')
 
 page = f'''<!DOCTYPE html>
-<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(title)}</title><meta content="{e(desc)}" name="description"/><link href="https://altora.id/produk" rel="canonical"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="{e(title)}" property="og:title"/><meta content="{e(desc)}" property="og:description"/><meta content="https://altora.id/produk" property="og:url"/><meta content="https://altora.id/assets/img/portfolio/altora-teams-kpi-analytics.jpg" property="og:image"/><link href="/assets/img/altora-logo-icon-v2.svg" rel="icon"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v=20261010f"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head><body class="company-page"><header class="company-nav"><a class="project-brand" href="/"><img alt="Altora" src="/assets/img/altora-logo-icon-v2.svg"/><span>Altora</span></a></header>
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(title)}</title><meta content="{e(desc)}" name="description"/><link href="https://altora.id/produk" rel="canonical"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="{e(title)}" property="og:title"/><meta content="{e(desc)}" property="og:description"/><meta content="https://altora.id/produk" property="og:url"/><meta content="https://altora.id/assets/img/portfolio/altora-teams-kpi-analytics.jpg" property="og:image"/><link href="/assets/img/altora-logo-icon-v2.svg" rel="icon"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v=20261010g"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head><body class="company-page"><header class="company-nav"><a class="project-brand" href="/"><img alt="Altora" src="/assets/img/altora-logo-icon-v2.svg"/><span>Altora</span></a></header>
 <main class="pd-page">
 <section class="pd-hero"><div class="pd-wrap">
 <p class="eyebrow eyebrow-purple">Produk Altora</p>
