@@ -9,7 +9,7 @@ DEST="${DEST:-/srv/altora-landing/}"
 DRY="-n"; [[ "${1:-}" == "--go" ]] && DRY=""
 rsync -avz $DRY --delete --delete-excluded \
   --exclude='.git/' --exclude='.claude/' --exclude='.DS_Store' \
-  --exclude='leads/' --exclude='outreach/' --exclude='scripts/' --exclude='design/' \
+  --exclude='leads/' --exclude='partials/' --exclude='outreach/' --exclude='scripts/' --exclude='design/' \
   --exclude='*.md' --exclude='*.py' --exclude='*.tmp' --exclude='*.sh' --exclude='_redirects' \
   ./ "$HOST:$DEST"
 [[ -n "$DRY" ]] && echo ">> Dry-run selesai. Jalankan './deploy.sh --go' untuk upload."

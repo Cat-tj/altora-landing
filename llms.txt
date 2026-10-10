@@ -22,6 +22,7 @@
 
 ## Key pages
 - Services: https://altora.id/services
+- Products: https://altora.id/produk
 - Projects: https://altora.id/portfolio
 - About: https://altora.id/about
 - Contact: https://altora.id/contact

@@ -1,7 +1,7 @@
 (()=>{
   const overlay=document.querySelector('[data-ticket-overlay]');
   const form=document.querySelector('[data-ticket-form]');
-  if(!overlay||!form)return;
+  if(!form)return;
 
   const isIndonesian=document.documentElement.lang.toLowerCase().startsWith('id');
   const copy=isIndonesian?{
@@ -39,12 +39,15 @@
   const needs=form.elements.needs;
   const counter=form.querySelector('[data-needs-counter]');
 
-  const open=()=>{overlay.hidden=false;document.body.style.overflow='hidden';setTimeout(()=>form.elements.name.focus(),50)};
-  const close=()=>{overlay.hidden=true;document.body.style.overflow=''};
+  // Tanpa overlay (form tampil langsung di halaman), tombol pembuka cukup menggulir ke form.
+  const open=()=>{if(!overlay){form.scrollIntoView({behavior:'smooth',block:'start'});setTimeout(()=>form.elements.name.focus({preventScroll:true}),400);return}overlay.hidden=false;document.body.style.overflow='hidden';setTimeout(()=>form.elements.name.focus(),50)};
+  const close=()=>{if(!overlay)return;overlay.hidden=true;document.body.style.overflow=''};
   document.querySelectorAll('[data-ticket-open]').forEach(button=>button.addEventListener('click',open));
   document.querySelectorAll('[data-ticket-close]').forEach(button=>button.addEventListener('click',close));
-  overlay.addEventListener('click',event=>{if(event.target===overlay)close()});
-  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!overlay.hidden)close()});
+  if(overlay){
+    overlay.addEventListener('click',event=>{if(event.target===overlay)close()});
+    document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!overlay.hidden)close()});
+  }
 
   function fieldErrorElement(input){
     const label=input.closest('label');
@@ -83,7 +86,7 @@
 
   function updateNeedsCounter(){
     if(!needs||!counter)return;
-    const remaining=Math.max(0,15,String(needs.value||'').trim().length);
+    const remaining=Math.max(0,15-String(needs.value||'').trim().length);
     counter.textContent=remaining?copy.remaining(remaining):copy.ready;
     counter.classList.toggle('ready',remaining===0);
   }
