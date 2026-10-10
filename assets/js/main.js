@@ -165,23 +165,7 @@
 
   /* ── nav ─────────────────────────────────────────── */
 
-  var navWrap = $('#nav');
-  var onScroll = function () { navWrap.classList.toggle('stuck', window.scrollY > 12); };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  var burger = $('#burger'), mobileMenu = $('#mobileMenu');
-  burger.addEventListener('click', function () {
-    var open = mobileMenu.classList.toggle('open');
-    burger.setAttribute('aria-expanded', String(open));
-    burger.setAttribute('aria-label', open ? 'Tutup menu' : 'Buka menu');
-  });
-  $$('#mobileMenu a').forEach(function (a) {
-    a.addEventListener('click', function () {
-      mobileMenu.classList.remove('open');
-      burger.setAttribute('aria-expanded', 'false');
-    });
-  });
+  /* Top bar (scroll & burger) diurus site-shell.js agar sama di semua halaman. */
 
   var hasMenu = $('.has-menu');
   if (hasMenu) {
