@@ -71,6 +71,21 @@ PRODUCTS = [
 
 e = lambda t: html.escape(t, quote=True)
 
+# Foto ilustrasi penggunaan per produk (assets/img/produk/<id>.webp, 800x1000 portrait).
+# Nilai = object-position agar potongan 4:3 tetap fokus ke layar perangkat.
+PHOTO_FOCUS = {
+    'teams': '60% 62%', 'attendance': '75% 35%', 'vision': '60% 62%', 'pass': '60% 58%', 'fms': '55% 62%',
+    'sense': '62% 58%', 'farming': '62% 58%', 'command': '60% 62%', 'pos': '50% 58%', 'erp': '62% 58%',
+}
+
+def photo(p):
+    pos = PHOTO_FOCUS.get(p['id'])
+    if not pos:
+        return ''
+    alt = f'Ilustrasi penggunaan {p["name"]}: {p["tagline"]}'
+    return (f'<figure class="pd-photo"><img alt="{e(alt)}" decoding="async" height="1000" loading="lazy" '
+            f'src="/assets/img/produk/{p["id"]}.webp" style="object-position:{pos}" width="800"/></figure>')
+
 def icon(name):
     return f'<svg aria-hidden="true" viewBox="0 0 24 24">{ICONS[name]}</svg>'
 
@@ -82,7 +97,7 @@ def card(p):
     proof = f'<a class="pd-link" href="{p["proof"]}">Lihat implementasi</a>' if p.get('proof') else ''
     feats = ''.join(f'<li>{e(f)}</li>' for f in p['feats'])
     return (f'<article class="pd-card pd-{p["tone"]}{" is-soon" if p.get("soon") else ""}" id="{p["id"]}">'
-            f'<div class="pd-top"><span class="pd-icon">{icon(p["icon"])}</span>{badge}</div>'
+            f'{photo(p)}<div class="pd-top"><span class="pd-icon">{icon(p["icon"])}</span>{badge}</div>'
             f'<h3>{e(p["name"])}</h3><p class="pd-tagline">{e(p["tagline"])}</p><p class="pd-desc">{e(p["desc"])}</p>'
             f'<ul class="pd-feats">{feats}</ul>'
             f'<div class="pd-actions"><a class="btn {"btn-outline" if p.get("soon") else "btn-purple"}" href="{WA}{quote(msg)}" rel="noopener" target="_blank">{e(p["cta"])} →</a>{proof}</div>'
@@ -109,12 +124,13 @@ desc = ('Produk siap pakai dari Altora Indonesia: Altora Teams (HRIS), Vision (A
         'FMS (fleet management), Smart Attendance, Sense (IoT), dan Command Center.')
 
 page = f'''<!DOCTYPE html>
-<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(title)}</title><meta content="{e(desc)}" name="description"/><link href="https://altora.id/produk" rel="canonical"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="{e(title)}" property="og:title"/><meta content="{e(desc)}" property="og:description"/><meta content="https://altora.id/produk" property="og:url"/><meta content="https://altora.id/assets/img/portfolio/altora-teams-kpi-analytics.jpg" property="og:image"/><link href="/assets/img/altora-logo-icon-v2.svg" rel="icon"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v=20261010j"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head><body class="company-page"><header class="company-nav"><a class="project-brand" href="/"><img alt="Altora" src="/assets/img/altora-logo-icon-v2.svg"/><span>Altora</span></a></header>
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(title)}</title><meta content="{e(desc)}" name="description"/><link href="https://altora.id/produk" rel="canonical"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="{e(title)}" property="og:title"/><meta content="{e(desc)}" property="og:description"/><meta content="https://altora.id/produk" property="og:url"/><meta content="https://altora.id/assets/img/produk/vision.webp" property="og:image"/><link href="/assets/img/altora-logo-icon-v2.svg" rel="icon"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v=20261010k"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head><body class="company-page"><header class="company-nav"><a class="project-brand" href="/"><img alt="Altora" src="/assets/img/altora-logo-icon-v2.svg"/><span>Altora</span></a></header>
 <main class="pd-page">
 <section class="pd-hero"><div class="pd-wrap">
 <p class="eyebrow eyebrow-purple">Produk Altora</p>
 <h1>Produk siap pakai untuk operasional yang perlu berjalan hari ini.</h1>
 <p class="pd-lead">{ready} produk yang sudah dipakai di lapangan—dari HRIS dan absensi wajah sampai AI CCTV, smart access, dan fleet management. Bisa dipakai apa adanya atau disesuaikan dengan alur kerja Anda.</p>
+<p class="pd-note">Foto produk adalah ilustrasi penggunaan aplikasi Altora.</p>
 <nav aria-label="Kategori produk" class="pd-chips">{chips}</nav>
 </div></section>
 {"".join(sections)}

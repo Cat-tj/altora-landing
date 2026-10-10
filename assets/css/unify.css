@@ -215,3 +215,10 @@ main{overflow-x:clip}
 
 /* Latar header saat di-scroll tidak boleh melebar keluar layar (penyebab geser horizontal) */
 .universal-shell.nav-wrap.stuck:before{left:0!important;right:0!important}
+
+/* Foto ilustrasi di kartu produk */
+.pd-photo{margin:-10px -10px 20px;overflow:hidden;border-radius:16px;aspect-ratio:4/3;background:var(--tone-soft)}
+.pd-photo img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.pd-card:hover .pd-photo img{transform:scale(1.03)}
+.pd-card.is-soon .pd-photo img{filter:saturate(.8)}
+.pd-note{margin:12px 0 0;color:#8A90A6;font-size:.8rem}
