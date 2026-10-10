@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-# Deploy landing statis ke VPS (Caddy: /srv/altora-landing).
-# Pakai:  ./deploy.sh          -> dry-run, hanya menampilkan rencana
-#         ./deploy.sh --go     -> benar-benar upload
+# Deploy landing statis ke origin altora.id (Raspberry Pi: /home/pi/altora-landing).
+# Pakai:  HOST=pi@<ip-rpi> ./deploy.sh        -> dry-run, hanya menampilkan rencana
+#         HOST=pi@<ip-rpi> ./deploy.sh --go   -> benar-benar upload
 # File internal (leads, outreach, script, catatan) TIDAK ikut dan dihapus dari server.
 set -euo pipefail
-HOST="${HOST:-root@103.92.215.166}"
-DEST="${DEST:-/srv/altora-landing/}"
+HOST="${HOST:?Set HOST, contoh: HOST=pi@HOST_IP ./deploy.sh}"
+DEST="${DEST:-/home/pi/altora-landing/}"
 DRY="-n"; [[ "${1:-}" == "--go" ]] && DRY=""
 rsync -avz $DRY --delete --delete-excluded \
   --exclude='.git/' --exclude='.claude/' --exclude='.DS_Store' \
