@@ -212,3 +212,6 @@ main{overflow-x:clip}
 /* Gambar Altora Smart Farming (portrait): fokus ke ponsel saat dipotong */
 .sf-card-img{object-fit:cover;object-position:62% 72%}
 .sf-shot img{max-height:560px;object-fit:cover;object-position:60% 68%}
+
+/* Latar header saat di-scroll tidak boleh melebar keluar layar (penyebab geser horizontal) */
+.universal-shell.nav-wrap.stuck:before{left:0!important;right:0!important}
