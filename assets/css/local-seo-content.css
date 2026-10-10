@@ -1,0 +1,8 @@
+/* Local service-intent content within the existing Altora visual grammar. */
+.local-intent-section{padding:clamp(62px,8vw,104px) 0;background:linear-gradient(125deg,#F8F4FC,#FDFBFE 54%,#EDF8F2)}
+.local-intent-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(300px,.88fr);gap:clamp(28px,6vw,82px);align-items:stretch}
+.local-intent-grid h2{max-width:18ch;margin:10px 0 17px;color:var(--ink);font:800 clamp(2rem,3.8vw,3.25rem)/1.08 var(--font);letter-spacing:-.055em}
+.local-intent-grid>div>p:not(.eyebrow){max-width:650px;margin:0 0 14px;color:var(--muted);font:500 1rem/1.72 var(--font)}
+.local-intent-grid .btn{margin-top:15px}.local-intent-list{display:flex;flex-direction:column;justify-content:center;padding:clamp(24px,3vw,34px);border:1px solid var(--line);border-radius:var(--r-xl);background:rgba(255,255,255,.82);box-shadow:var(--sh-sm)}
+.local-intent-list>p{margin:0 0 19px;color:#7253AC;font:700 .7rem var(--mono);letter-spacing:.045em}.local-intent-list ul{display:grid;gap:13px;margin:0;padding:0;list-style:none}.local-intent-list li{position:relative;padding-left:20px;color:#554A65;font:600 .88rem/1.52 var(--font)}.local-intent-list li:before{position:absolute;left:0;top:.52em;width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,#7E5DE7,#27A87D);content:''}
+@media(max-width:850px){.local-intent-grid{grid-template-columns:1fr}.local-intent-grid h2{max-width:22ch}}@media(max-width:540px){.local-intent-section{padding-block:58px}.local-intent-list{padding:23px}}

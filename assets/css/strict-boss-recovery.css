@@ -1,0 +1,62 @@
+/* Strict Boss recovery: remove visual competition, enforce typography contrast & alignment. */
+/* 1. Reset baseline visibility to prevent accidental font/visibility overrides */
+.hero-copy *{opacity:1!important;visibility:visible!important}
+.hero-copy h1{display:block!important;color:var(--ink)!important;font-size:clamp(2.8rem,4.5vw,4.2rem)!important;line-height:1.08!important;letter-spacing:-.05em!important;margin-bottom:20px!important}
+.hero-copy .eyebrow{display:block!important;color:#6b4ca5!important;font-weight:700!important;font-size:.82rem!important;margin-bottom:12px!important}
+.hero-copy .lead{display:block!important;color:#4e5868!important;font-size:1.05rem!important;line-height:1.68!important;max-width:44ch!important}
+
+@media (min-width:1001px){
+  .hero-grid{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(36px,4vw,64px);align-items:center}
+  .hero-copy{max-width:580px;padding-right:0}
+  .hero-stage{min-height:480px;padding:0;margin-left:auto;display:flex;align-items:center;justify-content:flex-end;position:relative}
+  .hero-stage .receipt,.hero-stage .c2,.hero-stage .c3{display:none}
+  .hero-stage .app{width:100%;max-width:480px;transform:none;margin:0;box-shadow:0 24px 60px -25px rgba(35,28,75,.35)}
+  /* A floating alert cannot coexist with the portrait in this compact stage.
+     Keep the dashboard evidence clean rather than covering the human focal point. */
+  .hero-stage .c1{display:none}
+}
+
+/* Homepage must never begin underneath the sticky shell. Remove the legacy negative margin and reserve a true top band for the header. */
+@media (min-width:1001px){
+  /* Let the hero gradient run behind the floating shell; only its inner content receives clearance. */
+  .hero{margin-top:-72px!important;padding-top:122px!important}
+}
+.nav-cta .btn-green{background:rgba(255,255,255,.9);color:var(--green);border:1px solid rgba(18,128,92,.3);box-shadow:none}
+.nav-cta .btn-green:hover{background:#fff;color:#0b6549;box-shadow:0 8px 20px -12px rgba(18,72,68,.35)}
+
+/* Mobile hero layout */
+@media(max-width:720px){
+  .hero{padding-bottom:44px}
+  .hero-copy h1{max-width:12ch}
+  .hero-actions{display:grid;grid-template-columns:1fr;margin:26px 0 20px}
+  .hero-actions .btn{width:100%;min-width:0}
+  .hero-stage{display:none}
+  .hero-copy .lead{max-width:35ch}
+}
+
+/* 2. Support Page Strict Adjustments */
+.support-hero-copy h1{max-width:12.5ch;font-size:clamp(2.7rem,4.2vw,3.85rem)}
+.support-hero-art-v2{background:linear-gradient(145deg,#e5f2eb,#fafdfc 58%,#eef3fa);box-shadow:0 20px 50px -35px rgba(24,58,49,.35);position:relative;overflow:hidden}
+/* Smooth gradient fade at the bottom of the art container to remove raw hard crop */
+.support-hero-art-v2::after{content:"";position:absolute;left:0;right:0;bottom:0;height:40px;background:linear-gradient(to bottom,rgba(242,247,244,0),rgba(242,247,244,.95));z-index:3;pointer-events:none}
+.support-quote,.support-handnote{display:none}
+/* Contain figcaption card comfortably inside the right container edge */
+.support-hero-art-v2 figcaption{right:20px;left:auto;bottom:20px;z-index:4;max-width:175px;padding:9px 12px;font-size:.65rem;background:rgba(255,255,255,.95);border:1px solid rgba(255,255,255,1);box-shadow:0 10px 24px -10px rgba(26,45,38,.2)}
+.support-page .secondary-kicker{color:#237b60}
+.support-hero-v2{padding-block:clamp(72px,7.5vw,104px);background:radial-gradient(circle at 88% 14%,rgba(79,177,136,.13),transparent 26%),linear-gradient(135deg,#f1f8f4 0%,#fdfdfc 60%,#f5f1fa 100%)}
+.support-trust{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:30px}
+.support-trust li{align-items:flex-start;min-width:0}
+.support-trust small{display:block;line-height:1.38}
+.support-path-section{padding-top:clamp(60px,6vw,84px)}
+
+@media(max-width:540px){
+ .support-hero-v2{padding-top:54px;padding-bottom:44px}
+ .support-hero-copy h1{max-width:11.2ch;font-size:clamp(2.45rem,11vw,3.1rem)}
+ .support-page .secondary-actions{display:grid;grid-template-columns:1fr;margin-top:22px;gap:10px}
+ .support-page .secondary-actions .btn{width:100%;min-width:0;justify-content:center}
+ .support-trust{grid-template-columns:1fr;gap:12px;margin-top:23px}
+ .support-trust li{gap:10px}
+ .support-hero-art-v2{min-height:292px;margin-top:4px}
+ .support-hero-art-v2 figcaption{right:12px;bottom:12px;max-width:145px;font-size:.57rem}
+}
+
