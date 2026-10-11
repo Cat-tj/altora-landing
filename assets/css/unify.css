@@ -272,3 +272,51 @@ main{overflow-x:clip}
 .bl-readmore a:hover{border-color:#7C5CE8;transform:translateY(-2px)}
 .bl-readmore small{color:#7C5CE8;font-size:.76rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
 .bl-readmore b{color:#10224F;font-size:1rem;line-height:1.45}
+
+/* Rail partner: 8 logo dalam grid 4x2 */
+.partner-rail{grid-template-columns:repeat(4,minmax(0,1fr))!important;height:auto!important;gap:12px!important;padding:12px 0}
+.partner-brand{height:96px!important}
+.partner-brand:nth-child(odd){transform:translateY(-8px) rotate(-1.5deg)!important}
+.partner-brand:nth-child(even){transform:translateY(8px) rotate(1.5deg)!important}
+.partner-brand:hover{transform:translateY(-14px) rotate(0) scale(1.045)!important}
+@media (max-width:620px){.partner-rail{grid-template-columns:repeat(2,minmax(0,1fr))!important}.partner-brand{height:76px!important}}
+
+/* Produk: blok Software / Hardware + kartu hardware */
+.pd-block{padding:clamp(40px,5vw,64px) 0 0;scroll-margin-top:80px}
+.pd-block-sw{padding-bottom:0}
+.pd-block-head{max-width:720px;margin-bottom:8px}
+.pd-block-head h2{margin:10px 0 10px;color:#10224F;font-size:clamp(1.6rem,1.2rem + 1.4vw,2.3rem)!important;letter-spacing:-.025em!important;line-height:1.15!important}
+.pd-block-head p{margin:0;color:#5F6680;line-height:1.65}
+#hardware .pd-block-head{margin-bottom:24px}
+.pd-chips .pd-chip-sub{padding:7px 13px;border-color:transparent;background:transparent;color:#5F6680;font-weight:600}
+.hw-card{display:flex;flex-direction:column;padding:24px;border:1px solid #E7E1F4;border-radius:22px;background:#fff;scroll-margin-top:100px;transition:transform .25s,box-shadow .25s,border-color .25s}
+.hw-card:hover{transform:translateY(-3px);border-color:#D9CDF8;box-shadow:0 22px 44px -30px rgba(56,36,120,.5)}
+.hw-card:target{border-color:#7C5CE8;box-shadow:0 0 0 4px rgba(124,92,232,.15)}
+.hw-logos{display:flex;align-items:center;gap:10px;min-height:64px;margin:-6px -6px 18px;padding:10px 14px;border-radius:14px;background:#F8F6FE}
+.hw-logos img{height:44px;width:auto;max-width:45%;object-fit:contain}
+.hw-card h3{margin:0;color:#10224F;font-size:1.15rem;font-weight:800}
+.hw-brands{margin:4px 0 14px;color:#7C5CE8;font-size:.84rem;font-weight:700}
+.hw-lines{display:grid;gap:8px;margin:0 0 14px;padding:14px 0 0;border-top:1px dashed #E7E1F4;list-style:none}
+.hw-lines li{position:relative;padding-left:18px;color:#10224F;font-size:.88rem;font-weight:600}
+.hw-lines li:before{content:'';position:absolute;left:2px;top:.55em;width:7px;height:7px;border-radius:50%;background:#7C5CE8}
+.hw-note{margin:0 0 20px;color:#5F6680;font-size:.86rem;line-height:1.6}
+
+/* Layanan: pengadaan, instalasi & maintenance */
+.sv-scope{margin-top:26px}
+.sv-pillars{padding:0 0 clamp(40px,5vw,64px)}
+.sv-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:start}
+.sv-card{padding:clamp(22px,2.6vw,30px);border:1px solid #E7E1F4;border-radius:24px;background:#fff;scroll-margin-top:100px}
+.sv-card h2{margin:6px 0 18px;color:#10224F;font-size:1.3rem!important;line-height:1.3!important;letter-spacing:-.015em!important}
+.sv-card ul{display:grid;gap:14px;margin:0;padding:0;list-style:none}
+.sv-card li{position:relative;padding-left:26px}
+.sv-card li:before{content:'';position:absolute;left:0;top:3px;width:16px;height:16px;border-radius:50%;background:#F1ECFE url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m4.5 8.2 2.2 2.2 4.8-4.8' fill='none' stroke='%237C5CE8' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/11px no-repeat}
+.sv-card b{display:block;color:#10224F;font-size:.93rem}
+.sv-card span{display:block;margin-top:2px;color:#5F6680;font-size:.86rem;line-height:1.55}
+.sv-steps{padding:0 0 8px}
+.sv-flow{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin:22px 0 0;padding:0;list-style:none;counter-reset:sv}
+.sv-flow li{position:relative;padding:18px 16px;border:1px solid #E7E1F4;border-radius:18px;background:#fff;counter-increment:sv}
+.sv-flow li:before{content:counter(sv);display:grid;place-items:center;width:30px;height:30px;margin-bottom:10px;border-radius:50%;background:#7C5CE8;color:#fff;font-weight:800;font-size:.85rem}
+.sv-flow b{display:block;color:#10224F;font-size:.95rem}
+.sv-flow span{display:block;margin-top:4px;color:#5F6680;font-size:.82rem;line-height:1.5}
+@media (max-width:980px){.sv-grid{grid-template-columns:1fr}.sv-flow{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:560px){.sv-flow{grid-template-columns:1fr 1fr}}
