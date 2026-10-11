@@ -353,3 +353,76 @@ main{overflow-x:clip}
 @media (max-width:860px){.hwi-more{grid-template-columns:1fr}.hwi-more-logos{flex-wrap:wrap}}
 .hwi-pic>img:first-child{width:auto!important;height:auto!important;max-width:100%!important;max-height:164px!important;border:0!important;border-radius:6px;box-shadow:none!important}
 .hwi-brand{width:auto!important;border:0!important}
+
+/* ════════════════════════════════════════════════════════════════
+   POLISH — satu sistem untuk kolom, ritme, teks, tombol, dan fokus.
+   Kolom konten sejajar dengan top bar (1240px, sama dengan --page-wrap). Ditaruh paling akhir.
+   ════════════════════════════════════════════════════════════════ */
+:root{--col:min(1240px,calc(100% - 40px));--ink:#10224F;--text:#3D4462;--muted-ui:#5A6180;--line-ui:#E7E1F4;--accent-ui:#6A4BD6}
+@media (max-width:600px){:root{--col:calc(100% - 32px)}}
+
+/* 1. Satu kolom konten di semua tipe halaman */
+.company-wrap,.project-wrap,.ct-wrap,.pd-wrap,.bl-wrap,.sf-wrap{width:var(--col)!important;max-width:none!important;margin-inline:auto!important;padding-inline:0!important}
+.bl-narrow{width:min(720px,var(--col))!important}
+.project-context{width:var(--col)!important;max-width:none!important;margin-inline:auto!important}
+.project-context>*{max-width:760px}
+
+/* 2. Label kecil di atas judul: satu gaya, terbaca, bukan mono kecil */
+.eyebrow{font-family:"Plus Jakarta Sans",system-ui,sans-serif!important;font-size:.8125rem!important;font-weight:700!important;letter-spacing:.01em!important;text-transform:none!important;color:var(--accent-ui)!important}
+.ct-kicker,.pd-kicker{letter-spacing:.02em}
+
+/* 3. Teks: judul seimbang, paragraf rapi, lead seragam */
+h1,h2,h3{text-wrap:balance}
+main p,main li{text-wrap:pretty}
+.ct-lead,.pd-lead,.bl-lead,.project-lead,.company-hero .company-wrap>div>p:not(.eyebrow){font-size:clamp(1rem,.96rem + .2vw,1.125rem)!important;line-height:1.7!important;color:var(--muted-ui)!important;max-width:62ch}
+
+/* 4. Tombol: tinggi & bentuk konsisten */
+main .btn{min-height:46px;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding-block:0;border-radius:999px;line-height:1.2}
+main .btn-lg{min-height:52px}
+.hwi .pd-actions .btn,.pd-actions .btn{min-height:44px}
+
+/* 5. Ritme vertikal: hero & section seragam */
+.company-hero,.project-hero,.ct-hero,.pd-hero,.bl-head,.bl-index-head,.projects-hero{padding-top:clamp(116px,12vw,148px)!important;padding-bottom:clamp(36px,4.5vw,56px)!important}
+.company-section,.project-section{padding-block:clamp(56px,6vw,88px)!important}
+
+/* 6. Aksesibilitas: fokus keyboard terlihat, gerak dikurangi bila diminta */
+:where(a,button,input,select,textarea,summary,[tabindex]):focus-visible{outline:3px solid #7C5CE8!important;outline-offset:3px!important;border-radius:10px}
+.site-footer :where(a):focus-visible{outline-color:#3E2A97!important}
+::selection{background:#E4DBFF;color:#10224F}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1!important;transform:none!important}
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+
+/* Beranda: grid produk ringkas */
+.hp-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-top:28px}
+.hp-card{display:flex;flex-direction:column;gap:3px;text-decoration:none;color:inherit}
+.hp-pic{position:relative;display:block;overflow:hidden;aspect-ratio:4/5;margin-bottom:10px;border-radius:18px;background:#EEE9FA}
+.hp-pic img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.hp-card:hover .hp-pic img{transform:scale(1.04)}
+.hp-card b{color:#10224F;font-size:.95rem;font-weight:800;line-height:1.3}
+.hp-card small{color:#5A6180;font-size:.8rem;line-height:1.45}
+.hp-soon{position:absolute;left:10px;top:10px;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.92);color:#5A6180;font-size:.72rem;font-weight:700}
+.hp-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:26px}
+.hp-actions span{color:#5A6180;font-size:.9rem}
+@media (max-width:980px){.hp-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:600px){.hp-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}}
+
+/* Beranda: kartu layanan tanpa blok warna placeholder */
+.industri .ind ul{margin-top:14px}
+
+/* Beranda: tampilkan 6 proyek, sisanya di /portfolio */
+.portfolio-grid-home>.portfolio-card:nth-child(n+7){display:none}
+.home-more{display:inline-flex;align-items:center;gap:8px;margin-top:22px;padding:12px 20px;border:1.5px solid #D9CDF8;border-radius:999px;background:#fff;color:#5B3FC4;font-weight:700;font-size:.9rem;text-decoration:none;transition:border-color .2s,background .2s}
+.home-more:hover{border-color:#7C5CE8;background:#FBF9FF}
+
+/* Beranda di HP: lebih ringkas */
+@media (max-width:600px){
+  .cta-stage{display:none!important}
+  .industri .ind ul{display:none}
+  .industri .ind{padding-bottom:18px}
+  .portfolio-grid-home{display:flex!important;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:16px;margin-inline:-16px;padding:2px 16px 12px;scrollbar-width:none}
+  .portfolio-grid-home::-webkit-scrollbar{display:none}
+  .portfolio-grid-home>.portfolio-card{flex:0 0 78%;scroll-snap-align:start}
+}

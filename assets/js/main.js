@@ -62,9 +62,8 @@
         '<span class="mi mi-' + m.tone + '">' + icon(m.icon) + '</span>' +
         '<h3>' + m.name + '</h3>' +
         '<p>' + m.short + '</p>' +
-        '<div class="scene" style="background:linear-gradient(140deg,' + m.hex + ',' + shade(m.hex, -22) + ')">' + icon(m.icon) + '</div>' +
         '<ul>' + m.feats.map(function (f) { return '<li>' + icon('i-check') + f + '</li>'; }).join('') + '</ul>' +
-        '<a class="more" href="#modul" style="color:' + m.hex + '">Pelajari lebih lanjut ' + icon('i-arrow') + '</a>' +
+        '<a class="more" href="' + (m.href || '/services') + '" style="color:' + m.hex + '">Pelajari lebih lanjut ' + icon('i-arrow') + '</a>' +
         '</article>';
     }).join('');
   }
