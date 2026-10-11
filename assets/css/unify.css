@@ -453,3 +453,5 @@ html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 
 /* Footer: tanpa garis/kotak putih dekoratif di dalamnya */
 .site-footer:before{content:none!important;display:none!important}
+/* Footer: sudut atas lurus — lengkungan memperlihatkan latar putih halaman di pojok */
+.site-footer{border-radius:0!important}
