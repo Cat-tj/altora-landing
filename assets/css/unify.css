@@ -455,3 +455,24 @@ html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 .site-footer:before{content:none!important;display:none!important}
 /* Footer: sudut atas lurus — lengkungan memperlihatkan latar putih halaman di pojok */
 .site-footer{border-radius:0!important}
+
+/* Footer ramping */
+.site-footer{padding:36px 0 18px!important}
+.sf-top{align-items:center!important;padding-bottom:18px!important;gap:12px 28px!important}
+.sf-top .sf-brand{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.sf-logo{font-size:1.15rem!important}
+.sf-logo img{width:28px;height:auto}
+.sf-top .sf-brand p{margin:0!important;max-width:60ch;font-size:.82rem!important;line-height:1.5!important}
+.sf-wa{padding:9px 16px!important;font-size:.82rem!important}
+.sf-grid{padding-top:20px!important;gap:18px 32px!important}
+.sf-col{gap:6px!important}
+.sf-col h4{margin:0 0 2px!important;font-size:.84rem!important}
+.sf-col a,.sf-col p{font-size:.8rem!important;line-height:1.45!important}
+.sf-contact svg{width:15px!important;height:15px!important;margin-top:1px!important}
+.sf-base{margin-top:22px!important;padding-top:12px!important;font-size:.76rem!important}
+@media (max-width:620px){
+  .site-footer{padding-top:28px!important}
+  .sf-top .sf-brand{gap:10px}
+  .sf-grid{gap:18px 16px!important}
+  .sf-col{gap:5px!important}
+}
