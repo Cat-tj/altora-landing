@@ -426,3 +426,27 @@ html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
   .portfolio-grid-home::-webkit-scrollbar{display:none}
   .portfolio-grid-home>.portfolio-card{flex:0 0 78%;scroll-snap-align:start}
 }
+
+/* ── Footer v2: brand + WA di atas, 4 kolom link lega, baris dasar aman dari tombol WA melayang ── */
+.sf-top{display:flex!important;align-items:flex-end;justify-content:space-between;gap:24px 40px;flex-wrap:wrap;padding-bottom:32px;border-bottom:1px solid rgba(42,47,94,.14)}
+.sf-top .sf-brand p{margin:14px 0 0;max-width:52ch}
+.sf-top .sf-wa{flex:none}
+.sf-grid{grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,1.35fr)!important;gap:32px 40px!important;padding-top:34px}
+.sf-col a,.sf-col p{width:auto!important}
+.sf-contact a,.sf-contact p{max-width:34ch}
+.sf-base{margin-top:44px!important}
+.sf-base .sf-legal{margin-right:76px}
+@media (max-width:980px){
+  .sf-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .sf-grid .sf-brand,.sf-grid .sf-contact{grid-column:auto!important}
+}
+@media (max-width:620px){
+  .sf-top{align-items:flex-start;flex-direction:column}
+  .sf-grid{grid-template-columns:1fr 1fr!important;gap:28px 18px!important}
+  .sf-grid .sf-contact{grid-column:1/-1!important}
+  .sf-base{flex-direction:column;gap:10px}
+  .sf-base .sf-legal{margin-right:0}
+  body:has(a.wa) .sf-base{padding-bottom:64px}
+  .sf-grid nav[aria-label="Perusahaan"]{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;column-gap:18px}
+  .sf-grid nav[aria-label="Perusahaan"] h4{grid-column:1/-1}
+}
