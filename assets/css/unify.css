@@ -450,3 +450,6 @@ html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
   .sf-grid nav[aria-label="Perusahaan"]{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;column-gap:18px}
   .sf-grid nav[aria-label="Perusahaan"] h4{grid-column:1/-1}
 }
+
+/* Footer: tanpa garis/kotak putih dekoratif di dalamnya */
+.site-footer:before{content:none!important;display:none!important}
