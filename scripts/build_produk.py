@@ -106,12 +106,51 @@ def card(p):
 
 # Katalog hardware (dari katalog resmi principal; spesifikasi diringkas, tanpa harga).
 # cat = id filter, img = assets/img/hardware/<img>.webp (None = pakai logo principal)
-HW_CATS = [('cctv', 'CCTV & tenaga surya'), ('display', 'Display & ruang rapat'), ('computer', 'PC all-in-one'),
+HW_CATS = [('cctv', 'CCTV & tenaga surya'), ('gps', 'GPS tracker & telematika'), ('display', 'Display & ruang rapat'), ('computer', 'PC all-in-one'),
            ('rack', 'Rak & data center'), ('fiber', 'Fiber optik')]
 HW_ITEMS = [
     dict(id='vigi-solar', cat='cctv', brand='VIGI', logo='vigi-v2', img=None, name='VIGI Solar Power System',
          desc='Sistem tenaga surya untuk CCTV dan perangkat jaringan di lokasi tanpa listrik atau kabel—proyek, kebun, tambak, dan area terpencil.',
          specs=[('Model', 'SP6020, SP6030, SP9030, SP18090'), ('Panel surya', '60 W / 90 W, hingga 180 W'), ('Baterai', 'Lithium 20,8–93,6 Ah'), ('Proteksi', 'IP66'), ('Pemantauan', 'Aplikasi VIGI & VIGI Cloud VMS')]),
+    dict(id='telt-ftc880', cat='gps', brand='Teltonika', logo='teltonika-v2', img='telt-ftc880', name='FTC880 / FTM880',
+         desc='Tracker yang dipasang langsung di aki kendaraan—cepat dipasang untuk pelacakan dasar dan armada pengiriman.',
+         specs=[('Jaringan', '4G'), ('Pemasangan', 'Kabel U-type ke aki, ± 5 menit'), ('Ketahanan', 'Casing IP69K (FTM880)'), ('GNSS', 'Hingga 41 satelit terlihat')]),
+    dict(id='telt-fmc920', cat='gps', brand='Teltonika', logo='teltonika-v2', img='telt-fmc920', name='FMC920',
+         desc='Tracker ringkas paling populer untuk pelacakan armada mobil dan motor listrik.',
+         specs=[('Jaringan', '4G (varian 2G: FMB920)'), ('Ukuran', 'Tinggi 12 mm, muat di ruang sempit'), ('Fitur', 'Blokir mesin jarak jauh, eco driving'), ('Cocok untuk', 'Anti-maling & pemulihan kendaraan')]),
+    dict(id='telt-fmc800', cat='gps', brand='Teltonika', logo='teltonika-v2', img='telt-fmc800', name='FMC800',
+         desc='Tracker plug & play yang cukup dicolok ke port OBD-II, tanpa alat khusus.',
+         specs=[('Jaringan', '4G (varian 2G: FMB010)'), ('Pemasangan', 'Colok ke port OBD-II'), ('Sensor', 'Akselerometer 3 sumbu, deteksi tabrakan'), ('Fitur', 'Skenario eco driving')]),
+    dict(id='telt-fmc003', cat='gps', brand='Teltonika', logo='teltonika-v2', img='telt-fmc003', name='FMC003',
+         desc='Tracker OBD yang membaca data asli kendaraan seperti odometer dan level BBM.',
+         specs=[('Jaringan', '4G (varian 2G: FMB003)'), ('Data', 'Odometer & level BBM asli (OEM)'), ('Pemasangan', 'Plug & play OBD-II'), ('Cocok untuk', 'Rental, leasing, logistik')]),
+    dict(id='telt-fmc130', cat='gps', brand='Teltonika', logo='teltonika-v2', img='telt-fmc130', name='FMC130',
+         desc='Tracker lanjutan dengan input fleksibel untuk truk, bus, dan kendaraan khusus.',
+         specs=[('Jaringan', '4G (varian 2G: FMB130)'), ('CAN', 'Dukungan CAN adapter: BBM, RPM, suhu mesin'), ('BBM', 'Input impuls untuk flow meter'), ('Cocok untuk', 'Jam kerja, cold chain, trailer')]),
+    dict(id='telt-fmc250', cat='gps', brand='Teltonika', logo='teltonika-v2', img='telt-fmc250', name='FMC150 / FMC250',
+         desc='Tracker dengan prosesor data CAN terintegrasi untuk analisis kendaraan yang mendalam.',
+         specs=[('Jaringan', '4G'), ('Data CAN', 'Lebih dari 100 parameter'), ('Ketahanan', 'FMC250: casing IP67'), ('Fitur', 'Autoscan model kendaraan')]),
+    dict(id='telt-fmc650', cat='gps', brand='Teltonika', logo='teltonika-v2', img='telt-fmc650', name='FMC650',
+         desc='Tracker profesional untuk armada berat, alat tambang, konstruksi, dan pertanian.',
+         specs=[('Jaringan', '4G'), ('Data', 'J1939 / FMS dari kendaraan berat'), ('Tachograph', 'Unduh file & data live jarak jauh'), ('Cocok untuk', 'Tambang, konstruksi, logistik berat')]),
+    dict(id='telt-tat140', cat='gps', brand='Teltonika', logo='teltonika-v2', img='telt-tat140', name='TAT140 / TAT240',
+         desc='Asset tracker bertenaga baterai untuk trailer, kontainer, alat berat, dan backup tracker kendaraan.',
+         specs=[('Jaringan', '4G'), ('Ketahanan', 'Casing IP68'), ('Baterai', 'Laporan lokasi berkala, baterai tahan lama'), ('Cocok untuk', 'Trailer, kontainer, alat konstruksi')]),
+    dict(id='telt-gh5200', cat='gps', brand='Teltonika', logo='teltonika-v2', img='telt-gh5200', name='GH5200',
+         desc='Tracker personal untuk keselamatan pekerja lapangan dan pekerja yang bekerja sendirian.',
+         specs=[('Komunikasi', 'Panggilan suara dua arah, SMS'), ('Tombol', '5 tombol terprogram, termasuk SOS'), ('Deteksi', 'Man-down & tidak bergerak'), ('Cocok untuk', 'Pekerja tambang, kebun, patroli')]),
+    dict(id='telt-dsm', cat='gps', brand='Teltonika', logo='teltonika-v2', img='telt-dsm', name='Kamera DSM',
+         desc='Kamera kabin yang memperingatkan pengemudi saat mengantuk atau terdistraksi.',
+         specs=[('Deteksi', 'Kantuk, menguap, distraksi'), ('Lainnya', 'Merokok, pakai HP, tanpa sabuk'), ('Peringatan', 'Alarm suara ke pengemudi'), ('Integrasi', 'Bersama tracker FMC650')]),
+    dict(id='telt-dualcam', cat='gps', brand='Teltonika', logo='teltonika-v2', img='telt-dualcam', name='DualCam & Dashcam',
+         desc='Kamera depan dan kabin untuk merekam kejadian di jalan sebagai bukti insiden.',
+         specs=[('Kamera', 'Depan jalan + dalam kabin (DualCam)'), ('Penyimpanan', 'Hingga 128 GB offline'), ('Kirim data', 'Foto/video berkala atau sesuai permintaan'), ('Pemasangan', 'Ringkas di pilar A')]),
+    dict(id='telt-adas', cat='gps', brand='Teltonika', logo='teltonika-v2', img='telt-adas', name='Kamera ADAS',
+         desc='Bantuan pengemudi untuk mencegah tabrakan dengan pemantauan visual jalan.',
+         specs=[('Fungsi', 'Peringatan tabrakan & analisis perilaku'), ('Data', 'Foto & video sesuai permintaan'), ('Koneksi', 'CAN bus tanpa kontak'), ('Cocok untuk', 'Rekonstruksi insiden jalan')]),
+    dict(id='telt-eye', cat='gps', brand='Teltonika', logo='teltonika-v2', img='telt-eye', name='EYE Sensor & EYE Beacon',
+         desc='Sensor dan beacon Bluetooth kecil untuk memantau suhu, kelembapan, dan keberadaan aset.',
+         specs=[('Sensor', 'ID, magnet, suhu, kelembapan, gerak'), ('Baterai', 'Beacon hingga 10 tahun, sensor 5 tahun'), ('Koneksi', 'Bluetooth ke tracker Teltonika'), ('Cocok untuk', 'Cold chain, pelacakan alat kerja')]),
     dict(id='hde-videotron-indoor', cat='display', brand='HDe', logo='hde-v2', img='hde-videotron-indoor', name='Videotron Indoor (seri GEN-Y)',
          desc='Panel LED untuk lobi, ruang rapat, command center, dan ruang pamer.',
          specs=[('Pixel pitch', '1,25–4,0 mm'), ('Kecerahan', '≥ 450 nits'), ('Refresh rate', '± 3.840 Hz'), ('Jarak pandang', '1,2–50 m'), ('Kabinet', '640 × 480 mm')]),
@@ -199,11 +238,11 @@ chips = ('<a href="#software">Software</a>' + ''.join(f'<a class="pd-chip-sub" h
 hw_filters = '<button aria-pressed="true" data-filter="all" type="button">Semua</button>' + ''.join(f'<button aria-pressed="false" data-filter="{c}" type="button">{e(t)}</button>' for c, t in HW_CATS)
 hardware_html = ('<section class="pd-block" id="hardware"><div class="pd-wrap"><div class="pd-block-head"><p class="eyebrow eyebrow-purple">Hardware</p>'
                  '<h2>Perangkat dari principal resmi, dipasang dan dirawat tim Altora.</h2>'
-                 '<p>Pilihan perangkat dari partner principal Altora. Spesifikasi diringkas dari katalog resmi; kami bantu memilih tipe yang sesuai, mengadakan, memasang, dan merawatnya.</p></div>'
+                 '<p>Pilihan perangkat dari partner principal Altora, termasuk GPS tracker Teltonika yang terhubung dengan Altora FMS. Spesifikasi diringkas dari katalog resmi; kami bantu memilih tipe yang sesuai, mengadakan, memasang, dan merawatnya.</p></div>'
                  f'<div aria-label="Filter kategori hardware" class="hwi-filter" role="group">{hw_filters}</div>'
                  f'<div class="hwi-grid">{"".join(hw_item(h) for h in HW_ITEMS)}</div>'
-                 '<div class="hwi-more"><div class="hwi-more-logos"><img alt="TP-Link" src="/assets/sentra/partners/tplink-v2.png"/><img alt="Teltonika" src="/assets/sentra/partners/teltonika-v2.png"/><img alt="Lenovo" src="/assets/sentra/partners/lenovo-v2.png"/><img alt="VIGI" src="/assets/sentra/partners/vigi-v2.png"/></div>'
-                 '<div><b>Juga tersedia: kamera VIGI, jaringan TP-Link & Teltonika, perangkat Lenovo.</b><p>Switch, access point, router industri 4G/5G, GPS tracker, kamera IP & NVR, laptop dan PC—tipe disesuaikan dengan kebutuhan proyek.</p></div>'
+                 '<div class="hwi-more"><div class="hwi-more-logos"><img alt="TP-Link" src="/assets/sentra/partners/tplink-v2.png"/><img alt="Lenovo" src="/assets/sentra/partners/lenovo-v2.png"/><img alt="VIGI" src="/assets/sentra/partners/vigi-v2.png"/></div>'
+                 '<div><b>Juga tersedia: kamera VIGI, jaringan TP-Link, perangkat Lenovo.</b><p>Switch, access point, router industri 4G/5G, kamera IP & NVR, laptop dan PC—tipe disesuaikan dengan kebutuhan proyek.</p></div>'
                  f'<a class="btn btn-purple" href="{WA}{quote("Halo Altora, saya ingin konsultasi perangkat CCTV/jaringan/komputer untuk proyek saya.")}" rel="noopener" target="_blank">Konsultasi perangkat →</a></div>'
                  '</div></section>')
 software_head = ('<section class="pd-block pd-block-sw" id="software"><div class="pd-wrap"><div class="pd-block-head"><p class="eyebrow eyebrow-purple">Software</p>'
@@ -219,7 +258,7 @@ ld = {'@context': 'https://schema.org', '@type': 'ItemList', 'name': 'Produk Alt
 
 title = 'Produk Altora | Software & Hardware: HRIS, AI CCTV, CCTV VIGI, Jaringan & Data Center'
 desc = ('Software siap pakai Altora (HRIS, AI CCTV, smart access, fleet management, POS) dan hardware dari principal resmi: '
-        'CCTV VIGI, jaringan TP-Link & Teltonika, display HDe, rak HaganeRack, fiber optik Fasser.')
+        'CCTV VIGI, GPS tracker Teltonika, jaringan TP-Link, display HDe, rak HaganeRack, fiber optik Fasser.')
 
 page = f'''<!DOCTYPE html>
 <html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(title)}</title><meta content="{e(desc)}" name="description"/><link href="https://altora.id/produk" rel="canonical"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="{e(title)}" property="og:title"/><meta content="{e(desc)}" property="og:description"/><meta content="https://altora.id/produk" property="og:url"/><meta content="https://altora.id/assets/img/produk/vision.webp" property="og:image"/><link href="/assets/img/altora-logo-icon-v2.svg" rel="icon"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v=20261012h"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head><body class="company-page"><header class="company-nav"><a class="project-brand" href="/"><img alt="Altora" src="/assets/img/altora-logo-icon-v2.svg"/><span>Altora</span></a></header>
@@ -227,7 +266,7 @@ page = f'''<!DOCTYPE html>
 <section class="pd-hero"><div class="pd-wrap">
 <p class="eyebrow eyebrow-purple">Produk Altora</p>
 <h1>Software dan hardware untuk operasional yang perlu berjalan hari ini.</h1>
-<p class="pd-lead">{ready} aplikasi Altora siap pakai—dari HRIS dan absensi wajah sampai AI CCTV dan fleet management—ditambah perangkat dari principal resmi seperti VIGI, TP-Link, HDe, dan HaganeRack.</p>
+<p class="pd-lead">{ready} aplikasi Altora siap pakai—dari HRIS dan absensi wajah sampai AI CCTV dan fleet management—ditambah perangkat dari principal resmi seperti VIGI, Teltonika, HDe, dan HaganeRack.</p>
 <p class="pd-note">Foto produk adalah ilustrasi penggunaan aplikasi Altora.</p>
 <nav aria-label="Kategori produk" class="pd-chips">{chips}</nav>
 </div></section>
@@ -255,7 +294,7 @@ def home_card(p):
 
 home_grid = ('<!-- produk-ringkas:start --><div class="hp-grid">' + ''.join(home_card(p) for p in PRODUCTS) + '</div>'
              '<div class="hp-actions"><a class="btn btn-purple" href="/produk">Lihat software &amp; hardware</a>'
-             '<span>Termasuk perangkat dari VIGI, HDe, HaganeRack, dan Fasser.</span></div><!-- produk-ringkas:end -->')
+             '<span>Termasuk perangkat dari VIGI, Teltonika, HDe, HaganeRack, dan Fasser.</span></div><!-- produk-ringkas:end -->')
 idx = root / 'index.html'
 s = idx.read_text(encoding='utf-8')
 s = re.sub(r'<!-- produk-ringkas:start -->.*?<!-- produk-ringkas:end -->', lambda _: home_grid, s, count=1, flags=re.S)
