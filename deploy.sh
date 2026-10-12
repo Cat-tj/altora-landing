@@ -7,8 +7,8 @@ set -euo pipefail
 HOST="${HOST:?Set HOST, contoh: HOST=pi@HOST_IP ./deploy.sh}"
 DEST="${DEST:-/home/pi/altora-landing/}"
 DRY="-n"; [[ "${1:-}" == "--go" ]] && DRY=""
-rsync -avz $DRY --delete --delete-excluded \
-  --exclude='.git/' --exclude='.backups/' --exclude='.claude/' --exclude='.DS_Store' \
+rsync -avz $DRY --delete --delete-excluded --filter='P .backups/' \
+  --exclude='.git/' --exclude='.claude/' --exclude='.DS_Store' \
   --exclude='leads/' --exclude='partials/' --exclude='ops/' --exclude='content/' --exclude='outreach/' --exclude='scripts/' --exclude='design/' \
   --exclude='*.md' --exclude='*.py' --exclude='*.tmp' --exclude='*.sh' --exclude='_redirects' \
   ./ "$HOST:$DEST"
