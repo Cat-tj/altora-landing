@@ -524,3 +524,82 @@ html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 .hp-carousel+.hp-actions{margin-top:-46px;max-width:calc(100% - 120px)}
 @media (max-width:980px){.hp-track>.hp-card{flex-basis:calc((100% - 2*16px)/2.6)}}
 @media (max-width:600px){.hp-track{gap:12px}.hp-track>.hp-card{flex-basis:66%}.hp-carousel+.hp-actions{margin-top:18px;max-width:none}}
+
+/* Beranda: produk berjalan otomatis (marquee), berhenti saat disorot/difokus */
+@keyframes hp-marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.hp-marquee{position:relative;margin-top:28px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%)}
+.hp-marquee-track{display:flex;gap:18px;width:max-content;animation:hp-marquee 55s linear infinite}
+.hp-marquee:hover .hp-marquee-track,.hp-marquee:focus-within .hp-marquee-track{animation-play-state:paused}
+.hp-marquee .hp-card{flex:0 0 clamp(200px,22vw,270px)}
+.hp-marquee .hp-pic{box-shadow:0 18px 40px -28px rgba(40,24,110,.55)}
+.hp-marquee .hp-card:hover .hp-pic{outline:2px solid #7C5CE8;outline-offset:3px}
+.hp-marquee+.hp-actions{margin-top:24px}
+@media (max-width:600px){.hp-marquee .hp-card{flex-basis:62vw}.hp-marquee-track{animation-duration:40s}}
+@media (prefers-reduced-motion:reduce){
+  .hp-marquee{overflow-x:auto;-webkit-mask-image:none;mask-image:none}
+  .hp-marquee-track{animation:none!important}
+  .hp-marquee-track>[aria-hidden="true"]{display:none}
+}
+
+/* ── Halaman detail layanan (scripts/build_services.py) ── */
+.svd-hero{padding:clamp(116px,12vw,148px) 0 clamp(36px,4vw,56px);background:radial-gradient(60% 80% at 90% 10%,rgba(124,92,232,.16),transparent 70%),radial-gradient(50% 70% at 0% 30%,rgba(34,184,207,.07),transparent 70%)}
+.svd-hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(28px,4vw,56px);align-items:center}
+.svd-hero h1{margin:12px 0 16px;color:#10224F}
+.svd-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:26px}
+.svd-link{color:#5B3FC4;font-weight:700;text-decoration:underline;text-underline-offset:4px}
+.svd-hero-pic{position:relative;margin:0;aspect-ratio:4/3.4;border-radius:28px;overflow:visible}
+.svd-hero-pic img{width:100%;height:100%;object-fit:cover;border-radius:28px;box-shadow:0 40px 80px -48px rgba(40,24,110,.7)}
+.svd-hero-pic:before{content:'';position:absolute;inset:-14px -14px 22px 22px;z-index:-1;border-radius:32px;background:linear-gradient(140deg,#C9B8FF,#F1ECFE 60%,#DDF4F8)}
+.svd-chip{position:absolute;padding:9px 14px;border-radius:999px;background:rgba(255,255,255,.94);color:#10224F;font-size:.8rem;font-weight:800;box-shadow:0 14px 30px -16px rgba(40,24,110,.55);white-space:nowrap}
+.svd-chip:before{content:'';display:inline-block;width:8px;height:8px;margin-right:8px;border-radius:50%;background:#7C5CE8;vertical-align:1px}
+.svd-chip-0{left:-18px;top:14%}.svd-chip-1{right:-16px;top:46%}.svd-chip-2{left:10%;bottom:-16px}
+.svd-chip-1:before{background:#14945F}.svd-chip-2:before{background:#E0832B}
+.svd-sec{padding:clamp(48px,6vw,80px) 0 0;scroll-margin-top:90px}
+.svd-sec .pd-block-head{margin-bottom:22px}
+.svd-sec .pd-block-head h2{margin:0 0 8px;color:#10224F;font-size:clamp(1.5rem,1.2rem + 1.1vw,2.1rem)!important;letter-spacing:-.02em!important;line-height:1.2!important}
+.svd-pains-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(24px,4vw,56px);align-items:start}
+.svd-pains ul{display:grid;gap:12px;margin:0;padding:0;list-style:none}
+.svd-pains li{position:relative;padding:18px 20px 18px 54px;border:1px solid #E7E1F4;border-radius:18px;background:#fff}
+.svd-pains li:before{content:'!';position:absolute;left:18px;top:18px;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#FFF1E2;color:#C46A12;font-weight:900;font-size:.8rem}
+.svd-pains b{display:block;color:#10224F;font-size:.98rem}
+.svd-pains span{display:block;margin-top:3px;color:#5A6180;font-size:.9rem;line-height:1.55}
+.svd-dos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.svd-do{padding:22px;border:1px solid #E7E1F4;border-radius:20px;background:#fff;transition:transform .25s,box-shadow .25s,border-color .25s}
+.svd-do:hover{transform:translateY(-3px);border-color:#D9CDF8;box-shadow:0 22px 44px -30px rgba(56,36,120,.5)}
+.svd-ico{display:grid;place-items:center;width:46px;height:46px;margin-bottom:14px;border-radius:14px;background:linear-gradient(140deg,#7C5CE8,#5B3FC4);box-shadow:0 12px 24px -14px rgba(92,59,196,.9)}
+.svd-ico svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.svd-do h3{margin:0 0 6px;color:#10224F;font-size:1.02rem;font-weight:800}
+.svd-do p{margin:0;color:#5A6180;font-size:.9rem;line-height:1.6}
+.svd-steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;margin:0;padding:0;list-style:none;counter-reset:sd}
+.svd-steps li{position:relative;padding:0 12px 0 0;counter-increment:sd}
+.svd-steps li:before{content:counter(sd);display:grid;place-items:center;position:relative;z-index:1;width:40px;height:40px;margin-bottom:12px;border-radius:50%;background:#7C5CE8;color:#fff;font-weight:800;box-shadow:0 0 0 6px #F1ECFE}
+.svd-steps li:after{content:'';position:absolute;left:40px;right:0;top:20px;height:2px;background:linear-gradient(90deg,#C9B8FF,#EEE9FA)}
+.svd-steps li:last-child:after{display:none}
+.svd-steps b{display:block;color:#10224F;font-size:.95rem;line-height:1.35}
+.svd-proofs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.svd-proof{display:flex;flex-direction:column;gap:4px;text-decoration:none}
+.svd-proof-img{display:block;overflow:hidden;aspect-ratio:16/10;margin-bottom:10px;border-radius:18px;background:#EEE9FA}
+.svd-proof-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.svd-proof:hover .svd-proof-img img{transform:scale(1.04)}
+.svd-proof b{color:#10224F;font-size:1rem}
+.svd-proof small{color:#5B3FC4;font-weight:700;font-size:.84rem}
+.svd-related{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:26px}
+.svd-related b{color:#10224F;font-size:.9rem;margin-right:4px}
+.svd-related a{padding:8px 14px;border:1px solid #E7E1F4;border-radius:999px;background:#fff;color:#4A30AE;font-size:.84rem;font-weight:700;text-decoration:none}
+.svd-related a:hover{border-color:#7C5CE8}
+.svd-faq{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(24px,4vw,56px);align-items:start}
+.svd-faq details{border-bottom:1px solid #E7E1F4}
+.svd-faq summary{display:flex;justify-content:space-between;gap:14px;padding:18px 0;color:#10224F;font-weight:800;cursor:pointer;list-style:none}
+.svd-faq summary::-webkit-details-marker{display:none}
+.svd-faq summary:after{content:'+';color:#7C5CE8;font-size:1.3rem;line-height:1;transition:transform .2s}
+.svd-faq details[open] summary:after{transform:rotate(45deg)}
+.svd-faq details p{margin:0 0 18px;color:#5A6180;line-height:1.7}
+.svd-page .pd-cta{padding-top:clamp(56px,7vw,88px)}
+@media (max-width:980px){.svd-hero-grid,.svd-pains-grid,.svd-faq{grid-template-columns:1fr}.svd-dos,.svd-proofs{grid-template-columns:1fr 1fr}.svd-steps{grid-template-columns:1fr 1fr 1fr;row-gap:24px}.svd-steps li:after{display:none}}
+@media (max-width:600px){.svd-dos,.svd-proofs{grid-template-columns:1fr}.svd-steps{grid-template-columns:1fr 1fr}.svd-chip-0{left:8px}.svd-chip-1{right:8px}.svd-hero-pic:before{inset:-8px -8px 16px 16px}}
+/* Katalog /services: kartu ke-6 mengisi lebar penuh bila sendirian di baris */
+.services-grid-v2>.services-card-fleet,.services-grid-v2>.services-card-procure{grid-column:span 6!important}
+@media (max-width:860px){.services-grid-v2>.services-card-fleet,.services-grid-v2>.services-card-procure{grid-column:1/-1!important}}
+.services-grid-v2>.services-card-fleet .services-card-shell{display:block!important}
+.services-grid-v2>.services-card-fleet .services-card-photo,.services-grid-v2>.services-card-procure .services-card-photo{height:220px!important;min-height:0!important}
+.services-grid-v2>.services-card-fleet .services-card-photo img,.services-grid-v2>.services-card-procure .services-card-photo img{width:100%;height:100%;object-fit:cover}
