@@ -7,7 +7,7 @@ import html, json, pathlib
 from urllib.parse import quote
 
 root = pathlib.Path(__file__).resolve().parent.parent
-CSS_VER = '20261012m'
+CSS_VER = '20261012o'
 EMAIL = 'hello@altora.id'
 WA = 'https://wa.me/6285190911170?text='
 
@@ -22,11 +22,11 @@ OPENINGS = []
 AREAS = [
     ('Software engineer', 'Membangun aplikasi operasional seperti HRIS, POS, dan dashboard, serta menghubungkannya dengan sistem lain.',
      ['TypeScript / Next.js', 'Flutter untuk aplikasi mobile', 'PostgreSQL & integrasi API']),
-    ('UI/UX & product designer', 'Merancang alur aplikasi dari cara kerja pengguna di lapangan, bukan dari template.',
+    ('UI/UX & product designer', 'Merancang tampilan aplikasi yang mudah dipakai pengguna di kantor maupun di lapangan.',
      ['Riset pengguna & wireframe', 'Desain antarmuka web & mobile', 'Design system']),
     ('Field engineer CCTV & jaringan', 'Survei lokasi, memasang kamera, kabel, fiber, dan rak, lalu mengonfigurasi perangkat sampai siap dipakai.',
      ['Instalasi CCTV & NVR', 'Switch, access point, fiber optik', 'Bersedia bekerja di lapangan']),
-    ('AI & computer vision', 'Mengembangkan dan menguji model deteksi seperti APD dan pengenalan wajah di kondisi kamera nyata.',
+    ('AI & computer vision', 'Mengembangkan dan menguji model deteksi seperti APD dan pengenalan wajah dengan kamera CCTV sungguhan.',
      ['Python & framework deep learning', 'Dataset & evaluasi model', 'Deployment ke perangkat edge/server']),
     ('IoT & hardware', 'Merakit dan mengintegrasikan sensor, gateway, smartlock, dan kios dengan aplikasi Altora.',
      ['Mikrokontroler & sensor', 'LoRa / 4G gateway', 'Integrasi perangkat ke API']),
@@ -35,7 +35,7 @@ AREAS = [
 ]
 
 WORK = [
-    ('Masalah nyata', 'Yang dikerjakan adalah sistem yang dipakai organisasi sungguhan—lihat contohnya di portofolio.'),
+    ('Proyek sungguhan', 'Aplikasi dan perangkat yang Anda kerjakan langsung dipakai klien. Contohnya ada di portofolio.'),
     ('Software dan perangkat dalam satu tim', 'Developer, field engineer, dan desainer bekerja di proyek yang sama, jadi Anda melihat sistem secara utuh.'),
     ('Dekat dengan pengguna', 'Tim turun ke lokasi untuk memahami cara kerja pengguna sebelum memutuskan solusi.'),
     ('Dokumentasi jadi kebiasaan', 'Setiap implementasi didokumentasikan supaya mudah dirawat dan dipelajari tim berikutnya.'),
@@ -44,7 +44,7 @@ WORK = [
 STEPS = [('Kirim profil', 'Email atau WhatsApp berisi keahlian dan portofolio.'),
          ('Kami tinjau', 'Profil dicocokkan dengan kebutuhan proyek yang sedang berjalan.'),
          ('Ngobrol', 'Diskusi singkat tentang pengalaman dan minat Anda.'),
-         ('Diskusi kasus', 'Membahas contoh masalah nyata sesuai bidang.'),
+         ('Diskusi kasus', 'Membahas contoh kasus sesuai bidang Anda.'),
          ('Keputusan', 'Kami kabari hasilnya, termasuk bila profil disimpan untuk proyek berikutnya.')]
 
 e = lambda t: html.escape(t, quote=True)
@@ -95,12 +95,12 @@ desc = ('Bergabung dengan Altora Indonesia: software engineer, UI/UX designer, f
         'dan project implementation di Balikpapan dan Samarinda.')
 
 page = f'''<!DOCTYPE html>
-<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(title)}</title><meta content="{e(desc)}" name="description"/><link href="https://altora.id/careers" rel="canonical"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="Karier di Altora Indonesia" property="og:title"/><meta content="{e(desc)}" property="og:description"/><meta content="https://altora.id/careers" property="og:url"/><meta content="https://altora.id/assets/img/produk/fms.webp" property="og:image"/><link href="/assets/img/altora-logo-icon-v2.svg" rel="icon"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v=20261012m"/>{ld_html}</head><body class="company-page"><header></header>
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(title)}</title><meta content="{e(desc)}" name="description"/><link href="https://altora.id/careers" rel="canonical"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="Karier di Altora Indonesia" property="og:title"/><meta content="{e(desc)}" property="og:description"/><meta content="https://altora.id/careers" property="og:url"/><meta content="https://altora.id/assets/img/produk/fms.webp" property="og:image"/><link href="/assets/img/altora-logo-icon-v2.svg" rel="icon"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v=20261012o"/>{ld_html}</head><body class="company-page"><header></header>
 <main class="ct-page cr-page">
 <section class="ct-hero"><div class="ct-wrap">
 <p class="eyebrow eyebrow-purple">Karier di Altora</p>
 <h1>Bangun teknologi yang benar-benar dipakai di lapangan.</h1>
-<p class="ct-lead">Di Altora, software, perangkat, dan jaringan dikerjakan dalam satu tim—dari Balikpapan dan Samarinda sampai lokasi klien. Kami mencari orang yang senang memahami masalah nyata sebelum menulis kode atau memasang perangkat.</p>
+<p class="ct-lead">Di Altora, software, perangkat, dan jaringan dikerjakan dalam satu tim, di Balikpapan, Samarinda, dan lokasi klien. Kami mencari orang yang suka memahami masalah sebelum menulis kode atau memasang perangkat.</p>
 <nav aria-label="Bagian halaman" class="pd-chips"><a href="#lowongan">Lowongan</a><a href="#bidang">Bidang</a><a href="#proses">Proses</a><a href="#kirim">Kirim profil</a></nav>
 </div></section>
 

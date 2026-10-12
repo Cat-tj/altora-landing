@@ -22,7 +22,7 @@ root = pathlib.Path(__file__).resolve().parent.parent
 SRC = root / 'content/blog'
 OUT = root / 'blog'
 SITE = 'https://altora.id'
-CSS_VER = '20261012m'
+CSS_VER = '20261012o'
 BULAN = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
 
 e = lambda t: html.escape(t, quote=True)
@@ -191,7 +191,7 @@ def build():
                   '/blog', extra=f'<script type="application/ld+json">{json.dumps(index_ld, ensure_ascii=False)}</script>')
              + '<main class="bl-page"><section class="bl-index-head"><div class="bl-wrap">'
              + '<p class="eyebrow eyebrow-purple">Artikel</p><h1>Panduan praktis untuk merapikan operasional dengan teknologi.</h1>'
-             + '<p class="bl-lead">Tulisan tim Altora tentang software, aplikasi, website, AI CCTV, dan IoT—ditulis untuk pemilik usaha dan pengelola organisasi, bukan untuk programmer.</p>'
+             + '<p class="bl-lead">Tulisan tim Altora tentang software, aplikasi, website, AI CCTV, dan IoT. Ditulis untuk pemilik usaha dan pengelola instansi.</p>'
              + '</div></section><section class="bl-list"><div class="bl-wrap"><div class="bl-grid">'
              + ''.join(card(p) for p in posts) + '</div></div></section></main>\n' + TAIL)
     (root / 'blog.html').write_text(index, encoding='utf-8')

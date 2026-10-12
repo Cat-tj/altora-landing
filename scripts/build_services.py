@@ -4,7 +4,7 @@ import html, json, pathlib
 from urllib.parse import quote
 
 root = pathlib.Path(__file__).resolve().parent.parent
-CSS_VER = '20261012m'
+CSS_VER = '20261012o'
 WA = 'https://wa.me/6285190911170?text='
 e = lambda t: html.escape(t, quote=True)
 
@@ -30,6 +30,7 @@ ICONS = {
     'key': '<circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l2.5 2.5M14.5 8.5 17 11"/>',
     'truck': '<path d="M2.5 6.5h11v9h-11zM13.5 9.5h4l3 3.2v2.8h-7z"/><circle cx="6.5" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/>',
     'route': '<circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h7a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h7"/>',
+    'cart_like': '<path d="M3 4h2.2l2.2 10.5h10.2L20 7.5H6.4"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/>',
     'fuel': '<path d="M5 20V5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v15M4 20h11M14 9h2a2 2 0 0 1 2 2v5a1.5 1.5 0 0 0 3 0V8l-3-3"/>',
     'tool': '<path d="M14 7a4 4 0 0 0-5 5l-5 5 3 3 5-5a4 4 0 0 0 5-5l-2.5 2.5-2-2z"/>',
 }
@@ -40,6 +41,8 @@ def icon(n):
 
 
 PF = {  # slug portofolio -> (judul, gambar)
+    'custom-kios-k-pengadaan-hardware': ('Kios-K & Pengadaan Hardware Kelurahan', '/assets/img/portfolio/kiosk-samarinda/kiosk-pampang.jpg'),
+    'unmul-infrastruktur-cctv-jaringan': ('Infrastruktur CCTV & Jaringan UNMUL', '/assets/img/portfolio/unmul-infrastructure/cable-cctv-installation.png'),
     'altora-teams': ('Altora Teams', '/assets/img/portfolio/altora-teams-kpi-analytics.jpg'),
     'hris-mobile-payroll': ('HRIS Mobile & Payroll', '/assets/img/portfolio/hris.jpg'),
     'sistem-antrian-poliklinik': ('Sistem Antrian Poliklinik', '/assets/img/portfolio/clinic.jpg'),
@@ -59,7 +62,7 @@ PF = {  # slug portofolio -> (judul, gambar)
 SERVICES = [
     dict(slug='software-custom', name='Software Custom', kicker='Aplikasi & sistem internal',
          h1='Aplikasi yang mengikuti cara kerja tim Anda.',
-         lead='Web app, aplikasi mobile, dan sistem internal untuk proses yang tidak muat di software jadi—dari approval, absensi, sampai laporan yang selama ini dikumpulkan manual.',
+         lead='Web app, aplikasi mobile, dan sistem internal untuk proses yang tidak cocok dengan software jadi, seperti approval, absensi, dan laporan yang masih dikumpulkan manual.',
          hero='/assets/img/produk/teams.webp', hero_pos='60% 55%', chips=['Approval berjenjang', 'Laporan otomatis', 'Akses per peran'],
          pains=[('Data tersebar di banyak file', 'Spreadsheet, chat, dan kertas membuat satu angka bisa punya beberapa versi.'),
                 ('Approval tertahan', 'Pengajuan menunggu tanda tangan karena orangnya sedang di lapangan atau di kota lain.'),
@@ -97,7 +100,7 @@ SERVICES = [
               ('Kapan hasil SEO terlihat?', 'SEO bergantung pada persaingan kata kunci dan konsistensi konten, sehingga hasilnya bertahap. Kami memantau dan melaporkan perkembangannya.')]),
     dict(slug='ai-cctv', name='AI CCTV & Safety', kicker='AI vision dari CCTV',
          h1='CCTV yang tidak hanya merekam, tapi ikut memperhatikan.',
-         lead='Analitik AI dari kamera yang sudah ada untuk kepatuhan APD, absensi wajah, pengawasan zona terlarang, dan penghitungan orang atau kendaraan—dengan alert yang bisa langsung ditindaklanjuti.',
+         lead='Analitik AI dari kamera yang sudah ada untuk kepatuhan APD, absensi wajah, pengawasan zona terlarang, dan penghitungan orang atau kendaraan, lengkap dengan notifikasi.',
          hero='/assets/img/produk/vision.webp', hero_pos='60% 60%', chips=['Deteksi APD', 'Absensi wajah', 'Alert zona'],
          pains=[('Rekaman baru dibuka setelah kejadian', 'CCTV hanya berguna untuk investigasi, bukan pencegahan.'),
                 ('Pengawasan manual melelahkan', 'Operator tidak mungkin memantau puluhan layar sepanjang hari.'),
@@ -113,10 +116,10 @@ SERVICES = [
          related=[('/produk#vision', 'Altora Vision'), ('/produk#attendance', 'Altora Smart Attendance'), ('/blog/absensi-face-recognition-cctv', 'Artikel: absensi wajah dari CCTV')],
          faq=[('Apakah CCTV lama bisa dipakai?', 'Sering kali bisa. Kami mengecek posisi, sudut, dan kualitas kamera; bila perlu, cukup menambah kamera di titik tertentu.'),
               ('Bagaimana dengan data wajah karyawan?', 'Data wajah termasuk data pribadi. Kami membantu menyiapkan persetujuan, pembatasan akses, dan kebijakan penyimpanan sesuai UU PDP.'),
-              ('Apakah harus selalu online?', 'Pemrosesan dapat dilakukan di server lokal atau cloud, menyesuaikan kondisi jaringan di lokasi.')]),
+              ('Apakah harus selalu online?', 'Pemrosesan bisa di server lokal atau cloud, tergantung kondisi jaringan di lokasi.')]),
     dict(slug='iot-command-center', name='IoT & Command Center', kicker='Sensor, perangkat & pusat kendali',
          h1='Kondisi lapangan terlihat dari satu layar.',
-         lead='Sensor, smartlock, kios, dan perangkat lapangan yang terhubung ke dashboard dan command center—sehingga tim tahu apa yang terjadi tanpa harus berada di lokasi.',
+         lead='Sensor, smartlock, kios, dan perangkat lapangan yang terhubung ke dashboard, jadi tim tahu kondisi lokasi tanpa harus datang.',
          hero='/assets/img/produk/command.webp', hero_pos='55% 60%', chips=['Sensor real-time', 'Smart access', 'Alert otomatis'],
          pains=[('Masalah baru diketahui terlambat', 'Suhu, asap, atau gangguan perangkat baru ketahuan setelah kerugian terjadi.'),
                 ('Lokasi tersebar & jauh', 'Petugas harus datang hanya untuk mengecek kondisi.'),
@@ -135,7 +138,7 @@ SERVICES = [
               ('Siapa yang merawat perangkat?', 'Altora dapat menangani pemeliharaan berkala melalui layanan pengadaan, instalasi & maintenance.')]),
     dict(slug='fleet-management-service', name='Fleet Management', kicker='Monitoring armada',
          h1='Tahu posisi, kondisi, dan perilaku armada setiap saat.',
-         lead='GPS tracker, kamera kendaraan, dan dashboard armada untuk logistik, tambang, konstruksi, dan layanan lapangan—dari pelacakan sampai laporan BBM dan perilaku pengemudi.',
+         lead='GPS tracker, kamera kendaraan, dan dashboard armada untuk logistik, tambang, dan konstruksi. Mulai dari pelacakan sampai laporan BBM dan perilaku pengemudi.',
          hero='/assets/img/produk/fms.webp', hero_pos='55% 60%', chips=['Live tracking', 'Geofence', 'Laporan BBM'],
          pains=[('Posisi armada tidak pasti', 'Dispatcher harus menelepon pengemudi satu per satu.'),
                 ('BBM & jam kerja sulit dikontrol', 'Penyimpangan rute dan pemakaian BBM baru ketahuan di akhir bulan.'),
@@ -149,9 +152,34 @@ SERVICES = [
          steps=['Inventaris armada & kebutuhan', 'Pemilihan perangkat', 'Instalasi di kendaraan', 'Konfigurasi dashboard & alert', 'Pelatihan dispatcher'],
          proof=['fleet-management', 'optimasi-rute-armada'],
          related=[('/produk#fms', 'Altora FMS'), ('/produk#telt-fmc650', 'GPS tracker Teltonika'), ('/services/pengadaan-instalasi-maintenance', 'Pengadaan, instalasi & maintenance')],
-         faq=[('Perangkat apa yang dipakai?', 'Kami memakai GPS tracker Teltonika yang dipilih sesuai jenis kendaraan—dari mobil operasional sampai truk dan alat berat.'),
+         faq=[('Perangkat apa yang dipakai?', 'Kami memakai GPS tracker Teltonika yang dipilih sesuai jenis kendaraan, dari mobil operasional sampai truk dan alat berat.'),
               ('Bisa membaca data BBM?', 'Pada kendaraan yang mendukung, data BBM dan mesin dapat dibaca melalui OBD atau CAN; kami cek saat inventaris armada.'),
               ('Apakah bisa untuk alat berat tambang?', 'Bisa. Ada perangkat untuk kendaraan berat dan alat khusus, termasuk pembacaan data J1939.')]),
+    dict(slug='pengadaan-instalasi-maintenance', name='Pengadaan, Instalasi & Maintenance', kicker='Perangkat keras',
+         h1='Perangkat dipilihkan, dipasang, dan dirawat oleh satu tim.',
+         lead='CCTV, GPS tracker, jaringan, komputer, kios layanan, display, rak server, dan fiber optik. Dari sumber resmi, dipasang tim kami di Balikpapan dan Samarinda, lalu dirawat secara berkala.',
+         hero='/assets/img/portfolio/hardware-field/kiosk-pampang-install.jpg', hero_pos='50% 40%', chips=['Garansi resmi', 'Dipasang tim lokal', 'Perawatan berkala'],
+         scope=[('/produk#hw-cctv', 'CCTV'), ('/produk#telt-fmc920', 'GPS tracker'), ('/produk#hw-rack', 'Rak server'), ('/produk#hde-ifp', 'Display & ruang rapat'), ('/produk#fas-otdr', 'Fiber optik'), ('/produk#hde-aio-il24', 'Komputer')],
+         pains=[('Beli sendiri, pasang sendiri', 'Perangkat sampai, tapi tidak ada yang memasang dan mengatur sampai siap pakai.'),
+                ('Vendor berbeda-beda', 'Penjual, teknisi, dan pembuat aplikasi berbeda orang, jadi saat rusak saling lempar tanggung jawab.'),
+                ('Rusak tanpa ketahuan', 'Kamera mati atau rekaman penuh baru ketahuan saat dibutuhkan.')],
+         dos=[('cart_like', 'Pemilihan & pengadaan', 'Kami sarankan tipe yang sesuai lokasi dan anggaran, lengkap dengan penawaran dan faktur.'),
+              ('pin', 'Survei lokasi', 'Cek titik pasang, jalur kabel, listrik, dan jaringan sebelum pemasangan.'),
+              ('tool', 'Instalasi & konfigurasi', 'Tarik kabel, pasang perangkat, atur NVR, jaringan, dan aplikasi.'),
+              ('shield', 'Uji & serah terima', 'Setiap perangkat diuji bersama tim Anda, lalu dibuatkan berita acara.'),
+              ('users', 'Pelatihan pengguna', 'Tim Anda dilatih sampai bisa memakai sendiri.'),
+              ('bell', 'Perawatan berkala', 'Pengecekan rutin, update firmware, dan bantuan klaim garansi.')],
+         steps=['Konsultasi', 'Survei lokasi', 'Penawaran', 'Instalasi', 'Serah terima', 'Perawatan'],
+         gallery=[('kiosk-air-putih.jpg', 'Persiapan kios layanan', 'Kios dibongkar dan disiapkan di lokasi.', False),
+                  ('kiosk-baqa-service.jpg', 'Pengecekan kios', 'Uji layar sentuh, keyboard, dan printer.', False),
+                  ('aio-baqa.jpg', 'Komputer kantor', 'Penataan PC dan perangkat pendukung.', False),
+                  ('serah-terima-raya-makmur.jpg', 'Serah terima', 'Penyerahan perangkat di Kelurahan Rawa Makmur.', False),
+                  ('tablet-sidodamai.jpg', 'Penyerahan tablet', 'Tablet untuk staf Kelurahan Sidodamai.', False)],
+         proof=['custom-kios-k-pengadaan-hardware', 'instalasi-cctv-ai-analytics', 'unmul-infrastruktur-cctv-jaringan'],
+         related=[('/produk#hardware', 'Katalog perangkat'), ('/services/ai-cctv', 'AI CCTV & Safety'), ('/services/fleet-management-service', 'Fleet Management')],
+         faq=[('Apakah garansinya resmi?', 'Ya. Perangkat berasal dari principal partner Altora dan memakai garansi resmi. Kami bantu proses klaimnya.'),
+              ('Bisa untuk pengadaan instansi?', 'Bisa. Kami siapkan penawaran, faktur, dan berita acara serah terima. Produk ber-TKDN tersedia sesuai ketersediaan dari principal.'),
+              ('Melayani di luar Balikpapan dan Samarinda?', 'Bisa, tergantung lokasi dan cakupan pekerjaan. Hubungi kami untuk dicek.')]),
 ]
 
 
@@ -163,6 +191,13 @@ def build(sv):
     steps = ''.join(f'<li><b>{e(s)}</b></li>' for s in sv['steps'])
     proof = ''.join(f'<a class="svd-proof" href="/portfolio/{p}"><span class="svd-proof-img"><img alt="" loading="lazy" src="{PF[p][1]}"/></span><b>{e(PF[p][0])}</b><small>Lihat dokumentasi</small></a>' for p in sv['proof'])
     related = ''.join(f'<a href="{u}">{e(t)}</a>' for u, t in sv['related'])
+    scope = ''
+    if sv.get('scope'):
+        scope = '<nav aria-label="Cakupan" class="svd-scope">' + ''.join(f'<a href="{u}">{e(t)}</a>' for u, t in sv['scope']) + '</nav>'
+    gallery = ''
+    if sv.get('gallery'):
+        figs = ''.join(f'<figure class="svd-photo{" svd-photo-wide" if w else ""}"><img alt="{e(t)}" loading="lazy" src="/assets/img/portfolio/hardware-field/{f}"/><figcaption><b>{e(t)}</b><span>{e(c)}</span></figcaption></figure>' for f, t, c, w in sv['gallery'])
+        gallery = f'<section class="svd-sec" id="dokumentasi"><div class="ct-wrap"><div class="pd-block-head"><h2>Dokumentasi pekerjaan</h2><p>Foto dari proyek pengadaan dan pemasangan kami di kantor kelurahan Samarinda.</p></div><div class="svd-gallery">{figs}</div></div></section>'
     faq = ''.join(f'<details><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q, a in sv['faq'])
     msg = f'Halo Altora, saya ingin konsultasi layanan {sv["name"]}.'
     ld = {'@context': 'https://schema.org', '@graph': [
@@ -176,17 +211,18 @@ def build(sv):
 <main class="ct-page svd-page">
 <section class="svd-hero"><div class="ct-wrap svd-hero-grid">
 <div class="svd-hero-copy"><nav aria-label="Breadcrumb" class="bl-crumb"><a href="/services">Layanan</a><span>/</span><span>{e(sv["name"])}</span></nav>
-<p class="eyebrow eyebrow-purple">{e(sv["kicker"])}</p><h1>{e(sv["h1"])}</h1><p class="ct-lead">{e(sv["lead"])}</p>
-<div class="svd-actions"><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Konsultasi {e(sv["name"])}</a><a class="svd-link" href="#bukti">Lihat contoh pekerjaan</a></div></div>
+<p class="eyebrow eyebrow-purple">{e(sv["kicker"])}</p><h1>{e(sv["h1"])}</h1><p class="ct-lead">{e(sv["lead"])}</p>{scope}
+<div class="svd-actions"><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Konsultasi gratis</a><a class="svd-link" href="#bukti">Lihat proyek terkait</a></div></div>
 <figure class="svd-hero-pic"><img alt="{e(sv["name"])}" src="{sv["hero"]}" style="object-position:{sv["hero_pos"]}"/>{chips}</figure>
 </div></section>
-<section class="svd-sec svd-pains"><div class="ct-wrap svd-pains-grid"><div class="pd-block-head"><h2>Biasanya dimulai dari sini</h2><p>Kalau salah satu terasa familiar, kita bisa mulai berdiskusi dari situ.</p></div><ul>{pains}</ul></div></section>
+<section class="svd-sec svd-pains"><div class="ct-wrap svd-pains-grid"><div class="pd-block-head"><h2>Masalah yang sering kami temui</h2></div><ul>{pains}</ul></div></section>
 <section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Yang kami kerjakan</h2></div><div class="svd-dos">{dos}</div></div></section>
 <section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Alur kerja</h2></div><ol class="svd-steps">{steps}</ol></div></section>
-<section class="svd-sec" id="bukti"><div class="ct-wrap"><div class="pd-block-head"><h2>Bukti di lapangan</h2><p>Dokumentasi implementasi Altora yang berkaitan dengan layanan ini.</p></div><div class="svd-proofs">{proof}</div>
+{gallery}
+<section class="svd-sec" id="bukti"><div class="ct-wrap"><div class="pd-block-head"><h2>Proyek terkait</h2></div><div class="svd-proofs">{proof}</div>
 <div class="svd-related"><b>Terkait</b>{related}</div></div></section>
-<section class="svd-sec"><div class="ct-wrap svd-faq"><div class="pd-block-head"><h2>Pertanyaan yang sering muncul</h2></div><div>{faq}</div></div></section>
-<section class="pd-cta"><div class="ct-wrap pd-cta-inner"><div><h2>Ceritakan kebutuhan {e(sv["name"])} Anda</h2><p>Kirim gambaran singkatnya. Kami bantu memetakan pendekatan yang paling proporsional.</p></div><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Chat via WhatsApp</a></div></section>
+<section class="svd-sec"><div class="ct-wrap svd-faq"><div class="pd-block-head"><h2>Pertanyaan umum</h2></div><div>{faq}</div></div></section>
+<section class="pd-cta"><div class="ct-wrap pd-cta-inner"><div><h2>Siap mulai? Hubungi kami.</h2><p>Ceritakan kebutuhan {e(sv["name"])} Anda. Diskusi awal gratis.</p></div><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Chat via WhatsApp</a></div></section>
 </main>
 <footer></footer>
 <script defer="" src="/assets/js/site-shell.js?v=20261010e"></script></body></html>

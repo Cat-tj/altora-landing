@@ -1,6 +1,6 @@
 ---
 title: Cara Memilih Software House di Samarinda dan Balikpapan: 8 Pertanyaan Sebelum Tanda Tangan
-description: Checklist praktis memilih software house di Samarinda dan Balikpapan—dari cara mereka membaca masalah, kepemilikan source code, sampai dukungan setelah sistem berjalan.
+description: Checklist praktis memilih software house di Samarinda dan Balikpapan: cara mereka memahami masalah, kepemilikan source code, dan dukungan setelah sistem berjalan.
 date: 2026-10-11
 category: Panduan memilih vendor
 image: /assets/img/produk/erp.webp

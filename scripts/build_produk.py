@@ -20,10 +20,10 @@ ICONS = {
 }
 
 GROUPS = [
-    ('sdm', 'SDM & kehadiran', 'Kelola tim, jadwal, dan absensi tanpa rekap manual.'),
-    ('aman', 'Keamanan & akses', 'Pantau area dan kendalikan akses dari infrastruktur yang sudah ada.'),
-    ('lapangan', 'Armada, lahan & lapangan', 'Lihat kondisi kendaraan, lahan, sensor, dan lokasi dalam satu tampilan.'),
-    ('segera', 'Segera hadir', 'Sedang disiapkan untuk retail, F&B, dan operasional multi-cabang.'),
+    ('sdm', 'SDM & absensi', 'Absensi, jadwal, dan gaji tanpa rekap manual.'),
+    ('aman', 'Keamanan & akses', 'CCTV pintar dan akses pintu digital.'),
+    ('lapangan', 'Armada, lahan & sensor', 'Pantau kendaraan, lahan, dan sensor dari satu layar.'),
+    ('segera', 'Segera hadir', 'Untuk toko, kafe, dan usaha dengan banyak cabang.'),
 ]
 
 PRODUCTS = [
@@ -32,7 +32,7 @@ PRODUCTS = [
          feats=['Absensi GPS & validasi', 'Shift & schedule builder', 'Cuti, izin & reimbursement', 'Payroll & portal karyawan'],
          cta='Coba Altora Teams', proof='/portfolio/altora-teams'),
     dict(id='attendance', group='sdm', icon='face', tone='pink', name='Altora Smart Attendance', tagline='Face recognition dari CCTV',
-         desc='Absensi otomatis berbasis AI yang mengenali wajah dari kamera CCTV—tanpa antre di mesin absensi atau menempelkan kartu.',
+         desc='Absensi otomatis berbasis AI yang mengenali wajah dari kamera CCTV. Tanpa antre di mesin absensi atau tempel kartu.',
          feats=['Face recognition dari CCTV', 'Check-in otomatis & timestamp', 'Integrasi ke HRIS & akses gedung', 'Audit log kehadiran'],
          cta='Konsultasi Smart Attendance', proof='/portfolio/smart-attendance'),
     dict(id='vision', group='aman', icon='eye', tone='green', name='Altora Vision', tagline='AI CCTV & Safety Analytics',
@@ -110,10 +110,10 @@ HW_CATS = [('cctv', 'CCTV & tenaga surya'), ('gps', 'GPS tracker & telematika'),
            ('rack', 'Rak & data center'), ('fiber', 'Fiber optik')]
 HW_ITEMS = [
     dict(id='vigi-solar', cat='cctv', brand='VIGI', logo='vigi-v2', img=None, name='VIGI Solar Power System',
-         desc='Sistem tenaga surya untuk CCTV dan perangkat jaringan di lokasi tanpa listrik atau kabel—proyek, kebun, tambak, dan area terpencil.',
+         desc='Sistem tenaga surya untuk CCTV dan perangkat jaringan di lokasi tanpa listrik atau kabel, seperti proyek, kebun, tambak, dan area terpencil.',
          specs=[('Model', 'SP6020, SP6030, SP9030, SP18090'), ('Panel surya', '60 W / 90 W, hingga 180 W'), ('Baterai', 'Lithium 20,8–93,6 Ah'), ('Proteksi', 'IP66'), ('Pemantauan', 'Aplikasi VIGI & VIGI Cloud VMS')]),
     dict(id='telt-ftc880', cat='gps', brand='Teltonika', logo='teltonika-v2', img='telt-ftc880', name='FTC880 / FTM880',
-         desc='Tracker yang dipasang langsung di aki kendaraan—cepat dipasang untuk pelacakan dasar dan armada pengiriman.',
+         desc='Tracker yang dipasang langsung di aki kendaraan. Cepat dipasang untuk pelacakan dasar dan armada pengiriman.',
          specs=[('Jaringan', '4G'), ('Pemasangan', 'Kabel U-type ke aki, ± 5 menit'), ('Ketahanan', 'Casing IP69K (FTM880)'), ('GNSS', 'Hingga 41 satelit terlihat')]),
     dict(id='telt-fmc920', cat='gps', brand='Teltonika', logo='teltonika-v2', img='telt-fmc920', name='FMC920',
          desc='Tracker ringkas paling populer untuk pelacakan armada mobil dan motor listrik.',
@@ -158,7 +158,7 @@ HW_ITEMS = [
          desc='Layar LED luar ruang untuk media informasi dan promosi di area publik.',
          specs=[('Pixel pitch', '4,0–10,0 mm'), ('Kecerahan', '5.000 nits'), ('Refresh rate', '960–1.920 Hz'), ('Proteksi', 'IP65 / IP54'), ('Kabinet', '960 × 960 mm')]),
     dict(id='hde-ifp', cat='display', brand='HDe', logo='hde-v2', img='hde-ifp', name='Interactive Flat Panel',
-         desc='Layar sentuh interaktif untuk presentasi, rapat, dan kelas—termasuk standing bracket.',
+         desc='Layar sentuh interaktif untuk presentasi, rapat, dan kelas. Termasuk standing bracket.',
          specs=[('Ukuran', '65" / 75" / 86" / 98" / 110"'), ('Resolusi', '4K UHD 3840×2160'), ('Sentuh', '20–40 titik'), ('Kamera & mic', 'Hingga 48 MP & 8-array mic'), ('Sistem', 'Android 11–13, opsi OPS PC Core i7')]),
     dict(id='hde-mrs', cat='display', brand='HDe', logo='hde-v2', img='hde-meeting-recording', name='Meeting Recording System',
          desc='Paket smart meeting room dengan kamera auto-tracking dan perekaman rapat terintegrasi.',
@@ -237,16 +237,16 @@ chips = ('<a href="#software">Software</a>' + ''.join(f'<a class="pd-chip-sub" h
          + '<a href="#hardware">Hardware</a>')
 hw_filters = '<button aria-pressed="true" data-filter="all" type="button">Semua</button>' + ''.join(f'<button aria-pressed="false" data-filter="{c}" type="button">{e(t)}</button>' for c, t in HW_CATS)
 hardware_html = ('<section class="pd-block" id="hardware"><div class="pd-wrap"><div class="pd-block-head"><p class="eyebrow eyebrow-purple">Hardware</p>'
-                 '<h2>Perangkat dari principal resmi, dipasang dan dirawat tim Altora.</h2>'
-                 '<p>Pilihan perangkat dari partner principal Altora, termasuk GPS tracker Teltonika yang terhubung dengan Altora FMS. Spesifikasi diringkas dari katalog resmi; kami bantu memilih tipe yang sesuai, mengadakan, memasang, dan merawatnya.</p></div>'
+                 '<h2>Perangkat dari principal resmi</h2>'
+                 '<p>Kami bantu memilih tipe yang pas, lalu mengadakan, memasang, dan merawatnya. Spesifikasi diringkas dari katalog resmi principal.</p></div>'
                  f'<div aria-label="Filter kategori hardware" class="hwi-filter" role="group">{hw_filters}</div>'
                  f'<div class="hwi-grid">{"".join(hw_item(h) for h in HW_ITEMS)}</div>'
                  '<div class="hwi-more"><div class="hwi-more-logos"><img alt="TP-Link" src="/assets/sentra/partners/tplink-v2.png"/><img alt="Lenovo" src="/assets/sentra/partners/lenovo-v2.png"/><img alt="VIGI" src="/assets/sentra/partners/vigi-v2.png"/></div>'
-                 '<div><b>Juga tersedia: kamera VIGI, jaringan TP-Link, perangkat Lenovo.</b><p>Switch, access point, router industri 4G/5G, kamera IP & NVR, laptop dan PC—tipe disesuaikan dengan kebutuhan proyek.</p></div>'
+                 '<div><b>Juga tersedia: kamera VIGI, jaringan TP-Link, perangkat Lenovo.</b><p>Switch, access point, router 4G/5G, kamera IP, NVR, laptop, dan PC. Tipe kami sesuaikan dengan proyek Anda.</p></div>'
                  f'<a class="btn btn-purple" href="{WA}{quote("Halo Altora, saya ingin konsultasi perangkat CCTV/jaringan/komputer untuk proyek saya.")}" rel="noopener" target="_blank">Konsultasi perangkat →</a></div>'
                  '</div></section>')
 software_head = ('<section class="pd-block pd-block-sw" id="software"><div class="pd-wrap"><div class="pd-block-head"><p class="eyebrow eyebrow-purple">Software</p>'
-                 '<h2>Aplikasi Altora yang siap dipakai.</h2><p>Bisa dipakai apa adanya atau disesuaikan dengan alur kerja Anda.</p></div></div></section>')
+                 '<h2>Aplikasi siap pakai</h2><p>Bisa langsung dipakai atau disesuaikan.</p></div></div></section>')
 ready = sum(1 for p in PRODUCTS if not p.get('soon'))
 
 ld = {'@context': 'https://schema.org', '@type': 'ItemList', 'name': 'Produk Altora Indonesia',
@@ -261,22 +261,22 @@ desc = ('Software siap pakai Altora (HRIS, AI CCTV, smart access, fleet manageme
         'CCTV VIGI, GPS tracker Teltonika, jaringan TP-Link, display HDe, rak HaganeRack, fiber optik Fasser.')
 
 page = f'''<!DOCTYPE html>
-<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(title)}</title><meta content="{e(desc)}" name="description"/><link href="https://altora.id/produk" rel="canonical"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="{e(title)}" property="og:title"/><meta content="{e(desc)}" property="og:description"/><meta content="https://altora.id/produk" property="og:url"/><meta content="https://altora.id/assets/img/produk/vision.webp" property="og:image"/><link href="/assets/img/altora-logo-icon-v2.svg" rel="icon"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v=20261012m"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head><body class="company-page"><header class="company-nav"><a class="project-brand" href="/"><img alt="Altora" src="/assets/img/altora-logo-icon-v2.svg"/><span>Altora</span></a></header>
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(title)}</title><meta content="{e(desc)}" name="description"/><link href="https://altora.id/produk" rel="canonical"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="{e(title)}" property="og:title"/><meta content="{e(desc)}" property="og:description"/><meta content="https://altora.id/produk" property="og:url"/><meta content="https://altora.id/assets/img/produk/vision.webp" property="og:image"/><link href="/assets/img/altora-logo-icon-v2.svg" rel="icon"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v=20261012o"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head><body class="company-page"><header class="company-nav"><a class="project-brand" href="/"><img alt="Altora" src="/assets/img/altora-logo-icon-v2.svg"/><span>Altora</span></a></header>
 <main class="pd-page">
 <section class="pd-hero"><div class="pd-wrap">
 <p class="eyebrow eyebrow-purple">Produk Altora</p>
-<h1>Software dan hardware untuk operasional yang perlu berjalan hari ini.</h1>
-<p class="pd-lead">{ready} aplikasi Altora siap pakai—dari HRIS dan absensi wajah sampai AI CCTV dan fleet management—ditambah perangkat dari principal resmi seperti VIGI, Teltonika, HDe, dan HaganeRack.</p>
-<p class="pd-note">Foto produk adalah ilustrasi penggunaan aplikasi Altora.</p>
+<h1>Aplikasi dan perangkat untuk bisnis dan instansi.</h1>
+<p class="pd-lead">{ready} aplikasi siap pakai, mulai dari absensi dan CCTV pintar sampai pemantauan armada. Ditambah perangkat dari principal resmi seperti VIGI, Teltonika, HDe, dan HaganeRack.</p>
+<p class="pd-note">Foto produk adalah ilustrasi.</p>
 <nav aria-label="Kategori produk" class="pd-chips">{chips}</nav>
 </div></section>
 {software_head}{"".join(sections)}
 {hardware_html}
 <section class="pd-compare"><div class="pd-wrap pd-compare-grid">
-<div class="pd-compare-card"><p class="pd-kicker">Produk siap pakai</p><h3>Cocok jika kebutuhan Anda umum dan perlu cepat jalan.</h3><ul><li>Implementasi lebih cepat</li><li>Fitur inti sudah teruji di lapangan</li><li>Bisa dihubungkan ke perangkat yang sudah ada</li></ul></div>
-<div class="pd-compare-card pd-compare-alt"><p class="pd-kicker">Software custom</p><h3>Cocok jika alur kerja Anda tidak muat di template.</h3><ul><li>Dibangun dari proses kerja nyata</li><li>Integrasi dengan sistem dan data lama</li><li>Bisa dimulai dari produk lalu dikembangkan</li></ul><a class="pd-link" href="/services/software-custom">Pelajari software custom</a></div>
+<div class="pd-compare-card"><p class="pd-kicker">Produk siap pakai</p><h3>Cocok kalau kebutuhan Anda umum dan ingin cepat jalan.</h3><ul><li>Lebih cepat dipasang</li><li>Fitur utama sudah dipakai klien lain</li><li>Bisa dihubungkan ke perangkat yang ada</li></ul></div>
+<div class="pd-compare-card pd-compare-alt"><p class="pd-kicker">Software custom</p><h3>Cocok kalau proses Anda berbeda dari kebanyakan.</h3><ul><li>Dibuat mengikuti proses Anda</li><li>Bisa terhubung ke sistem lama</li><li>Bisa mulai dari produk, lalu dikembangkan</li></ul><a class="pd-link" href="/services/software-custom">Pelajari software custom</a></div>
 </div></section>
-<section class="pd-cta"><div class="pd-wrap pd-cta-inner"><div><h2>Belum yakin produk mana yang pas?</h2><p>Ceritakan kondisinya. Kami bantu memilih produk, kombinasi, atau pendekatan custom yang paling proporsional.</p></div><a class="btn btn-purple" href="/contact">Konsultasi kebutuhan →</a></div></section>
+<section class="pd-cta"><div class="pd-wrap pd-cta-inner"><div><h2>Belum yakin produk mana yang pas?</h2><p>Ceritakan kebutuhan Anda, kami bantu pilihkan.</p></div><a class="btn btn-purple" href="/contact">Konsultasi gratis</a></div></section>
 </main>
 <footer></footer>
 <script defer="" src="/assets/js/site-shell.js?v=20261010e"></script><script defer="" src="/assets/js/hw-filter.js?v=20261011"></script></body></html>
@@ -296,8 +296,8 @@ cards = ''.join(home_card(p) for p in PRODUCTS)
 dup = cards.replace('<a class="hp-card"', '<a aria-hidden="true" class="hp-card" tabindex="-1"')
 home_grid = ('<!-- produk-ringkas:start --><div aria-label="Produk Altora" class="hp-marquee">'
              f'<div class="hp-marquee-track">{cards}{dup}</div></div>'
-             '<div class="hp-actions"><a class="btn btn-purple" href="/produk">Lihat software &amp; hardware</a>'
-             '<span>Termasuk perangkat dari VIGI, Teltonika, HDe, HaganeRack, dan Fasser.</span></div><!-- produk-ringkas:end -->')
+             '<div class="hp-actions"><a class="btn btn-purple" href="/produk">Produk kami</a>'
+             '<span>Termasuk perangkat VIGI, Teltonika, HDe, HaganeRack, dan Fasser.</span></div><!-- produk-ringkas:end -->')
 idx = root / 'index.html'
 s = idx.read_text(encoding='utf-8')
 s = re.sub(r'<!-- produk-ringkas:start -->.*?<!-- produk-ringkas:end -->', lambda _: home_grid, s, count=1, flags=re.S)

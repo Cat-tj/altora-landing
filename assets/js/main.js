@@ -38,19 +38,19 @@
     { icon: 'i-layers', tone: 'purple', q: 'Produk Altora mana yang sudah tersedia?',
       a: 'Altora Teams untuk HRIS & people operations, Altora Vision untuk AI CCTV & safety analytics, serta Altora Pass untuk smart access saat ini tersedia untuk didiskusikan. Altora POS dan Altora ERP masih berstatus Coming Soon.' },
     { icon: 'i-puzzle', tone: 'blue', q: 'Jika kebutuhan kami tidak cocok dengan produk yang ada, apakah Altora bisa membangun sistem custom?',
-      a: 'Bisa. Altora juga bekerja sebagai software house untuk aplikasi web/mobile, sistem internal, website, SEO, integrasi API, dashboard, automation, dan solusi sesuai alur kerja organisasi.' },
+      a: 'Bisa. Kami juga membuat aplikasi web dan HP, sistem internal, website, dashboard, dan integrasi dengan sistem lain sesuai kebutuhan Anda.' },
     { icon: 'i-monitor', tone: 'cyan', q: 'Apakah Altora hanya membuat software?',
-      a: 'Tidak. Kami juga menangani pengadaan dan R&D hardware yang terhubung dengan sistem: server, komputer, CCTV, command center, jaringan, smart access, dan perangkat sensor.' },
+      a: 'Tidak. Kami juga mengadakan dan memasang perangkat: server, komputer, CCTV, jaringan, smartlock, sensor, dan GPS tracker.' },
     { icon: 'i-shield', tone: 'orange', q: 'Apakah Altora dapat menangani sensor keselamatan dan keamanan?',
-      a: 'Ya. Kebutuhan seperti smoke & fire sensor, monitoring kondisi lingkungan, CCTV analytics, kontrol akses, dan alert operasional dapat dirancang sebagai satu sistem terintegrasi.' },
+      a: 'Bisa. Sensor asap dan api, sensor suhu, CCTV pintar, dan akses pintu bisa dipantau dari satu tampilan, lengkap dengan notifikasi.' },
     { icon: 'i-trend', tone: 'green', q: 'Apakah tersedia fleet management system?',
-      a: 'Tersedia sebagai solusi implementasi. Kami dapat merancang fleet management berbasis GPS, telematics, pemantauan kendaraan, serta alert dan dashboard operasional sesuai kebutuhan.' },
+      a: 'Ada. Altora FMS memakai GPS tracker Teltonika untuk memantau posisi, rute, BBM, dan perilaku pengemudi.' },
     { icon: 'i-sync', tone: 'pink', q: 'Bisakah sistem Altora terhubung dengan aplikasi atau perangkat yang sudah kami gunakan?',
-      a: 'Bisa dikaji. Kami memetakan sistem, perangkat, dan sumber data yang sudah ada untuk menentukan integrasi API, data pipeline, akses pengguna, atau dashboard yang relevan.' },
+      a: 'Umumnya bisa. Kami cek dulu aplikasi dan perangkat yang Anda pakai, lalu tentukan cara menghubungkannya.' },
     { icon: 'i-clipboard', tone: 'navy', q: 'Bagaimana proses memulai proyek?',
-      a: 'Mulai dari diskusi kebutuhan dan kondisi operasional. Setelah itu kami menentukan jalur yang paling sesuai—produk Altora yang tersedia atau proyek custom—lalu menyusun ruang lingkup implementasi.' },
+      a: 'Hubungi kami lewat WhatsApp atau form konsultasi. Setelah memahami kebutuhan Anda, kami sarankan produk jadi atau aplikasi custom, lalu kirim penawaran.' },
     { icon: 'i-headset', tone: 'teal', q: 'Bagaimana biaya dan pendampingan implementasi ditentukan?',
-      a: 'Biaya dan bentuk pendampingan ditentukan setelah kebutuhan, perangkat yang terlibat, integrasi, serta ruang lingkup implementasi dipahami. Hubungi tim Altora untuk konsultasi awal.' }
+      a: 'Biaya tergantung fitur, jumlah perangkat, dan integrasi yang dibutuhkan. Konsultasi awal gratis, setelah itu kami kirim penawaran.' }
   ];
 
   /* ── render: industries ──────────────────────────── */
