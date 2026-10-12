@@ -35,22 +35,22 @@
   ];
 
   var FAQS = [
-    { icon: 'i-shield', tone: 'purple', q: 'Apakah CCTV yang sudah ada bisa dipakai untuk AI?',
-      a: 'Sering kali bisa. Yang menentukan adalah posisi, sudut, dan kualitas gambar kamera. Kami cek saat survei; bila perlu, cukup menambah kamera di titik tertentu. Panduan lengkapnya ada di artikel absensi wajah dari CCTV.' },
-    { icon: 'i-puzzle', tone: 'blue', q: 'Kapan cukup pakai aplikasi jadi, kapan perlu dibuat khusus?',
-      a: 'Kalau prosesnya umum seperti absensi, kasir, atau pelacakan armada, aplikasi jadi biasanya cukup dan lebih cepat. Kalau alurnya khusus atau harus tersambung ke sistem lama, aplikasi custom lebih tepat. Banyak klien mulai dari aplikasi jadi lalu menambah bagian khusus.' },
-    { icon: 'i-sync', tone: 'cyan', q: 'Apakah sistem harus selalu terhubung ke internet?',
-      a: 'Tidak selalu. Beberapa sistem bisa berjalan di server lokal, dan perangkat seperti GPS tracker atau sensor menyimpan data sementara lalu mengirimnya saat sinyal kembali. Ini kami sesuaikan dengan kondisi lokasi Anda.' },
-    { icon: 'i-trend', tone: 'green', q: 'Berapa lama membuat aplikasi?',
-      a: 'Tergantung jumlah fitur, peran pengguna, dan integrasi. Aplikasi jadi bisa dipakai lebih cepat karena tinggal disesuaikan. Aplikasi custom kami kerjakan bertahap supaya Anda bisa mencoba hasilnya di setiap tahap.' },
-    { icon: 'i-headset', tone: 'teal', q: 'Bagaimana biaya ditentukan?',
-      a: 'Biaya tergantung fitur, jumlah perangkat, dan integrasi yang dibutuhkan. Konsultasi awal gratis. Setelah kebutuhan jelas, kami kirim penawaran tertulis. Faktor-faktornya kami jelaskan di artikel biaya membuat aplikasi.' },
-    { icon: 'i-monitor', tone: 'orange', q: 'Siapa yang merawat sistem dan perangkat setelah dipasang?',
-      a: 'Kami. Tim kami di Balikpapan dan Samarinda menangani perawatan berkala, update, dan perbaikan sesuai kontrak, termasuk membantu klaim garansi perangkat.' },
-    { icon: 'i-clipboard', tone: 'navy', q: 'Data kami disimpan di mana dan siapa pemiliknya?',
-      a: 'Lokasi penyimpanan (server Anda atau cloud) dan kepemilikan data dibahas dan ditulis di kontrak sejak awal. Untuk data pribadi seperti wajah karyawan, kami bantu siapkan persetujuan dan pembatasan aksesnya.' },
-    { icon: 'i-layers', tone: 'pink', q: 'Bagaimana cara memulai?',
-      a: 'Hubungi kami lewat WhatsApp atau form konsultasi dan ceritakan masalahnya. Kami pelajari, sarankan solusi, lalu kirim penawaran. Diskusi awal gratis dan tanpa kewajiban lanjut.' }
+    { icon: 'i-layers', tone: 'purple', q: 'Produk Altora mana yang sudah tersedia?',
+      a: 'Altora Teams untuk HRIS & people operations, Altora Vision untuk AI CCTV & safety analytics, serta Altora Pass untuk smart access saat ini tersedia untuk didiskusikan. Altora POS dan Altora ERP masih berstatus Coming Soon.' },
+    { icon: 'i-puzzle', tone: 'blue', q: 'Jika kebutuhan kami tidak cocok dengan produk yang ada, apakah Altora bisa membangun sistem custom?',
+      a: 'Bisa. Kami juga membuat aplikasi web dan HP, sistem internal, website, dashboard, dan integrasi dengan sistem lain sesuai kebutuhan Anda.' },
+    { icon: 'i-monitor', tone: 'cyan', q: 'Apakah Altora hanya membuat software?',
+      a: 'Tidak. Kami juga mengadakan dan memasang perangkat: server, komputer, CCTV, jaringan, smartlock, sensor, dan GPS tracker.' },
+    { icon: 'i-shield', tone: 'orange', q: 'Apakah Altora dapat menangani sensor keselamatan dan keamanan?',
+      a: 'Bisa. Sensor asap dan api, sensor suhu, CCTV pintar, dan akses pintu bisa dipantau dari satu tampilan, lengkap dengan notifikasi.' },
+    { icon: 'i-trend', tone: 'green', q: 'Apakah tersedia fleet management system?',
+      a: 'Ada. Altora FMS memakai GPS tracker Teltonika untuk memantau posisi, rute, BBM, dan perilaku pengemudi.' },
+    { icon: 'i-sync', tone: 'pink', q: 'Bisakah sistem Altora terhubung dengan aplikasi atau perangkat yang sudah kami gunakan?',
+      a: 'Umumnya bisa. Kami cek dulu aplikasi dan perangkat yang Anda pakai, lalu tentukan cara menghubungkannya.' },
+    { icon: 'i-clipboard', tone: 'navy', q: 'Bagaimana proses memulai proyek?',
+      a: 'Hubungi kami lewat WhatsApp atau form konsultasi. Setelah memahami kebutuhan Anda, kami sarankan produk jadi atau aplikasi custom, lalu kirim penawaran.' },
+    { icon: 'i-headset', tone: 'teal', q: 'Bagaimana biaya dan pendampingan implementasi ditentukan?',
+      a: 'Biaya tergantung fitur, jumlah perangkat, dan integrasi yang dibutuhkan. Konsultasi awal gratis, setelah itu kami kirim penawaran.' }
   ];
 
   /* ── render: industries ──────────────────────────── */
