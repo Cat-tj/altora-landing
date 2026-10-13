@@ -1,5 +1,6 @@
 ---
 title: Berapa Biaya Membuat Aplikasi? 7 Faktor yang Paling Menentukan Harga
+seo_title: Berapa Biaya Membuat Aplikasi? 7 Faktor Penentunya
 description: Kenapa penawaran pembuatan aplikasi bisa berbeda jauh antar vendor? Pahami 7 faktor yang menentukan biaya, dan cara menekan biaya tanpa mengorbankan hasil.
 date: 2026-10-11
 category: Biaya & perencanaan

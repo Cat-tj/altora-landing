@@ -1,6 +1,7 @@
 ---
 title: Absensi Face Recognition dari CCTV: Cara Kerja, Syarat Kamera, dan Batasannya
-description: Bisakah CCTV yang sudah terpasang dipakai untuk absensi wajah? Penjelasan cara kerja, syarat posisi dan kualitas kamera, batasan, serta hal yang perlu diperhatikan soal data pribadi.
+seo_title: Absensi Wajah dari CCTV: Cara Kerja dan Syarat Kamera
+description: Bisakah CCTV yang sudah terpasang dipakai untuk absensi wajah? Cara kerja, syarat kamera, batasan, dan hal penting soal data pribadi.
 date: 2026-10-11
 category: AI CCTV
 image: /assets/img/produk/attendance.webp

@@ -9,9 +9,11 @@ skip = ('id/', 'leads/', 'outreach/', 'design/', 'partials/', 'ops/')
 
 def section_of(rel):
     route = '/' + rel[:-5]  # buang .html
+    if route == '/blog':
+        return '/blog'
     if route == '/index':
         return '/'
-    for sec in ('/services', '/produk', '/portfolio', '/about', '/support', '/careers'):
+    for sec in ('/services', '/produk', '/portfolio', '/blog', '/about', '/support', '/careers'):
         if route == sec or route.startswith(sec + '/'):
             return sec
     return None

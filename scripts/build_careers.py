@@ -7,7 +7,7 @@ import html, json, pathlib
 from urllib.parse import quote
 
 root = pathlib.Path(__file__).resolve().parent.parent
-CSS_VER = '20261012p'
+CSS_VER = '20261013a'
 EMAIL = 'hello@altora.id'
 WA = 'https://wa.me/6285190911170?text='
 
@@ -90,12 +90,12 @@ steps_html = ''.join(f'<li><b>{e(t)}</b><span>{e(d)}</span></li>' for t, d in ST
 ld = {'@context': 'https://schema.org', '@graph': [job_ld(o) for o in OPENINGS]} if OPENINGS else None
 ld_html = f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>' if ld else ''
 
-title = 'Karier di Altora Indonesia | Software, CCTV, IoT & AI di Balikpapan dan Samarinda'
+title = 'Karier di Altora Indonesia | Balikpapan & Samarinda'
 desc = ('Bergabung dengan Altora Indonesia: software engineer, UI/UX designer, field engineer CCTV & jaringan, AI, IoT, '
         'dan project implementation di Balikpapan dan Samarinda.')
 
 page = f'''<!DOCTYPE html>
-<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(title)}</title><meta content="{e(desc)}" name="description"/><link href="https://altora.id/careers" rel="canonical"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="Karier di Altora Indonesia" property="og:title"/><meta content="{e(desc)}" property="og:description"/><meta content="https://altora.id/careers" property="og:url"/><meta content="https://altora.id/assets/img/produk/fms.webp" property="og:image"/><link href="/assets/img/altora-logo-icon-v2.svg" rel="icon"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v=20261012p"/>{ld_html}</head><body class="company-page"><header></header>
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(title)}</title><meta content="{e(desc)}" name="description"/><link href="https://altora.id/careers" rel="canonical"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="Karier di Altora Indonesia" property="og:title"/><meta content="{e(desc)}" property="og:description"/><meta content="https://altora.id/careers" property="og:url"/><meta content="https://altora.id/assets/img/produk/fms.webp" property="og:image"/><link href="/assets/img/altora-logo-icon-v2.svg" rel="icon"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v=20261013a"/>{ld_html}</head><body class="company-page"><header></header>
 <main class="ct-page cr-page">
 <section class="ct-hero"><div class="ct-wrap">
 <p class="eyebrow eyebrow-purple">Karier di Altora</p>

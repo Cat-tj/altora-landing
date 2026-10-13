@@ -86,4 +86,6 @@ Blog ada di `/blog` tapi sengaja **tidak** ditampilkan di top bar — hanya dita
 
 Halaman karier dibangun dari `scripts/build_careers.py` (isi lowongan nyata di `OPENINGS`).
 
+Setelah semua build, jalankan `python3 scripts/apply_seo.py` (favicon, meta, OG, laporan title/description).
+
 Header & footer semua halaman berasal dari `partials/` dan diterapkan oleh `scripts/apply_shell.py`.
