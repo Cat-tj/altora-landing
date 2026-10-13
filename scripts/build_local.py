@@ -94,7 +94,7 @@ def page(c):
     nearby = ''.join(f'<a href="{u}">{e(t)}</a>' for u, t in c['nearby'])
     msg = f'Halo Altora, saya dari {c["city"]} dan ingin konsultasi kebutuhan software.'
     ld = {'@context': 'https://schema.org', '@graph': [
-        {'@type': 'ProfessionalService', '@id': SITE + url + '#bisnis', 'name': 'Altora Indonesia',
+        {'@type': 'ProfessionalService', '@id': SITE + url + '#bisnis', 'name': 'Altora Indonesia', 'alternateName': ['Altora', 'Algora Teknologi Indonesia'],
          'description': c['desc'], 'url': SITE + url, 'telephone': '+6285190911170', 'email': 'hello@altora.id',
          'image': SITE + '/assets/img/altora-logo-600.png', 'logo': SITE + '/assets/img/altora-logo-600.png',
          'address': {'@type': 'PostalAddress', 'streetAddress': 'Jl. Soekarno Hatta, Muara Rapak, Balikpapan Utara',
