@@ -469,7 +469,7 @@ html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 .sf-col h4{margin:0 0 2px!important;font-size:.84rem!important}
 .sf-col a,.sf-col p{font-size:.8rem!important;line-height:1.45!important}
 .sf-contact svg{width:15px!important;height:15px!important;margin-top:1px!important}
-.sf-base{margin-top:22px!important;padding-top:12px!important;font-size:.76rem!important}
+.sf-base{margin-top:22px!important;padding-top:12px!important;font-size:.76rem!important;align-items:center}
 @media (max-width:620px){
   .site-footer{padding-top:28px!important}
   .sf-top .sf-brand{gap:10px}
@@ -707,3 +707,20 @@ html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 .bl-home .bl-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media (max-width:860px){.bl-feature{grid-template-columns:1fr}.bl-feature-img{min-height:200px;aspect-ratio:16/9}.bl-topic-grid,.bl-home .bl-grid{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){.bl-topic-grid,.bl-home .bl-grid{grid-template-columns:1fr}}
+
+/* Halaman lokal software house */
+.lc-why{grid-template-columns:repeat(3,minmax(0,1fr))}
+.lc-needs li:before{content:'✓'!important;background:#E6F7EF!important;color:#14945F!important}
+.lc-svcs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.lc-svc{display:flex;flex-direction:column;gap:4px;padding:18px 20px;border:1px solid #E7E1F4;border-radius:18px;background:#fff;text-decoration:none;transition:border-color .2s,transform .2s}
+.lc-svc:hover{border-color:#7C5CE8;transform:translateY(-2px)}
+.lc-svc b{color:#10224F;font-size:.98rem}.lc-svc b:after{content:' →';color:#7C5CE8}
+.lc-svc span{color:#5A6180;font-size:.87rem;line-height:1.55}
+.lc-office{padding:24px 26px;border:1px solid #E7E1F4;border-radius:20px;background:#FBFAFE}
+.lc-office h2{margin:0 0 8px;color:#10224F;font-size:1.2rem!important}
+.lc-office p{margin:0 0 6px;color:#3D4462;line-height:1.6}
+.lc-office a{color:#5B3FC4;font-weight:700}
+.sf-areas{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center}
+.sf-areas a{color:var(--sf-text);text-decoration:none}.sf-areas a:hover{color:var(--sf-accent)}
+@media (max-width:980px){.lc-why,.lc-svcs{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.lc-why,.lc-svcs{grid-template-columns:1fr}}
