@@ -15,7 +15,6 @@ CLIENTS = [
     ('InJourney Airports', 'injourney.png', 'BUMN'),
     ('Universitas Mulawarman', 'unmul.png', 'Pendidikan'),
     ('Institut Teknologi Kalimantan', 'itk.png', 'Pendidikan & riset'),
-    ('Kideco Jaya Agung', 'kideco.svg', 'Tambang'),
     ('Adhi', 'adhi.png', 'Konstruksi'),
     ('Alba Aluminium', None, 'Industri'),
     ('Labschool', None, 'Pendidikan'),
