@@ -764,3 +764,30 @@ div.lc-svc{cursor:default}div.lc-svc b:after{content:none}
 .sv-more{padding-top:clamp(40px,5vw,64px)}
 .hwi-pic>.hwi-icon{display:grid;place-items:center;width:96px;height:96px;border-radius:24px;background:#EFEAFD;color:#6D4AE0}
 .hwi-pic>.hwi-icon svg{width:52px;height:52px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+/* katalog software ringkas: kartu tidak melebar, foto pendek */
+.pd-grid{grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.pd-card{padding:16px 16px 18px;border-radius:18px}
+.pd-photo{margin:0 0 14px;aspect-ratio:16/9;border-radius:12px}
+.pd-card .pd-top{margin-bottom:10px}
+.pd-card .pd-icon{width:36px;height:36px;border-radius:10px}
+.pd-card .pd-icon svg{width:19px;height:19px}
+.pd-card h3{font-size:1.05rem}
+.pd-card .pd-tagline{margin:2px 0 8px;font-size:.82rem}
+.pd-card .pd-desc{margin:0 0 12px;font-size:.86rem;line-height:1.55;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.pd-feats{gap:5px;margin:0 0 14px;padding-top:12px}
+.pd-feats li{font-size:.8rem;padding-left:21px}
+.pd-feats li:before{width:14px;height:14px;top:2px}
+.pd-card .pd-actions .btn{padding:9px 14px;font-size:.82rem;min-height:40px}
+.pd-group{padding:28px 0 4px}
+.pd-group-head{margin-bottom:16px;padding-bottom:10px}
+@media (max-width:760px){
+ .pd-grid{grid-template-columns:1fr;gap:12px}
+ .pd-card{display:grid;grid-template-columns:96px 1fr;column-gap:14px;padding:12px}
+ .pd-card>*{grid-column:2}
+ .pd-photo{grid-column:1;grid-row:1/span 4;margin:0;aspect-ratio:auto;height:96px}
+ .pd-card .pd-top{margin-bottom:6px}
+ .pd-card .pd-icon{display:none}
+ .pd-card .pd-desc{-webkit-line-clamp:2;margin-bottom:8px}
+ .pd-feats{display:none}
+ .pd-card .pd-actions{grid-column:1/-1;margin-top:8px}
+}
