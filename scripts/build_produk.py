@@ -160,7 +160,7 @@ hardware_html = ('<section class="pd-block" id="hardware"><div class="pd-wrap"><
                  f'<div aria-label="Filter kategori hardware" class="hwi-filter" role="group">{hw_filters}</div>'
                  f'<div class="hwi-grid">{"".join(hw_item(h) for h in HW_ITEMS)}</div>'
                  '<div class="hwi-more"><div class="hwi-more-logos"><img alt="TP-Link" src="/assets/img/partners/tplink-v2.png"/><img alt="Lenovo" src="/assets/img/partners/lenovo-v2.png"/><img alt="VIGI" src="/assets/img/partners/vigi-v2.png"/></div>'
-                 '<div><b>Juga tersedia: jaringan TP-Link Omada dan perangkat Lenovo.</b><p>Switch PoE, access point, router 4G/5G, laptop, dan PC. Tipe kami sesuaikan dengan proyek Anda.</p></div>'
+                 '<div><b>Juga tersedia: jaringan TP-Link Omada dan model Lenovo lainnya.</b><p>Switch PoE, access point, router 4G/5G, serta laptop, PC, dan server dengan spesifikasi sesuai kebutuhan proyek Anda.</p></div>'
                  f'<a class="btn btn-purple" href="{WA}{quote("Halo Altora, saya ingin konsultasi perangkat CCTV/jaringan/komputer untuk proyek saya.")}" rel="noopener" target="_blank">Konsultasi perangkat →</a></div>'
                  '</div></section>')
 software_head = ('<section class="pd-block pd-block-sw" id="software"><div class="pd-wrap"><div class="pd-block-head"><p class="eyebrow eyebrow-purple">Software</p>'
@@ -232,7 +232,7 @@ def head(title, desc, url, ld, extra_css=''):
             '<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>'
             '<link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/>'
             '<link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/>'
-            f'<link rel="stylesheet" href="/assets/css/unify.css?v=20261014p"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head>'
+            f'<link rel="stylesheet" href="/assets/css/unify.css?v=20261014q"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head>'
             '<body class="company-page"><header class="company-nav"></header>\n')
 
 # ── /produk: halaman pengetahuan ──
@@ -256,7 +256,7 @@ HW_KNOW = [
     ('display', 'Display & ruang rapat', '/assets/img/hardware/hde-ifp.webp', 'Videotron, interactive flat panel, dan sistem rekam rapat untuk kelas dan kantor.', 'Videotron, IFP, meeting recording', '/katalog#cat-display'),
     ('rack', 'Rak & data center', '/assets/img/hardware/hr-close-glass.webp', 'Rumah untuk server dan perangkat jaringan, termasuk server Private AI.', 'Close rack, wallmount, cooling', '/katalog#cat-rack'),
     ('fiber', 'Fiber optik', '/assets/img/hardware/fas-fusion-splicer.webp', 'Alat sambung dan ukur untuk jaringan fiber kampus, gedung, dan ISP.', 'OTDR, fusion splicer, power meter', '/katalog#cat-fiber'),
-    ('computer', 'Komputer kerja', '/assets/img/hardware/hde-aio-il24.webp', 'PC all-in-one untuk kasir, kios, dan meja kerja.', 'HDe AIO', '/katalog#cat-computer'),
+    ('laptop', 'Laptop, PC, tablet & server', '/assets/img/hardware/lenovo-thinkpad-t14.webp', 'Lenovo ThinkPad, ThinkCentre AIO, Tab, hingga server ThinkSystem untuk kantor dan instansi.', 'Laptop, AIO, tablet, server, workstation', '/katalog#cat-laptop'),
 ]
 hw_know = ''.join(f'<a class="kn-hw" href="{u}"><span class="kn-hw-pic"><img alt="" loading="lazy" src="{img}"/></span><b>{e(t)}</b><span>{e(d)}</span><small>{e(ex)}</small><em>Lihat di katalog →</em></a>'
                   for _, t, img, d, ex, u in HW_KNOW)
@@ -329,7 +329,7 @@ katalog_page = head('Katalog Altora | Barang, Jasa & Software', 'Katalog Altora:
 <div class="hwi-allvigi"><div><b>Katalog lengkap CCTV VIGI</b><br/><span>148 model kamera, NVR, kit, decoder, solar, dan jaringan pendukung.</span></div><a class="btn btn-purple" href="/katalog-cctv-vigi">Lihat semua model VIGI →</a></div>
 <div class="hwi-grid">{"".join(hw_item(h) for h in HW_ITEMS)}</div>
 <div class="hwi-more"><div class="hwi-more-logos"><img alt="TP-Link" src="/assets/img/partners/tplink-v2.png"/><img alt="Lenovo" src="/assets/img/partners/lenovo-v2.png"/><img alt="VIGI" src="/assets/img/partners/vigi-v2.png"/></div>
-<div><b>Juga tersedia: jaringan TP-Link Omada dan perangkat Lenovo.</b><p>Switch PoE, access point, router 4G/5G, laptop, dan PC. Tipe kami sesuaikan dengan proyek Anda.</p></div>
+<div><b>Juga tersedia: jaringan TP-Link Omada dan model Lenovo lainnya.</b><p>Switch PoE, access point, router 4G/5G, serta laptop, PC, dan server dengan spesifikasi sesuai kebutuhan proyek Anda.</p></div>
 <a class="btn btn-purple" href="{WA}{quote("Halo Altora, saya ingin konsultasi perangkat untuk proyek saya.")}" rel="noopener" target="_blank">Konsultasi perangkat →</a></div>
 </div></section>
 <section class="pd-block kt-panel" data-panel="jasa" id="jasa"><div class="pd-wrap">
