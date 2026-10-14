@@ -100,7 +100,7 @@ def page(c):
         {'@type': 'ProfessionalService', '@id': SITE + url + '#bisnis', 'name': 'Altora Indonesia', 'alternateName': ['Altora', 'Algora Teknologi Indonesia'],
          'description': c['desc'], 'url': SITE + url, 'telephone': '+6285190911170', 'email': 'hello@altora.id',
          'image': SITE + '/assets/img/altora-logo-600.png', 'logo': SITE + '/assets/img/altora-logo-600.png',
-         'address': postal_address(next(o for o in OFFICES if (o['city'] == c['city']) or (c['city'] == 'Kalimantan Timur' and o['hq']))),
+         'address': postal_address(next(o for o in OFFICES if o['key'] == c['office'])) if c.get('office') else postal_address(next(o for o in OFFICES if (o['city'] == c['city']) or (c['city'] == 'Kalimantan Timur' and o['hq']))),
          'areaServed': {'@type': 'City' if c['area'] != 'Kalimantan Timur' else 'AdministrativeArea', 'name': c['area']},
          'parentOrganization': {'@id': SITE + '/#organization'},
          'makesOffer': [{'@type': 'Offer', 'itemOffered': {'@type': 'Service', 'name': t}} for _, t, _ in SERVICES]},
@@ -131,6 +131,34 @@ def page(c):
 '''
 
 
+def region_entry(k, r):
+    """Halaman 'Software house <daerah>' untuk daerah yang dilayani dari kantor terdekat."""
+    from build_area import CITIES as AREA_CITIES
+    o = next(x for x in OFFICES if x['key'] == r['office'])
+    near = [n for n in r['near'] if n in AREA_CITIES][:3]
+    return dict(slug=f'software-house-{k}', city=r['name'], area=r['name'], office=r['office'],
+        title=f'Software House {r["name"]} | Altora Indonesia',
+        desc=f'Software house untuk {r["name"]}: aplikasi custom, website, CCTV pintar, GPS armada, Starlink, dan pengadaan perangkat. Dilayani tim Altora dari {o["city"]}.',
+        h1=f'Software house untuk {r["name"]}',
+        lead=f'Altora Indonesia melayani {r["name"]} dari {o["label"].lower()}. Kami membuat aplikasi dan website, lalu mengadakan, memasang, dan merawat perangkat seperti CCTV, GPS tracker, jaringan, dan Starlink untuk {r["sectors"]}.',
+        why=[(f'Dilayani dari {o["city"]}', f'Tim kami berangkat dari {o["label"].lower()} untuk survei, pemasangan, dan pelatihan di {r["name"]}. Kendala ringan dibantu jarak jauh lewat WhatsApp.'),
+             ('Software dan perangkat satu tim', 'Aplikasi, CCTV, GPS tracker, jaringan, dan internet dikerjakan tim yang sama, jadi semuanya terhubung.'),
+             ('Bisa untuk lokasi jauh', 'Untuk site tanpa jaringan kabel, kami siapkan Starlink, perangkat tenaga surya, dan aplikasi yang tetap jalan saat sinyal lemah.')],
+        needs=r['needs'],
+        proof=['fleet-management', 'smart-attendance', 'custom-kios-k-pengadaan-hardware'],
+        faq=[(f'Apakah Altora melayani {r["name"]}?', f'Ya. {r["name"]} kami layani dari {o["label"].lower()} ({o["city"]}). Jadwal survei dan pemasangan kami sepakati bersama.'),
+             (f'Layanan apa saja yang tersedia di {r["name"]}?', 'Pembuatan aplikasi dan website, CCTV dan AI CCTV, GPS tracker armada, jaringan dan WiFi, Starlink, IT support, serta pengadaan perangkat.'),
+             ('Bagaimana dukungan setelah sistem berjalan?', 'Kendala dicek jarak jauh lebih dulu. Bila perlu, teknisi dijadwalkan datang ke lokasi.'),
+             ('Apakah bisa untuk pengadaan instansi?', 'Bisa. Altora berstatus PKP dan terdaftar sebagai penyedia di Inaproc/LKPP.')],
+        nearby=[(f'/software-house-{n}', f'Software house {AREA_CITIES[n]["name"]}') for n in near] + [(f'/jasa-pasang-cctv-{k}', f'Jasa pasang CCTV {r["name"]}'), (f'/it-support-{k}', f'IT support {r["name"]}'), ('/area-layanan', 'Semua area layanan')])
+
+
+from regions import REGIONS
+CITIES += [region_entry(k, r) for k, r in REGIONS.items()]
+
+
 for c in CITIES:
     (root / f'{c["slug"]}.html').write_text(page(c), encoding='utf-8')
-print('halaman lokal:', ', '.join(c['slug'] for c in CITIES))
+from build_area import update_sitemap
+update_sitemap(['/' + c['slug'] for c in CITIES])
+print('halaman lokal:', len(CITIES))

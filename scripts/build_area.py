@@ -6,6 +6,7 @@ import html, json, pathlib, re, sys
 from urllib.parse import quote
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from site_data import OFFICES, postal_address
+from regions import REGIONS
 
 root = pathlib.Path(__file__).resolve().parent.parent
 CSS_VER = '20261014u'
@@ -33,12 +34,33 @@ CITIES = {
     'balikpapan': dict(name='Balikpapan',
         base='Kami punya dua cabang di Balikpapan: Jl. Soekarno Hatta, Muara Rapak (Balikpapan Utara) dan Pasar Baru. Tim bisa datang untuk survei, pemasangan, dan perbaikan di lokasi Anda di Balikpapan.',
         sectors='perusahaan jasa migas, logistik, kontraktor, perkantoran, sekolah, klinik, dan UMKM',
-        local_proof=[]),
+        local_proof=[], office='balikpapan-utara', near=['samarinda', 'penajam-paser-utara', 'ikn']),
     'samarinda': dict(name='Samarinda',
         base='Kantor pusat kami di Perum Graha Indah Blok A13, Air Putih, Samarinda Ulu. Kami sudah memasang kios di kantor kelurahan serta mengerjakan jaringan, CCTV, dan website di Universitas Mulawarman.',
         sectors='kantor kelurahan dan dinas, kampus, sekolah, klinik, perkantoran, dan UMKM',
-        local_proof=['custom-kios-k-pengadaan-hardware', 'unmul-infrastruktur-cctv-jaringan']),
+        local_proof=['custom-kios-k-pengadaan-hardware', 'unmul-infrastruktur-cctv-jaringan'], office='samarinda', near=['balikpapan', 'kutai-kartanegara', 'bontang']),
 }
+OFFICE_BY_KEY = {o['key']: o for o in OFFICES}
+for _k, _r in REGIONS.items():
+    _o = OFFICE_BY_KEY[_r['office']]
+    CITIES[_k] = dict(_r, local_proof=[],
+                      base=f"{_r['name']} kami layani dari {_o['label'].lower()} ({_o['city']}). Untuk survei, pemasangan, dan perawatan, tim kami datang ke lokasi sesuai jadwal; kendala ringan dibantu jarak jauh lewat WhatsApp.")
+
+
+def office_of(c):
+    return OFFICE_BY_KEY[c['office']]
+
+
+def near_of(ckey):
+    return [k for k in CITIES[ckey].get('near', []) if k in CITIES][:3]
+
+
+def needs_html(c):
+    if not c.get('needs'):
+        return ''
+    items = ''.join(f'<article class="svd-do"><h3>{e(t)}</h3><p>{e(d)}</p></article>' for t, d in c['needs'])
+    return (f'<section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Kebutuhan yang sering muncul di {e(c["name"])}</h2>'
+            f'<p>{e(c["name"])} ({e(c["seat"])}): {e(c["sectors"])}.</p></div><div class="svd-dos">{items}</div></div></section>')
 
 SERVICES = {
     'cctv': dict(slug='jasa-pasang-cctv-{c}', h1='Jasa pasang CCTV di {C}', short='Pasang CCTV',
@@ -154,22 +176,27 @@ def page(skey, ckey):
     s = SERVICES[skey]; c = dict(CITIES[ckey], key=ckey)
     url = '/' + fmt(s['slug'], c)
     h1 = fmt(s['h1'], c); title = fmt(s['title'], c); desc = fmt(s['desc'], c)
+    if len(title) > 65:
+        title = f'{s["short"]} {c["name"]} | Altora Indonesia'
+    if len(desc) > 160:
+        desc = desc[:157].rsplit(' ', 1)[0].rstrip(',.:;') + '.'
     dos = ''.join(f'<article class="svd-do"><h3>{e(t)}</h3><p>{e(fmt(d, c))}</p></article>' for t, d in s['dos'])
     proof_ids = list(dict.fromkeys(c['local_proof'] + s['proof']))[:3] if skey in ('cctv', 'itsupport', 'jaringan') else s['proof'][:3]
     proof = ''.join(f'<a class="svd-proof" href="/portfolio/{p}"><span class="svd-proof-img"><img alt="" loading="lazy" src="{PF[p][1]}"/></span><b>{e(PF[p][0])}</b><small>Lihat proyek</small></a>' for p in proof_ids)
     faq_items = [(fmt(q, c), fmt(a, c)) for q, a in s['faq']] + [(f'Apakah tim Altora bisa datang ke lokasi di {c["name"]}?', c['base'])]
     faq = ''.join(f'<details><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q, a in faq_items)
-    other_city = [k for k in CITIES if k != ckey][0]
+    near = near_of(ckey)
     same_city = ''.join(f'<a href="/{fmt(SERVICES[k]["slug"], dict(CITIES[ckey], key=ckey))}">{e(SERVICES[k]["short"])} {e(c["name"])}</a>' for k in SERVICES if k != skey)
-    links = (f'<a href="/{fmt(s["slug"], dict(CITIES[other_city], key=other_city))}">{e(s["short"])} {e(CITIES[other_city]["name"])}</a>'
+    links = (''.join(f'<a href="/{fmt(s["slug"], dict(CITIES[k], key=k))}">{e(s["short"])} {e(CITIES[k]["name"])}</a>' for k in near) +
              f'<a href="{s["main"]}">{e(s["main_label"])}</a><a href="/software-house-{ckey}">Software house {e(c["name"])}</a>' + same_city)
     msg = f'Halo Altora, saya di {c["name"]} dan butuh {s["short"].lower()}.'
+    clients_p = '' if c.get('needs') else f'<p>Klien kami di {e(c["name"])} antara lain {e(c["sectors"])}.</p>'
     ld = {'@context': 'https://schema.org', '@graph': [
         {'@type': 'Service', 'name': h1, 'description': desc, 'url': SITE + url, 'serviceType': s['short'],
          'areaServed': {'@type': 'City', 'name': c['name']},
          'provider': {'@type': 'ProfessionalService', 'name': 'Altora Indonesia', 'alternateName': ['Altora', 'Algora Teknologi Indonesia'],
                       'url': SITE + '/', 'telephone': '+6285190911170', 'image': SITE + '/assets/img/altora-logo-600.png',
-                      'address': postal_address(next(o for o in OFFICES if o['city'] == c['name']))}},
+                      'address': postal_address(office_of(c))}},
         {'@type': 'BreadcrumbList', 'itemListElement': [
             {'@type': 'ListItem', 'position': 1, 'name': 'Beranda', 'item': SITE + '/'},
             {'@type': 'ListItem', 'position': 2, 'name': 'Area layanan', 'item': SITE + '/area-layanan'},
@@ -183,7 +210,8 @@ def page(skey, ckey):
 <figure class="svd-hero-pic"><img alt="{e(h1)}" src="{s["hero"]}" style="object-position:50% 45%"/><span class="svd-chip svd-chip-0">{e(c["name"])}</span><span class="svd-chip svd-chip-1">Tim lokal</span><span class="svd-chip svd-chip-2">Konsultasi gratis</span></figure>
 </div></section>
 <section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Yang kami kerjakan</h2></div><div class="svd-dos">{dos}</div></div></section>
-<section class="svd-sec"><div class="ct-wrap lc-office"><div><h2>Melayani {e(c["name"])}</h2><p>{e(c["base"])}</p><p>Klien kami di {e(c["name"])} antara lain {e(c["sectors"])}.</p></div></div></section>
+<section class="svd-sec"><div class="ct-wrap lc-office"><div><h2>Melayani {e(c["name"])}</h2><p>{e(c["base"])}</p>{clients_p}</div></div></section>
+{needs_html(c)}
 <section class="svd-sec" id="proyek"><div class="ct-wrap"><div class="pd-block-head"><h2>Proyek terkait</h2></div><div class="svd-proofs">{proof}</div>
 <div class="svd-related"><b>Lihat juga</b>{links}</div></div></section>
 <section class="svd-sec"><div class="ct-wrap svd-faq"><div class="pd-block-head"><h2>Pertanyaan umum</h2></div><div>{faq}</div></div></section>
@@ -208,12 +236,12 @@ def hub(built):
         rows += (f'<section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>{e(cdat["name"])}</h2><p>{e(cdat["base"])}</p></div>'
                  f'<div class="lc-svcs"><a class="lc-svc" href="/software-house-{ckey}"><b>Software house {e(cdat["name"])}</b></a>{links}</div></div></section>')
     body = ('<main class="ct-page svd-page lc-page"><section class="svd-hero"><div class="ct-wrap"><p class="eyebrow eyebrow-purple">Area layanan</p>'
-            '<h1>Area layanan Altora di Kalimantan Timur</h1><p class="ct-lead">Kantor pusat kami di Samarinda, dengan dua cabang di Balikpapan. Pilih layanan dan kota Anda.</p></div></section>'
+            '<h1>Area layanan Altora di Kalimantan Timur</h1><p class="ct-lead">Kantor pusat di Samarinda dan dua cabang di Balikpapan. Dari sana kami melayani seluruh Kalimantan Timur, termasuk Bontang, Kutai Kartanegara, Kutai Timur, Kutai Barat, Mahakam Ulu, Berau, Paser, Penajam Paser Utara, dan IKN Nusantara.</p></div></section>'
             + rows +
             '<section class="svd-sec"><div class="ct-wrap"><div class="svd-related"><b>Wilayah lain</b><a href="/software-house-kalimantan-timur">Software house Kalimantan Timur</a><a href="/contact">Lokasi lain? Hubungi kami</a></div></div></section>'
             '</main>')
     ld = {'@context': 'https://schema.org', '@type': 'CollectionPage', 'name': 'Area layanan Altora', 'url': SITE + '/area-layanan'}
-    return shell('Area Layanan Altora | Balikpapan, Samarinda & Kaltim', 'Daftar layanan Altora Indonesia per kota: pasang CCTV, IT support, instalasi jaringan, GPS tracker, pembuatan website, dan aplikasi di Balikpapan dan Samarinda.', '/area-layanan', SITE + '/assets/img/altora-logo-600.png', ld, body)
+    return shell('Area Layanan Altora | Balikpapan, Samarinda & Kaltim', 'Layanan Altora di seluruh Kaltim: CCTV, IT support, jaringan, GPS, website, aplikasi, Starlink, dan pengadaan di Samarinda, Balikpapan, Bontang, Kukar, IKN, dan lainnya.', '/area-layanan', SITE + '/assets/img/altora-logo-600.png', ld, body)
 
 
 def update_sitemap(urls):

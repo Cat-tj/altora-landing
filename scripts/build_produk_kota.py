@@ -5,7 +5,7 @@ dan bagian kota (kantor, proyek). Jangan menambah kota tanpa kantor/proyek nyata
 import html, json, pathlib, re, sys
 from urllib.parse import quote
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from build_area import shell, update_sitemap, CITIES, PF, SITE, WA
+from build_area import shell, update_sitemap, CITIES, PF, SITE, WA, office_of, near_of, needs_html
 from site_data import OFFICES, postal_address
 from catalog_data import HW_ITEMS
 
@@ -239,6 +239,8 @@ def page(pkey, ckey):
     p = PRODUCTS[pkey]; c = dict(CITIES[ckey], key=ckey)
     url = '/' + fmt(p['slug'], c)
     h1, title, desc = fmt(p['h1'], c), fmt(p['title'], c), fmt(p['desc'], c)
+    if len(title) > 65:
+        title = f'{p["short"]} {c["name"]} | Altora Indonesia'
     items = ''.join(card(it, c['name']) for it in p['items'])
     dos = ''.join(f'<article class="svd-do"><h3>{e(t)}</h3><p>{e(fmt(d, c))}</p></article>' for t, d in p['dos'])
     proof_ids = [x for x in dict.fromkeys(p['proof'] + (c['local_proof'] if pkey in ('kiosk', 'cctv', 'rak', 'fiber') else [])) if x in PF][:3]
@@ -248,13 +250,13 @@ def page(pkey, ckey):
         (f'Apakah melayani pengadaan dan pemasangan {p["short"].lower()} di {c["name"]}?', c['base']),
         ('Apakah bisa untuk pengadaan instansi pemerintah?', 'Bisa. Altora berstatus PKP dan terdaftar di Inaproc/LKPP, sehingga dapat melayani pengadaan instansi dan BUMN.')]
     faq = ''.join(f'<details><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q, a in faq_items)
-    other = [k for k in CITIES if k != ckey][0]
+    near = near_of(ckey)
     same_city = ''.join(f'<a href="/{fmt(PRODUCTS[k]["slug"], c)}">{e(PRODUCTS[k]["short"])} {e(c["name"])}</a>' for k in PRODUCTS if k != pkey)
-    links = (f'<a href="/{fmt(p["slug"], dict(CITIES[other], key=other))}">{e(p["short"])} {e(CITIES[other]["name"])}</a>'
+    links = (''.join(f'<a href="/{fmt(p["slug"], dict(CITIES[k], key=k))}">{e(p["short"])} {e(CITIES[k]["name"])}</a>' for k in near) +
              f'<a href="{p["main"]}">{e(p["main_label"])}</a><a href="/jasa-pasang-cctv-{ckey}">Jasa pasang CCTV {e(c["name"])}</a>'
              f'<a href="/it-support-{ckey}">IT support {e(c["name"])}</a>' + same_city)
     msg = f'Halo Altora, saya di {c["name"]} dan butuh {p["short"].lower()}.'
-    office = next(o for o in OFFICES if o['city'] == c['name'])
+    office = office_of(c)
     ld = {'@context': 'https://schema.org', '@graph': [
         {'@type': 'Service', 'name': h1, 'description': desc, 'url': SITE + url, 'serviceType': f'Penjualan, pengadaan & instalasi {p["short"].lower()}',
          'areaServed': {'@type': 'City', 'name': c['name']},
@@ -274,10 +276,11 @@ def page(pkey, ckey):
 <div class="svd-actions"><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Minta penawaran</a><a class="svd-link" href="#produk">Lihat produk</a></div></div>
 <figure class="svd-hero-pic pk-hero-pic"><img alt="{e(h1)}" src="{p["hero"]}"/><span class="svd-chip svd-chip-0">{e(c["name"])}</span><span class="svd-chip svd-chip-1">Produk resmi</span><span class="svd-chip svd-chip-2">Dipasang tim lokal</span></figure>
 </div></section>
-<section class="svd-sec" id="produk"><div class="ct-wrap"><div class="pd-block-head"><h2>Produk {e(p["short"].lower())} yang tersedia di {e(c["name"])}</h2><p>Tanpa harga di website. Masukkan ke keranjang, lalu kirim lewat WhatsApp untuk penawaran.</p></div>
+<section class="svd-sec" id="produk"><div class="ct-wrap"><div class="pd-block-head"><h2>Produk yang tersedia di {e(c["name"])}</h2><p>Tanpa harga di website. Masukkan ke keranjang, lalu kirim lewat WhatsApp untuk penawaran.</p></div>
 <div class="pk-grid">{items}</div></div></section>
 <section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Pengadaan sampai perawatan</h2></div><div class="svd-dos">{dos}</div></div></section>
-<section class="svd-sec"><div class="ct-wrap lc-office"><div><h2>Melayani {e(c["name"])} dan sekitarnya</h2><p>{e(c["base"])}</p><p>Klien kami di {e(c["name"])} antara lain {e(c["sectors"])}.</p></div></div></section>
+<section class="svd-sec"><div class="ct-wrap lc-office"><div><h2>Melayani {e(c["name"])} dan sekitarnya</h2><p>{e(c["base"])}</p>{"" if c.get("needs") else f"<p>Klien kami di {e(c['name'])} antara lain {e(c['sectors'])}.</p>"}</div></div></section>
+{needs_html(c)}
 {proof_sec}
 <section class="svd-sec"><div class="ct-wrap svd-faq"><div class="pd-block-head"><h2>Pertanyaan umum</h2></div><div>{faq}</div>
 <div class="svd-related"><b>Lihat juga</b>{links}</div></div></section>
