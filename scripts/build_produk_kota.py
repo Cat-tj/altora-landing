@@ -15,11 +15,11 @@ NAT_NAME = {'smartlock': 'smartlock', 'starlink': 'Starlink', 'cctv': 'CCTV VIGI
             'fiber': 'alat fiber optik', 'absensi': 'mesin absensi wajah'}
 NAT_DOS = [('Bantu pilih tipe', 'Ceritakan lokasi dan kebutuhan Anda, kami rekomendasikan tipe dan jumlah yang pas.'),
            ('Produk resmi & bergaransi', 'Dari distributor dan principal resmi, dengan garansi sesuai ketentuan principal.'),
-           ('Dikirim ke {C}', 'Dikemas aman dan dikirim lewat ekspedisi ke alamat Anda. Ongkos dan estimasi dikonfirmasi di penawaran.'),
+           ('Dikirim ke {C}', 'Dikemas aman dan dikirim lewat ekspedisi ke alamat Anda. Detail pengiriman kita bahas lewat chat.'),
            ('Disiapkan sebelum dikirim', 'Untuk perangkat yang memungkinkan, akun dan pengaturan dasar kami siapkan lebih dulu.'),
            ('Panduan & bantuan jarak jauh', 'Panduan pemasangan dan bantuan pengaturan lewat WhatsApp atau video call.'),
            ('Pengadaan instansi', 'Penawaran, faktur, dan dokumen pengadaan untuk perusahaan dan instansi.')]
-NAT_FAQ = [('Apakah bisa dikirim ke {C}?', 'Bisa. Barang dikirim lewat ekspedisi ke alamat Anda di {C}. Ongkos kirim dan estimasi waktu kami sampaikan di penawaran.'),
+NAT_FAQ = [('Apakah bisa dikirim ke {C}?', 'Bisa. Barang dikirim lewat ekspedisi ke alamat Anda di {C}. Detail pengiriman kita bahas lewat chat.'),
            ('Apakah tim Altora ikut memasang di {C}?', 'Kantor dan teknisi kami ada di Kalimantan Timur. Untuk {C}, kami bantu lewat panduan dan pendampingan jarak jauh. Bila butuh pemasangan di lokasi, kami bahas per proyek.'),
            ('Apakah produknya resmi dan bergaransi?', 'Ya. Produk berasal dari distributor dan principal resmi, dengan garansi sesuai ketentuan masing-masing.'),
            ('Bagaimana cara memesan?', 'Tambahkan produk ke keranjang lalu kirim lewat WhatsApp, atau langsung chat kami. Kami balas dengan penawaran tertulis.')]
@@ -304,7 +304,7 @@ def page(pkey, ckey):
 <div class="svd-actions"><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Minta penawaran</a><a class="svd-link" href="#produk">Lihat produk</a></div></div>
 <figure class="svd-hero-pic pk-hero-pic"><img alt="{e(h1)}" src="{p["hero"]}"/><span class="svd-chip svd-chip-0">{e(c["name"])}</span><span class="svd-chip svd-chip-1">Produk resmi</span><span class="svd-chip svd-chip-2">{"Dikirim ke lokasi" if nas else "Dipasang tim lokal"}</span></figure>
 </div></section>
-<section class="svd-sec" id="produk"><div class="ct-wrap"><div class="pd-block-head"><h2>Produk yang tersedia di {e(c["name"])}</h2><p>Tanpa harga di website. Masukkan ke keranjang, lalu kirim lewat WhatsApp untuk penawaran.</p></div>
+<section class="svd-sec" id="produk"><div class="ct-wrap"><div class="pd-block-head"><h2>Produk yang tersedia di {e(c["name"])}</h2><p>Masukkan ke keranjang, lalu kirim lewat WhatsApp. Detailnya kita diskusikan di chat.</p></div>
 <div class="pk-grid">{items}</div></div></section>
 <section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>{"Pengadaan sampai pengiriman" if nas else "Pengadaan sampai perawatan"}</h2></div><div class="svd-dos">{dos}</div></div></section>
 <section class="svd-sec"><div class="ct-wrap lc-office"><div><h2>{"Pengiriman ke " + e(c["name"]) if nas else "Melayani " + e(c["name"]) + " dan sekitarnya"}</h2><p>{e(NAT_FAQ[1][1].replace("{C}", c["name"]) if nas else c["base"])}</p>{"" if c.get("needs") else f"<p>Klien kami di {e(c['name'])} antara lain {e(c['sectors'])}.</p>"}</div></div></section>

@@ -177,7 +177,6 @@ SERVICES = {
              ('Dashboard & laporan', 'Ringkasan yang siap dibaca pimpinan.'),
              ('Integrasi', 'Tersambung ke aplikasi lama, mesin absensi, CCTV, atau GPS tracker.')],
         faq=[('Lebih baik aplikasi jadi atau dibuat khusus?', 'Kalau prosesnya umum seperti absensi atau kasir, aplikasi jadi biasanya cukup dan lebih cepat. Kalau prosesnya khusus, lebih tepat dibuat khusus.'),
-             ('Berapa biaya membuat aplikasi?', 'Tergantung fitur, jumlah pengguna, dan integrasi. Konsultasi awal gratis, lalu kami kirim penawaran tertulis.'),
              ('Siapa pemilik source code dan data?', 'Kepemilikan dibahas dan ditulis di kontrak sejak awal.'),
              ('Apakah ada pendampingan setelah aplikasi jadi?', 'Ada pelatihan pengguna dan dukungan setelah aplikasi dipakai, sesuai kesepakatan.')],
         proof=['altora-teams', 'hris-mobile-payroll', 'sistem-antrian-poliklinik'],

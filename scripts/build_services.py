@@ -82,7 +82,7 @@ SERVICES = [
               ('shield', 'Keamanan & log aktivitas', 'Jejak perubahan tercatat dan data tersimpan dengan aman.')],
          steps=['Pemetaan alur kerja', 'Rancangan layar & data', 'Pengembangan bertahap', 'Uji coba bersama pengguna', 'Peluncuran & pendampingan'],
          proof=['altora-teams', 'hris-mobile-payroll', 'sistem-antrian-poliklinik'],
-         related=[('/produk/teams', 'Altora Teams (HRIS)'), ('/produk/pos', 'Altora POS'), ('/blog/faktor-biaya-pembuatan-aplikasi', 'Artikel: faktor biaya membuat aplikasi')],
+         related=[('/produk/teams', 'Altora Teams (HRIS)'), ('/produk/pos', 'Altora POS'), ('/blog/merencanakan-pembuatan-aplikasi', 'Artikel: merencanakan pembuatan aplikasi')],
          faq=[('Apakah harus dibuat dari nol?', 'Tidak selalu. Bila kebutuhan Anda mirip dengan produk Altora seperti Teams atau POS, produk itu bisa dipakai lalu disesuaikan di bagian yang benar-benar unik.'),
               ('Bisa dipakai di HP?', 'Bisa. Sistem dapat dibuat sebagai aplikasi web yang nyaman di HP, aplikasi mobile, atau keduanya sesuai kebutuhan lapangan.'),
               ('Siapa pemilik data dan aksesnya?', 'Kepemilikan data, akses server, dan source code dibahas dan dicantumkan dengan jelas sejak awal kerja sama.')]),

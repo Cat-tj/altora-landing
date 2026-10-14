@@ -263,7 +263,7 @@ body = f'''<main class="ct-page svd-page vg-page">
 <section class="svd-sec"><div class="ct-wrap">
 <div aria-label="Filter kategori VIGI" class="hwi-filter vg-filter" role="group">{filters}</div>
 {groups}
-<p class="vg-note">Daftar model mengikuti situs resmi VIGI Indonesia (2026), VIGI Product Guide 2024, dan roadmap VIGI. Foto produk dari VIGI. Model seri InSight S dirilis bertahap; ketersediaan kami konfirmasi saat Anda bertanya. Spesifikasi dapat berubah sesuai versi produk. Harga dan ketersediaan stok: hubungi kami.</p>
+<p class="vg-note">Daftar model mengikuti situs resmi VIGI Indonesia (2026), VIGI Product Guide 2024, dan roadmap VIGI. Foto produk dari VIGI. Model seri InSight S dirilis bertahap; ketersediaan kami konfirmasi saat Anda bertanya. Spesifikasi dapat berubah sesuai versi produk. Ketersediaan stok: hubungi kami lewat chat.</p>
 </div></section>
 </main>'''
 

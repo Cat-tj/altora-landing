@@ -47,7 +47,6 @@ CITIES = [
          proof=['fleet-management', 'smart-attendance', 'altora-teams'],
          faq=[('Di mana kantor Altora di Balikpapan?', 'Ada dua cabang: Jl. Soekarno Hatta, Muara Rapak, Balikpapan Utara, dan Pasar Baru, Balikpapan. Kantor pusat kami di Samarinda. Untuk diskusi, kami juga bisa datang ke kantor Anda.'),
               ('Apakah melayani pemasangan CCTV dan GPS tracker di Balikpapan?', 'Ya. Kami mengadakan, memasang, dan merawat CCTV, GPS tracker, jaringan, dan perangkat lain, termasuk menghubungkannya ke aplikasi.'),
-              ('Berapa biaya membuat aplikasi di Balikpapan?', 'Tergantung fitur, jumlah pengguna, dan integrasi. Konsultasi awal gratis, lalu kami kirim penawaran tertulis. Faktor biayanya kami jelaskan di artikel biaya membuat aplikasi.'),
               ('Apakah bisa mulai dari aplikasi yang sudah jadi?', 'Bisa. Untuk absensi, CCTV pintar, akses pintu, atau pelacakan armada, Anda bisa memakai aplikasi Altora yang sudah jadi lalu menyesuaikannya.')],
          nearby=[('/software-house-samarinda', 'Software house Samarinda'), ('/software-house-kalimantan-timur', 'Software house Kalimantan Timur'), ('/blog/cara-memilih-software-house-samarinda-balikpapan', 'Cara memilih software house')]),
     dict(slug='software-house-samarinda', city='Samarinda', area='Samarinda',

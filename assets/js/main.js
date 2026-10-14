@@ -49,8 +49,8 @@
       a: 'Umumnya bisa. Kami cek dulu aplikasi dan perangkat yang Anda pakai, lalu tentukan cara menghubungkannya.' },
     { icon: 'i-clipboard', tone: 'navy', q: 'Bagaimana proses memulai proyek?',
       a: 'Hubungi kami lewat WhatsApp atau form konsultasi. Setelah memahami kebutuhan Anda, kami sarankan produk jadi atau aplikasi custom, lalu kirim penawaran.' },
-    { icon: 'i-headset', tone: 'teal', q: 'Bagaimana biaya dan pendampingan implementasi ditentukan?',
-      a: 'Biaya tergantung fitur, jumlah perangkat, dan integrasi yang dibutuhkan. Konsultasi awal gratis, setelah itu kami kirim penawaran.' }
+    { icon: 'i-headset', tone: 'teal', q: 'Bagaimana pendampingan implementasinya?',
+      a: 'Kami dampingi dari konsultasi awal, pemasangan, pelatihan pengguna, sampai dukungan setelah sistem berjalan. Detail kerja sama kita diskusikan lewat chat.' }
   ];
 
   /* ── render: industries ──────────────────────────── */

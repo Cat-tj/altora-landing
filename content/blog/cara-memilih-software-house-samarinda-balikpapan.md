@@ -9,7 +9,7 @@ related: /software-house-samarinda | Software house di Samarinda
 related: /services/software-custom | Layanan software custom Altora
 related: /contact | Konsultasi kebutuhan
 ---
-Memilih software house sering terasa seperti membandingkan harga dan daftar fitur. Padahal yang paling menentukan berhasil atau tidaknya sebuah sistem justru hal-hal yang jarang tertulis di penawaran: bagaimana vendor memahami proses kerja Anda, siapa yang memiliki kodenya, dan apa yang terjadi setelah sistem dipakai sehari-hari.
+Memilih software house sering terasa seperti membandingkan daftar fitur. Padahal yang paling menentukan berhasil atau tidaknya sebuah sistem justru hal-hal yang jarang tertulis di penawaran: bagaimana vendor memahami proses kerja Anda, siapa yang memiliki kodenya, dan apa yang terjadi setelah sistem dipakai sehari-hari.
 
 Berikut delapan pertanyaan yang sebaiknya Anda ajukan sebelum menandatangani kontrak, baik dengan vendor di Samarinda, Balikpapan, maupun kota lain.
 
@@ -55,9 +55,9 @@ Masa paling rawan adalah dua sampai empat minggu pertama setelah sistem dipakai.
 
 Vendor yang berada di kota yang sama—misalnya di Samarinda atau Balikpapan—punya keuntungan nyata di fase ini: mereka bisa datang ke lokasi saat ada masalah perangkat atau jaringan.
 
-## 7. Bagaimana biaya setelah proyek selesai?
+## 7. Apa yang perlu dirawat setelah proyek selesai?
 
-Selain biaya pembuatan, ada biaya yang terus berjalan: server, domain, lisensi pihak ketiga, dan pemeliharaan. Mintalah rincian perkiraan biaya bulanan atau tahunan agar tidak ada kejutan di kemudian hari.
+Setelah sistem jalan, masih ada yang perlu dijaga: server, domain, layanan pihak ketiga, dan pemeliharaan. Pastikan sejak awal siapa yang mengurus semuanya, supaya tidak ada kejutan di kemudian hari.
 
 ## 8. Apakah mereka berani mengatakan "tidak perlu"?
 
@@ -73,7 +73,7 @@ Sebelum tanda tangan, pastikan Anda bisa menjawab ini dengan yakin:
 4. Pekerjaan dibagi menjadi tahapan yang bisa diuji.
 5. Integrasi dengan sistem dan perangkat lama sudah dibahas.
 6. Ada pendampingan saat sistem mulai dipakai.
-7. Biaya berjalan setelah proyek sudah diperkirakan.
+7. Perawatan setelah proyek sudah direncanakan.
 8. Vendor jujur ketika solusi yang lebih sederhana sudah cukup.
 
 Kalau Anda sedang menimbang pembuatan sistem untuk organisasi di Kalimantan Timur, [ceritakan kondisinya kepada tim Altora](/contact). Kami mulai dari proses kerja Anda, bukan dari paket.

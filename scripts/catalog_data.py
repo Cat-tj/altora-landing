@@ -224,7 +224,7 @@ HW_ITEMS = [
          specs=[('Sistem', 'Power environment system'), ('Akses', 'Face recognition, fingerprint, touchless exit'), ('Atap', 'Drop ceiling dengan manual release'), ('Lainnya', 'Lampu sensor gerak, pintu kaca sliding/manual')]),
     dict(id='hr-hot-aisle', cat='rack', brand='HaganeRack', logo='haganerack-v2', img='hr-hot-aisle', name='Hot Aisle Containment',
          desc='Mengurung udara panas buangan rak sehingga unit pendingin bekerja lebih efisien.',
-         specs=[('Manfaat', 'Efisiensi energi & biaya pendinginan'), ('Kapasitas', 'Menambah kapasitas pendinginan tanpa infrastruktur baru'), ('Kontrol', 'Zona suhu & aliran udara lebih terkendali')]),
+         specs=[('Manfaat', 'Efisiensi energi pendinginan'), ('Kapasitas', 'Menambah kapasitas pendinginan tanpa infrastruktur baru'), ('Kontrol', 'Zona suhu & aliran udara lebih terkendali')]),
     dict(id='hr-inrow-cooling', cat='rack', brand='HaganeRack', logo='haganerack-v2', img='hr-inrow-cooling', name='Inrow Cooling (IRC10 / IRC30 / IRC60)',
          desc='Unit pendingin presisi yang dipasang di antara baris rak data center.',
          specs=[('Kapasitas', '13,2 / 32,5 / 63,9 kW'), ('Kompresor', 'Inverter, refrigeran R410A'), ('Kipas', 'EC centrifugal fan'), ('Daya', '220 Vac / 1 phase / 50 Hz')]),

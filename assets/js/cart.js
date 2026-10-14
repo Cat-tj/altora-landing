@@ -45,7 +45,7 @@
     '<label class="cart-check"><input checked name="instalasi" type="checkbox"/> Sekalian dengan instalasi</label>' +
     '<label>Catatan<textarea name="catatan" placeholder="Jumlah titik, kebutuhan khusus, target waktu…" rows="2"></textarea></label>' +
     '</form></div>' +
-    '<footer class="cart-foot"><p class="cart-note">Harga dan stok kami kirim lewat WhatsApp.</p>' +
+    '<footer class="cart-foot"><p class="cart-note">Detail pesanan kita diskusikan lewat WhatsApp.</p>' +
     '<a class="btn btn-green cart-send" href="#" rel="noopener" target="_blank"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z"/></svg>Kirim pesanan via WhatsApp</a>' +
     '<button class="cart-clear" type="button">Kosongkan keranjang</button></footer>' +
     '</aside>';

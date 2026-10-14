@@ -136,9 +136,16 @@ def build():
     posts = [parse(p) for p in sorted(SRC.glob('*.md')) if not p.name.startswith('_')]
     posts.sort(key=lambda p: p['date'], reverse=True)
     OUT.mkdir(exist_ok=True)
+    # redirect_from: slug lama -> halaman pengalih (noindex, canonical ke slug baru)
+    redirects = {p['redirect_from']: p['slug'] for p in posts if p.get('redirect_from')}
     for old in OUT.glob('*.html'):
-        if old.stem not in {p['slug'] for p in posts}:
+        if old.stem not in {p['slug'] for p in posts} | set(redirects):
             old.unlink()
+    for old, new in redirects.items():
+        (OUT / f'{old}.html').write_text(
+            f'<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"/><title>Dipindahkan</title><meta content="noindex,follow" name="robots"/>'
+            f'<link href="{SITE}/blog/{new}" rel="canonical"/><meta content="0;url=/blog/{new}" http-equiv="refresh"/></head>'
+            f'<body><p>Artikel ini dipindahkan ke <a href="/blog/{new}">alamat baru</a>.</p></body></html>\n', encoding='utf-8')
 
     for p in posts:
         body, toc = md_to_html(p['body_md'])
