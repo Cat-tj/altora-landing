@@ -908,3 +908,18 @@ html.cart-open{overflow:hidden}
 .cart-toast{position:fixed;left:50%;bottom:80px;z-index:110;max-width:min(92vw,420px);padding:11px 16px;border-radius:12px;background:#10224F;color:#fff;font-size:.85rem;font-weight:600;box-shadow:0 12px 30px rgba(16,34,79,.3);opacity:0;transform:translate(-50%,10px);pointer-events:none;transition:opacity .2s,transform .2s}
 .cart-toast.show{opacity:1;transform:translate(-50%,0)}
 @media (max-width:560px){.cart-fab{right:12px;bottom:12px;padding:11px 13px}.cart-fab span{display:none}}
+/* halaman produk x kota */
+.pk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.pk-item{display:flex;flex-direction:column;padding:14px;border:1px solid #ECE7F7;border-radius:16px;background:#fff;transition:border-color .2s,box-shadow .2s}
+.pk-item:hover{border-color:#CBBEF5;box-shadow:0 10px 26px rgba(60,40,140,.09)}
+.pk-pic{display:grid;place-items:center;height:130px;margin-bottom:10px;border-radius:12px;background:radial-gradient(circle at 50% 60%,#fff 0,#F3EFFF 75%);overflow:hidden}
+.pk-pic img{max-width:90%;max-height:118px;object-fit:contain}
+.pk-noimg{width:58px;height:58px;border-radius:16px;background:#E6DEFC url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236D4AE0' stroke-width='1.6'%3E%3Ccircle cx='8' cy='15' r='4'/%3E%3Cpath d='m11 12 9-9M17 6l2.5 2.5M14.5 8.5 17 11'/%3E%3C/svg%3E") center/30px no-repeat}
+.pk-item small{color:#7C5CE8;font-size:.7rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+.pk-item h3{margin:3px 0 6px;color:#10224F;font-size:1rem;font-weight:800}
+.pk-item ul{display:grid;gap:3px;margin:0 0 10px;padding:0;list-style:none}
+.pk-item li{position:relative;padding-left:12px;color:#4A5272;font-size:.8rem;line-height:1.45}
+.pk-item li:before{content:'';position:absolute;left:0;top:.55em;width:5px;height:5px;border-radius:50%;background:#B9A8F2}
+.pk-hero-pic img{object-fit:contain!important;background:radial-gradient(circle at 50% 55%,#fff 0,#F1ECFE 80%)}
+.pk-hubcity{margin:0 0 18px}.pk-hubcity h3{margin:0 0 10px;color:#10224F;font-size:1.05rem}
+@media (max-width:560px){.pk-grid{grid-template-columns:1fr 1fr;gap:8px}.pk-item{padding:10px}.pk-pic{height:100px}.pk-pic img{max-height:88px}}
