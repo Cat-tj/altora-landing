@@ -15,7 +15,7 @@ OFFICES = [
          district='Balikpapan', region='Kalimantan Timur', postal='', hq=False),
 ]
 
-FACTS = dict(founded='2019', founded_city='Samarinda', divisions='3', team='13', projects='50+', partners='4')
+FACTS = dict(founded='2019', founded_city='Samarinda', divisions='3', team='13', projects='50+', partners='6')
 
 
 def hq():

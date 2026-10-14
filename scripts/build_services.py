@@ -4,7 +4,7 @@ import html, json, pathlib
 from urllib.parse import quote
 
 root = pathlib.Path(__file__).resolve().parent.parent
-CSS_VER = '20261014k'
+CSS_VER = '20261014l'
 WA = 'https://wa.me/6285190911170?text='
 e = lambda t: html.escape(t, quote=True)
 
@@ -189,7 +189,7 @@ SERVICES = [
               ('Melayani di luar Balikpapan dan Samarinda?', 'Bisa, tergantung lokasi dan cakupan pekerjaan. Hubungi kami untuk dicek.')]),
     dict(slug='starlink-internet-satelit', name='Starlink & Internet Satelit', kicker='Konektivitas',
          h1='Internet cepat untuk lokasi tanpa jaringan kabel.',
-         lead='Pemasangan Starlink lengkap dengan instalasi, konfigurasi, repeater WiFi, dan panel surya untuk tambang, perkebunan, proyek, dan kantor di pedalaman Kalimantan. Kami partner resmi Starlink.',
+         lead='Pemasangan Starlink lengkap dengan instalasi, konfigurasi, repeater WiFi, dan panel surya untuk tambang, perkebunan, proyek, dan kantor di pedalaman Kalimantan. Perangkat kami adakan sendiri, lalu kami pasang dan rawat.',
          hero='/assets/img/portfolio/agri.jpg', hero_pos='50% 50%', chips=['Partner resmi', 'Tenaga surya', 'Remote site'],
          pains=[('Sinyal seluler tidak ada di lokasi', 'Laporan dari site harus menunggu petugas kembali ke kota.'),
                 ('Tidak ada listrik PLN', 'Perangkat internet tidak bisa menyala sepanjang hari.'),
@@ -199,7 +199,7 @@ SERVICES = [
               ('sensor', 'Repeater WiFi', 'Sinyal diperluas ke seluruh area kantor atau site.'),
               ('camera', 'CCTV & GPS di remote site', 'Internet satelit dipakai untuk CCTV, GPS tracker, dan laporan dari lapangan.'),
               ('tool', 'Perawatan', 'Pengecekan perangkat dan bantuan saat ada gangguan.'),
-              ('shield', 'Garansi resmi', 'Perangkat asli dari partner resmi Starlink.')],
+              ('shield', 'Perangkat asli', 'Kit Starlink asli dengan garansi pabrikan.')],
          steps=['Konsultasi', 'Survei lokasi', 'Penawaran', 'Pemasangan', 'Konfigurasi & uji', 'Perawatan'],
          proof=['fleet-management', 'iot-monitoring-lahan'],
          related=[('/produk#hardware', 'Katalog perangkat'), ('/services/fleet-management-service', 'Fleet management'), ('/services/ai-cctv', 'AI CCTV')],

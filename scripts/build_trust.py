@@ -30,7 +30,7 @@ ACHIEVEMENT = dict(
     tag='Pembimbing · SMP Negeri 5 Balikpapan')
 
 STATS = [(FACTS['founded'], 'berdiri di Samarinda'), (FACTS['projects'], 'proyek selesai'), (FACTS['team'], 'tim inti in-house'),
-         ('3', 'kantor di Kaltim'), ('148+', 'produk resmi di katalog'), (FACTS['partners'], 'partner global resmi')]
+         ('3', 'kantor di Kaltim'), ('148+', 'produk resmi di katalog'), (FACTS['partners'], 'principal resmi')]
 
 INDUSTRIES = [
     ('pertambangan', 'Tambang & industri berat', 'FMS, AI safety, CCTV surya, Starlink'),
@@ -60,10 +60,10 @@ def ico(n):
 def logo_tile(name, logo, sector):
     inner = (f'<img alt="{e(name)}" height="56" loading="lazy" src="/assets/img/clients/{logo}"/>' if logo
              else f'<span class="tl-word">{e(name)}</span>')
-    return f'<li class="tl-tile" title="{e(name)}">{inner}<small>{e(sector)}</small></li>'
+    return f'<li class="tl-tile" title="{e(name)}">{inner}</li>'
 
 
-def logos_block(heading='Dipercaya instansi, kampus, BUMN, dan industri'):
+def logos_block(heading='Dipercaya oleh'):
     tiles = ''.join(logo_tile(*c) for c in CLIENTS)
     return (f'<section aria-label="Klien kami" class="sec tl-sec"><div class="wrap">'
             f'<div class="tl-head"><p class="eyebrow eyebrow-purple">Klien kami</p><h2>{e(heading)}</h2>'
@@ -73,16 +73,11 @@ def logos_block(heading='Dipercaya instansi, kampus, BUMN, dan industri'):
 
 def stats_block():
     stats = ''.join(f'<div><b>{e(v)}</b><span>{e(k)}</span></div>' for v, k in STATS)
-    a = ACHIEVEMENT
-    return ('<section aria-label="Angka dan prestasi" class="sec ts-sec"><div class="wrap">'
+    creds = ['Badan usaha resmi, berstatus PKP', 'Terdaftar sebagai penyedia di Inaproc / LKPP', 'Kolaborasi riset dengan Institut Teknologi Kalimantan',
+             'Partner resmi TP-Link | VIGI, Teltonika, Lenovo, HDe, HaganeRack, Fasser']
+    return ('<section aria-label="Angka dan legalitas" class="sec ts-sec"><div class="wrap">'
             f'<div class="ts-stats">{stats}</div>'
-            '<div class="ts-row">'
-            f'<article class="ts-award"><span class="ts-award-ico">{ico("trophy")}</span><div><small>{e(a["tag"])}</small>'
-            f'<h3>{e(a["title"])}</h3><p>{e(a["text"])}</p></div></article>'
-            '<article class="ts-cred"><h3>Legal &amp; siap tender</h3><ul>'
-            '<li>Badan usaha resmi, berstatus PKP</li><li>Terdaftar sebagai penyedia di Inaproc / LKPP</li>'
-            '<li>Kolaborasi riset dengan Institut Teknologi Kalimantan</li><li>Partner resmi Teltonika, VIGI, Starlink, Lenovo</li></ul></article>'
-            '</div></div></section>')
+            '<ul class="ts-creds">' + ''.join(f'<li>{e(c)}</li>' for c in creds) + '</ul></div></section>')
 
 
 def process_block():
@@ -141,12 +136,17 @@ if __name__ == '__main__':
     s = put(s, 'trust', logos_block())
     s = put(s, 'stats', stats_block(), anchor='<!-- trust:end -->', before=False)
     s = put(s, 'proses', process_block(), replace_re=r'<section class="sec how" id="alur">.*?</section>')
-    s = put(s, 'keamanan', security_block(), anchor='<section class="sec faq-sec" id="faq">')
-    s = put(s, 'industri', industry_block(), anchor='<!-- keamanan:start -->')
+    s = re.sub(r'<!-- keamanan:start -->.*?<!-- keamanan:end -->', '', s, flags=re.S)
+    s = put(s, 'industri', industry_block(), anchor='<section class="sec faq-sec" id="faq">')
     p.write_text(s, encoding='utf-8')
 
     p = root / 'about.html'; s = p.read_text(encoding='utf-8')
     anchor = '</main>'
     s = put(s, 'about-trust', logos_block('Klien yang sudah bekerja sama dengan kami') + stats_block(), anchor=anchor)
+    s = s.replace('<div class="lc-svc"><b>Starlink</b><span>Internet satelit untuk lokasi terpencil</span></div>', '')
+    if 'HaganeRack</b>' not in s:
+        s = s.replace('<div class="lc-svc"><b>Lenovo</b><span>Komputer, workstation, dan server</span></div>',
+                      '<div class="lc-svc"><b>Lenovo</b><span>Komputer, workstation, dan server</span></div><div class="lc-svc"><b>HDe</b><span>Videotron, interactive flat panel, PC all-in-one</span></div>'
+                      '<div class="lc-svc"><b>HaganeRack</b><span>Rak server dan data center</span></div><div class="lc-svc"><b>Fasser</b><span>Alat ukur dan sambung fiber optik</span></div>')
     p.write_text(s, encoding='utf-8')
     print('blok kredibilitas: beranda & about diperbarui')

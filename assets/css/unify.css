@@ -1082,3 +1082,8 @@ html.cart-open{overflow:hidden}
  a{color:inherit;text-decoration:none}
 }
 body:has(a.wa) .cart-fab{bottom:84px}
+.ts-creds{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;margin:16px 0 0;padding:0;list-style:none}
+.ts-creds li{position:relative;padding-left:22px;color:#4A5272;font-size:.86rem;font-weight:600}
+.ts-creds li:before{content:'';position:absolute;left:0;top:2px;width:16px;height:16px;border-radius:50%;background:#E8F7EE url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m4.5 8.2 2.2 2.2 4.8-4.8' fill='none' stroke='%2316A34A' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") center/11px no-repeat}
+.tl-tile{min-height:104px}
+.ind-note{margin:0 0 18px;padding:14px 16px;border-radius:14px;background:#F7F4FF;color:#4A5272;font-size:.9rem;line-height:1.6}.ind-note a{color:#6D4AE0;font-weight:800}

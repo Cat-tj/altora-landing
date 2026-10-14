@@ -5,7 +5,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from build_area import shell, update_sitemap, SITE
 from build_apps import APPS
 from catalog_data import HW_CATS, HW_ITEMS
-from build_trust import CLIENTS, ACHIEVEMENT, STATS
+from build_trust import CLIENTS, STATS
 from site_data import OFFICES, one_line, PHONE_DISPLAY, EMAIL
 
 root = pathlib.Path(__file__).resolve().parent.parent
@@ -32,7 +32,6 @@ body = f'''<main class="ct-page kt-page">
 <h1>Katalog Altora Indonesia</h1>
 <p class="ct-lead">Software, AI, CCTV, IoT, perangkat, dan infrastruktur untuk bisnis dan instansi di Kalimantan Timur. Tanpa harga: penawaran disesuaikan kebutuhan dan lokasi.</p>
 <div class="ts-stats kt-stats">{stats}</div>
-<p class="kt-award"><b>{e(ACHIEVEMENT["title"])}</b> · {e(ACHIEVEMENT["text"])}</p>
 <p class="kt-clients"><b>Klien:</b> {clients}</p>
 </div></section>
 <section class="kt-sec"><div class="ct-wrap"><h2>Aplikasi Altora</h2><div class="kt-apps">{apps}</div></div></section>

@@ -10,7 +10,7 @@
 - Rebrand information: https://altora.id/algora
 - Head office: Perum Graha Indah Blok A13, Air Putih, Samarinda Ulu, Samarinda
 - Branches: Jl. Soekarno Hatta, Muara Rapak, Balikpapan Utara; Pasar Baru, Balikpapan
-- Official partners: Teltonika, TP-Link | VIGI, Starlink, Lenovo
+- Official partners: TP-Link | VIGI, Teltonika, Lenovo, HDe, HaganeRack, Fasser (Starlink kits procured and installed by Altora, not a partnership)
 - Registered supplier on Inaproc/LKPP (Indonesian government procurement)
 - Contact: hello@altora.id, WhatsApp +62 851-9091-1170 (https://wa.me/6285190911170)
 
@@ -32,7 +32,7 @@
 - Support: https://altora.id/support
 
 ## Prestasi & kredibilitas
-- Pembimbing siswa SMP Negeri 5 Balikpapan, Juara 2 Nasional Innovakids 2026 (solusi inovasi berbasis AI).
+- Membimbing tim SMP Negeri 5 Balikpapan hingga Juara 2 Nasional Innovakids 2026 (web app, AI, presentasi).
 - Klien: Pemkot Samarinda, Pemkab Barito Utara, InJourney Airports, Universitas Mulawarman, Institut Teknologi Kalimantan, Kideco Jaya Agung, Adhi, Alba Aluminium, Labschool, 1Ci Enterprise, MBC Entertainment, YODI.
 
 ## Halaman penting
