@@ -855,3 +855,56 @@ div.lc-svc{cursor:default}div.lc-svc b:after{content:none}
 @media (max-width:1100px){.ph-hws{grid-template-columns:repeat(3,1fr)}}
 @media (max-width:860px){.ph-bento{grid-template-columns:1fr}.ph-big{grid-row:auto}.ph-feat:not(.ph-big){grid-template-columns:38% 1fr}.ph-stats{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:560px){.ph-hws{grid-template-columns:repeat(2,1fr);gap:8px}.ph-feat:not(.ph-big){grid-template-columns:1fr}.ph-feat:not(.ph-big) .ph-photo{min-height:0;aspect-ratio:16/9}.ph-big .ph-body b{font-size:1.25rem}.ph-hw-pic{height:90px}}
+/* keranjang pesanan */
+.cart-add{display:inline-flex;align-items:center;gap:7px;min-height:42px;padding:10px 16px;border:0;border-radius:999px;background:#7C5CE8;color:#fff;font:800 .84rem/1 "Plus Jakarta Sans",system-ui,sans-serif;cursor:pointer;box-shadow:0 8px 18px rgba(124,92,232,.25);transition:background .2s,transform .15s}
+.cart-add:hover{background:#6A48DE}.cart-add:active{transform:scale(.97)}
+.cart-add>span:first-child{font-size:1.05rem;line-height:1}
+.cart-add.in-cart{background:#EFEAFD;color:#5B3FD1;box-shadow:none}
+.cart-add.in-cart>span:first-child{display:none}
+.cart-add-sm{min-height:36px;padding:8px 12px;font-size:.78rem;box-shadow:none}
+.vg-act{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:auto}
+.vg-act .cart-add-sm{min-height:34px;padding:7px 11px;font-size:.74rem}
+.cart-fab{position:fixed;right:18px;bottom:18px;z-index:80;display:inline-flex;align-items:center;gap:8px;padding:12px 16px 12px 14px;border:0;border-radius:999px;background:#10224F;color:#fff;font:800 .88rem/1 "Plus Jakarta Sans",system-ui,sans-serif;cursor:pointer;box-shadow:0 14px 34px rgba(16,34,79,.3)}
+.cart-fab[hidden]{display:none}
+.cart-fab svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.cart-fab b{min-width:22px;height:22px;padding:0 6px;border-radius:999px;background:#fff;color:#10224F;font-size:.76rem;line-height:22px;text-align:center}
+.cart-fab.has-items{background:linear-gradient(120deg,#5B3FD1,#8B6CF0)}
+.cart-fab.bump{animation:cartBump .45s}
+@keyframes cartBump{30%{transform:scale(1.12)}60%{transform:scale(.96)}}
+.cart-drawer{position:fixed;inset:0;z-index:120}
+.cart-backdrop{position:absolute;inset:0;background:rgba(16,34,79,.35);opacity:0;transition:opacity .2s}
+.cart-panel{position:absolute;top:0;right:0;bottom:0;display:flex;flex-direction:column;width:min(430px,100%);background:#fff;box-shadow:-20px 0 50px rgba(16,34,79,.2);transform:translateX(100%);transition:transform .22s ease}
+.cart-drawer.open .cart-backdrop{opacity:1}.cart-drawer.open .cart-panel{transform:none}
+html.cart-open{overflow:hidden}
+.cart-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid #ECE7F7}
+.cart-head h2{margin:0;font-size:1.15rem!important;color:#10224F}
+.cart-x{width:36px;height:36px;border:0;border-radius:50%;background:#F3F0FB;color:#10224F;font-size:1.4rem;line-height:1;cursor:pointer}
+.cart-body{flex:1;overflow:auto;padding:12px 20px}
+.cart-list{display:grid;gap:10px;margin:0 0 14px;padding:0;list-style:none}
+.cart-list li{display:grid;grid-template-columns:52px 1fr auto;grid-template-rows:auto auto;gap:4px 10px;align-items:center;padding:10px;border:1px solid #ECE7F7;border-radius:14px;position:relative}
+.cart-pic{grid-row:1/span 2;display:grid;place-items:center;width:52px;height:52px;border-radius:10px;background:#F7F5FD;overflow:hidden}
+.cart-pic img{max-width:90%;max-height:90%;object-fit:contain}
+.cart-info{min-width:0;padding-right:22px}.cart-info b{display:block;color:#10224F;font-size:.88rem;line-height:1.3}.cart-info small{color:#7A819C;font-size:.74rem}
+.cart-qty{grid-column:2/span 2;display:inline-flex;align-items:center;width:max-content;border:1px solid #E2DBF5;border-radius:999px;overflow:hidden}
+.cart-qty button{width:32px;height:30px;border:0;background:#fff;color:#5B3FD1;font-size:1.05rem;font-weight:800;cursor:pointer}
+.cart-qty input{width:44px;height:30px;border:0;border-left:1px solid #E2DBF5;border-right:1px solid #E2DBF5;text-align:center;font:700 .86rem "Plus Jakarta Sans",system-ui,sans-serif;color:#10224F;-moz-appearance:textfield}
+.cart-qty input::-webkit-inner-spin-button{-webkit-appearance:none}
+.cart-del{position:absolute;top:6px;right:6px;width:26px;height:26px;border:0;border-radius:50%;background:transparent;color:#9AA0B8;font-size:1.1rem;cursor:pointer}
+.cart-del:hover{background:#FDECEC;color:#D33}
+.cart-empty{display:none;padding:30px 0;text-align:center;color:#5B6380}
+.cart-drawer.is-empty .cart-empty{display:block}.cart-drawer.is-empty .cart-form,.cart-drawer.is-empty .cart-foot{display:none}
+.cart-form{display:grid;gap:9px;padding:14px;border-radius:14px;background:#F9F7FF}
+.cart-form-title{margin:0;color:#10224F;font-weight:800;font-size:.88rem}.cart-form-title small{color:#7A819C;font-weight:600}
+.cart-form label{display:grid;gap:4px;color:#4A5272;font-size:.78rem;font-weight:700}
+.cart-form input[type=text],.cart-form textarea{width:100%;padding:9px 11px;border:1px solid #E2DBF5;border-radius:10px;background:#fff;font:500 .88rem "Plus Jakarta Sans",system-ui,sans-serif;color:#10224F}
+.cart-form input:focus,.cart-form textarea:focus{outline:2px solid #B9A8F2;border-color:#7C5CE8}
+.cart-form .cart-check{display:flex;align-items:center;gap:8px;font-weight:700;color:#10224F}
+.cart-foot{display:grid;gap:8px;padding:14px 20px 18px;border-top:1px solid #ECE7F7}
+.cart-note{margin:0;color:#7A819C;font-size:.78rem;text-align:center}
+.cart-send{display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;background:#16A34A!important;color:#fff!important;border-radius:999px;font-weight:800;text-decoration:none}
+.cart-send svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8}
+.cart-clear{border:0;background:none;color:#9AA0B8;font:600 .8rem "Plus Jakarta Sans",system-ui,sans-serif;cursor:pointer}
+.cart-clear:hover{color:#D33}
+.cart-toast{position:fixed;left:50%;bottom:80px;z-index:110;max-width:min(92vw,420px);padding:11px 16px;border-radius:12px;background:#10224F;color:#fff;font-size:.85rem;font-weight:600;box-shadow:0 12px 30px rgba(16,34,79,.3);opacity:0;transform:translate(-50%,10px);pointer-events:none;transition:opacity .2s,transform .2s}
+.cart-toast.show{opacity:1;transform:translate(-50%,0)}
+@media (max-width:560px){.cart-fab{right:12px;bottom:12px;padding:11px 13px}.cart-fab span{display:none}}

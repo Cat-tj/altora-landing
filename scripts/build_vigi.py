@@ -231,7 +231,9 @@ def item(m, cat, series, head, specs, prot):
     return (f'<article class="vg-item" data-cat="{cat}" id="{e(m.lower().replace(" ", "-"))}">'
             f'{pic}<div class="vg-top"><small>{e(series)}</small><h3>{e(name(m))}</h3><p class="vg-head">{e(head)}</p></div>'
             f'<ul>{lis}</ul><p class="vg-prot">{e(prot)}</p>'
-            f'<a class="vg-ask" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Tanya stok →</a></article>')
+            f'<div class="vg-act"><button class="cart-add cart-add-sm" data-cart-id="vigi-{e(m.lower().replace(" ", "-"))}" data-cart-img="{e(photo(m, cat))}" '
+            f'data-cart-meta="{e(series)}" data-cart-name="{e(name(m))}" type="button"><span aria-hidden="true">+</span><span class="cart-add-label">Tambah ke keranjang</span></button>'
+            f'<a class="vg-ask" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Tanya stok</a></div></article>')
 
 counts = {c: sum(1 for x in M if x[1] == c) for c, *_ in CATS}
 filters = (f'<button aria-pressed="true" data-filter="all" type="button">Semua <span>{len(M)}</span></button>'

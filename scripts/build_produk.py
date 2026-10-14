@@ -87,6 +87,10 @@ PHOTO_FOCUS = {
     'sense': '62% 58%', 'farming': '62% 58%', 'command': '60% 62%', 'pos': '50% 58%', 'erp': '62% 58%', 'private-ai': '50% 50%',
 }
 
+def cart_btn(pid, name, meta, img, extra=''):
+    return (f'<button class="cart-add {extra}" data-cart-id="{e(pid)}" data-cart-img="{e(img)}" data-cart-meta="{e(meta)}" '
+            f'data-cart-name="{e(name)}" type="button"><span aria-hidden="true">+</span><span class="cart-add-label">Tambah ke keranjang</span></button>')
+
 def photo(p):
     pos = PHOTO_FOCUS.get(p['id'])
     if not pos:
@@ -109,7 +113,9 @@ def card(p):
             f'{photo(p)}<div class="pd-top"><span class="pd-icon">{icon(p["icon"])}</span>{badge}</div>'
             f'<h3>{e(p["name"])}</h3><p class="pd-tagline">{e(p["tagline"])}</p><p class="pd-desc">{e(p["desc"])}</p>'
             f'<ul class="pd-feats">{feats}</ul>'
-            f'<div class="pd-actions"><a class="btn {"btn-outline" if p.get("soon") else "btn-purple"}" href="{WA}{quote(msg)}" rel="noopener" target="_blank">{e(p["cta"])} →</a>{proof}</div>'
+            f'<div class="pd-actions"><a class="btn {"btn-outline" if p.get("soon") else "btn-purple"}" href="{WA}{quote(msg)}" rel="noopener" target="_blank">{e(p["cta"])} →</a>'
+            + ('' if p.get('soon') else cart_btn(p['id'], p['name'], 'Aplikasi Altora', f"/assets/img/produk/{p['id']}.webp", 'cart-add-sm'))
+            + f'{proof}</div>'
             '</article>')
 
 
@@ -308,7 +314,8 @@ def hw_item(h):
             + (f'<img alt="" class="hwi-brand" src="/assets/img/partners/{h["logo"]}.png"/>' if h['logo'] else '') + '</div>'
             f'<div class="hwi-body"><small>{e(h["brand"])}</small><h3>{e(h["name"])}</h3><p>{e(h["desc"])}</p>'
             f'<dl class="hwi-specs">{specs}</dl>'
-            f'<div class="pd-actions"><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Tanya produk ini →</a>'
+            f'<div class="pd-actions">{cart_btn(h["id"], h["name"], h["brand"], f"/assets/img/hardware/{h['img']}.webp" if h['img'] else "")}'
+            f'<a class="pd-link" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Tanya via WhatsApp</a>'
             + (f'<a class="pd-link" href="/katalog-cctv-vigi#{VIGI_ANCHOR.get(h["id"], "")}">Lihat semua model</a>' if h['brand'] == 'VIGI' else f'<a class="pd-link" href="{SVC_LINK.get(h["cat"], "/services/pengadaan-instalasi-maintenance")}">Instalasi & maintenance</a>') + '</div></div></article>')
 
 sections = []
@@ -374,7 +381,7 @@ title = 'Produk Altora | Aplikasi, CCTV VIGI, Smartlock & Starlink'
 desc = ('Aplikasi Altora untuk HRIS, AI CCTV, armada & private AI, plus kamera VIGI, smartlock, signage, kios, Starlink, dan perangkat Teltonika, HDe, HaganeRack.')
 
 page = f'''<!DOCTYPE html>
-<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(title)}</title><meta content="{e(desc)}" name="description"/><link href="https://altora.id/produk" rel="canonical"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="{e(title)}" property="og:title"/><meta content="{e(desc)}" property="og:description"/><meta content="https://altora.id/produk" property="og:url"/><meta content="https://altora.id/assets/img/produk/vision.webp" property="og:image"/><link href="/assets/img/altora-logo-icon-v2.svg" rel="icon"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v=20261014f"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head><body class="company-page"><header class="company-nav"><a class="project-brand" href="/"><img alt="Altora" src="/assets/img/altora-logo-icon-v2.svg"/><span>Altora</span></a></header>
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(title)}</title><meta content="{e(desc)}" name="description"/><link href="https://altora.id/produk" rel="canonical"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="{e(title)}" property="og:title"/><meta content="{e(desc)}" property="og:description"/><meta content="https://altora.id/produk" property="og:url"/><meta content="https://altora.id/assets/img/produk/vision.webp" property="og:image"/><link href="/assets/img/altora-logo-icon-v2.svg" rel="icon"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v=20261014h"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head><body class="company-page"><header class="company-nav"><a class="project-brand" href="/"><img alt="Altora" src="/assets/img/altora-logo-icon-v2.svg"/><span>Altora</span></a></header>
 <main class="pd-page">
 <section class="pd-hero"><div class="pd-wrap">
 <p class="eyebrow eyebrow-purple">Produk Altora</p>
