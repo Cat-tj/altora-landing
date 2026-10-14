@@ -115,33 +115,45 @@ def card(p):
 
 # Katalog hardware (dari katalog resmi principal; spesifikasi diringkas, tanpa harga).
 # cat = id filter, img = assets/img/hardware/<img>.webp (None = pakai logo principal)
-HW_CATS = [('cctv', 'Kamera CCTV VIGI'), ('akses', 'Smartlock & akses'), ('gps', 'GPS tracker & telematika'), ('display', 'Display & ruang rapat'),
+HW_CATS = [('cctv', 'CCTV VIGI'), ('akses', 'Smartlock & akses'), ('gps', 'GPS tracker & telematika'), ('display', 'Display & ruang rapat'),
            ('kios', 'Signage & kios'), ('konek', 'Starlink'), ('computer', 'PC all-in-one'), ('rack', 'Rak & data center'), ('fiber', 'Fiber optik')]
 HW_ITEMS = [
     dict(id='vigi-dome', cat='cctv', brand='VIGI', logo='vigi-v2', img='vigi-dome', name='Kamera Dome Full-Color',
          desc='Kamera dome untuk plafon dan dinding, indoor maupun outdoor. Tahan benturan dan tetap berwarna di malam hari.',
-         specs=[('Resolusi', '4–8 MP'), ('Malam', 'Full-color / IR'), ('AI', 'Deteksi manusia & kendaraan'), ('Daya', 'PoE')]),
-    dict(id='vigi-turret-fullcolor', cat='cctv', brand='VIGI', logo='vigi-v2', img='vigi-turret-fullcolor', name='Kamera Turret Full-Color',
-         desc='Kamera serbaguna untuk teras, gudang, dan area parkir. Gambar terang dan tajam, tahan cuaca.',
-         specs=[('Resolusi', '4–8 MP'), ('Malam', 'Full-color'), ('Proteksi', 'IP67'), ('Fitur', 'Mikrofon, sirene & lampu peringatan (tipe tertentu)')]),
-    dict(id='vigi-turret-varifocal', cat='cctv', brand='VIGI', logo='vigi-v2', img='vigi-turret-varifocal', name='Kamera Turret Varifocal',
-         desc='Lensa zoom bermotor untuk mengatur jangkauan dan sudut pandang dari jauh, tanpa naik tangga.',
-         specs=[('Lensa', 'Motorized varifocal hingga 5×'), ('Resolusi', '4–8 MP'), ('AI', 'Deteksi manusia & kendaraan'), ('Proteksi', 'IP67')]),
-    dict(id='vigi-bullet', cat='cctv', brand='VIGI', logo='vigi-v2', img='vigi-bullet', name='Kamera Bullet PoE',
-         desc='Sorotan jarak jauh untuk pagar, lorong, dan jalur perimeter. Satu kabel untuk data dan daya.',
-         specs=[('Resolusi', '4–8 MP'), ('Malam', 'Full-color / IR'), ('Proteksi', 'IP67'), ('Daya', 'PoE')]),
-    dict(id='vigi-ptz', cat='cctv', brand='VIGI', logo='vigi-v2', img='vigi-ptz', name='Kamera PTZ ColorPro',
-         desc='Pan-tilt-zoom dengan auto-tracking untuk area luas seperti halaman, lapangan, dan area produksi.',
-         specs=[('Gerak', 'Pan, tilt & optical zoom'), ('Tracking', 'Mengikuti objek otomatis'), ('Malam', 'ColorPro'), ('Proteksi', 'IP66/IP67')]),
-    dict(id='vigi-multisensor', cat='cctv', brand='VIGI', logo='vigi-v2', img='vigi-multisensor', name='Kamera Panoramic Multi-Sensor',
-         desc='Beberapa sensor dalam satu bodi untuk memantau persimpangan, lobi, atau area terbuka yang lebar.',
-         specs=[('Sensor', 'Multi-lensa, satu bodi'), ('Cakupan', 'Panoramic'), ('Pasang', 'Plafon / dinding / tiang'), ('Kelola', 'NVR & VIGI VMS')]),
-    dict(id='vigi-wifi', cat='cctv', brand='VIGI', logo='vigi-v2', img='vigi-wifi', name='Kamera Wi-Fi & 4G',
-         desc='Untuk titik yang sulit ditarik kabel data. Bisa dipadukan dengan tenaga surya untuk lokasi tanpa listrik.',
-         specs=[('Koneksi', 'Wi-Fi / 4G LTE (Nano SIM)'), ('Resolusi', '3–4 MP'), ('Proteksi', 'IP66'), ('Pantau', 'Aplikasi VIGI & cloud VMS')]),
-    dict(id='vigi-solar', cat='cctv', brand='VIGI', logo='vigi-v2', img=None, name='VIGI Solar Power System',
+         specs=[('Model', 'C240, C245, C250, C255, C285'), ('Resolusi', '4–8 MP'), ('Fitur', 'Human & vehicle classification, mikrofon'), ('Proteksi', 'IK10, IP67, bodi metal (seri 5)')]),
+    dict(id='vigi-dome-ir', cat='cctv', brand='VIGI', logo='vigi-v2', img='vigi-dome-ir', name='Kamera Dome IR, Zoom & Mini',
+         desc='Dome inframerah untuk ruangan dan koridor, termasuk tipe optical zoom untuk area yang perlu detail dan mini dome untuk plafon rendah.',
+         specs=[('Model', 'C220I, C230I, C240I, C245ZI, C285ZI, C230I Mini'), ('Resolusi', '2–8 MP'), ('Zoom', 'Optical zoom 5× (seri ZI)'), ('Fitur', 'Smart IR, face recognition (C245ZI)')]),
+    dict(id='vigi-turret', cat='cctv', brand='VIGI', logo='vigi-v2', img='vigi-turret-fullcolor', name='Kamera Turret',
+         desc='Kamera serbaguna untuk teras, gudang, dan area parkir. Dilengkapi audio dua arah, sirene, dan lampu peringatan.',
+         specs=[('Model', 'C440, C445, C450, C455, C485, C440I, C445ZI, C485ZI'), ('Resolusi', '4–8 MP (4K)'), ('Fitur', 'Two-way audio, active defense'), ('Proteksi', 'IP67, bodi metal (seri 5)')]),
+    dict(id='vigi-bullet', cat='cctv', brand='VIGI', logo='vigi-v2', img='vigi-bullet', name='Kamera Bullet',
+         desc='Sorotan jarak jauh untuk pagar, lorong, dan jalur perimeter. Satu kabel PoE untuk data dan daya.',
+         specs=[('Model', 'C340, C345, C350, C355, C385, C340I, C345ZI, C385ZI'), ('Resolusi', '4–8 MP (4K)'), ('Fitur', 'People & vehicle analytics, active defense'), ('Proteksi', 'IP67, bodi metal (seri 5)')]),
+    dict(id='vigi-aurora', cat='cctv', brand='VIGI', logo='vigi-v2', img='vigi-aurora', name='Seri Aurora (ColorPro Night Vision)',
+         desc='Kamera untuk lokasi yang sangat gelap. Gambar tetap berwarna dan jelas tanpa lampu sorot, cocok untuk parkiran, jalan masuk, dan taman.',
+         specs=[('Model', 'C340S, C345S, C385S, C245S, C285S, C445S, C485S, C540S'), ('Lensa', 'F1.0, sensor 1/1.8" hingga 1/1.2"'), ('Cahaya min.', '0,0005 lux'), ('Fitur', 'WDR 120 dB, face recognition, people & vehicle analytics')]),
+    dict(id='vigi-ptz', cat='cctv', brand='VIGI', logo='vigi-v2', img='vigi-ptz', name='Kamera Pan Tilt',
+         desc='Berputar 360° dan mengikuti objek secara otomatis. Untuk halaman, lapangan, dan area produksi yang luas.',
+         specs=[('Model', 'C540, C540V, C540S, C580'), ('Gerak', 'Pan & tilt 360°, auto tracking'), ('Zoom', 'Dual-lens 3× instant zoom (C540V)'), ('Fitur', 'Full-color, active defense')]),
+    dict(id='vigi-panoramic', cat='cctv', brand='VIGI', logo='vigi-v2', img='vigi-panoramic', name='Kamera Panoramic & Fisheye',
+         desc='Satu kamera untuk area yang biasanya butuh beberapa kamera: persimpangan, lobi, toko, dan kantor terbuka.',
+         specs=[('Model', 'C385DP, C385P, C485P, C655I, C685I'), ('Panoramic', 'Dual-lens 32:9, hasil disatukan tanpa celah'), ('Fisheye', '360°, dewarping 180° / quad view'), ('Analitik', 'Density heat map, smart detection')]),
+    dict(id='vigi-4g', cat='cctv', brand='VIGI', logo='vigi-v2', img='vigi-4g', name='Kamera Wi-Fi & 4G',
+         desc='Untuk titik yang sulit ditarik kabel data. Tipe 4G bisa dipadukan dengan tenaga surya untuk lokasi tanpa listrik dan internet kabel.',
+         specs=[('Model', 'C340-W, C440-W, C540-W, C345-4G, C540-4G'), ('Koneksi', 'Wi-Fi atau 4G LTE (Nano SIM)'), ('Resolusi', '4 MP full-color'), ('Pasangan', 'NVR Wi-Fi NVR1108H-W')]),
+    dict(id='vigi-nvr', cat='cctv', brand='VIGI', logo='vigi-v2', img='vigi-nvr', name='NVR (Network Video Recorder)',
+         desc='Perekam untuk kamera VIGI: simpan, cari, dan putar ulang rekaman, termasuk pencarian berdasarkan wajah, orang, dan kendaraan.',
+         specs=[('Model', 'NVR1008H-8MP, NVR1016H, NVR1108H-W, NVR2016H-16MP, NVR4064H'), ('Kanal', '8, 16, hingga 64 kamera'), ('PoE', '8–16 port PoE+ (113–140 W) pada tipe MP'), ('Storage', '1–4 HDD hingga 10 TB/HDD, RAID 1/5, output 4K HDMI')]),
+    dict(id='vigi-nvd', cat='cctv', brand='VIGI', logo='vigi-v2', img='vigi-nvr-rack', name='Video Decoder & Video Wall',
+         desc='Untuk ruang kendali: menampilkan puluhan kamera sekaligus di beberapa layar besar.',
+         specs=[('Model', 'NVD6004'), ('Output', '4 × HDMI 4K'), ('Decode', 'Hingga 64 kamera 1080p bersamaan'), ('Kelola', 'Web UI & VIGI VMS')]),
+    dict(id='vigi-solar', cat='cctv', brand='VIGI', logo='vigi-v2', img='vigi-solar', name='VIGI Solar Power System',
          desc='Sistem tenaga surya untuk CCTV dan perangkat jaringan di lokasi tanpa listrik atau kabel, seperti proyek, kebun, tambak, dan area terpencil.',
-         specs=[('Model', 'SP6020, SP6030, SP9030, SP18090'), ('Panel surya', '60 W / 90 W, hingga 180 W'), ('Baterai', 'Lithium 20,8–93,6 Ah'), ('Proteksi', 'IP66'), ('Pemantauan', 'Aplikasi VIGI & VIGI Cloud VMS')]),
+         specs=[('Model', 'SP6020, SP6030, SP9030, SP18090'), ('Panel surya', '60 W / 90 W, hingga 180 W'), ('Baterai', 'Lithium 20,8–93,6 Ah'), ('Proteksi', 'IP66, dipantau dari VIGI Cloud VMS')]),
+    dict(id='vigi-vms', cat='cctv', brand='VIGI', logo='vigi-v2', img='vigi-vms', name='VIGI VMS, Aplikasi & Omada Central',
+         desc='Software untuk mengelola semua kamera, NVR, dan jaringan dari satu tempat, termasuk banyak cabang sekaligus.',
+         specs=[('Platform', 'VIGI VMS (cloud & lokal), aplikasi VIGI'), ('Fitur', 'Event center, dashboard, peta, smart search'), ('Multi-site', 'Banyak cabang dalam satu tampilan, hak akses bertingkat'), ('Jaringan', 'Omada: switch, AP & router dalam satu sistem')]),
     dict(id='smartlock', cat='akses', brand='Altora Pass', logo=None, img='smartlock', name='Smartlock & Kontrol Akses',
          desc='Kunci pintu digital untuk rumah, kantor, kampus, dan gudang. Semua pintu dikelola dari satu aplikasi dengan riwayat akses lengkap.',
          specs=[('Varian', 'Smart handle, sliding door, solenoid / EM lock, handle + doorcam'), ('Buka dengan', 'Aplikasi, PIN, kartu RFID, sidik jari, wajah 3D'), ('Pintu', 'Kayu, aluminium, kaca, gerbang'), ('Aplikasi', 'Buka jarak jauh, akses tamu, notifikasi, riwayat')]),
@@ -291,7 +303,7 @@ hardware_html = ('<section class="pd-block" id="hardware"><div class="pd-wrap"><
                  f'<div aria-label="Filter kategori hardware" class="hwi-filter" role="group">{hw_filters}</div>'
                  f'<div class="hwi-grid">{"".join(hw_item(h) for h in HW_ITEMS)}</div>'
                  '<div class="hwi-more"><div class="hwi-more-logos"><img alt="TP-Link" src="/assets/img/partners/tplink-v2.png"/><img alt="Lenovo" src="/assets/img/partners/lenovo-v2.png"/><img alt="VIGI" src="/assets/img/partners/vigi-v2.png"/></div>'
-                 '<div><b>Juga tersedia: NVR VIGI, jaringan TP-Link, perangkat Lenovo.</b><p>NVR, switch PoE, access point, router 4G/5G, laptop, dan PC. Tipe kami sesuaikan dengan proyek Anda.</p></div>'
+                 '<div><b>Juga tersedia: jaringan TP-Link Omada dan perangkat Lenovo.</b><p>Switch PoE, access point, router 4G/5G, laptop, dan PC. Tipe kami sesuaikan dengan proyek Anda.</p></div>'
                  f'<a class="btn btn-purple" href="{WA}{quote("Halo Altora, saya ingin konsultasi perangkat CCTV/jaringan/komputer untuk proyek saya.")}" rel="noopener" target="_blank">Konsultasi perangkat →</a></div>'
                  '</div></section>')
 software_head = ('<section class="pd-block pd-block-sw" id="software"><div class="pd-wrap"><div class="pd-block-head"><p class="eyebrow eyebrow-purple">Software</p>'
