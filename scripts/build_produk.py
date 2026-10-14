@@ -232,7 +232,7 @@ def head(title, desc, url, ld, extra_css=''):
             '<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>'
             '<link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/>'
             '<link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/>'
-            f'<link rel="stylesheet" href="/assets/css/unify.css?v=20261014t"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head>'
+            f'<link rel="stylesheet" href="/assets/css/unify.css?v=20261014u"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head>'
             '<body class="company-page"><header class="company-nav"></header>\n')
 
 # ── /produk: halaman pengetahuan ──

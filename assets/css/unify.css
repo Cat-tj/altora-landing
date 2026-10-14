@@ -1302,3 +1302,13 @@ body:has(a.wa) .cart-fab{bottom:84px}
 @media (max-width:900px){.cr-jobnav{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){.cr-jobnav{grid-template-columns:1fr}}
 .cr-job-actions .cr-cta-wa{color:#16A34A!important;font-weight:800;text-decoration:underline;text-underline-offset:3px}
+/* beranda: pilihan cepat "Saya mencari" */
+.hp-picks{margin-top:22px;padding:14px 16px;border:1px solid rgba(124,92,232,.18);border-radius:18px;background:rgba(255,255,255,.7);backdrop-filter:blur(8px);max-width:620px}
+.hp-picks-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.hp-picks-top b{color:#10224F;font-size:.9rem}
+.hp-city{display:inline-flex;padding:3px;border-radius:999px;background:#F1ECFE}
+.hp-city button{padding:6px 12px;border:0;border-radius:999px;background:transparent;color:#5B3FD1;font:700 .78rem "Plus Jakarta Sans",system-ui,sans-serif;cursor:pointer}
+.hp-city button[aria-pressed="true"]{background:#7C5CE8;color:#fff}
+.hp-picks-list{display:flex;flex-wrap:wrap;gap:8px}
+.hp-pick{padding:8px 13px;border:1px solid #E4DCFA;border-radius:999px;background:#fff;color:#10224F;font-size:.84rem;font-weight:700;text-decoration:none;transition:all .2s}
+.hp-pick:hover{border-color:#7C5CE8;color:#6D4AE0;transform:translateY(-1px)}

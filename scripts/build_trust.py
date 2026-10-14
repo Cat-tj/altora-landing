@@ -123,6 +123,19 @@ def industry_block():
             f'<div class="tin-grid">{cards}</div></div></section>')
 
 
+PICKS = [('cctv', 'CCTV', '/jual-cctv-{c}'), ('software', 'Software house', '/software-house-{c}'), ('pengadaan', 'Pengadaan', '/katalog#v-pengadaan'),
+         ('jaringan', 'Jaringan & WiFi', '/jasa-instalasi-jaringan-{c}'), ('website', 'Website', '/jasa-pembuatan-website-{c}'), ('starlink', 'Starlink', '/jual-starlink-{c}'),
+         ('gps', 'GPS tracker', '/gps-tracker-kendaraan-{c}'), ('itsupport', 'IT support', '/it-support-{c}')]
+
+
+def picks_block():
+    chips = ''.join(f'<a class="hp-pick" data-href="{u}" href="{u.replace("{c}", "samarinda")}">{e(t)}</a>' for _, t, u in PICKS)
+    return ('<div class="hp-picks reveal" data-d="3"><div class="hp-picks-top"><b>Saya mencari:</b>'
+            '<span class="hp-city" role="group" aria-label="Kota"><button aria-pressed="true" data-city="samarinda" type="button">Samarinda</button>'
+            '<button aria-pressed="false" data-city="balikpapan" type="button">Balikpapan</button></span></div>'
+            f'<div class="hp-picks-list">{chips}</div></div>')
+
+
 def put(s, name, block, anchor=None, before=True, replace_re=None):
     wrapped = f'<!-- {name}:start -->{block}<!-- {name}:end -->'
     if f'<!-- {name}:start -->' in s:
@@ -137,6 +150,7 @@ def put(s, name, block, anchor=None, before=True, replace_re=None):
 
 if __name__ == '__main__':
     p = root / 'index.html'; s = p.read_text(encoding='utf-8')
+    s = put(s, 'hero-picks', picks_block(), anchor='</div>\n<div class="hero-stage', before=True)
     s = put(s, 'trust', logos_block())
     s = put(s, 'stats', stats_block(), anchor='<!-- trust:end -->', before=False)
     s = put(s, 'proses', process_block(), replace_re=r'<section class="sec how" id="alur">.*?</section>')
