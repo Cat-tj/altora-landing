@@ -14,6 +14,7 @@ python3 scripts/build_vigi.py
 python3 scripts/build_apps.py
 python3 scripts/build_industri.py
 python3 scripts/build_produk_kota.py
+python3 scripts/build_about.py
 python3 scripts/build_trust.py
 python3 scripts/apply_shell.py
 python3 scripts/apply_seo.py

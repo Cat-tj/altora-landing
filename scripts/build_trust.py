@@ -140,13 +140,4 @@ if __name__ == '__main__':
     s = put(s, 'industri', industry_block(), anchor='<section class="sec faq-sec" id="faq">')
     p.write_text(s, encoding='utf-8')
 
-    p = root / 'about.html'; s = p.read_text(encoding='utf-8')
-    anchor = '</main>'
-    s = put(s, 'about-trust', logos_block('Klien yang sudah bekerja sama dengan kami') + stats_block(), anchor=anchor)
-    s = s.replace('<div class="lc-svc"><b>Starlink</b><span>Internet satelit untuk lokasi terpencil</span></div>', '')
-    if 'HaganeRack</b>' not in s:
-        s = s.replace('<div class="lc-svc"><b>Lenovo</b><span>Komputer, workstation, dan server</span></div>',
-                      '<div class="lc-svc"><b>Lenovo</b><span>Komputer, workstation, dan server</span></div><div class="lc-svc"><b>HDe</b><span>Videotron, interactive flat panel, PC all-in-one</span></div>'
-                      '<div class="lc-svc"><b>HaganeRack</b><span>Rak server dan data center</span></div><div class="lc-svc"><b>Fasser</b><span>Alat ukur dan sambung fiber optik</span></div>')
-    p.write_text(s, encoding='utf-8')
-    print('blok kredibilitas: beranda & about diperbarui')
+    print('blok kredibilitas: beranda diperbarui')
