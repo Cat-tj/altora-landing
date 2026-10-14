@@ -8,7 +8,7 @@ Format artikel (front matter sederhana, satu kunci per baris):
     updated: 2026-10-11          (opsional)
     category: Panduan
     image: /assets/img/produk/vision.webp   (opsional, untuk kartu & preview link)
-    related: /produk#attendance | Altora Smart Attendance   (opsional, boleh lebih dari satu baris related)
+    related: /produk/attendance | Altora Smart Attendance   (opsional, boleh lebih dari satu baris related)
     ---
     Isi Markdown: ## / ### heading, paragraf, - list, 1. list, **tebal**, *miring*, [teks](url), `kode`, > kutipan
 
@@ -22,7 +22,7 @@ root = pathlib.Path(__file__).resolve().parent.parent
 SRC = root / 'content/blog'
 OUT = root / 'blog'
 SITE = 'https://altora.id'
-CSS_VER = '20261014l'
+CSS_VER = '20261014m'
 BULAN = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
 
 e = lambda t: html.escape(t, quote=True)

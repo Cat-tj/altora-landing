@@ -31,7 +31,7 @@ PRODUCTS = {
         title='Jual & Pasang Smartlock {C} | Kunci Digital | Altora',
         desc='Jual dan pasang smartlock di {C}: kunci pintu digital untuk rumah, kantor, kampus, dan gudang. Buka dengan aplikasi, PIN, kartu, sidik jari, atau wajah.',
         lead='Kunci pintu digital untuk rumah, kantor, ruko, kampus, dan gudang di {C}. Kami bantu pilih tipe yang cocok dengan pintu Anda, pasang, atur aplikasinya, dan rawat setelahnya.',
-        hero='/assets/img/portfolio/smartlock.jpg', main='/produk#smartlock', main_label='Smartlock di katalog produk',
+        hero='/assets/img/portfolio/smartlock.jpg', main='/katalog#smartlock', main_label='Smartlock di katalog produk',
         items=[('smartlock-pintu', 'Smartlock pintu (handle & sliding)', 'Altora Pass', '/assets/img/extra/products/smartlock.jpg',
                 ['Buka via aplikasi, PIN, kartu RFID, sidik jari', 'Untuk pintu kayu, aluminium, dan kaca geser', 'Kunci darurat (emergency key)']),
                ('smartlock-doorcam', 'Smartlock + kamera pintu', 'Altora Pass', '/assets/img/hardware/smartlock.webp',
@@ -133,7 +133,7 @@ PRODUCTS = {
         title='Interactive Flat Panel {C} | Smartboard | Altora',
         desc='Jual dan pasang interactive flat panel (smartboard) di {C} untuk ruang kelas, ruang rapat, dan pelatihan, plus sistem rekaman rapat HDe.',
         lead='Layar sentuh besar untuk ruang kelas, ruang rapat, dan ruang pelatihan di {C}. Bisa untuk presentasi, menulis langsung di layar, dan rapat online.',
-        hero='/assets/img/hardware/hde-ifp.webp', main='/produk#hde-ifp', main_label='Interactive flat panel di katalog',
+        hero='/assets/img/hardware/hde-ifp.webp', main='/katalog#hde-ifp', main_label='Interactive flat panel di katalog',
         items=[hw('hde-ifp'), hw('hde-mrs'), hw('hde-aio-il24'), hw('hde-aio-al22')],
         dos=[('Pilih ukuran layar', 'Disesuaikan ukuran ruangan dan jarak duduk peserta.'),
              ('Bracket atau stand', 'Dipasang di dinding atau di stand beroda yang bisa dipindah.'),
@@ -167,7 +167,7 @@ PRODUCTS = {
         title='Jual Rak Server {C} | Close Rack & Wallmount | Altora',
         desc='Jual dan pasang rak server di {C}: close rack, wallmount, heavy duty, cold/hot aisle containment, dan inrow cooling HaganeRack, plus penataan kabel.',
         lead='Rak server, wallmount, dan solusi data center untuk ruang server kantor, kampus, dan instansi di {C}. Dipasang rapi bersama penataan kabel, PDU, dan jaringan.',
-        hero='/assets/img/portfolio/unmul-infrastructure/network-rack.png', main='/produk#hr-close-perforated', main_label='Rak server di katalog',
+        hero='/assets/img/portfolio/unmul-infrastructure/network-rack.png', main='/katalog#hr-close-perforated', main_label='Rak server di katalog',
         items=[hw('hr-close-perforated'), hw('hr-close-glass'), hw('hr-wallmount-double'), hw('hr-wallmount-single'), hw('hr-heavy-duty'), hw('hr-cold-aisle'), hw('hr-inrow-cooling')],
         dos=[('Pilih ukuran rak', 'Tinggi (U), kedalaman, dan jenis pintu sesuai perangkat.'),
              ('Penataan kabel', 'Kabel diberi label dan ditata supaya mudah dirawat.'),
@@ -184,7 +184,7 @@ PRODUCTS = {
         title='Alat Fiber Optik {C} | OTDR & Fusion Splicer | Altora',
         desc='Jual alat fiber optik di {C}: OTDR, fusion splicer, power meter, light source, patch cord Fasser, plus jasa penarikan dan penyambungan fiber.',
         lead='Alat ukur dan sambung fiber optik untuk ISP, kontraktor jaringan, dan tim IT di {C}, plus jasa penarikan, penyambungan, dan pengujian jalur fiber.',
-        hero='/assets/img/hardware/fas-fusion-splicer.webp', main='/produk#fas-otdr', main_label='Alat fiber di katalog',
+        hero='/assets/img/hardware/fas-fusion-splicer.webp', main='/katalog#fas-otdr', main_label='Alat fiber di katalog',
         items=[hw('fas-otdr'), hw('fas-fusion-splicer'), hw('fas-power-meter'), hw('fas-light-source'), hw('fas-patch-cord')],
         dos=[('Penjualan alat', 'OTDR, fusion splicer, power meter, dan light source resmi Fasser.'),
              ('Penarikan kabel', 'Penarikan fiber dalam gedung dan antar gedung.'),
@@ -201,7 +201,7 @@ PRODUCTS = {
         title='Absensi Face Recognition {C} | Altora Indonesia',
         desc='Absensi face recognition di {C}: absen otomatis dari kamera CCTV atau HP dengan GPS, terhubung ke HRIS dan payroll Altora Teams.',
         lead='Absensi wajah untuk kantor, pabrik, sekolah, dan instansi di {C}. Karyawan cukup lewat di depan kamera, atau absen dari HP dengan GPS. Data langsung masuk ke HRIS.',
-        hero='/assets/img/portfolio/attendance.jpg', main='/produk#attendance', main_label='Altora Smart Attendance',
+        hero='/assets/img/portfolio/attendance.jpg', main='/produk/attendance', main_label='Altora Smart Attendance',
         items=[('altora-attendance', 'Altora Smart Attendance', 'Aplikasi Altora', '/assets/img/produk/attendance.webp', ['Absen wajah dari CCTV', 'Tanpa antre di mesin', 'Laporan kehadiran otomatis']),
                ('altora-teams', 'Altora Teams (HRIS)', 'Aplikasi Altora', '/assets/img/produk/teams.webp', ['Absensi GPS & selfie', 'Cuti, lembur, shift', 'Payroll otomatis']),
                vigi('S245', ['Dome 4 MP untuk pintu masuk', 'People analytics', 'Dipakai untuk absen wajah']),
@@ -305,7 +305,7 @@ if __name__ == '__main__':
             built.append((ckey, url, h1))
     # hub /area-layanan & /produk: daftar halaman produk per kota
     sec = hub_section(built)
-    for f, anchor in (('area-layanan.html', '</main>'), ('produk.html', '<section class="pd-compare">')):
+    for f, anchor in (('area-layanan.html', '</main>'),):
         fp = root / f; s = fp.read_text(encoding='utf-8')
         if '<!-- produk-kota:start -->' in s:
             s = re.sub(r'<!-- produk-kota:start -->.*?<!-- produk-kota:end -->', lambda _: sec, s, count=1, flags=re.S)

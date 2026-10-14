@@ -172,11 +172,11 @@ ready = sum(1 for p in PRODUCTS if not p.get('soon'))
 FINDER_NEEDS = {
     'cctv': ('Keamanan & CCTV', [('/katalog-cctv-vigi', 'Katalog CCTV VIGI', '148 model kamera, NVR & solar'), ('/produk/vision', 'Altora Vision', 'AI deteksi APD & zona terlarang'), ('/cctv-tenaga-surya-{c}', 'CCTV tenaga surya & 4G', 'Untuk lokasi tanpa listrik')]),
     'absensi': ('Absensi & SDM', [('/produk/attendance', 'Altora Smart Attendance', 'Absensi wajah dari CCTV'), ('/produk/teams', 'Altora Teams', 'HRIS, cuti, lembur, payroll'), ('/absensi-face-recognition-{c}', 'Absensi wajah di kota Anda', 'Survei & pemasangan')]),
-    'armada': ('Armada & kendaraan', [('/produk/fms', 'Altora FMS', 'GPS, BBM, CAN-Bus, TPMS'), ('/produk#telt-fmc920', 'GPS tracker Teltonika', 'Perangkat telematika'), ('/gps-tracker-kendaraan-{c}', 'Pasang GPS tracker', 'Teknisi lokal')]),
+    'armada': ('Armada & kendaraan', [('/produk/fms', 'Altora FMS', 'GPS, BBM, CAN-Bus, TPMS'), ('/katalog#telt-fmc920', 'GPS tracker Teltonika', 'Perangkat telematika'), ('/gps-tracker-kendaraan-{c}', 'Pasang GPS tracker', 'Teknisi lokal')]),
     'internet': ('Internet di lokasi terpencil', [('/jual-starlink-{c}', 'Starlink + instalasi', 'V5, Mini, Enterprise, Performance'), ('/services/starlink-internet-satelit', 'Paket off-grid tenaga surya', 'Panel, baterai, Wi-Fi repeater'), ('/jasa-instalasi-jaringan-{c}', 'Jaringan & wireless bridge', 'Antar gedung & site')]),
     'akses': ('Akses pintu & gedung', [('/produk/pass', 'Altora Pass', 'Hak akses & riwayat'), ('/jual-smartlock-{c}', 'Smartlock & EM lock', 'Survei dan pasang'), ('/produk/attendance', 'Absensi + akses', 'Wajah membuka pintu')]),
     'layanan': ('Layanan publik & antrean', [('/mesin-kiosk-{c}', 'Kios layanan mandiri', 'Antrean & cetak dokumen'), ('/videotron-{c}', 'Videotron & signage', 'Informasi publik'), ('/industri/pemerintahan', 'Solusi pemerintahan', 'GIS, kios, CCTV kota')]),
-    'display': ('Display & ruang rapat', [('/interactive-flat-panel-{c}', 'Interactive flat panel', 'Kelas & ruang rapat'), ('/videotron-{c}', 'Videotron indoor/outdoor', 'Aula, lobi, panggung'), ('/produk#hde-mrs', 'Meeting recording system', 'Rekam rapat')]),
+    'display': ('Display & ruang rapat', [('/interactive-flat-panel-{c}', 'Interactive flat panel', 'Kelas & ruang rapat'), ('/videotron-{c}', 'Videotron indoor/outdoor', 'Aula, lobi, panggung'), ('/katalog#hde-mrs', 'Meeting recording system', 'Rekam rapat')]),
     'data': ('Data, peta & AI', [('/produk/private-ai', 'Altora Private AI & GIS', 'AI on-premise & peta wilayah'), ('/produk/command', 'Altora Command', 'Ruang kendali terpadu'), ('/services/software-custom', 'Software custom', 'Dashboard & integrasi')]),
     'bisnis': ('Kasir, stok & keuangan', [('/produk/pos', 'Altora POS', 'Kasir retail & F&B'), ('/produk/erp', 'Altora ERP', 'Stok, pembelian, keuangan'), ('/jasa-pembuatan-aplikasi-{c}', 'Aplikasi custom', 'Sesuai proses Anda')]),
     'infra': ('Jaringan, server & IT', [('/it-support-{c}', 'IT support', 'Komputer, jaringan, server'), ('/rak-server-{c}', 'Rak server & data center', 'HaganeRack'), ('/alat-fiber-optik-{c}', 'Fiber optik', 'Splicing & alat ukur')]),
@@ -221,41 +221,111 @@ highlight_html = ('<section class="ph-wrap" aria-label="Produk unggulan"><div cl
                   f'<div class="ph-hws">{hw_tiles}</div>'
                   '</div></section>')
 
+from build_apps import APPS
+
+def head(title, desc, url, ld, extra_css=''):
+    return (f'<!DOCTYPE html>\n<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(title)}</title>'
+            f'<meta content="{e(desc)}" name="description"/><link href="https://altora.id{url}" rel="canonical"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/>'
+            f'<meta content="{e(title)}" property="og:title"/><meta content="{e(desc)}" property="og:description"/><meta content="https://altora.id{url}" property="og:url"/>'
+            '<meta content="https://altora.id/assets/img/produk/vision.webp" property="og:image"/><link href="/assets/img/altora-logo-icon-v2.svg" rel="icon"/>'
+            '<link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>'
+            '<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>'
+            '<link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/>'
+            '<link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/>'
+            f'<link rel="stylesheet" href="/assets/css/unify.css?v=20261014m"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head>'
+            '<body class="company-page"><header class="company-nav"></header>\n')
+
+# ── /produk: halaman pengetahuan ──
+KN_GROUPS = [('Keamanan & akses', ['vision', 'attendance', 'pass']), ('SDM & operasional', ['teams', 'pos', 'erp']),
+             ('Armada, lahan & sensor', ['fms', 'sense', 'farming']), ('Pusat kendali & data', ['command', 'private-ai'])]
+
+def kn_app(k):
+    a = APPS[k]
+    st = '<span class="kn-st">Siap dipakai</span>' if a['status'] == 'ready' else '<span class="kn-st kn-custom">Implementasi custom</span>'
+    return (f'<a class="kn-app" href="/produk/{k}"><span class="kn-pic"><img alt="" loading="lazy" src="/assets/img/produk/{k}.webp"/></span>'
+            f'<span class="kn-body"><span class="kn-top"><small>{e(a["tag"])}</small>{st}</span><b>{e(a["name"])}</b>'
+            f'<span class="kn-what">{e(a["lead"])}</span><span class="kn-solve"><em>Menyelesaikan:</em> {e(a["pains"][0])}</span>'
+            f'<span class="kn-more">Pelajari {e(a["name"])} →</span></span></a>')
+
+HW_KNOW = [
+    ('cctv', 'CCTV VIGI', '/assets/img/vigi/s385dps.webp', 'Kamera, perekam (NVR), dan tenaga surya. Dasar untuk keamanan dan Altora Vision.', 'Dome, bullet, turret, pan tilt, 4G, NVR, solar', '/katalog-cctv-vigi'),
+    ('gps', 'GPS & telematika', '/assets/img/hardware/telt-fmc920.webp', 'Perangkat Teltonika di kendaraan yang mengirim posisi dan data mesin ke Altora FMS.', 'Tracker, sensor BBM, TPMS, kamera ADAS', '/katalog#cat-gps'),
+    ('konek', 'Starlink', '/assets/img/hardware/starlink-v5.webp', 'Internet satelit agar site terpencil tetap terhubung untuk CCTV, GPS, dan aplikasi.', 'V5, Mini, Enterprise, Performance', '/katalog#cat-konek'),
+    ('akses', 'Smartlock & akses', '/assets/img/hardware/smartlock.webp', 'Kunci pintu digital yang dikelola Altora Pass, bisa terhubung ke absensi.', 'Smart handle, EM lock, doorcam', '/katalog#cat-akses'),
+    ('kios', 'Kios & signage', '/assets/img/hardware/kios-k.webp', 'Layanan mandiri dan layar informasi untuk instansi, kampus, dan retail.', 'Kios-K, digital signboard', '/katalog#cat-kios'),
+    ('display', 'Display & ruang rapat', '/assets/img/hardware/hde-ifp.webp', 'Videotron, interactive flat panel, dan sistem rekam rapat untuk kelas dan kantor.', 'Videotron, IFP, meeting recording', '/katalog#cat-display'),
+    ('rack', 'Rak & data center', '/assets/img/hardware/hr-close-glass.webp', 'Rumah untuk server dan perangkat jaringan, termasuk server Private AI.', 'Close rack, wallmount, cooling', '/katalog#cat-rack'),
+    ('fiber', 'Fiber optik', '/assets/img/hardware/fas-fusion-splicer.webp', 'Alat sambung dan ukur untuk jaringan fiber kampus, gedung, dan ISP.', 'OTDR, fusion splicer, power meter', '/katalog#cat-fiber'),
+    ('computer', 'Komputer kerja', '/assets/img/hardware/hde-aio-il24.webp', 'PC all-in-one untuk kasir, kios, dan meja kerja.', 'HDe AIO', '/katalog#cat-computer'),
+]
+hw_know = ''.join(f'<a class="kn-hw" href="{u}"><span class="kn-hw-pic"><img alt="" loading="lazy" src="{img}"/></span><b>{e(t)}</b><span>{e(d)}</span><small>{e(ex)}</small><em>Lihat di katalog →</em></a>'
+                  for _, t, img, d, ex, u in HW_KNOW)
+kn_groups = ''.join(f'<div class="kn-group"><h3>{e(g)}</h3><div class="kn-apps">{"".join(kn_app(k) for k in ks)}</div></div>' for g, ks in KN_GROUPS)
+flow = ('<div class="kn-flow">'
+        '<div class="kn-step"><span>1</span><b>Perangkat di lapangan</b><p>Kamera, GPS tracker, sensor, smartlock, dan kios menangkap kejadian nyata.</p></div>'
+        '<div class="kn-arrow" aria-hidden="true"></div>'
+        '<div class="kn-step"><span>2</span><b>Aplikasi Altora</b><p>Data diolah: AI mengenali pelanggaran, absensi tercatat, armada terlacak.</p></div>'
+        '<div class="kn-arrow" aria-hidden="true"></div>'
+        '<div class="kn-step"><span>3</span><b>Dashboard & keputusan</b><p>Pimpinan melihat ringkasan, tim menerima alert, laporan terkirim otomatis.</p></div></div>')
 ld = {'@context': 'https://schema.org', '@type': 'ItemList', 'name': 'Produk Altora Indonesia',
-      'itemListElement': [{'@type': 'ListItem', 'position': i + 1,
-                           'item': {'@type': 'SoftwareApplication', 'name': p['name'], 'description': p['desc'],
-                                    'applicationCategory': 'BusinessApplication', 'url': f'https://altora.id/produk#{p["id"]}',
-                                    'publisher': {'@type': 'Organization', 'name': 'Altora Indonesia', 'url': 'https://altora.id/'}}}
-                          for i, p in enumerate(PRODUCTS)]}
-
-title = 'Produk Altora | Aplikasi, CCTV VIGI, Smartlock & Starlink'
-desc = ('Aplikasi Altora untuk HRIS, AI CCTV, armada & private AI, plus kamera VIGI, smartlock, signage, kios, Starlink, dan perangkat Teltonika, HDe, HaganeRack.')
-
-page = f'''<!DOCTYPE html>
-<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(title)}</title><meta content="{e(desc)}" name="description"/><link href="https://altora.id/produk" rel="canonical"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="{e(title)}" property="og:title"/><meta content="{e(desc)}" property="og:description"/><meta content="https://altora.id/produk" property="og:url"/><meta content="https://altora.id/assets/img/produk/vision.webp" property="og:image"/><link href="/assets/img/altora-logo-icon-v2.svg" rel="icon"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v=20261014l"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head><body class="company-page"><header class="company-nav"><a class="project-brand" href="/"><img alt="Altora" src="/assets/img/altora-logo-icon-v2.svg"/><span>Altora</span></a></header>
-<main class="pd-page">
-<section class="pd-hero"><div class="pd-wrap">
+      'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'url': f'https://altora.id/produk/{k}', 'name': a['name']} for i, (k, a) in enumerate(APPS.items())]}
+produk_page = head('Produk Altora | Kenali Aplikasi & Perangkat Kami', 'Kenali produk Altora: aplikasi AI CCTV, HRIS, absensi wajah, fleet management, dan smart access, plus perangkat CCTV, GPS, Starlink, hingga data center.', '/produk', ld) + f"""<main class="pd-page kn-page">
+<section class="pd-hero kn-hero"><div class="pd-wrap">
 <p class="eyebrow eyebrow-purple">Produk Altora</p>
-<h1>Aplikasi dan perangkat untuk bisnis dan instansi.</h1>
-<p class="pd-lead">{ready} aplikasi siap pakai, mulai dari absensi dan CCTV pintar sampai pemantauan armada. Ditambah perangkat dari principal resmi seperti VIGI, Teltonika, HDe, dan HaganeRack.</p>
-<p class="pd-note">Foto aplikasi adalah ilustrasi. <a href="/katalog">Unduh katalog (PDF)</a> · <a href="#cari-solusi">Cari solusi</a></p>
-<nav aria-label="Kategori produk" class="pd-chips">{chips}</nav>
+<h1>Kenali produk kami: dari perangkat di lapangan sampai keputusan di dashboard.</h1>
+<p class="pd-lead">Altora menggabungkan aplikasi dan perangkat yang saling terhubung. Ambil satu produk untuk mulai, atau rangkai beberapa menjadi satu sistem.</p>
+<div class="kn-hero-actions"><a class="btn btn-purple" href="/katalog">Buka katalog</a><a class="pd-link" href="#cari-solusi">Cari solusi untuk saya</a></div>
+{flow}
 </div></section>
-{highlight_html}
 {finder_html}
-{software_head}{"".join(sections)}
-{hardware_html}
+<section class="kn-sec" id="aplikasi"><div class="pd-wrap"><div class="kn-head"><p class="eyebrow eyebrow-purple">Aplikasi</p><h2>Aplikasi Altora dan masalah yang diselesaikannya</h2>
+<p>Setiap aplikasi bisa dipakai sendiri, atau digabung. Klik untuk melihat fitur, tampilan, dan cara mulai.</p></div>{kn_groups}</div></section>
+<section class="kn-sec kn-sec-alt" id="perangkat"><div class="pd-wrap"><div class="kn-head"><p class="eyebrow eyebrow-purple">Perangkat</p><h2>Perangkat yang kami adakan, pasang, dan rawat</h2>
+<p>Dari principal resmi. Kami pilihkan tipe yang cocok dengan lokasi Anda, lalu pastikan terhubung dengan aplikasinya.</p></div><div class="kn-hws">{hw_know}</div></div></section>
 <section class="pd-compare"><div class="pd-wrap pd-compare-grid">
 <div class="pd-compare-card"><p class="pd-kicker">Produk siap pakai</p><h3>Cocok kalau kebutuhan Anda umum dan ingin cepat jalan.</h3><ul><li>Lebih cepat dipasang</li><li>Fitur utama sudah dipakai klien lain</li><li>Bisa dihubungkan ke perangkat yang ada</li></ul></div>
 <div class="pd-compare-card pd-compare-alt"><p class="pd-kicker">Software custom</p><h3>Cocok kalau proses Anda berbeda dari kebanyakan.</h3><ul><li>Dibuat mengikuti proses Anda</li><li>Bisa terhubung ke sistem lama</li><li>Bisa mulai dari produk, lalu dikembangkan</li></ul><a class="pd-link" href="/services/software-custom">Pelajari software custom</a></div>
 </div></section>
-<section class="pd-cta"><div class="pd-wrap pd-cta-inner"><div><h2>Belum yakin produk mana yang pas?</h2><p>Ceritakan kebutuhan Anda, kami bantu pilihkan.</p></div><a class="btn btn-purple" href="/contact">Konsultasi gratis</a></div></section>
+<section class="pd-cta"><div class="pd-wrap pd-cta-inner"><div><h2>Sudah tahu yang dibutuhkan?</h2><p>Pilih produk di katalog, masukkan ke keranjang, lalu kirim lewat WhatsApp.</p></div><a class="btn btn-purple" href="/katalog">Buka katalog</a></div></section>
 </main>
 <footer></footer>
-<script defer="" src="/assets/js/site-shell.js?v=20261010e"></script><script defer="" src="/assets/js/hw-filter.js?v=20261011"></script><script defer="" src="/assets/js/finder.js?v=20261014"></script></body></html>
-'''
-(root / 'produk.html').write_text(page, encoding='utf-8')
-print('produk.html dibuat:', len(PRODUCTS), 'produk')
+<script defer="" src="/assets/js/site-shell.js?v=20261010e"></script><script defer="" src="/assets/js/finder.js?v=20261014"></script></body></html>
+"""
+(root / 'produk.html').write_text(produk_page, encoding='utf-8')
+
+# ── /katalog: katalog belanja (aplikasi + perangkat, filter, keranjang, cetak) ──
+def kat_app(k):
+    a = APPS[k]
+    msg = f'Halo Altora, saya tertarik dengan {a["name"]}.'
+    return (f'<article class="hwi" data-cat="app" id="{k}"><div class="hwi-pic hwi-pic-photo"><img alt="{e(a["name"])}" loading="lazy" src="/assets/img/produk/{k}.webp"/></div>'
+            f'<div class="hwi-body"><small>Aplikasi Altora</small><h3>{e(a["name"])}</h3><p>{e(a["tag"])}</p>'
+            '<dl class="hwi-specs">' + ''.join(f'<div><dt>Fitur</dt><dd>{e(t)}</dd></div>' for t, _ in a['feats'][:3]) + '</dl>'
+            f'<div class="pd-actions">{cart_btn(k, a["name"], "Aplikasi Altora", f"/assets/img/produk/{k}.webp")}'
+            f'<a class="pd-link" href="/produk/{k}">Detail aplikasi</a></div></div></article>')
+
+kat_filters = ('<button aria-pressed="true" data-filter="all" type="button">Semua</button><button aria-pressed="false" data-filter="app" type="button">Aplikasi</button>'
+               + ''.join(f'<button aria-pressed="false" data-filter="{c}" id="cat-{c}" type="button">{e(t)}</button>' for c, t in HW_CATS))
+kat_ld = {'@context': 'https://schema.org', '@type': 'ItemList', 'name': 'Katalog Altora Indonesia', 'numberOfItems': len(APPS) + len(HW_ITEMS)}
+katalog_page = head('Katalog Produk Altora | Aplikasi, CCTV, GPS, Starlink & Perangkat', 'Katalog aplikasi dan perangkat Altora: CCTV VIGI, GPS Teltonika, Starlink, smartlock, kios, display, rak server, dan fiber. Tambah ke keranjang dan kirim lewat WhatsApp.', '/katalog', kat_ld) + f"""<main class="pd-page kt-page">
+<section class="pd-hero kt-hero"><div class="pd-wrap">
+<div class="kt-bar"><p class="eyebrow eyebrow-purple">Katalog</p><button class="btn btn-outline kt-print" onclick="window.print()" type="button">Cetak / simpan PDF</button></div>
+<h1>Katalog produk Altora</h1>
+<p class="pd-lead">Pilih aplikasi dan perangkat, tambahkan ke keranjang, lalu kirim lewat WhatsApp untuk penawaran. Tanpa harga di website. Belum yakin? <a href="/produk">Kenali produk kami dulu</a>.</p>
+</div></section>
+<section class="pd-block" id="hardware"><div class="pd-wrap">
+<div aria-label="Filter kategori" class="hwi-filter" role="group">{kat_filters}</div>
+<div class="hwi-allvigi"><div><b>Katalog lengkap CCTV VIGI</b><br/><span>148 model kamera, NVR, kit, decoder, solar, dan jaringan pendukung.</span></div><a class="btn btn-purple" href="/katalog-cctv-vigi">Lihat semua model VIGI →</a></div>
+<div class="hwi-grid">{"".join(kat_app(k) for k in APPS)}{"".join(hw_item(h) for h in HW_ITEMS)}</div>
+<div class="hwi-more"><div class="hwi-more-logos"><img alt="TP-Link" src="/assets/img/partners/tplink-v2.png"/><img alt="Lenovo" src="/assets/img/partners/lenovo-v2.png"/><img alt="VIGI" src="/assets/img/partners/vigi-v2.png"/></div>
+<div><b>Juga tersedia: jaringan TP-Link Omada dan perangkat Lenovo.</b><p>Switch PoE, access point, router 4G/5G, laptop, dan PC. Tipe kami sesuaikan dengan proyek Anda.</p></div>
+<a class="btn btn-purple" href="{WA}{quote("Halo Altora, saya ingin konsultasi perangkat untuk proyek saya.")}" rel="noopener" target="_blank">Konsultasi perangkat →</a></div>
+</div></section>
+</main>
+<footer></footer>
+<script defer="" src="/assets/js/site-shell.js?v=20261010e"></script><script defer="" src="/assets/js/hw-filter.js?v=20261014b"></script></body></html>
+"""
+(root / 'katalog.html').write_text(katalog_page, encoding='utf-8')
+print('produk.html (pengetahuan) & katalog.html dibuat')
 
 # ── Grid produk ringkas di beranda (index.html, di antara penanda produk-ringkas) ──
 def home_card(p):

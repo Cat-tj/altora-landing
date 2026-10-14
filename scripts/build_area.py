@@ -8,7 +8,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from site_data import OFFICES, postal_address
 
 root = pathlib.Path(__file__).resolve().parent.parent
-CSS_VER = '20261014l'
+CSS_VER = '20261014m'
 SITE = 'https://altora.id'
 WA = 'https://wa.me/6285190911170?text='
 e = lambda t: html.escape(t, quote=True)

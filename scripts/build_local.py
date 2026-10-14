@@ -7,7 +7,7 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from site_data import OFFICES, postal_address, one_line, maps_link
 
 root = pathlib.Path(__file__).resolve().parent.parent
-CSS_VER = '20261014l'
+CSS_VER = '20261014m'
 SITE = 'https://altora.id'
 WA = 'https://wa.me/6285190911170?text='
 e = lambda t: html.escape(t, quote=True)
@@ -82,7 +82,7 @@ CITIES = [
               ('Apakah bisa untuk lokasi tambang atau perkebunan yang sinyalnya lemah?', 'Bisa. GPS tracker dan sensor dapat menyimpan data sementara lalu mengirimnya saat sinyal tersedia, dan sistem bisa dijalankan di server lokal.'),
               ('Apakah tersedia GPS tracker untuk alat berat?', 'Ya. Kami memakai GPS tracker Teltonika yang dipilih sesuai jenis kendaraan, termasuk truk dan alat berat.'),
               ('Bagaimana memulai?', 'Hubungi kami lewat WhatsApp atau form konsultasi. Diskusi awal gratis.')],
-         nearby=[('/software-house-balikpapan', 'Software house Balikpapan'), ('/software-house-samarinda', 'Software house Samarinda'), ('/produk#hardware', 'Katalog perangkat')]),
+         nearby=[('/software-house-balikpapan', 'Software house Balikpapan'), ('/software-house-samarinda', 'Software house Samarinda'), ('/katalog', 'Katalog perangkat')]),
 ]
 
 

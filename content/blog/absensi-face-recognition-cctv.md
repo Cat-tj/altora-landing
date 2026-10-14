@@ -5,7 +5,7 @@ description: Bisakah CCTV yang sudah terpasang dipakai untuk absensi wajah? Cara
 date: 2026-10-11
 category: AI CCTV
 image: /assets/img/produk/attendance.webp
-related: /produk#attendance | Altora Smart Attendance
+related: /produk/attendance | Altora Smart Attendance
 related: /portfolio/smart-attendance | Dokumentasi implementasi Smart Attendance
 related: /services/ai-cctv | Layanan AI CCTV & Safety
 ---
@@ -69,4 +69,4 @@ Kurang cocok jika karyawan bekerja berpindah-pindah di lapangan tanpa titik masu
 
 Sebelum membeli perangkat baru, lakukan survei singkat: titik mana saja yang dilewati karyawan, kamera mana yang sudah ada, dan bagaimana posisinya. Dari situ baru bisa ditentukan apakah kamera lama cukup atau perlu penambahan.
 
-Tim Altora bisa membantu survei dan uji coba di lokasi Anda. Lihat [Altora Smart Attendance](/produk#attendance) atau [hubungi kami](/contact) untuk berdiskusi.
+Tim Altora bisa membantu survei dan uji coba di lokasi Anda. Lihat [Altora Smart Attendance](/produk/attendance) atau [hubungi kami](/contact) untuk berdiskusi.

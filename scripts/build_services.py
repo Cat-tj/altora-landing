@@ -4,7 +4,7 @@ import html, json, pathlib
 from urllib.parse import quote
 
 root = pathlib.Path(__file__).resolve().parent.parent
-CSS_VER = '20261014l'
+CSS_VER = '20261014m'
 WA = 'https://wa.me/6285190911170?text='
 e = lambda t: html.escape(t, quote=True)
 
@@ -82,7 +82,7 @@ SERVICES = [
               ('shield', 'Keamanan & log aktivitas', 'Jejak perubahan tercatat dan data tersimpan dengan aman.')],
          steps=['Pemetaan alur kerja', 'Rancangan layar & data', 'Pengembangan bertahap', 'Uji coba bersama pengguna', 'Peluncuran & pendampingan'],
          proof=['altora-teams', 'hris-mobile-payroll', 'sistem-antrian-poliklinik'],
-         related=[('/produk#teams', 'Altora Teams (HRIS)'), ('/produk#pos', 'Altora POS'), ('/blog/faktor-biaya-pembuatan-aplikasi', 'Artikel: faktor biaya membuat aplikasi')],
+         related=[('/produk/teams', 'Altora Teams (HRIS)'), ('/produk/pos', 'Altora POS'), ('/blog/faktor-biaya-pembuatan-aplikasi', 'Artikel: faktor biaya membuat aplikasi')],
          faq=[('Apakah harus dibuat dari nol?', 'Tidak selalu. Bila kebutuhan Anda mirip dengan produk Altora seperti Teams atau POS, produk itu bisa dipakai lalu disesuaikan di bagian yang benar-benar unik.'),
               ('Bisa dipakai di HP?', 'Bisa. Sistem dapat dibuat sebagai aplikasi web yang nyaman di HP, aplikasi mobile, atau keduanya sesuai kebutuhan lapangan.'),
               ('Siapa pemilik data dan aksesnya?', 'Kepemilikan data, akses server, dan source code dibahas dan dicantumkan dengan jelas sejak awal kerja sama.')]),
@@ -120,7 +120,7 @@ SERVICES = [
               ('camera', 'Infrastruktur kamera', 'Survei, penambahan kamera, NVR, dan jaringan bila diperlukan.')],
          steps=['Survei kamera & area', 'Uji coba di titik terpilih', 'Kalibrasi aturan & alert', 'Integrasi dashboard', 'Pelatihan & evaluasi'],
          proof=['ai-safety-vision', 'smart-attendance', 'instalasi-cctv-ai-analytics'],
-         related=[('/produk#vision', 'Altora Vision'), ('/produk#attendance', 'Altora Smart Attendance'), ('/blog/absensi-face-recognition-cctv', 'Artikel: absensi wajah dari CCTV')],
+         related=[('/produk/vision', 'Altora Vision'), ('/produk/attendance', 'Altora Smart Attendance'), ('/blog/absensi-face-recognition-cctv', 'Artikel: absensi wajah dari CCTV')],
          faq=[('Apakah CCTV lama bisa dipakai?', 'Sering kali bisa. Kami mengecek posisi, sudut, dan kualitas kamera; bila perlu, cukup menambah kamera di titik tertentu.'),
               ('Bagaimana dengan data wajah karyawan?', 'Data wajah termasuk data pribadi. Kami membantu menyiapkan persetujuan, pembatasan akses, dan kebijakan penyimpanan sesuai UU PDP.'),
               ('Apakah harus selalu online?', 'Pemrosesan bisa di server lokal atau cloud, tergantung kondisi jaringan di lokasi.')]),
@@ -139,7 +139,7 @@ SERVICES = [
               ('tool', 'Instalasi & perawatan', 'Pemasangan perangkat dan pemeliharaan berkala.')],
          steps=['Survei lokasi & perangkat', 'Desain sensor & jaringan', 'Instalasi & integrasi', 'Kalibrasi ambang alert', 'Monitoring & perawatan'],
          proof=['iot-monitoring-lahan', 'smartlock-akses-digital', 'pompy-batara'],
-         related=[('/produk#sense', 'Altora Sense'), ('/produk#command', 'Altora Command'), ('/produk#pass', 'Altora Pass')],
+         related=[('/produk/sense', 'Altora Sense'), ('/produk/command', 'Altora Command'), ('/produk/pass', 'Altora Pass')],
          faq=[('Bagaimana jika lokasi tidak ada internet?', 'Perangkat dapat memakai LoRa, 4G, atau jaringan lokal; data dikirim saat koneksi tersedia sesuai desain sistem.'),
               ('Bisa memakai perangkat yang sudah ada?', 'Bisa, selama perangkat menyediakan akses data. Kami mengecek kompatibilitasnya saat survei.'),
               ('Siapa yang merawat perangkat?', 'Altora dapat menangani pemeliharaan berkala melalui layanan pengadaan, instalasi & maintenance.')]),
@@ -158,7 +158,7 @@ SERVICES = [
               ('truck', 'Instalasi GPS tracker', 'Pemasangan perangkat Teltonika di kendaraan ringan hingga alat berat.')],
          steps=['Inventaris armada & kebutuhan', 'Pemilihan perangkat', 'Instalasi di kendaraan', 'Konfigurasi dashboard & alert', 'Pelatihan dispatcher'],
          proof=['fleet-management', 'optimasi-rute-armada'],
-         related=[('/produk#fms', 'Altora FMS'), ('/produk#telt-fmc650', 'GPS tracker Teltonika'), ('/services/pengadaan-instalasi-maintenance', 'Pengadaan, instalasi & maintenance')],
+         related=[('/produk/fms', 'Altora FMS'), ('/katalog#telt-fmc650', 'GPS tracker Teltonika'), ('/services/pengadaan-instalasi-maintenance', 'Pengadaan, instalasi & maintenance')],
          faq=[('Perangkat apa yang dipakai?', 'Kami memakai GPS tracker Teltonika yang dipilih sesuai jenis kendaraan, dari mobil operasional sampai truk dan alat berat.'),
               ('Bisa membaca data BBM?', 'Pada kendaraan yang mendukung, data BBM dan mesin dapat dibaca melalui OBD atau CAN; kami cek saat inventaris armada.'),
               ('Apakah bisa untuk alat berat tambang?', 'Bisa. Ada perangkat untuk kendaraan berat dan alat khusus, termasuk pembacaan data J1939.')]),
@@ -166,7 +166,7 @@ SERVICES = [
          h1='Perangkat dipilihkan, dipasang, dan dirawat oleh satu tim.',
          lead='CCTV, GPS tracker, jaringan, komputer, kios layanan, display, rak server, dan fiber optik. Dari sumber resmi, dipasang tim kami di Balikpapan dan Samarinda, lalu dirawat secara berkala.',
          hero='/assets/img/portfolio/hardware-field/kiosk-pampang-install.jpg', hero_pos='50% 40%', chips=['Garansi resmi', 'Dipasang tim lokal', 'Perawatan berkala'],
-         scope=[('/produk#hw-cctv', 'CCTV'), ('/produk#telt-fmc920', 'GPS tracker'), ('/produk#hw-rack', 'Rak server'), ('/produk#hde-ifp', 'Display & ruang rapat'), ('/produk#fas-otdr', 'Fiber optik'), ('/produk#hde-aio-il24', 'Komputer')],
+         scope=[('/katalog-cctv-vigi', 'CCTV'), ('/katalog#telt-fmc920', 'GPS tracker'), ('/katalog#cat-rack', 'Rak server'), ('/katalog#hde-ifp', 'Display & ruang rapat'), ('/katalog#fas-otdr', 'Fiber optik'), ('/katalog#hde-aio-il24', 'Komputer')],
          pains=[('Beli sendiri, pasang sendiri', 'Perangkat sampai, tapi tidak ada yang memasang dan mengatur sampai siap pakai.'),
                 ('Vendor berbeda-beda', 'Penjual, teknisi, dan pembuat aplikasi berbeda orang, jadi saat rusak saling lempar tanggung jawab.'),
                 ('Rusak tanpa ketahuan', 'Kamera mati atau rekaman penuh baru ketahuan saat dibutuhkan.')],
@@ -183,7 +183,7 @@ SERVICES = [
                   ('serah-terima-raya-makmur.jpg', 'Serah terima', 'Penyerahan perangkat di Kelurahan Rawa Makmur.', False),
                   ('tablet-sidodamai.jpg', 'Penyerahan tablet', 'Tablet untuk staf Kelurahan Sidodamai.', False)],
          proof=['custom-kios-k-pengadaan-hardware', 'instalasi-cctv-ai-analytics', 'unmul-infrastruktur-cctv-jaringan'],
-         related=[('/produk#hardware', 'Katalog perangkat'), ('/services/ai-cctv', 'AI CCTV & Safety'), ('/services/fleet-management-service', 'Fleet Management')],
+         related=[('/katalog', 'Katalog perangkat'), ('/services/ai-cctv', 'AI CCTV & Safety'), ('/services/fleet-management-service', 'Fleet Management')],
          faq=[('Apakah garansinya resmi?', 'Ya. Perangkat berasal dari principal partner Altora dan memakai garansi resmi. Kami bantu proses klaimnya.'),
               ('Bisa untuk pengadaan instansi?', 'Bisa. Kami siapkan penawaran, faktur, dan berita acara serah terima. Produk ber-TKDN tersedia sesuai ketersediaan dari principal.'),
               ('Melayani di luar Balikpapan dan Samarinda?', 'Bisa, tergantung lokasi dan cakupan pekerjaan. Hubungi kami untuk dicek.')]),
@@ -202,7 +202,7 @@ SERVICES = [
               ('shield', 'Perangkat asli', 'Kit Starlink asli dengan garansi pabrikan.')],
          steps=['Konsultasi', 'Survei lokasi', 'Penawaran', 'Pemasangan', 'Konfigurasi & uji', 'Perawatan'],
          proof=['fleet-management', 'iot-monitoring-lahan'],
-         related=[('/produk#hardware', 'Katalog perangkat'), ('/services/fleet-management-service', 'Fleet management'), ('/services/ai-cctv', 'AI CCTV')],
+         related=[('/katalog', 'Katalog perangkat'), ('/services/fleet-management-service', 'Fleet management'), ('/services/ai-cctv', 'AI CCTV')],
          faq=[('Starlink cocok untuk lokasi seperti apa?', 'Untuk lokasi tanpa jaringan kabel atau sinyal seluler yang lemah, seperti tambang, perkebunan, proyek konstruksi, dan kantor di pedalaman.'),
               ('Bagaimana kalau tidak ada listrik?', 'Kami pasang paket dengan panel surya dan baterai supaya perangkat tetap menyala tanpa PLN.'),
               ('Apakah bisa untuk CCTV dan GPS tracker?', 'Bisa. Internet dari Starlink dipakai untuk mengirim data CCTV, GPS tracker, dan aplikasi dari lokasi.')]),
@@ -240,7 +240,7 @@ SERVICES = [
               ('bell', 'Perawatan', 'Pengecekan berkala dan bantuan saat ada kendala.')],
          steps=['Konsultasi', 'Survei lokasi', 'Penawaran', 'Pemasangan', 'Konfigurasi konten', 'Perawatan'],
          proof=['custom-kios-k-pengadaan-hardware'],
-         related=[('/produk#hde-ifp', 'Layar interaktif HDe'), ('/produk#hde-videotron-indoor', 'Videotron'), ('/portfolio/custom-kios-k-pengadaan-hardware', 'Kios kelurahan Samarinda')],
+         related=[('/katalog#hde-ifp', 'Layar interaktif HDe'), ('/katalog#hde-videotron-indoor', 'Videotron'), ('/portfolio/custom-kios-k-pengadaan-hardware', 'Kios kelurahan Samarinda')],
          faq=[('Konten signage diubah dari mana?', 'Dari aplikasi pengelola berbasis cloud, termasuk penjadwalan otomatis per jam atau per hari.'),
               ('Kios bisa untuk layanan apa saja?', 'Antrean, pendaftaran, cetak dokumen, dan layanan mandiri lain yang terhubung ke sistem Anda. Kios kami sudah dipakai di kantor kelurahan Samarinda.'),
               ('Ukuran layar interaktif berapa?', 'Tersedia ukuran besar untuk ruang rapat dan kelas. Kami bantu pilihkan sesuai ruangan.')]),

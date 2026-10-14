@@ -13,7 +13,6 @@ python3 scripts/build_produk.py
 python3 scripts/build_vigi.py
 python3 scripts/build_apps.py
 python3 scripts/build_industri.py
-python3 scripts/build_katalog.py
 python3 scripts/build_produk_kota.py
 python3 scripts/build_trust.py
 python3 scripts/apply_shell.py
