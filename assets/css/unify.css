@@ -791,3 +791,30 @@ div.lc-svc{cursor:default}div.lc-svc b:after{content:none}
  .pd-feats{display:none}
  .pd-card .pd-actions{grid-column:1/-1;margin-top:8px}
 }
+/* katalog lengkap VIGI */
+.vg-crumb{margin:0 0 14px;font-size:.84rem;color:#6B7393}.vg-crumb a{color:#6D4AE0;text-decoration:none}
+.vg-cta{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;margin-top:22px}
+.vg-legend dl{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:0}
+.vg-legend dl>div{padding:14px 16px;border:1px solid #ECE7F7;border-radius:14px;background:#FBFAFF}
+.vg-legend dt{font-weight:800;color:#10224F;font-size:.9rem}.vg-legend dd{margin:4px 0 0;color:#5B6380;font-size:.82rem;line-height:1.5}
+.vg-filter button span{margin-left:4px;opacity:.6;font-weight:600}
+.vg-group{margin:8px 0 30px;scroll-margin-top:100px}
+.vg-ghead{display:flex;align-items:center;gap:16px;margin:0 0 14px;padding-bottom:12px;border-bottom:1px solid #ECE7F7}
+.vg-ghead img{width:72px;height:56px;object-fit:contain;flex:none}
+.vg-ghead h2{margin:0;font-size:1.25rem!important;color:#10224F}.vg-ghead p{margin:2px 0 0;color:#5B6380;font-size:.86rem}
+.vg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.vg-item{display:flex;flex-direction:column;padding:14px 14px 12px;border:1px solid #ECE7F7;border-radius:14px;background:#fff;scroll-margin-top:100px;transition:border-color .2s,box-shadow .2s}
+.vg-item:hover{border-color:#CBBEF5;box-shadow:0 8px 22px rgba(76,52,170,.08)}
+.vg-top small{display:block;color:#7C5CE8;font-size:.7rem;font-weight:700;letter-spacing:.02em;text-transform:uppercase}
+.vg-top h3{margin:3px 0 0;font-size:1rem;color:#10224F;font-weight:800}
+.vg-head{margin:2px 0 8px;color:#10224F;font-size:.84rem;font-weight:600}
+.vg-item ul{margin:0 0 8px;padding:0;list-style:none;display:grid;gap:3px}
+.vg-item li{position:relative;padding-left:12px;color:#4A5272;font-size:.78rem;line-height:1.45}
+.vg-item li:before{content:'';position:absolute;left:0;top:.55em;width:5px;height:5px;border-radius:50%;background:#B9A8F2}
+.vg-prot{margin:auto 0 8px;color:#7A819C;font-size:.74rem}
+.vg-ask{align-self:flex-start;color:#6D4AE0;font-size:.8rem;font-weight:700;text-decoration:none}
+.vg-ask:hover{text-decoration:underline}
+.vg-note{margin:10px 0 0;color:#7A819C;font-size:.8rem}
+.hwi-allvigi{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin:0 0 18px;padding:14px 18px;border:1px solid #DCD2FA;border-radius:14px;background:#F7F4FF}
+.hwi-allvigi b{color:#10224F}.hwi-allvigi span{color:#5B6380;font-size:.86rem}
+@media (max-width:560px){.vg-grid{grid-template-columns:1fr 1fr;gap:8px}.vg-item{padding:11px}.vg-item li{font-size:.74rem}.vg-ghead img{width:52px;height:40px}}
