@@ -1327,3 +1327,5 @@ body:has(a.wa) .cart-fab{bottom:84px}
 .pd-cta-inner:before{content:'';position:absolute;z-index:-1;inset:10px;border:1px solid rgba(255,255,255,.9);border-radius:18px;pointer-events:none}
 .pd-cta-inner p{color:#2A2F5E!important}
 @media (prefers-reduced-motion:reduce){.pd-cta-inner{animation:none;background-position:30% 50%!important}}
+/* Latar hero diteruskan ke balik header sticky, supaya tidak ada pita warna berbeda di atas */
+body > header.nav-wrap + main > section:first-child{margin-top:-80px;border-top:80px solid transparent;background-origin:border-box!important}
