@@ -8,6 +8,21 @@ sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from build_area import shell, update_sitemap, CITIES as ALL_CITIES, PF, SITE, WA, office_of, near_of, needs_html
 # perangkat dijual & dipasang tim sendiri: hanya kota dengan jangkauan teknisi (Kaltim)
 CITIES = {k: v for k, v in ALL_CITIES.items() if v.get('scope') != 'nasional'}
+# Kota di luar Kaltim: jual & kirim saja (tanpa janji pemasangan oleh tim sendiri). Videotron tidak, karena butuh perakitan di lokasi.
+NAT_CITIES = {k: v for k, v in ALL_CITIES.items() if v.get('scope') == 'nasional'}
+NAT_NAME = {'smartlock': 'smartlock', 'starlink': 'Starlink', 'cctv': 'CCTV VIGI', 'cctv-surya': 'CCTV tenaga surya & 4G',
+            'ifp': 'interactive flat panel', 'kiosk': 'mesin kiosk & signage', 'rak': 'rak server',
+            'fiber': 'alat fiber optik', 'absensi': 'mesin absensi wajah'}
+NAT_DOS = [('Bantu pilih tipe', 'Ceritakan lokasi dan kebutuhan Anda, kami rekomendasikan tipe dan jumlah yang pas.'),
+           ('Produk resmi & bergaransi', 'Dari distributor dan principal resmi, dengan garansi sesuai ketentuan principal.'),
+           ('Dikirim ke {C}', 'Dikemas aman dan dikirim lewat ekspedisi ke alamat Anda. Ongkos dan estimasi dikonfirmasi di penawaran.'),
+           ('Disiapkan sebelum dikirim', 'Untuk perangkat yang memungkinkan, akun dan pengaturan dasar kami siapkan lebih dulu.'),
+           ('Panduan & bantuan jarak jauh', 'Panduan pemasangan dan bantuan pengaturan lewat WhatsApp atau video call.'),
+           ('Pengadaan instansi', 'Penawaran, faktur, dan dokumen pengadaan untuk perusahaan dan instansi.')]
+NAT_FAQ = [('Apakah bisa dikirim ke {C}?', 'Bisa. Barang dikirim lewat ekspedisi ke alamat Anda di {C}. Ongkos kirim dan estimasi waktu kami sampaikan di penawaran.'),
+           ('Apakah tim Altora ikut memasang di {C}?', 'Kantor dan teknisi kami ada di Kalimantan Timur. Untuk {C}, kami bantu lewat panduan dan pendampingan jarak jauh. Bila butuh pemasangan di lokasi, kami bahas per proyek.'),
+           ('Apakah produknya resmi dan bergaransi?', 'Ya. Produk berasal dari distributor dan principal resmi, dengan garansi sesuai ketentuan masing-masing.'),
+           ('Bagaimana cara memesan?', 'Tambahkan produk ke keranjang lalu kirim lewat WhatsApp, atau langsung chat kami. Kami balas dengan penawaran tertulis.')]
 from site_data import OFFICES, postal_address
 from catalog_data import HW_ITEMS
 
@@ -238,9 +253,17 @@ def card(it, city):
 
 
 def page(pkey, ckey):
-    p = PRODUCTS[pkey]; c = dict(CITIES[ckey], key=ckey)
+    p = PRODUCTS[pkey]; c = dict(ALL_CITIES[ckey], key=ckey)
+    nas = c.get('scope') == 'nasional'
     url = '/' + fmt(p['slug'], c)
     h1, title, desc = fmt(p['h1'], c), fmt(p['title'], c), fmt(p['desc'], c)
+    if nas:
+        n = NAT_NAME[pkey]; N = n[0].upper() + n[1:]
+        h1 = f'Jual {n} di {c["name"]}'
+        title = f'Jual {N} {c["name"]} | Pengadaan Resmi | Altora'
+        desc = f'Jual {n} di {c["name"]}: produk resmi bergaransi untuk perusahaan dan instansi, dikirim ke lokasi Anda dengan panduan pengaturan dari tim Altora.'
+        p = dict(p, lead=f'{N} untuk perusahaan, instansi, dan usaha di {c["name"]}. Kami bantu pilih tipe, siapkan pengadaan resmi, kirim ke alamat Anda, lalu dampingi pengaturannya dari jarak jauh. Pemasangan di lokasi dibahas per proyek.',
+                 dos=NAT_DOS, faq=[f for f in p['faq'] if 'survei' not in f[1] and 'Kami cek' not in f[1]][:2] + NAT_FAQ)
     if len(title) > 65:
         title = f'{p["short"]} {c["name"]} | Altora Indonesia'
     if len(desc) > 160:
@@ -250,15 +273,16 @@ def page(pkey, ckey):
     proof_ids = [x for x in dict.fromkeys(p['proof'] + (c['local_proof'] if pkey in ('kiosk', 'cctv', 'rak', 'fiber') else [])) if x in PF][:3]
     proof = ''.join(f'<a class="svd-proof" href="/portfolio/{x}"><span class="svd-proof-img"><img alt="" loading="lazy" src="{PF[x][1]}"/></span><b>{e(PF[x][0])}</b><small>Lihat proyek</small></a>' for x in proof_ids)
     proof_sec = (f'<section class="svd-sec" id="proyek"><div class="ct-wrap"><div class="pd-block-head"><h2>Proyek terkait</h2></div><div class="svd-proofs">{proof}</div></div></section>' if proof else '')
-    faq_items = [(fmt(q, c), fmt(a, c)) for q, a in p['faq']] + [
-        (f'Apakah melayani pengadaan dan pemasangan {p["short"].lower()} di {c["name"]}?', c['base']),
+    faq_items = [(fmt(q, c), fmt(a, c)) for q, a in p['faq']] + ([] if nas else [
+        (f'Apakah melayani pengadaan dan pemasangan {p["short"].lower()} di {c["name"]}?', c['base'])]) + [
         ('Apakah bisa untuk pengadaan instansi pemerintah?', 'Bisa. Altora berstatus PKP dan terdaftar di Inaproc/LKPP, sehingga dapat melayani pengadaan instansi dan BUMN.')]
     faq = ''.join(f'<details><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q, a in faq_items)
     near = near_of(ckey)
-    same_city = ''.join(f'<a href="/{fmt(PRODUCTS[k]["slug"], c)}">{e(PRODUCTS[k]["short"])} {e(c["name"])}</a>' for k in PRODUCTS if k != pkey)
-    links = (''.join(f'<a href="/{fmt(p["slug"], dict(CITIES[k], key=k))}">{e(p["short"])} {e(CITIES[k]["name"])}</a>' for k in near) +
-             f'<a href="{p["main"]}">{e(p["main_label"])}</a><a href="/jasa-pasang-cctv-{ckey}">Jasa pasang CCTV {e(c["name"])}</a>'
-             f'<a href="/it-support-{ckey}">IT support {e(c["name"])}</a>' + same_city)
+    same_city = ''.join(f'<a href="/{fmt(PRODUCTS[k]["slug"], c)}">{e(PRODUCTS[k]["short"])} {e(c["name"])}</a>' for k in products_for(ckey) if k != pkey)
+    local_links = (f'<a href="/software-house-{ckey}">Software house {e(c["name"])}</a><a href="/jasa-pembuatan-aplikasi-{ckey}">Jasa pembuatan aplikasi {e(c["name"])}</a>' if nas else
+                   f'<a href="/jasa-pasang-cctv-{ckey}">Jasa pasang CCTV {e(c["name"])}</a><a href="/it-support-{ckey}">IT support {e(c["name"])}</a>')
+    links = (''.join(f'<a href="/{fmt(p["slug"], dict(ALL_CITIES[k], key=k))}">{e(p["short"])} {e(ALL_CITIES[k]["name"])}</a>' for k in near) +
+             f'<a href="{p["main"]}">{e(p["main_label"])}</a>' + local_links + same_city)
     msg = f'Halo Altora, saya di {c["name"]} dan butuh {p["short"].lower()}.'
     office = office_of(c)
     ld = {'@context': 'https://schema.org', '@graph': [
@@ -276,14 +300,14 @@ def page(pkey, ckey):
     body = f'''<main class="ct-page svd-page lc-page pk-page">
 <section class="svd-hero"><div class="ct-wrap svd-hero-grid">
 <div class="svd-hero-copy"><nav aria-label="Breadcrumb" class="bl-crumb"><a href="/area-layanan">Area layanan</a><span>/</span><span>{e(c["name"])}</span></nav>
-<p class="eyebrow eyebrow-purple">Jual · Pengadaan · Instalasi · Maintenance</p><h1>{e(h1)}</h1><p class="ct-lead">{e(fmt(p["lead"], c))}</p>
+<p class="eyebrow eyebrow-purple">{"Jual · Pengadaan · Kirim ke " + e(c["name"]) if nas else "Jual · Pengadaan · Instalasi · Maintenance"}</p><h1>{e(h1)}</h1><p class="ct-lead">{e(fmt(p["lead"], c))}</p>
 <div class="svd-actions"><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Minta penawaran</a><a class="svd-link" href="#produk">Lihat produk</a></div></div>
-<figure class="svd-hero-pic pk-hero-pic"><img alt="{e(h1)}" src="{p["hero"]}"/><span class="svd-chip svd-chip-0">{e(c["name"])}</span><span class="svd-chip svd-chip-1">Produk resmi</span><span class="svd-chip svd-chip-2">Dipasang tim lokal</span></figure>
+<figure class="svd-hero-pic pk-hero-pic"><img alt="{e(h1)}" src="{p["hero"]}"/><span class="svd-chip svd-chip-0">{e(c["name"])}</span><span class="svd-chip svd-chip-1">Produk resmi</span><span class="svd-chip svd-chip-2">{"Dikirim ke lokasi" if nas else "Dipasang tim lokal"}</span></figure>
 </div></section>
 <section class="svd-sec" id="produk"><div class="ct-wrap"><div class="pd-block-head"><h2>Produk yang tersedia di {e(c["name"])}</h2><p>Tanpa harga di website. Masukkan ke keranjang, lalu kirim lewat WhatsApp untuk penawaran.</p></div>
 <div class="pk-grid">{items}</div></div></section>
-<section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Pengadaan sampai perawatan</h2></div><div class="svd-dos">{dos}</div></div></section>
-<section class="svd-sec"><div class="ct-wrap lc-office"><div><h2>Melayani {e(c["name"])} dan sekitarnya</h2><p>{e(c["base"])}</p>{"" if c.get("needs") else f"<p>Klien kami di {e(c['name'])} antara lain {e(c['sectors'])}.</p>"}</div></div></section>
+<section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>{"Pengadaan sampai pengiriman" if nas else "Pengadaan sampai perawatan"}</h2></div><div class="svd-dos">{dos}</div></div></section>
+<section class="svd-sec"><div class="ct-wrap lc-office"><div><h2>{"Pengiriman ke " + e(c["name"]) if nas else "Melayani " + e(c["name"]) + " dan sekitarnya"}</h2><p>{e(NAT_FAQ[1][1].replace("{C}", c["name"]) if nas else c["base"])}</p>{"" if c.get("needs") else f"<p>Klien kami di {e(c['name'])} antara lain {e(c['sectors'])}.</p>"}</div></div></section>
 {needs_html(c)}
 {proof_sec}
 <section class="svd-sec"><div class="ct-wrap svd-faq"><div class="pd-block-head"><h2>Pertanyaan umum</h2></div><div>{faq}</div>
@@ -294,19 +318,29 @@ def page(pkey, ckey):
     return url, h1, shell(title, desc, url, img, ld, body)
 
 
+def products_for(ckey):
+    return [k for k in PRODUCTS if k in NAT_NAME] if ALL_CITIES[ckey].get('scope') == 'nasional' else list(PRODUCTS)
+
+
 def hub_section(built):
     rows = ''
     for ckey, cdat in CITIES.items():
         links = ''.join(f'<a class="lc-svc" href="{u}"><b>{e(h)}</b></a>' for (ck, u, h) in built if ck == ckey)
         rows += f'<div class="pk-hubcity"><h3>{e(cdat["name"])}</h3><div class="lc-svcs">{links}</div></div>'
+    nat = ''
+    for ckey, cdat in NAT_CITIES.items():
+        links = ''.join(f'<a href="{u}">{e(h)}</a>' for (ck, u, h) in built if ck == ckey)
+        nat += f'<div class="pk-hubcity"><h3>{e(cdat["name"])}</h3><div class="svd-related">{links}</div></div>'
     return ('<!-- produk-kota:start --><section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Jual &amp; pasang produk per kota</h2>'
-            '<p>Pengadaan, instalasi, dan perawatan perangkat di Samarinda dan Balikpapan.</p></div>' + rows + '</div></section><!-- produk-kota:end -->')
+            '<p>Pengadaan, instalasi, dan perawatan perangkat di seluruh Kalimantan Timur.</p></div>' + rows + '</div></section>'
+            '<section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Jual &amp; kirim ke kota lain di Indonesia</h2>'
+            '<p>Produk resmi dikirim ke lokasi Anda, dengan panduan pengaturan jarak jauh. Pemasangan di lokasi dibahas per proyek.</p></div>' + nat + '</div></section><!-- produk-kota:end -->')
 
 
 if __name__ == '__main__':
     built = []
-    for ckey in CITIES:
-        for pkey in PRODUCTS:
+    for ckey in ALL_CITIES:
+        for pkey in products_for(ckey):
             url, h1, htmlp = page(pkey, ckey)
             (root / (url.lstrip('/') + '.html')).write_text(htmlp, encoding='utf-8')
             built.append((ckey, url, h1))
