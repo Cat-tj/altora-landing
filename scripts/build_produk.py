@@ -217,9 +217,30 @@ HW_ITEMS = [
     dict(id='kios-k', cat='kios', brand='Kios-K', logo=None, img='kios-k', name='Kios-K Layanan Mandiri',
          desc='Kios layanan mandiri untuk antrean, cetak dokumen, dan informasi publik. Sudah dipakai di kelurahan digital Kota Samarinda.',
          specs=[('Layar', 'Full HD / 4K, layar sentuh'), ('Perangkat', 'Scanner barcode & printer struk'), ('OS', 'Windows / Android'), ('Integrasi', 'Terhubung ke sistem layanan Anda')]),
-    dict(id='starlink', cat='konek', brand='Starlink', logo=None, img=None, icon='satellite', name='Starlink Gen 3 + Instalasi',
-         desc='Internet satelit untuk rumah, kantor, dan remote site tanpa PLN seperti tambang, kebun, dan proyek. Kami pasang lengkap sampai siap pakai.',
-         specs=[('Kecepatan', 'Hingga ±200 Mbps'), ('Paket', 'Home, Enterprise, Solar Coverage'), ('Off-grid', 'Panel surya untuk operasi 24/7'), ('Jangkauan', 'Wi-Fi repeater ke seluruh area')]),
+    dict(id='starlink-v5', cat='konek', brand='Starlink', logo=None, img='starlink-v5', name='Starlink V5',
+         desc='Kit rumahan terbaru: lebih ringan, mudah dipasang, untuk streaming, video call, dan kerja dari rumah.',
+         specs=[('Router', 'Router Mini (Wi-Fi)'), ('Isi kit', 'Kickstand, pipe adapter, kabel 15 m'), ('Cocok untuk', 'Rumah & kantor kecil')]),
+    dict(id='starlink-v4', cat='konek', brand='Starlink', logo=None, img='starlink-v4', name='Starlink V4 (Standard)',
+         desc='Kit standar untuk rumah dan kantor: streaming, video call, dan game online.',
+         specs=[('Router', 'Router 3 atau Router Mini'), ('Isi kit', 'Kickstand, power supply, kabel 15 m'), ('Cocok untuk', 'Rumah, kantor, ruko')]),
+    dict(id='starlink-mini', cat='konek', brand='Starlink', logo=None, img='starlink-mini', name='Starlink Mini',
+         desc='Kit ringkas dan portabel dengan Wi-Fi terintegrasi. Bisa dibawa ke lapangan atau dipakai di rumah.',
+         specs=[('Wi-Fi', 'Terintegrasi di antena'), ('Daya', 'DC, bisa dari aki / power bank'), ('Cocok untuk', 'Mobil, kapal, survei lapangan')]),
+    dict(id='starlink-mini-x', cat='konek', brand='Starlink', logo=None, img='starlink-mini-x', name='Starlink Mini X',
+         desc='Versi Mini dengan Router Mini tambahan untuk jangkauan Wi-Fi yang lebih luas.',
+         specs=[('Wi-Fi', 'Terintegrasi + Router Mini'), ('Isi kit', 'Pipe adapter, flat mount, kabel DC 15 m'), ('Cocok untuk', 'Rumah, pos lapangan')]),
+    dict(id='starlink-enterprise', cat='konek', brand='Starlink', logo=None, img='starlink-enterprise', name='Starlink Enterprise',
+         desc='Untuk lokasi bisnis tetap. Kabel lebih panjang dan bisa langsung disambung ke router atau jaringan sendiri.',
+         specs=[('Kabel', 'Enterprise cable 50 m'), ('Jaringan', 'Router pihak ketiga / custom'), ('Cocok untuk', 'Kantor, site proyek, tambang')]),
+    dict(id='starlink-performance-3', cat='konek', brand='Starlink', logo=None, img='starlink-performance-3', name='Starlink Performance (Gen 3)',
+         desc='Untuk area terpencil dan kondisi ekstrem: angin kencang, panas, getaran, dan pemakaian sambil bergerak.',
+         specs=[('Kecepatan', 'Download 400+ Mbps'), ('Tahan', 'Angin 270+ km/jam, -40°C s/d 60°C'), ('Cocok untuk', 'Tambang, offshore, kendaraan')]),
+    dict(id='starlink-performance-2', cat='konek', brand='Starlink', logo=None, img='starlink-performance-2', name='Starlink Performance (Gen 2)',
+         desc='Dahulu Flat High Performance. Pandangan lebar dan GPS presisi untuk instalasi permanen di kendaraan dan kapal.',
+         specs=[('Pasang', 'Permanen, wedge mount'), ('Kabel', '25 m + ethernet 5 m'), ('Cocok untuk', 'Kapal, kendaraan operasional')]),
+    dict(id='starlink', cat='konek', brand='Altora', logo=None, img=None, icon='satellite', name='Paket instalasi Starlink',
+         desc='Kami pasang lengkap sampai siap pakai: mounting, kabel, Wi-Fi repeater, hingga panel surya untuk lokasi tanpa PLN.',
+         specs=[('Paket', 'Home, Enterprise, Solar Coverage'), ('Off-grid', 'Panel surya untuk operasi 24/7'), ('Jangkauan', 'Wi-Fi repeater ke seluruh area'), ('Layanan', 'Survei, instalasi, konfigurasi')]),
     dict(id='hde-aio-il24', cat='computer', brand='HDe', logo='hde-v2', img='hde-aio-il24', name='HDe AIO IL24',
          desc='PC all-in-one 23,8" untuk kantor, sekolah, dan layanan publik.',
          specs=[('Layar', '23,8" Full HD, straight stand'), ('Prosesor', 'Intel Core i3 / i5 / i7'), ('RAM / SSD', '8–32 GB / 256 GB–1 TB'), ('Lainnya', 'Kamera 3 MP, Windows 11 Home')]),
@@ -313,6 +334,35 @@ software_head = ('<section class="pd-block pd-block-sw" id="software"><div class
                  '<h2>Aplikasi siap pakai</h2><p>Bisa langsung dipakai atau disesuaikan.</p></div></div></section>')
 ready = sum(1 for p in PRODUCTS if not p.get('soon'))
 
+# ── Sorotan produk (bento) di bawah hero ──
+def _feat(pid, big=False):
+    p = next(x for x in PRODUCTS if x['id'] == pid)
+    feats = ''.join(f'<li>{e(f)}</li>' for f in p['feats'][:3 if big else 2])
+    return (f'<a class="ph-feat{" ph-big" if big else ""} pd-{p["tone"]}" href="#{p["id"]}">'
+            f'<span class="ph-photo"><img alt="" loading="{"eager" if big else "lazy"}" src="/assets/img/produk/{p["id"]}.webp" style="object-position:{PHOTO_FOCUS.get(p["id"], "50% 50%")}"/></span>'
+            f'<span class="ph-body"><span class="ph-kicker">{e(p["tagline"])}</span><b>{e(p["name"])}</b>'
+            f'<span class="ph-desc">{e(p["desc"])}</span><ul>{feats}</ul><span class="ph-more">Lihat detail →</span></span></a>')
+
+HW_HL = [
+    ('/katalog-cctv-vigi', '/assets/img/vigi/s385dps.webp', 'CCTV VIGI', '148 model kamera, NVR & solar', 'Katalog lengkap'),
+    ('#starlink-v5', '/assets/img/hardware/starlink-v5.webp', 'Starlink', 'V5, Mini, Enterprise, Performance', 'Kit + instalasi'),
+    ('#telt-fmc920', '/assets/img/hardware/telt-fmc920.webp', 'GPS Teltonika', 'Tracker, kamera & sensor armada', 'Telematika'),
+    ('#smartlock', '/assets/img/hardware/smartlock.webp', 'Smartlock', 'Akses pintu via app, kartu, wajah', 'Kontrol akses'),
+    ('#kios-k', '/assets/img/hardware/kios-k.webp', 'Kios & signage', 'Layanan mandiri & layar promosi', 'Smart display'),
+    ('#hde-ifp', '/assets/img/hardware/hde-ifp.webp', 'Display HDe', 'Videotron & interactive panel', 'Ruang rapat'),
+]
+hw_tiles = ''.join(f'<a class="ph-hw" href="{u}"><span class="ph-hw-pic"><img alt="" loading="lazy" src="{img}"/></span>'
+                   f'<span class="ph-hw-tag">{e(tag)}</span><b>{e(t)}</b><small>{e(sub)}</small></a>' for u, img, t, sub, tag in HW_HL)
+n_vigi = 148
+highlight_html = ('<section class="ph-wrap" aria-label="Produk unggulan"><div class="pd-wrap">'
+                  '<div class="ph-head"><p class="eyebrow eyebrow-purple">Produk unggulan</p><h2>Paling banyak dipakai klien kami</h2></div>'
+                  f'<div class="ph-bento">{_feat("vision", True)}{_feat("fms")}{_feat("teams")}</div>'
+                  f'<div class="ph-stats"><div><b>{ready}</b><span>aplikasi siap pakai</span></div><div><b>148</b><span>model CCTV VIGI</span></div>'
+                  '<div><b>7</b><span>kit Starlink</span></div><div><b>6</b><span>principal resmi</span></div></div>'
+                  '<div class="ph-head ph-head-hw"><p class="eyebrow eyebrow-purple">Perangkat pilihan</p><h2>Hardware yang kami adakan dan pasang</h2></div>'
+                  f'<div class="ph-hws">{hw_tiles}</div>'
+                  '</div></section>')
+
 ld = {'@context': 'https://schema.org', '@type': 'ItemList', 'name': 'Produk Altora Indonesia',
       'itemListElement': [{'@type': 'ListItem', 'position': i + 1,
                            'item': {'@type': 'SoftwareApplication', 'name': p['name'], 'description': p['desc'],
@@ -324,7 +374,7 @@ title = 'Produk Altora | Aplikasi, CCTV VIGI, Smartlock & Starlink'
 desc = ('Aplikasi Altora untuk HRIS, AI CCTV, armada & private AI, plus kamera VIGI, smartlock, signage, kios, Starlink, dan perangkat Teltonika, HDe, HaganeRack.')
 
 page = f'''<!DOCTYPE html>
-<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(title)}</title><meta content="{e(desc)}" name="description"/><link href="https://altora.id/produk" rel="canonical"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="{e(title)}" property="og:title"/><meta content="{e(desc)}" property="og:description"/><meta content="https://altora.id/produk" property="og:url"/><meta content="https://altora.id/assets/img/produk/vision.webp" property="og:image"/><link href="/assets/img/altora-logo-icon-v2.svg" rel="icon"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v=20261014d"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head><body class="company-page"><header class="company-nav"><a class="project-brand" href="/"><img alt="Altora" src="/assets/img/altora-logo-icon-v2.svg"/><span>Altora</span></a></header>
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(title)}</title><meta content="{e(desc)}" name="description"/><link href="https://altora.id/produk" rel="canonical"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="{e(title)}" property="og:title"/><meta content="{e(desc)}" property="og:description"/><meta content="https://altora.id/produk" property="og:url"/><meta content="https://altora.id/assets/img/produk/vision.webp" property="og:image"/><link href="/assets/img/altora-logo-icon-v2.svg" rel="icon"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v=20261014f"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head><body class="company-page"><header class="company-nav"><a class="project-brand" href="/"><img alt="Altora" src="/assets/img/altora-logo-icon-v2.svg"/><span>Altora</span></a></header>
 <main class="pd-page">
 <section class="pd-hero"><div class="pd-wrap">
 <p class="eyebrow eyebrow-purple">Produk Altora</p>
@@ -333,6 +383,7 @@ page = f'''<!DOCTYPE html>
 <p class="pd-note">Foto produk adalah ilustrasi.</p>
 <nav aria-label="Kategori produk" class="pd-chips">{chips}</nav>
 </div></section>
+{highlight_html}
 {software_head}{"".join(sections)}
 {hardware_html}
 <section class="pd-compare"><div class="pd-wrap pd-compare-grid">
