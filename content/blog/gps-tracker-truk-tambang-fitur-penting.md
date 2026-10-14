@@ -9,7 +9,7 @@ related: /produk/fms | Altora FMS
 related: /gps-tracker-kendaraan-balikpapan | GPS tracker kendaraan Balikpapan
 related: /industri/pertambangan | Solusi tambang & industri berat
 ---
-GPS tracker untuk mobil pribadi cukup menampilkan posisi. Untuk truk hauling dan alat berat, kebutuhannya jauh lebih banyak karena biaya operasional terbesar ada pada BBM, jam operasi, dan perawatan.
+GPS tracker untuk mobil pribadi cukup menampilkan posisi. Untuk truk hauling dan alat berat, kebutuhannya jauh lebih banyak karena yang paling perlu diawasi adalah BBM, jam operasi, dan perawatan.
 
 ## Data mesin lewat CAN-Bus
 

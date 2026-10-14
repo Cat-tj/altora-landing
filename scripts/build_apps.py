@@ -32,7 +32,7 @@ APPS = {
         lead='Satu aplikasi untuk absensi, shift, cuti, lembur, reimbursement, KPI, dan payroll. Karyawan pakai dari HP, HR memantau dari dashboard.',
         pains=['Rekap absensi dan lembur masih manual di spreadsheet.', 'Pengajuan cuti tercecer di chat.', 'Payroll lama karena data dari banyak sumber.'],
         feats=[('Absensi GPS & selfie', 'Absen dari HP dengan validasi lokasi dan foto.'), ('Shift & jadwal', 'Atur shift dan rotasi otomatis.'),
-               ('Cuti, izin, lembur', 'Pengajuan dan persetujuan dari aplikasi.'), ('Reimbursement', 'Klaim biaya dengan foto bukti.'),
+               ('Cuti, izin, lembur', 'Pengajuan dan persetujuan dari aplikasi.'), ('Reimbursement', 'Pengajuan klaim pengeluaran dengan foto bukti.'),
                ('KPI & kalender kerja', 'Target, penilaian, dan kalender tim.'), ('Payroll & slip gaji', 'Gaji dihitung dari data kehadiran, slip digital.')],
         steps=['Impor data karyawan dan struktur', 'Atur aturan absensi, shift, dan cuti', 'Karyawan mulai absen dari HP', 'HR menarik rekap dan payroll'],
         hw=[('/produk/attendance', 'Absensi wajah dari CCTV'), ('/jual-smartlock-samarinda', 'Smartlock & akses pintu')],
