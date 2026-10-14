@@ -121,7 +121,7 @@ def card(p):
             '</article>')
 
 
-from catalog_data import HW_CATS, HW_ITEMS
+from catalog_data import HW_CATS, HW_ITEMS, JASA
 
 VIGI_ANCHOR = {'vigi-dome': 'dome', 'vigi-dome-ir': 'dome', 'vigi-turret': 'turret', 'vigi-bullet': 'bullet', 'vigi-aurora': 'bullet', 'vigi-ptz': 'pt',
                'vigi-panoramic': 'bullet', 'vigi-4g': 'pt', 'vigi-nvr': 'nvr', 'vigi-nvd': 'nvd', 'vigi-solar': 'solar', 'vigi-vms': 'net'}
@@ -232,7 +232,7 @@ def head(title, desc, url, ld, extra_css=''):
             '<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>'
             '<link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/>'
             '<link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/>'
-            f'<link rel="stylesheet" href="/assets/css/unify.css?v=20261014m"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head>'
+            f'<link rel="stylesheet" href="/assets/css/unify.css?v=20261014n"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head>'
             '<body class="company-page"><header class="company-nav"></header>\n')
 
 # ── /produk: halaman pengetahuan ──
@@ -303,26 +303,46 @@ def kat_app(k):
             f'<div class="pd-actions">{cart_btn(k, a["name"], "Aplikasi Altora", f"/assets/img/produk/{k}.webp")}'
             f'<a class="pd-link" href="/produk/{k}">Detail aplikasi</a></div></div></article>')
 
-kat_filters = ('<button aria-pressed="true" data-filter="all" type="button">Semua</button><button aria-pressed="false" data-filter="app" type="button">Aplikasi</button>'
-               + ''.join(f'<button aria-pressed="false" data-filter="{c}" id="cat-{c}" type="button">{e(t)}</button>' for c, t in HW_CATS))
-kat_ld = {'@context': 'https://schema.org', '@type': 'ItemList', 'name': 'Katalog Altora Indonesia', 'numberOfItems': len(APPS) + len(HW_ITEMS)}
-katalog_page = head('Katalog Produk Altora | Aplikasi, CCTV, GPS, Starlink & Perangkat', 'Katalog aplikasi dan perangkat Altora: CCTV VIGI, GPS Teltonika, Starlink, smartlock, kios, display, rak server, dan fiber. Tambah ke keranjang dan kirim lewat WhatsApp.', '/katalog', kat_ld) + f"""<main class="pd-page kt-page">
+def kat_jasa(j):
+    jid, name, desc, inc, img, link = j
+    return (f'<article class="hwi" data-cat="jasa" id="{jid}"><div class="hwi-pic hwi-pic-photo"><img alt="{e(name)}" loading="lazy" src="{img}"/></div>'
+            f'<div class="hwi-body"><small>Jasa</small><h3>{e(name)}</h3><p>{e(desc)}</p>'
+            '<dl class="hwi-specs">' + ''.join(f'<div><dt>Termasuk</dt><dd>{e(x)}</dd></div>' for x in inc) + '</dl>'
+            f'<div class="pd-actions">{cart_btn(jid, name, "Jasa Altora", img)}<a class="pd-link" href="{link}">Detail jasa</a></div></div></article>')
+
+hw_sub = ('<button aria-pressed="true" data-filter="all" type="button">Semua barang</button>'
+          + ''.join(f'<button aria-pressed="false" data-filter="{c}" id="cat-{c}" type="button">{e(t)}</button>' for c, t in HW_CATS if any(h['cat'] == c for h in HW_ITEMS)))
+tabs = (f'<a class="kt-tab" data-tab="barang" href="#barang"><b>Barang</b><span>{len(HW_ITEMS)} perangkat + 148 model VIGI</span></a>'
+        f'<a class="kt-tab" data-tab="jasa" href="#jasa"><b>Jasa</b><span>{len(JASA)} layanan pemasangan & pembuatan</span></a>'
+        f'<a class="kt-tab" data-tab="software" href="#software"><b>Software</b><span>{len(APPS)} aplikasi Altora</span></a>')
+kat_ld = {'@context': 'https://schema.org', '@type': 'ItemList', 'name': 'Katalog Altora Indonesia', 'numberOfItems': len(APPS) + len(HW_ITEMS) + len(JASA)}
+katalog_page = head('Katalog Altora | Barang, Jasa & Software', 'Katalog Altora: barang (CCTV VIGI, GPS, Starlink, smartlock, display, rak, fiber), jasa pemasangan & pembuatan, serta software. Tambah ke keranjang, kirim via WhatsApp.', '/katalog', kat_ld) + f"""<main class="pd-page kt-page">
 <section class="pd-hero kt-hero"><div class="pd-wrap">
 <div class="kt-bar"><p class="eyebrow eyebrow-purple">Katalog</p><button class="btn btn-outline kt-print" onclick="window.print()" type="button">Cetak / simpan PDF</button></div>
-<h1>Katalog produk Altora</h1>
-<p class="pd-lead">Pilih aplikasi dan perangkat, tambahkan ke keranjang, lalu kirim lewat WhatsApp untuk penawaran. Tanpa harga di website. Belum yakin? <a href="/produk">Kenali produk kami dulu</a>.</p>
+<h1>Katalog Altora</h1>
+<p class="pd-lead">Barang, jasa, dan software dalam satu tempat. Tambahkan ke keranjang, lalu kirim lewat WhatsApp untuk penawaran. Tanpa harga di website. Belum yakin? <a href="/produk">Kenali produk kami dulu</a>.</p>
+<nav aria-label="Jenis katalog" class="kt-tabs">{tabs}</nav>
 </div></section>
-<section class="pd-block" id="hardware"><div class="pd-wrap">
-<div aria-label="Filter kategori" class="hwi-filter" role="group">{kat_filters}</div>
+<section class="pd-block kt-panel" data-panel="barang" id="barang"><div class="pd-wrap">
+<div class="kt-panel-head"><h2>Barang</h2><p>Perangkat resmi yang kami adakan. Bisa beli putus atau sekalian dipasang.</p></div>
+<div aria-label="Kategori barang" class="hwi-filter" role="group">{hw_sub}</div>
 <div class="hwi-allvigi"><div><b>Katalog lengkap CCTV VIGI</b><br/><span>148 model kamera, NVR, kit, decoder, solar, dan jaringan pendukung.</span></div><a class="btn btn-purple" href="/katalog-cctv-vigi">Lihat semua model VIGI →</a></div>
-<div class="hwi-grid">{"".join(kat_app(k) for k in APPS)}{"".join(hw_item(h) for h in HW_ITEMS)}</div>
+<div class="hwi-grid">{"".join(hw_item(h) for h in HW_ITEMS)}</div>
 <div class="hwi-more"><div class="hwi-more-logos"><img alt="TP-Link" src="/assets/img/partners/tplink-v2.png"/><img alt="Lenovo" src="/assets/img/partners/lenovo-v2.png"/><img alt="VIGI" src="/assets/img/partners/vigi-v2.png"/></div>
 <div><b>Juga tersedia: jaringan TP-Link Omada dan perangkat Lenovo.</b><p>Switch PoE, access point, router 4G/5G, laptop, dan PC. Tipe kami sesuaikan dengan proyek Anda.</p></div>
 <a class="btn btn-purple" href="{WA}{quote("Halo Altora, saya ingin konsultasi perangkat untuk proyek saya.")}" rel="noopener" target="_blank">Konsultasi perangkat →</a></div>
 </div></section>
+<section class="pd-block kt-panel" data-panel="jasa" id="jasa"><div class="pd-wrap">
+<div class="kt-panel-head"><h2>Jasa</h2><p>Pemasangan, instalasi, perawatan, dan pembuatan website atau aplikasi oleh tim kami di Samarinda dan Balikpapan.</p></div>
+<div class="hwi-grid">{"".join(kat_jasa(j) for j in JASA)}</div>
+</div></section>
+<section class="pd-block kt-panel" data-panel="software" id="software"><div class="pd-wrap">
+<div class="kt-panel-head"><h2>Software</h2><p>Aplikasi Altora yang siap dipakai atau diterapkan sesuai kebutuhan.</p></div>
+<div class="hwi-grid">{"".join(kat_app(k) for k in APPS)}</div>
+</div></section>
 </main>
 <footer></footer>
-<script defer="" src="/assets/js/site-shell.js?v=20261010e"></script><script defer="" src="/assets/js/hw-filter.js?v=20261014b"></script></body></html>
+<script defer="" src="/assets/js/site-shell.js?v=20261010e"></script><script defer="" src="/assets/js/hw-filter.js?v=20261014c"></script></body></html>
 """
 (root / 'katalog.html').write_text(katalog_page, encoding='utf-8')
 print('produk.html (pengetahuan) & katalog.html dibuat')
