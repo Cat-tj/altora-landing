@@ -112,11 +112,16 @@ def security_block():
             f'<ul class="tk-host">{h}</ul></div><ul class="tk-ctrl">{c}</ul></div></section>')
 
 
+IND_IMG = {'pertambangan': '/assets/img/portfolio/fms.jpg', 'pemerintahan': '/assets/img/portfolio/kiosk-samarinda/kiosk-pampang.jpg',
+           'pendidikan': '/assets/img/portfolio/feb-unmul.jpg', 'korporasi': '/assets/img/produk/teams.webp'}
+
+
 def industry_block():
-    cards = ''.join(f'<a class="ti-card ti-{k}" href="/industri/{k}"><b>{e(t)}</b><small>{e(d)}</small><span>{ico("arrow")}</span></a>' for k, t, d in INDUSTRIES)
+    cards = ''.join(f'<a class="tin-card" href="/industri/{k}"><span class="tin-pic"><img alt="" loading="lazy" src="{IND_IMG[k]}"/></span>'
+                    f'<span class="tin-body"><b>{e(t)}</b><small>{e(d)}</small><em>Lihat solusi {ico("arrow")}</em></span></a>' for k, t, d in INDUSTRIES)
     return ('<section class="sec ti-sec" id="industri"><div class="wrap"><div class="tl-head"><p class="eyebrow eyebrow-purple">Solusi per industri</p>'
             '<h2>Paham konteks tiap sektor</h2><p>Kebutuhan tambang berbeda dari kampus, instansi berbeda dari korporasi. Pilih sektor Anda.</p></div>'
-            f'<div class="ti-grid">{cards}</div></div></section>')
+            f'<div class="tin-grid">{cards}</div></div></section>')
 
 
 def put(s, name, block, anchor=None, before=True, replace_re=None):
