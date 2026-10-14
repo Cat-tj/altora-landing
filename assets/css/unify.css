@@ -1312,3 +1312,11 @@ body:has(a.wa) .cart-fab{bottom:84px}
 .hp-picks-list{display:flex;flex-wrap:wrap;gap:8px}
 .hp-pick{padding:8px 13px;border:1px solid #E4DCFA;border-radius:999px;background:#fff;color:#10224F;font-size:.84rem;font-weight:700;text-decoration:none;transition:all .2s}
 .hp-pick:hover{border-color:#7C5CE8;color:#6D4AE0;transform:translateY(-1px)}
+
+/* CTA bawah halaman: kalem (latar lembut, teks gelap) menggantikan gradien ungu pekat */
+.pd-cta-inner{background:#F6F4FE!important;border:1px solid #E4DEFA;color:#10224F;box-shadow:none}
+.pd-cta-inner h2,.cr-page .pd-cta-inner h2{color:#10224F!important}
+.pd-cta-inner p{color:#4A5878!important}
+.pd-cta-inner .btn,.pd-cta-inner .btn-purple{background:#5B3FC4!important;color:#fff!important;border-color:#5B3FC4!important}
+.pd-cta-inner .btn:hover{background:#4A31A8!important}
+.cr-cta-wa{color:#16A34A!important}
