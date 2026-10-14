@@ -10,7 +10,7 @@ from regions import REGIONS
 from regions_nasional import NASIONAL
 
 root = pathlib.Path(__file__).resolve().parent.parent
-CSS_VER = '20261014x'
+CSS_VER = '20261014y'
 SITE = 'https://altora.id'
 WA = 'https://wa.me/6285190911170?text='
 e = lambda t: html.escape(t, quote=True)

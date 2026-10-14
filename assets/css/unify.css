@@ -1328,4 +1328,9 @@ body:has(a.wa) .cart-fab{bottom:84px}
 .pd-cta-inner p{color:#2A2F5E!important}
 @media (prefers-reduced-motion:reduce){.pd-cta-inner{animation:none;background-position:30% 50%!important}}
 /* Latar hero diteruskan ke balik header sticky, supaya tidak ada pita warna berbeda di atas */
-body > header.nav-wrap + main > section:first-child{margin-top:-80px;border-top:80px solid transparent;background-origin:border-box!important}
+body > header.nav-wrap + main > section:first-child:not(.hero){margin-top:-80px;border-top:80px solid transparent;background-origin:border-box!important}
+/* Plat di balik header sticky: pudar lembut, bukan blok warna polos (tidak ada pita di atas hero) */
+.universal-shell.nav-wrap.stuck::before{background:linear-gradient(to bottom,rgba(251,249,254,.85) 0%,rgba(251,249,254,.45) 45%,rgba(251,249,254,0) 100%)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+/* CTA: tanpa garis putih di dalam kotak */
+.pd-cta-inner:before{display:none!important}
+.pd-cta-inner{border-color:rgba(255,255,255,.7)!important}
