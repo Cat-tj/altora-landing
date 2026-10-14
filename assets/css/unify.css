@@ -1250,3 +1250,19 @@ body:has(a.wa) .cart-fab{bottom:84px}
 .sp-offices a:hover{border-color:#CBBEF5}.sp-offices b{color:#10224F}.sp-offices span{color:#5B6380;font-size:.86rem}
 @media (max-width:980px){.sp-hero-grid,.sp-ticket,.sp-split{grid-template-columns:1fr}.sp-paths{grid-template-columns:1fr}.sp-flow{grid-template-columns:1fr 1fr}.sp-flow li:after{display:none}}
 @media (max-width:560px){.sp-channels{grid-template-columns:1fr}.sp-flow{grid-template-columns:1fr}.sp-visual{min-height:400px}.sp-b2{right:0}.sp-b1{left:0}}
+/* katalog: pilihan "Cari apa?" */
+.kc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0 0}
+.kc-tile{display:flex;align-items:center;gap:12px;padding:10px;border:1px solid #E4DCFA;border-radius:18px;background:#fff;color:inherit;text-decoration:none;transition:transform .2s,box-shadow .2s,border-color .2s}
+.kc-tile:hover{transform:translateY(-2px);border-color:#B9A8F2;box-shadow:0 12px 28px rgba(60,40,140,.1)}
+.kc-tile[aria-current="true"]{border-color:#7C5CE8;background:linear-gradient(135deg,#F4F0FF,#fff);box-shadow:0 10px 24px rgba(124,92,232,.18)}
+.kc-pic{flex:none;display:grid;place-items:center;width:64px;height:64px;overflow:hidden;border-radius:14px;background:radial-gradient(circle at 50% 60%,#fff,#F1ECFE 80%)}
+.kc-pic img{width:100%;height:100%;object-fit:cover}
+.kc-txt b{display:block;color:#10224F;font-size:.98rem;line-height:1.25}.kc-txt small{display:block;margin-top:2px;color:#5B6380;font-size:.76rem;line-height:1.35}
+.kt-results{padding-top:20px}
+.kr-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;margin:0 0 14px}
+.kr-back{color:#6D4AE0;font-weight:800;font-size:.88rem;text-decoration:none}
+.kr-title{margin:0;color:#10224F;font-size:1.5rem!important}
+.kr-count{padding:4px 10px;border-radius:999px;background:#F1ECFE;color:#5B3FD1;font-size:.78rem;font-weight:800}
+@media (max-width:980px){.kc-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.kc-grid{grid-template-columns:1fr;gap:8px}.kc-pic{width:54px;height:54px}}
+@media print{.kc-grid{display:none}.kt-results[hidden]{display:block!important}.hwi[hidden]{display:flex!important}}
