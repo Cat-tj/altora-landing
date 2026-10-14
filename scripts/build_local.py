@@ -1,11 +1,13 @@
 """Bangun halaman lokal 'software house <kota>' dari data CITIES.
 Jalankan dari root repo:  python3 scripts/build_local.py && python3 scripts/apply_shell.py && python3 scripts/apply_seo.py
 Isi setiap kota harus berbeda dan hanya memakai fakta yang bisa dipertanggungjawabkan."""
-import html, json, pathlib
+import html, json, pathlib, sys
 from urllib.parse import quote
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+from site_data import OFFICES, postal_address, one_line, maps_link
 
 root = pathlib.Path(__file__).resolve().parent.parent
-CSS_VER = '20261013b'
+CSS_VER = '20261014a'
 SITE = 'https://altora.id'
 WA = 'https://wa.me/6285190911170?text='
 e = lambda t: html.escape(t, quote=True)
@@ -34,15 +36,15 @@ CITIES = [
          title='Software House Balikpapan | Altora Indonesia',
          desc='Altora Indonesia, software house di Balikpapan: aplikasi custom, website, AI CCTV, fleet management, serta pengadaan dan pemasangan perangkat.',
          h1='Software house di Balikpapan',
-         lead='Altora Indonesia berkantor di Balikpapan Utara. Kami membuat aplikasi, website, dan sistem CCTV pintar, lalu memasang dan merawat perangkatnya, untuk perusahaan, instansi, dan UMKM di Balikpapan.',
-         why=[('Kantor di Balikpapan', 'Kantor kami di Jl. Soekarno Hatta, Muara Rapak. Diskusi, survei, dan pelatihan bisa dilakukan langsung di lokasi Anda.'),
+         lead='Altora Indonesia punya dua kantor cabang di Balikpapan, di Balikpapan Utara dan Pasar Baru. Kami membuat aplikasi, website, dan sistem CCTV pintar, lalu memasang dan merawat perangkatnya, untuk perusahaan, instansi, dan UMKM di Balikpapan.',
+         why=[('Dua cabang di Balikpapan', 'Cabang kami di Jl. Soekarno Hatta, Muara Rapak (Balikpapan Utara) dan di Pasar Baru. Diskusi, survei, dan pelatihan bisa dilakukan langsung di lokasi Anda.'),
               ('Software dan perangkat satu tim', 'Banyak kebutuhan di Balikpapan melibatkan perangkat: CCTV, GPS tracker, sensor, jaringan. Kami mengerjakan aplikasi dan pemasangannya sekaligus.'),
               ('Dukungan setelah jalan', 'Saat ada kendala, tim teknis bisa datang ke lokasi, tidak hanya membalas lewat chat.')],
          needs=[('Perusahaan jasa migas, logistik, dan kontraktor', 'Pemantauan armada, absensi karyawan lapangan, dan pengawasan APD di area kerja.'),
                 ('Kantor dan instansi', 'Aplikasi persuratan, approval, dan website resmi yang mudah diperbarui.'),
                 ('Toko, kafe, dan usaha jasa', 'Kasir, stok, dan website untuk ditemukan pelanggan di Google.')],
          proof=['fleet-management', 'smart-attendance', 'altora-teams'],
-         faq=[('Di mana kantor Altora di Balikpapan?', 'Kantor kami di Jl. Soekarno Hatta, Muara Rapak, Balikpapan Utara. Untuk diskusi, kami juga bisa datang ke kantor Anda.'),
+         faq=[('Di mana kantor Altora di Balikpapan?', 'Ada dua cabang: Jl. Soekarno Hatta, Muara Rapak, Balikpapan Utara, dan Pasar Baru, Balikpapan. Kantor pusat kami di Samarinda. Untuk diskusi, kami juga bisa datang ke kantor Anda.'),
               ('Apakah melayani pemasangan CCTV dan GPS tracker di Balikpapan?', 'Ya. Kami mengadakan, memasang, dan merawat CCTV, GPS tracker, jaringan, dan perangkat lain, termasuk menghubungkannya ke aplikasi.'),
               ('Berapa biaya membuat aplikasi di Balikpapan?', 'Tergantung fitur, jumlah pengguna, dan integrasi. Konsultasi awal gratis, lalu kami kirim penawaran tertulis. Faktor biayanya kami jelaskan di artikel biaya membuat aplikasi.'),
               ('Apakah bisa mulai dari aplikasi yang sudah jadi?', 'Bisa. Untuk absensi, CCTV pintar, akses pintu, atau pelacakan armada, Anda bisa memakai aplikasi Altora yang sudah jadi lalu menyesuaikannya.')],
@@ -51,8 +53,8 @@ CITIES = [
          title='Software House Samarinda | Altora Indonesia',
          desc='Software house di Samarinda: aplikasi custom, website instansi, CCTV pintar, dan pengadaan perangkat. Proyek kelurahan dan Universitas Mulawarman.',
          h1='Software house di Samarinda',
-         lead='Altora Indonesia mengerjakan aplikasi, website, dan perangkat untuk instansi pemerintah, kampus, dan bisnis di Samarinda. Beberapa proyek kami ada di kantor kelurahan dan Universitas Mulawarman.',
-         why=[('Sudah bekerja di Samarinda', 'Kami memasang kios layanan dan perangkat di kantor kelurahan Samarinda, serta mengerjakan website dan jaringan CCTV di Universitas Mulawarman.'),
+         lead='Altora Indonesia berdiri sejak 2019 dan berkantor pusat di Samarinda. Kami mengerjakan aplikasi, website, CCTV, dan perangkat untuk instansi pemerintah, kampus, dan bisnis, di antaranya Pemkot Samarinda dan Universitas Mulawarman.',
+         why=[('Kantor pusat di Samarinda', 'Kantor pusat kami di Perum Graha Indah Blok A13, Air Putih, Samarinda Ulu. Kami sudah memasang kios layanan di kantor kelurahan Samarinda serta mengerjakan website dan jaringan CCTV di Universitas Mulawarman.'),
               ('Terbiasa dengan pengadaan instansi', 'Penawaran, faktur, berita acara serah terima, dan dokumentasi pekerjaan kami siapkan untuk kebutuhan administrasi.'),
               ('Bisa datang ke lokasi', 'Survei, pemasangan, dan pelatihan dilakukan langsung di kantor Anda di Samarinda.')],
          needs=[('Kelurahan, kecamatan, dan dinas', 'Kios layanan warga, website resmi, dan aplikasi pelayanan.'),
@@ -68,15 +70,15 @@ CITIES = [
          title='Software House Kalimantan Timur | Altora Indonesia',
          desc='Software house di Kalimantan Timur: aplikasi, website, AI CCTV, fleet management, dan perangkat untuk perusahaan dan instansi di Balikpapan, Samarinda, dan sekitarnya.',
          h1='Software house di Kalimantan Timur',
-         lead='Altora Indonesia berbasis di Balikpapan dan mengerjakan proyek di Samarinda. Kami melayani perusahaan dan instansi di Kalimantan Timur yang butuh aplikasi, website, CCTV pintar, pelacakan armada, atau pengadaan perangkat.',
+         lead='Altora Indonesia berkantor pusat di Samarinda sejak 2019, dengan dua cabang di Balikpapan. Kami melayani perusahaan dan instansi di Kalimantan Timur yang butuh aplikasi, website, CCTV pintar, pelacakan armada, internet satelit, atau pengadaan perangkat.',
          why=[('Paham kebutuhan Kaltim', 'Banyak pekerjaan di Kaltim ada di lapangan: tambang, logistik, perkebunan, dan pelayanan publik. Aplikasi kami dirancang untuk dipakai di kantor maupun di lokasi.'),
               ('Aplikasi dan perangkat', 'Kami mengerjakan software sekaligus memasang perangkatnya: CCTV, GPS tracker Teltonika, sensor, dan jaringan.'),
-              ('Tim lokal', 'Tim kami di Balikpapan dan Samarinda bisa datang untuk survei, pemasangan, dan perawatan.')],
+              ('Tim lokal', 'Kantor pusat di Samarinda dan dua cabang di Balikpapan. Tim kami bisa datang untuk survei, pemasangan, dan perawatan.')],
          needs=[('Tambang, kontraktor, dan logistik', 'Fleet management, absensi karyawan lapangan, dan deteksi APD dari CCTV.'),
                 ('Perkebunan dan pertanian', 'Sensor kelembapan tanah dan pemantauan lahan lewat aplikasi.'),
                 ('Pemerintah daerah dan instansi', 'Website resmi, aplikasi pelayanan, kios layanan, dan pengadaan perangkat.')],
          proof=['fleet-management', 'custom-kios-k-pengadaan-hardware', 'unmul-infrastruktur-cctv-jaringan'],
-         faq=[('Kota mana saja yang dilayani?', 'Kantor kami di Balikpapan dan kami sudah mengerjakan proyek di Samarinda. Untuk kota lain di Kalimantan Timur, hubungi kami untuk dicek sesuai lokasi dan cakupan pekerjaan.'),
+         faq=[('Kota mana saja yang dilayani?', 'Kantor pusat kami di Samarinda dan cabang di Balikpapan. Kami juga mengerjakan proyek di luar dua kota itu, misalnya untuk Pemkab Barito Utara. Untuk lokasi lain, hubungi kami untuk dicek.'),
               ('Apakah bisa untuk lokasi tambang atau perkebunan yang sinyalnya lemah?', 'Bisa. GPS tracker dan sensor dapat menyimpan data sementara lalu mengirimnya saat sinyal tersedia, dan sistem bisa dijalankan di server lokal.'),
               ('Apakah tersedia GPS tracker untuk alat berat?', 'Ya. Kami memakai GPS tracker Teltonika yang dipilih sesuai jenis kendaraan, termasuk truk dan alat berat.'),
               ('Bagaimana memulai?', 'Hubungi kami lewat WhatsApp atau form konsultasi. Diskusi awal gratis.')],
@@ -92,13 +94,13 @@ def page(c):
     proof = ''.join(f'<a class="svd-proof" href="/portfolio/{p}"><span class="svd-proof-img"><img alt="" loading="lazy" src="{PF[p][1]}"/></span><b>{e(PF[p][0])}</b><small>{e(PF[p][2])}</small></a>' for p in c['proof'])
     faq = ''.join(f'<details><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q, a in c['faq'])
     nearby = ''.join(f'<a href="{u}">{e(t)}</a>' for u, t in c['nearby'])
+    offices = ''.join(f'<p><b>{e(o["label"])}</b><br/><a href="{e(maps_link(o))}" rel="noopener" target="_blank">{e(one_line(o))}</a></p>' for o in OFFICES)
     msg = f'Halo Altora, saya dari {c["city"]} dan ingin konsultasi kebutuhan software.'
     ld = {'@context': 'https://schema.org', '@graph': [
         {'@type': 'ProfessionalService', '@id': SITE + url + '#bisnis', 'name': 'Altora Indonesia', 'alternateName': ['Altora', 'Algora Teknologi Indonesia'],
          'description': c['desc'], 'url': SITE + url, 'telephone': '+6285190911170', 'email': 'hello@altora.id',
          'image': SITE + '/assets/img/altora-logo-600.png', 'logo': SITE + '/assets/img/altora-logo-600.png',
-         'address': {'@type': 'PostalAddress', 'streetAddress': 'Jl. Soekarno Hatta, Muara Rapak, Balikpapan Utara',
-                     'addressLocality': 'Balikpapan', 'addressRegion': 'Kalimantan Timur', 'postalCode': '76125', 'addressCountry': 'ID'},
+         'address': postal_address(next(o for o in OFFICES if (o['city'] == c['city']) or (c['city'] == 'Kalimantan Timur' and o['hq']))),
          'areaServed': {'@type': 'City' if c['area'] != 'Kalimantan Timur' else 'AdministrativeArea', 'name': c['area']},
          'parentOrganization': {'@id': SITE + '/#organization'},
          'makesOffer': [{'@type': 'Offer', 'itemOffered': {'@type': 'Service', 'name': t}} for _, t, _ in SERVICES]},
@@ -121,7 +123,7 @@ def page(c):
 <section class="svd-sec" id="proyek"><div class="ct-wrap"><div class="pd-block-head"><h2>Proyek kami</h2></div><div class="svd-proofs">{proof}</div>
 <div class="svd-related"><b>Lihat juga</b>{nearby}</div></div></section>
 <section class="svd-sec"><div class="ct-wrap svd-faq"><div class="pd-block-head"><h2>Pertanyaan umum</h2></div><div>{faq}</div></div></section>
-<section class="svd-sec"><div class="ct-wrap lc-office"><div><h2>Kantor</h2><p>Jl. Soekarno Hatta, Muara Rapak<br/>Balikpapan Utara, Kalimantan Timur 76125</p><p><a href="tel:+6285190911170">+62 851-9091-1170</a> · <a href="mailto:hello@altora.id">hello@altora.id</a></p></div></div></section>
+<section class="svd-sec"><div class="ct-wrap lc-office"><div><h2>Kantor</h2>{offices}<p><a href="tel:+6285190911170">+62 851-9091-1170</a> · <a href="mailto:hello@altora.id">hello@altora.id</a></p></div></div></section>
 <section class="pd-cta"><div class="ct-wrap pd-cta-inner"><div><h2>Butuh software house di {e(c["city"])}?</h2><p>Ceritakan kebutuhan Anda. Diskusi awal gratis.</p></div><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Chat WhatsApp</a></div></section>
 </main>
 <footer></footer>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://altora.id/about</loc><lastmod>2026-10-10</lastmod><priority>0.9</priority></url>
+  <url><loc>https://altora.id/about</loc><lastmod>2026-10-14</lastmod><priority>0.9</priority></url>
   <url><loc>https://altora.id/algora</loc><lastmod>2026-10-10</lastmod><priority>0.9</priority></url>
   <url><loc>https://altora.id/careers</loc><lastmod>2026-10-10</lastmod><priority>0.9</priority></url>
   <url><loc>https://altora.id/contact</loc><lastmod>2026-10-10</lastmod><priority>0.9</priority></url>
@@ -52,6 +52,21 @@
   <url><loc>https://altora.id/terms</loc><lastmod>2026-10-10</lastmod><priority>0.6</priority></url>
   <url><loc>https://altora.id/software-house-balikpapan</loc><lastmod>2026-10-13</lastmod><priority>0.9</priority></url>
   <url><loc>https://altora.id/software-house-kalimantan-timur</loc><lastmod>2026-10-13</lastmod><priority>0.9</priority></url>
+  <url><loc>https://altora.id/jasa-pasang-cctv-balikpapan</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://altora.id/it-support-balikpapan</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://altora.id/jasa-instalasi-jaringan-balikpapan</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://altora.id/gps-tracker-kendaraan-balikpapan</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://altora.id/jasa-pembuatan-website-balikpapan</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://altora.id/jasa-pembuatan-aplikasi-balikpapan</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://altora.id/jasa-pasang-cctv-samarinda</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://altora.id/it-support-samarinda</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://altora.id/jasa-instalasi-jaringan-samarinda</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://altora.id/gps-tracker-kendaraan-samarinda</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://altora.id/area-layanan</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>
+  <url><loc>https://altora.id/services/starlink-internet-satelit</loc><lastmod>2026-10-14</lastmod><priority>0.8</priority></url>
+  <url><loc>https://altora.id/services/instalasi-listrik-jaringan</loc><lastmod>2026-10-14</lastmod><priority>0.8</priority></url>
+  <url><loc>https://altora.id/services/smart-display-kios</loc><lastmod>2026-10-14</lastmod><priority>0.8</priority></url>
+  <url><loc>https://altora.id/services/private-ai-gis</loc><lastmod>2026-10-14</lastmod><priority>0.8</priority></url>
   <url><loc>https://altora.id/blog</loc><lastmod>2026-10-11</lastmod><priority>0.7</priority></url>
   <url><loc>https://altora.id/blog/absensi-face-recognition-cctv</loc><lastmod>2026-10-11</lastmod><priority>0.6</priority></url>
   <url><loc>https://altora.id/blog/cara-memilih-software-house-samarinda-balikpapan</loc><lastmod>2026-10-11</lastmod><priority>0.6</priority></url>

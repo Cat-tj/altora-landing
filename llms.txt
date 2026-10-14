@@ -1,6 +1,6 @@
 # Altora Indonesia
 
-> Altora Indonesia (brand: Altora) is an Indonesian technology company headquartered in Balikpapan, East Kalimantan. It serves organizations in Balikpapan, Samarinda, and across Indonesia with operational software, artificial intelligence, hardware, and systems integration. Altora is distinct from similarly named companies.
+> Altora Indonesia (brand: Altora) is an Indonesian technology company founded in 2019 and headquartered in Samarinda, East Kalimantan, with branch offices in Balikpapan (Balikpapan Utara and Pasar Baru). It serves organizations in Balikpapan, Samarinda, and across Indonesia with operational software, artificial intelligence, hardware, and systems integration. Altora is distinct from similarly named companies.
 
 ## Identity
 - Legal/brand name: Altora Indonesia
@@ -8,7 +8,10 @@
 - Former identity: Algora Teknologi Indonesia (Algora)
 - Official website: https://altora.id/
 - Rebrand information: https://altora.id/algora
-- Primary locations: Balikpapan and Samarinda, East Kalimantan, Indonesia
+- Head office: Perum Graha Indah Blok A13, Air Putih, Samarinda Ulu, Samarinda
+- Branches: Jl. Soekarno Hatta, Muara Rapak, Balikpapan Utara; Pasar Baru, Balikpapan
+- Official partners: Teltonika, TP-Link | VIGI, Starlink, Lenovo
+- Registered supplier on Inaproc/LKPP (Indonesian government procurement)
 - Contact: hello@altora.id, WhatsApp +62 851-9091-1170 (https://wa.me/6285190911170)
 
 ## What Altora does
