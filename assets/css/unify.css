@@ -1320,3 +1320,10 @@ body:has(a.wa) .cart-fab{bottom:84px}
 .pd-cta-inner .btn,.pd-cta-inner .btn-purple{background:#5B3FC4!important;color:#fff!important;border-color:#5B3FC4!important}
 .pd-cta-inner .btn:hover{background:#4A31A8!important}
 .cr-cta-wa{color:#16A34A!important}
+/* CTA bawah halaman: gradient berjalan senada dengan footer */
+.pd-cta-inner{position:relative;isolation:isolate;overflow:hidden;border:1px solid #fff!important;
+  background:linear-gradient(115deg,#A98BFF 0%,#D6C8FF 22%,#FFFFFF 45%,#EEE6FF 62%,#BBA2FF 82%,#A98BFF 100%)!important;
+  background-size:300% 300%!important;animation:sf-flow 16s ease-in-out infinite;animation-delay:-8s;box-shadow:0 18px 40px rgba(91,63,196,.12)}
+.pd-cta-inner:before{content:'';position:absolute;z-index:-1;inset:10px;border:1px solid rgba(255,255,255,.9);border-radius:18px;pointer-events:none}
+.pd-cta-inner p{color:#2A2F5E!important}
+@media (prefers-reduced-motion:reduce){.pd-cta-inner{animation:none;background-position:30% 50%!important}}

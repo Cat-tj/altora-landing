@@ -4,7 +4,7 @@ import html, json, pathlib
 from urllib.parse import quote
 
 root = pathlib.Path(__file__).resolve().parent.parent
-CSS_VER = '20261014v'
+CSS_VER = '20261014w'
 WA = 'https://wa.me/6285190911170?text='
 e = lambda t: html.escape(t, quote=True)
 
