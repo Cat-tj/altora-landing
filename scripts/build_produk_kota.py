@@ -5,7 +5,9 @@ dan bagian kota (kantor, proyek). Jangan menambah kota tanpa kantor/proyek nyata
 import html, json, pathlib, re, sys
 from urllib.parse import quote
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from build_area import shell, update_sitemap, CITIES, PF, SITE, WA, office_of, near_of, needs_html
+from build_area import shell, update_sitemap, CITIES as ALL_CITIES, PF, SITE, WA, office_of, near_of, needs_html
+# perangkat dijual & dipasang tim sendiri: hanya kota dengan jangkauan teknisi (Kaltim)
+CITIES = {k: v for k, v in ALL_CITIES.items() if v.get('scope') != 'nasional'}
 from site_data import OFFICES, postal_address
 from catalog_data import HW_ITEMS
 
@@ -241,6 +243,8 @@ def page(pkey, ckey):
     h1, title, desc = fmt(p['h1'], c), fmt(p['title'], c), fmt(p['desc'], c)
     if len(title) > 65:
         title = f'{p["short"]} {c["name"]} | Altora Indonesia'
+    if len(desc) > 160:
+        desc = desc[:157].rsplit(' ', 1)[0].rstrip(',.:;') + '.'
     items = ''.join(card(it, c['name']) for it in p['items'])
     dos = ''.join(f'<article class="svd-do"><h3>{e(t)}</h3><p>{e(fmt(d, c))}</p></article>' for t, d in p['dos'])
     proof_ids = [x for x in dict.fromkeys(p['proof'] + (c['local_proof'] if pkey in ('kiosk', 'cctv', 'rak', 'fiber') else [])) if x in PF][:3]

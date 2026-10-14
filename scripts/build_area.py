@@ -7,6 +7,7 @@ from urllib.parse import quote
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from site_data import OFFICES, postal_address
 from regions import REGIONS
+from regions_nasional import NASIONAL
 
 root = pathlib.Path(__file__).resolve().parent.parent
 CSS_VER = '20261014u'
@@ -28,6 +29,7 @@ PF = {
     'altora-teams': ('Altora Teams (HRIS)', '/assets/img/portfolio/altora-teams-kpi-analytics.jpg'),
     'hris-mobile-payroll': ('HRIS mobile & payroll', '/assets/img/portfolio/hris.jpg'),
     'sistem-antrian-poliklinik': ('Sistem antrian poliklinik', '/assets/img/portfolio/clinic.jpg'),
+    'pompy-batara': ('POMPY BATARA, portal peta tematik Barito Utara', '/assets/img/portfolio/pompy-batara-platform-cropped.jpg'),
 }
 
 CITIES = {
@@ -45,6 +47,21 @@ for _k, _r in REGIONS.items():
     _o = OFFICE_BY_KEY[_r['office']]
     CITIES[_k] = dict(_r, local_proof=[],
                       base=f"{_r['name']} kami layani dari {_o['label'].lower()} ({_o['city']}). Untuk survei, pemasangan, dan perawatan, tim kami datang ke lokasi sesuai jadwal; kendala ringan dibantu jarak jauh lewat WhatsApp.")
+
+
+# Kota di luar Kaltim: hanya layanan jarak jauh (lihat regions_nasional.py)
+REMOTE_SERVICES = ('website', 'aplikasi')
+for _k, _r in NASIONAL.items():
+    CITIES[_k] = dict(_r, local_proof=_r.get('proof', []), office='samarinda', scope='nasional',
+                      base=f"Untuk klien di {_r['name']}, aplikasi dan website kami kerjakan jarak jauh dari kantor pusat di Samarinda: diskusi lewat video call, demo berkala di server uji, lalu serah terima, pelatihan, dan dukungan secara online. Pertemuan langsung bisa dijadwalkan bila diperlukan.")
+
+
+def is_nasional(ckey):
+    return CITIES[ckey].get('scope') == 'nasional'
+
+
+def services_for(ckey):
+    return [k for k in SERVICES if not is_nasional(ckey) or k in REMOTE_SERVICES]
 
 
 def office_of(c):
@@ -181,12 +198,14 @@ def page(skey, ckey):
     if len(desc) > 160:
         desc = desc[:157].rsplit(' ', 1)[0].rstrip(',.:;') + '.'
     dos = ''.join(f'<article class="svd-do"><h3>{e(t)}</h3><p>{e(fmt(d, c))}</p></article>' for t, d in s['dos'])
-    proof_ids = list(dict.fromkeys(c['local_proof'] + s['proof']))[:3] if skey in ('cctv', 'itsupport', 'jaringan') else s['proof'][:3]
+    nas = c.get('scope') == 'nasional'
+    proof_ids = list(dict.fromkeys(c['local_proof'] + s['proof']))[:3] if (nas or skey in ('cctv', 'itsupport', 'jaringan')) else s['proof'][:3]
     proof = ''.join(f'<a class="svd-proof" href="/portfolio/{p}"><span class="svd-proof-img"><img alt="" loading="lazy" src="{PF[p][1]}"/></span><b>{e(PF[p][0])}</b><small>Lihat proyek</small></a>' for p in proof_ids)
-    faq_items = [(fmt(q, c), fmt(a, c)) for q, a in s['faq']] + [(f'Apakah tim Altora bisa datang ke lokasi di {c["name"]}?', c['base'])]
+    last_q = (f'Apakah bisa dikerjakan dari jauh untuk klien di {c["name"]}?' if nas else f'Apakah tim Altora bisa datang ke lokasi di {c["name"]}?')
+    faq_items = [(fmt(q, c), fmt(a, c)) for q, a in s['faq']] + [(last_q, c['base'])]
     faq = ''.join(f'<details><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q, a in faq_items)
     near = near_of(ckey)
-    same_city = ''.join(f'<a href="/{fmt(SERVICES[k]["slug"], dict(CITIES[ckey], key=ckey))}">{e(SERVICES[k]["short"])} {e(c["name"])}</a>' for k in SERVICES if k != skey)
+    same_city = ''.join(f'<a href="/{fmt(SERVICES[k]["slug"], dict(CITIES[ckey], key=ckey))}">{e(SERVICES[k]["short"])} {e(c["name"])}</a>' for k in services_for(ckey) if k != skey)
     links = (''.join(f'<a href="/{fmt(s["slug"], dict(CITIES[k], key=k))}">{e(s["short"])} {e(CITIES[k]["name"])}</a>' for k in near) +
              f'<a href="{s["main"]}">{e(s["main_label"])}</a><a href="/software-house-{ckey}">Software house {e(c["name"])}</a>' + same_city)
     msg = f'Halo Altora, saya di {c["name"]} dan butuh {s["short"].lower()}.'
@@ -205,12 +224,12 @@ def page(skey, ckey):
     body = f'''<main class="ct-page svd-page lc-page">
 <section class="svd-hero"><div class="ct-wrap svd-hero-grid">
 <div class="svd-hero-copy"><nav aria-label="Breadcrumb" class="bl-crumb"><a href="/area-layanan">Area layanan</a><span>/</span><span>{e(c["name"])}</span></nav>
-<p class="eyebrow eyebrow-purple">Altora Indonesia · {e(c["name"])}</p><h1>{e(h1)}</h1><p class="ct-lead">{e(fmt(s["lead"], c))}</p>
+<p class="eyebrow eyebrow-purple">Altora Indonesia · {e(c["name"])}{", " + e(c["seat"]) if nas else ""}</p><h1>{e(h1)}</h1><p class="ct-lead">{e(fmt(s["lead"], c))}</p>
 <div class="svd-actions"><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Konsultasi gratis</a><a class="svd-link" href="#proyek">Lihat proyek</a></div></div>
-<figure class="svd-hero-pic"><img alt="{e(h1)}" src="{s["hero"]}" style="object-position:50% 45%"/><span class="svd-chip svd-chip-0">{e(c["name"])}</span><span class="svd-chip svd-chip-1">Tim lokal</span><span class="svd-chip svd-chip-2">Konsultasi gratis</span></figure>
+<figure class="svd-hero-pic"><img alt="{e(h1)}" src="{s["hero"]}" style="object-position:50% 45%"/><span class="svd-chip svd-chip-0">{e(c["name"])}</span><span class="svd-chip svd-chip-1">{"Dikerjakan jarak jauh" if nas else "Tim lokal"}</span><span class="svd-chip svd-chip-2">Konsultasi gratis</span></figure>
 </div></section>
 <section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Yang kami kerjakan</h2></div><div class="svd-dos">{dos}</div></div></section>
-<section class="svd-sec"><div class="ct-wrap lc-office"><div><h2>Melayani {e(c["name"])}</h2><p>{e(c["base"])}</p>{clients_p}</div></div></section>
+<section class="svd-sec"><div class="ct-wrap lc-office"><div><h2>{"Cara kami bekerja untuk klien di " + e(c["name"]) if nas else "Melayani " + e(c["name"])}</h2><p>{e(c["base"])}</p>{clients_p}</div></div></section>
 {needs_html(c)}
 <section class="svd-sec" id="proyek"><div class="ct-wrap"><div class="pd-block-head"><h2>Proyek terkait</h2></div><div class="svd-proofs">{proof}</div>
 <div class="svd-related"><b>Lihat juga</b>{links}</div></div></section>
@@ -231,17 +250,25 @@ def shell(title, desc, url, img, ld, body):
 
 def hub(built):
     rows = ''
+    nat = ''
     for ckey, cdat in CITIES.items():
+        if is_nasional(ckey):
+            links = ''.join(f'<a href="{u}">{e(h)}</a>' for (ck, u, h) in built if ck == ckey)
+            nat += f'<div class="pk-hubcity"><h3>{e(cdat["name"])} <small>{e(cdat["seat"])}</small></h3><div class="svd-related"><a href="/software-house-{ckey}">Software house {e(cdat["name"])}</a>{links}</div></div>'
+            continue
         links = ''.join(f'<a class="lc-svc" href="{u}"><b>{e(h)}</b></a>' for (ck, u, h) in built if ck == ckey)
         rows += (f'<section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>{e(cdat["name"])}</h2><p>{e(cdat["base"])}</p></div>'
                  f'<div class="lc-svcs"><a class="lc-svc" href="/software-house-{ckey}"><b>Software house {e(cdat["name"])}</b></a>{links}</div></div></section>')
     body = ('<main class="ct-page svd-page lc-page"><section class="svd-hero"><div class="ct-wrap"><p class="eyebrow eyebrow-purple">Area layanan</p>'
             '<h1>Area layanan Altora di Kalimantan Timur</h1><p class="ct-lead">Kantor pusat di Samarinda dan dua cabang di Balikpapan. Dari sana kami melayani seluruh Kalimantan Timur, termasuk Bontang, Kutai Kartanegara, Kutai Timur, Kutai Barat, Mahakam Ulu, Berau, Paser, Penajam Paser Utara, dan IKN Nusantara.</p></div></section>'
             + rows +
+            '<section class="svd-sec" id="nasional"><div class="ct-wrap"><div class="pd-block-head"><h2>Di luar Kalimantan Timur</h2>'
+            '<p>Untuk kota lain di Indonesia kami mengerjakan aplikasi, website, dan sistem secara jarak jauh dari Samarinda. Pemasangan perangkat di luar Kaltim dibahas per proyek.</p></div>'
+            + nat + '</div></section>' +
             '<section class="svd-sec"><div class="ct-wrap"><div class="svd-related"><b>Wilayah lain</b><a href="/software-house-kalimantan-timur">Software house Kalimantan Timur</a><a href="/contact">Lokasi lain? Hubungi kami</a></div></div></section>'
             '</main>')
     ld = {'@context': 'https://schema.org', '@type': 'CollectionPage', 'name': 'Area layanan Altora', 'url': SITE + '/area-layanan'}
-    return shell('Area Layanan Altora | Balikpapan, Samarinda & Kaltim', 'Layanan Altora di seluruh Kaltim: CCTV, IT support, jaringan, GPS, website, aplikasi, Starlink, dan pengadaan di Samarinda, Balikpapan, Bontang, Kukar, IKN, dan lainnya.', '/area-layanan', SITE + '/assets/img/altora-logo-600.png', ld, body)
+    return shell('Area Layanan Altora | Kaltim & Seluruh Indonesia', 'CCTV, IT support, jaringan, GPS, Starlink, dan pengadaan di seluruh Kaltim, plus aplikasi dan website untuk Surabaya, Jakarta, Makassar, dan kota lain.', '/area-layanan', SITE + '/assets/img/altora-logo-600.png', ld, body)
 
 
 def update_sitemap(urls):
@@ -255,7 +282,7 @@ def update_sitemap(urls):
 if __name__ == '__main__':
     built = []
     for ckey in CITIES:
-        for skey in SERVICES:
+        for skey in services_for(ckey):
             url, h1, htmlp = page(skey, ckey)
             (root / (url.lstrip('/') + '.html')).write_text(htmlp, encoding='utf-8')
             built.append((ckey, url, h1))

@@ -29,6 +29,7 @@ PF = {
     'fleet-management': ('Fleet management armada hauling', '/assets/img/portfolio/fms.jpg', 'Pemantauan posisi dan data kendaraan armada.'),
     'smart-attendance': ('Absensi wajah dari CCTV', '/assets/img/portfolio/attendance.jpg', 'Check-in otomatis dari kamera di pintu masuk.'),
     'altora-teams': ('Altora Teams (HRIS)', '/assets/img/portfolio/altora-teams-kpi-analytics.jpg', 'KPI, approval, dan jadwal kerja tim.'),
+    'pompy-batara': ('POMPY BATARA, Barito Utara', '/assets/img/portfolio/pompy-batara-platform-cropped.jpg', 'Portal peta tematik yang meraih Digital Innovation Award 2026.'),
 }
 
 CITIES = [
@@ -88,9 +89,12 @@ CITIES = [
 
 def page(c):
     url = '/' + c['slug']
+    if len(c['desc']) > 160:
+        c['desc'] = c['desc'][:157].rsplit(' ', 1)[0].rstrip(',.:;') + '.'
     why = ''.join(f'<article class="svd-do"><h3>{e(t)}</h3><p>{e(d)}</p></article>' for t, d in c['why'])
     needs = ''.join(f'<li><b>{e(t)}</b><span>{e(d)}</span></li>' for t, d in c['needs'])
-    svcs = ''.join(f'<a class="lc-svc" href="{u}"><b>{e(t)}</b><span>{e(d)}</span></a>' for u, t, d in SERVICES)
+    svc_list = SERVICES[:2] if c.get('remote') else SERVICES
+    svcs = ''.join(f'<a class="lc-svc" href="{u}"><b>{e(t)}</b><span>{e(d)}</span></a>' for u, t, d in svc_list)
     proof = ''.join(f'<a class="svd-proof" href="/portfolio/{p}"><span class="svd-proof-img"><img alt="" loading="lazy" src="{PF[p][1]}"/></span><b>{e(PF[p][0])}</b><small>{e(PF[p][2])}</small></a>' for p in c['proof'])
     faq = ''.join(f'<details><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q, a in c['faq'])
     nearby = ''.join(f'<a href="{u}">{e(t)}</a>' for u, t in c['nearby'])
@@ -103,7 +107,7 @@ def page(c):
          'address': postal_address(next(o for o in OFFICES if o['key'] == c['office'])) if c.get('office') else postal_address(next(o for o in OFFICES if (o['city'] == c['city']) or (c['city'] == 'Kalimantan Timur' and o['hq']))),
          'areaServed': {'@type': 'City' if c['area'] != 'Kalimantan Timur' else 'AdministrativeArea', 'name': c['area']},
          'parentOrganization': {'@id': SITE + '/#organization'},
-         'makesOffer': [{'@type': 'Offer', 'itemOffered': {'@type': 'Service', 'name': t}} for _, t, _ in SERVICES]},
+         'makesOffer': [{'@type': 'Offer', 'itemOffered': {'@type': 'Service', 'name': t}} for _, t, _ in (SERVICES[:2] if c.get('remote') else SERVICES)]},
         {'@type': 'BreadcrumbList', 'itemListElement': [
             {'@type': 'ListItem', 'position': 1, 'name': 'Beranda', 'item': SITE + '/'},
             {'@type': 'ListItem', 'position': 2, 'name': c['h1'], 'item': SITE + url}]},
@@ -115,10 +119,10 @@ def page(c):
 <div class="svd-hero-copy"><nav aria-label="Breadcrumb" class="bl-crumb"><a href="/">Beranda</a><span>/</span><span>{e(c["h1"])}</span></nav>
 <p class="eyebrow eyebrow-purple">Altora Indonesia · {e(c["city"])}</p><h1>{e(c["h1"])}</h1><p class="ct-lead">{e(c["lead"])}</p>
 <div class="svd-actions"><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Konsultasi gratis</a><a class="svd-link" href="#proyek">Lihat proyek</a></div></div>
-<figure class="svd-hero-pic"><img alt="{e(PF[c['proof'][0]][0])}" src="{PF[c['proof'][0]][1]}" style="object-position:50% 45%"/><span class="svd-chip svd-chip-0">{e(c["city"])}</span><span class="svd-chip svd-chip-1">Tim lokal</span><span class="svd-chip svd-chip-2">Konsultasi gratis</span></figure>
+<figure class="svd-hero-pic"><img alt="{e(PF[c['proof'][0]][0])}" src="{PF[c['proof'][0]][1]}" style="object-position:50% 45%"/><span class="svd-chip svd-chip-0">{e(c["city"])}</span><span class="svd-chip svd-chip-1">{"Dikerjakan jarak jauh" if c.get("remote") else "Tim lokal"}</span><span class="svd-chip svd-chip-2">Konsultasi gratis</span></figure>
 </div></section>
 <section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Kenapa memilih Altora di {e(c["city"])}</h2></div><div class="svd-dos lc-why">{why}</div></div></section>
-<section class="svd-sec svd-pains"><div class="ct-wrap svd-pains-grid"><div class="pd-block-head"><h2>Kebutuhan yang sering kami kerjakan di {e(c["city"])}</h2></div><ul class="lc-needs">{needs}</ul></div></section>
+<section class="svd-sec svd-pains"><div class="ct-wrap svd-pains-grid"><div class="pd-block-head"><h2>{"Kebutuhan yang umum di " if c.get("remote") else "Kebutuhan yang sering kami kerjakan di "}{e(c["city"])}</h2></div><ul class="lc-needs">{needs}</ul></div></section>
 <section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Layanan software house kami</h2></div><div class="lc-svcs">{svcs}</div></div></section>
 <section class="svd-sec" id="proyek"><div class="ct-wrap"><div class="pd-block-head"><h2>Proyek kami</h2></div><div class="svd-proofs">{proof}</div>
 <div class="svd-related"><b>Lihat juga</b>{nearby}</div></div></section>
@@ -153,8 +157,32 @@ def region_entry(k, r):
         nearby=[(f'/software-house-{n}', f'Software house {AREA_CITIES[n]["name"]}') for n in near] + [(f'/jasa-pasang-cctv-{k}', f'Jasa pasang CCTV {r["name"]}'), (f'/it-support-{k}', f'IT support {r["name"]}'), ('/area-layanan', 'Semua area layanan')])
 
 
+def nasional_entry(k, r):
+    """'Software house <kota>' di luar Kaltim: hanya layanan jarak jauh, tanpa janji teknisi datang."""
+    from build_area import CITIES as AREA_CITIES
+    near = [n for n in r['near'] if n in AREA_CITIES][:3]
+    proof = (r.get('proof') or []) + ['altora-teams', 'unmul-website-redesign', 'pompy-batara']
+    return dict(slug=f'software-house-{k}', city=r['name'], area=r['name'], office='samarinda', remote=True,
+        title=f'Software House {r["name"]} | Aplikasi & Website | Altora',
+        desc=f'Software house untuk klien di {r["name"]}: aplikasi web dan HP, website, dashboard, dan AI, dikerjakan jarak jauh oleh tim Altora Indonesia.',
+        h1=f'Software house untuk {r["name"]}',
+        lead=f'Altora Indonesia adalah software house dari Samarinda, Kalimantan Timur. Untuk perusahaan dan instansi di {r["name"]} ({r["seat"]}), kami membuat aplikasi web dan HP, website, dashboard, dan sistem AI, dikerjakan jarak jauh dengan demo rutin sampai serah terima.',
+        why=[('Proses jarak jauh yang jelas', 'Kebutuhan dibahas lewat video call, progres ditunjukkan di server uji setiap tahap, dan semua keputusan tercatat. Anda tidak perlu menunggu kunjungan untuk melihat hasil.'),
+             ('Paham operasi di lapangan', 'Kami terbiasa membuat aplikasi untuk tambang, logistik, perkebunan, dan instansi daerah: absensi lapangan, armada, laporan pekerjaan, dan data wilayah.'),
+             ('Bisa ikut pengadaan instansi', 'Altora berstatus PKP dan terdaftar sebagai penyedia di Inaproc/LKPP, dengan penawaran, faktur, dan berita acara yang lengkap.')],
+        needs=r['needs'],
+        proof=[x for x in dict.fromkeys(proof) if x in PF][:3],
+        faq=[(f'Apakah Altora punya kantor di {r["name"]}?', f'Tidak. Kantor kami di Samarinda dan Balikpapan, Kalimantan Timur. Proyek aplikasi dan website untuk klien di {r["name"]} kami kerjakan jarak jauh, dan pertemuan langsung bisa dijadwalkan bila diperlukan.'),
+             (f'Layanan apa yang tersedia untuk {r["name"]}?', 'Pembuatan aplikasi web dan HP, website, dashboard, integrasi sistem, dan AI on-premise. Pemasangan perangkat seperti CCTV dan jaringan di luar Kaltim dibahas per proyek.'),
+             ('Bagaimana memantau progres kalau tidak bertemu langsung?', 'Ada jadwal demo rutin di server uji, catatan rapat, dan satu kontak yang bertanggung jawab atas proyek Anda.'),
+             ('Bagaimana dukungan setelah aplikasi jalan?', 'Pelatihan pengguna dilakukan online, lalu kendala ditangani lewat WhatsApp, tiket support, dan akses jarak jauh sesuai kesepakatan.')],
+        nearby=[(f'/software-house-{n}', f'Software house {AREA_CITIES[n]["name"]}') for n in near] + [(f'/jasa-pembuatan-aplikasi-{k}', f'Jasa pembuatan aplikasi {r["name"]}'), (f'/jasa-pembuatan-website-{k}', f'Jasa pembuatan website {r["name"]}'), ('/area-layanan#nasional', 'Kota lain di Indonesia')])
+
+
 from regions import REGIONS
+from regions_nasional import NASIONAL
 CITIES += [region_entry(k, r) for k, r in REGIONS.items()]
+CITIES += [nasional_entry(k, r) for k, r in NASIONAL.items()]
 
 
 for c in CITIES:
