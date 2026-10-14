@@ -762,3 +762,5 @@ div.lc-svc{cursor:default}div.lc-svc b:after{content:none}
 .partner-text{display:grid;place-items:center}
 .partner-text span{color:#10224F;font-weight:800;font-size:1.25rem;letter-spacing:.14em;text-transform:uppercase}
 .sv-more{padding-top:clamp(40px,5vw,64px)}
+.hwi-pic>.hwi-icon{display:grid;place-items:center;width:96px;height:96px;border-radius:24px;background:#EFEAFD;color:#6D4AE0}
+.hwi-pic>.hwi-icon svg{width:52px;height:52px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}

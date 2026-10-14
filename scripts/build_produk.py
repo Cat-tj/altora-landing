@@ -17,12 +17,17 @@ ICONS = {
     'cart': '<path d="M3 4h2.2l2.2 10.5h10.2L20 7.5H6.4"/><circle cx="9" cy="19" r="1.5"/><circle cx="17" cy="19" r="1.5"/>',
     'leaf': '<path d="M5 19c0-8 5-13 14-14-1 9-6 14-14 14Z"/><path d="M5 19 13 11"/>',
     'layers': '<path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 13 9 5 9-5"/>',
+    'chip': '<rect height="12" rx="2" width="12" x="6" y="6"/><path d="M9.5 9.5h5v5h-5zM9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/>',
+    'signage': '<rect height="11" rx="1.5" width="18" x="3" y="3"/><path d="M12 14v7M8 21h8M7 7h6M7 10h10"/>',
+    'satellite': '<path d="M4.5 13.5a6 6 0 0 0 6 6M4.5 9.5a10 10 0 0 0 10 10"/><circle cx="5" cy="19" r="1.4"/><path d="m13 4 3 3-3.5 3.5-3-3zM14.5 8.5 17 11M16 7l4-4"/>',
+    'gauge': '<path d="M4 17a8 8 0 1 1 16 0"/><path d="m12 17 4-5"/><circle cx="12" cy="17" r="1.3"/>',
 }
 
 GROUPS = [
     ('sdm', 'SDM & absensi', 'Absensi, jadwal, dan gaji tanpa rekap manual.'),
     ('aman', 'Keamanan & akses', 'CCTV pintar dan akses pintu digital.'),
     ('lapangan', 'Armada, lahan & sensor', 'Pantau kendaraan, lahan, dan sensor dari satu layar.'),
+    ('data', 'Data & AI', 'AI dan pemetaan yang berjalan di server Anda sendiri.'),
     ('segera', 'Segera hadir', 'Untuk toko, kafe, dan usaha dengan banyak cabang.'),
 ]
 
@@ -59,6 +64,10 @@ PRODUCTS = [
          desc='Tampilan operasional terpusat untuk memantau CCTV AI, armada, sensor, dan status perangkat sesuai kebutuhan lokasi Anda.',
          feats=['Tampilan operasional terpadu', 'Monitoring CCTV, armada & sensor', 'Visibilitas alert & insiden', 'Setup command center custom'],
          cta='Diskusikan Command Center', proof='/services/iot-command-center'),
+    dict(id='private-ai', group='data', icon='chip', tone='blue', name='Altora Private AI & GIS', tagline='AI on-premise & peta data spasial',
+         desc='Asisten AI yang berjalan di server Anda sendiri, tanpa mengirim data ke cloud publik. Dilengkapi GIS untuk memetakan dan menganalisis data wilayah secara terpusat.',
+         feats=['Model bahasa (LLM) on-premise / air-gapped', 'Membaca data internal yang sudah ada', 'GIS: peta & analisis data spasial', 'Server, enkripsi, backup & pelatihan tim'],
+         cta='Konsultasi Private AI', proof='/services/private-ai-gis'),
     dict(id='pos', group='segera', icon='cart', tone='gray', name='Altora POS', tagline='Point of Sale & Kasir', soon=True,
          desc='Kasir modern untuk retail & F&B: pencatatan pesanan cepat, stok toko real-time, integrasi QRIS, dan laporan penjualan.',
          feats=['Kasir cepat retail & F&B', 'Stok & varian produk', 'Integrasi QRIS / EDC', 'Multi-cabang & laporan penjualan'],
@@ -75,7 +84,7 @@ e = lambda t: html.escape(t, quote=True)
 # Nilai = object-position agar potongan 4:3 tetap fokus ke layar perangkat.
 PHOTO_FOCUS = {
     'teams': '60% 62%', 'attendance': '75% 35%', 'vision': '60% 62%', 'pass': '60% 58%', 'fms': '55% 62%',
-    'sense': '62% 58%', 'farming': '62% 58%', 'command': '60% 62%', 'pos': '50% 58%', 'erp': '62% 58%',
+    'sense': '62% 58%', 'farming': '62% 58%', 'command': '60% 62%', 'pos': '50% 58%', 'erp': '62% 58%', 'private-ai': '50% 50%',
 }
 
 def photo(p):
@@ -106,12 +115,36 @@ def card(p):
 
 # Katalog hardware (dari katalog resmi principal; spesifikasi diringkas, tanpa harga).
 # cat = id filter, img = assets/img/hardware/<img>.webp (None = pakai logo principal)
-HW_CATS = [('cctv', 'CCTV & tenaga surya'), ('gps', 'GPS tracker & telematika'), ('display', 'Display & ruang rapat'), ('computer', 'PC all-in-one'),
-           ('rack', 'Rak & data center'), ('fiber', 'Fiber optik')]
+HW_CATS = [('cctv', 'Kamera CCTV VIGI'), ('akses', 'Smartlock & akses'), ('gps', 'GPS tracker & telematika'), ('display', 'Display & ruang rapat'),
+           ('kios', 'Signage & kios'), ('konek', 'Starlink'), ('computer', 'PC all-in-one'), ('rack', 'Rak & data center'), ('fiber', 'Fiber optik')]
 HW_ITEMS = [
+    dict(id='vigi-dome', cat='cctv', brand='VIGI', logo='vigi-v2', img='vigi-dome', name='Kamera Dome Full-Color',
+         desc='Kamera dome untuk plafon dan dinding, indoor maupun outdoor. Tahan benturan dan tetap berwarna di malam hari.',
+         specs=[('Resolusi', '4–8 MP'), ('Malam', 'Full-color / IR'), ('AI', 'Deteksi manusia & kendaraan'), ('Daya', 'PoE')]),
+    dict(id='vigi-turret-fullcolor', cat='cctv', brand='VIGI', logo='vigi-v2', img='vigi-turret-fullcolor', name='Kamera Turret Full-Color',
+         desc='Kamera serbaguna untuk teras, gudang, dan area parkir. Gambar terang dan tajam, tahan cuaca.',
+         specs=[('Resolusi', '4–8 MP'), ('Malam', 'Full-color'), ('Proteksi', 'IP67'), ('Fitur', 'Mikrofon, sirene & lampu peringatan (tipe tertentu)')]),
+    dict(id='vigi-turret-varifocal', cat='cctv', brand='VIGI', logo='vigi-v2', img='vigi-turret-varifocal', name='Kamera Turret Varifocal',
+         desc='Lensa zoom bermotor untuk mengatur jangkauan dan sudut pandang dari jauh, tanpa naik tangga.',
+         specs=[('Lensa', 'Motorized varifocal hingga 5×'), ('Resolusi', '4–8 MP'), ('AI', 'Deteksi manusia & kendaraan'), ('Proteksi', 'IP67')]),
+    dict(id='vigi-bullet', cat='cctv', brand='VIGI', logo='vigi-v2', img='vigi-bullet', name='Kamera Bullet PoE',
+         desc='Sorotan jarak jauh untuk pagar, lorong, dan jalur perimeter. Satu kabel untuk data dan daya.',
+         specs=[('Resolusi', '4–8 MP'), ('Malam', 'Full-color / IR'), ('Proteksi', 'IP67'), ('Daya', 'PoE')]),
+    dict(id='vigi-ptz', cat='cctv', brand='VIGI', logo='vigi-v2', img='vigi-ptz', name='Kamera PTZ ColorPro',
+         desc='Pan-tilt-zoom dengan auto-tracking untuk area luas seperti halaman, lapangan, dan area produksi.',
+         specs=[('Gerak', 'Pan, tilt & optical zoom'), ('Tracking', 'Mengikuti objek otomatis'), ('Malam', 'ColorPro'), ('Proteksi', 'IP66/IP67')]),
+    dict(id='vigi-multisensor', cat='cctv', brand='VIGI', logo='vigi-v2', img='vigi-multisensor', name='Kamera Panoramic Multi-Sensor',
+         desc='Beberapa sensor dalam satu bodi untuk memantau persimpangan, lobi, atau area terbuka yang lebar.',
+         specs=[('Sensor', 'Multi-lensa, satu bodi'), ('Cakupan', 'Panoramic'), ('Pasang', 'Plafon / dinding / tiang'), ('Kelola', 'NVR & VIGI VMS')]),
+    dict(id='vigi-wifi', cat='cctv', brand='VIGI', logo='vigi-v2', img='vigi-wifi', name='Kamera Wi-Fi & 4G',
+         desc='Untuk titik yang sulit ditarik kabel data. Bisa dipadukan dengan tenaga surya untuk lokasi tanpa listrik.',
+         specs=[('Koneksi', 'Wi-Fi / 4G LTE (Nano SIM)'), ('Resolusi', '3–4 MP'), ('Proteksi', 'IP66'), ('Pantau', 'Aplikasi VIGI & cloud VMS')]),
     dict(id='vigi-solar', cat='cctv', brand='VIGI', logo='vigi-v2', img=None, name='VIGI Solar Power System',
          desc='Sistem tenaga surya untuk CCTV dan perangkat jaringan di lokasi tanpa listrik atau kabel, seperti proyek, kebun, tambak, dan area terpencil.',
          specs=[('Model', 'SP6020, SP6030, SP9030, SP18090'), ('Panel surya', '60 W / 90 W, hingga 180 W'), ('Baterai', 'Lithium 20,8–93,6 Ah'), ('Proteksi', 'IP66'), ('Pemantauan', 'Aplikasi VIGI & VIGI Cloud VMS')]),
+    dict(id='smartlock', cat='akses', brand='Altora Pass', logo=None, img='smartlock', name='Smartlock & Kontrol Akses',
+         desc='Kunci pintu digital untuk rumah, kantor, kampus, dan gudang. Semua pintu dikelola dari satu aplikasi dengan riwayat akses lengkap.',
+         specs=[('Varian', 'Smart handle, sliding door, solenoid / EM lock, handle + doorcam'), ('Buka dengan', 'Aplikasi, PIN, kartu RFID, sidik jari, wajah 3D'), ('Pintu', 'Kayu, aluminium, kaca, gerbang'), ('Aplikasi', 'Buka jarak jauh, akses tamu, notifikasi, riwayat')]),
     dict(id='telt-ftc880', cat='gps', brand='Teltonika', logo='teltonika-v2', img='telt-ftc880', name='FTC880 / FTM880',
          desc='Tracker yang dipasang langsung di aki kendaraan. Cepat dipasang untuk pelacakan dasar dan armada pengiriman.',
          specs=[('Jaringan', '4G'), ('Pemasangan', 'Kabel U-type ke aki, ± 5 menit'), ('Ketahanan', 'Casing IP69K (FTM880)'), ('GNSS', 'Hingga 41 satelit terlihat')]),
@@ -151,6 +184,9 @@ HW_ITEMS = [
     dict(id='telt-eye', cat='gps', brand='Teltonika', logo='teltonika-v2', img='telt-eye', name='EYE Sensor & EYE Beacon',
          desc='Sensor dan beacon Bluetooth kecil untuk memantau suhu, kelembapan, dan keberadaan aset.',
          specs=[('Sensor', 'ID, magnet, suhu, kelembapan, gerak'), ('Baterai', 'Beacon hingga 10 tahun, sensor 5 tahun'), ('Koneksi', 'Bluetooth ke tracker Teltonika'), ('Cocok untuk', 'Cold chain, pelacakan alat kerja')]),
+    dict(id='fms-sensors', cat='gps', brand='Sensor FMS', logo=None, img=None, icon='gauge', name='Sensor CAN, BBM & TPMS',
+         desc='Sensor tambahan untuk GPS tracker: membaca data mesin, konsumsi BBM, dan tekanan ban. Kami bantu pilih kombinasi per tipe kendaraan.',
+         specs=[('CAN reader', 'RPM, hour meter, suhu & tekanan oli'), ('Fuel sensor', 'Liter per jarak, alert pencurian, hidrolik'), ('TPMS', 'Tekanan & suhu tiap ban'), ('Unit', 'Truk logistik sampai alat berat tambang')]),
     dict(id='hde-videotron-indoor', cat='display', brand='HDe', logo='hde-v2', img='hde-videotron-indoor', name='Videotron Indoor (seri GEN-Y)',
          desc='Panel LED untuk lobi, ruang rapat, command center, dan ruang pamer.',
          specs=[('Pixel pitch', '1,25–4,0 mm'), ('Kecerahan', '≥ 450 nits'), ('Refresh rate', '± 3.840 Hz'), ('Jarak pandang', '1,2–50 m'), ('Kabinet', '640 × 480 mm')]),
@@ -163,6 +199,15 @@ HW_ITEMS = [
     dict(id='hde-mrs', cat='display', brand='HDe', logo='hde-v2', img='hde-meeting-recording', name='Meeting Recording System',
          desc='Paket smart meeting room dengan kamera auto-tracking dan perekaman rapat terintegrasi.',
          specs=[('Paket', 'Video station & auto-tracking camera'), ('Audio', 'Ceiling mic, array mic & audio processor'), ('Perekaman', 'Intelligent recording server')]),
+    dict(id='digital-signage', cat='kios', brand='Smart display', logo=None, img=None, icon='signage', name='Digital Signboard',
+         desc='Layar promosi dan informasi untuk etalase, lobi, dan koridor. Konten diganti dari cloud, tanpa cetak ulang spanduk.',
+         specs=[('Layar', 'Full HD / 4K, vertikal atau horizontal'), ('Konten', 'Gambar, video, HTML5, live stream'), ('Kelola', 'Jarak jauh, 1 sampai ratusan layar'), ('Jadwal', 'Timer & penjadwalan harian')]),
+    dict(id='kios-k', cat='kios', brand='Kios-K', logo=None, img='kios-k', name='Kios-K Layanan Mandiri',
+         desc='Kios layanan mandiri untuk antrean, cetak dokumen, dan informasi publik. Sudah dipakai di kelurahan digital Kota Samarinda.',
+         specs=[('Layar', 'Full HD / 4K, layar sentuh'), ('Perangkat', 'Scanner barcode & printer struk'), ('OS', 'Windows / Android'), ('Integrasi', 'Terhubung ke sistem layanan Anda')]),
+    dict(id='starlink', cat='konek', brand='Starlink', logo=None, img=None, icon='satellite', name='Starlink Gen 3 + Instalasi',
+         desc='Internet satelit untuk rumah, kantor, dan remote site tanpa PLN seperti tambang, kebun, dan proyek. Kami pasang lengkap sampai siap pakai.',
+         specs=[('Kecepatan', 'Hingga ±200 Mbps'), ('Paket', 'Home, Enterprise, Solar Coverage'), ('Off-grid', 'Panel surya untuk operasi 24/7'), ('Jangkauan', 'Wi-Fi repeater ke seluruh area')]),
     dict(id='hde-aio-il24', cat='computer', brand='HDe', logo='hde-v2', img='hde-aio-il24', name='HDe AIO IL24',
          desc='PC all-in-one 23,8" untuk kantor, sekolah, dan layanan publik.',
          specs=[('Layar', '23,8" Full HD, straight stand'), ('Prosesor', 'Intel Core i3 / i5 / i7'), ('RAM / SSD', '8–32 GB / 256 GB–1 TB'), ('Lainnya', 'Kamera 3 MP, Windows 11 Home')]),
@@ -213,19 +258,23 @@ HW_ITEMS = [
          specs=[('Konektor', 'LC–SC, SC–SC, LC–LC (UPC)'), ('Mode', 'Simplex / duplex'), ('Panjang', '1–100 m'), ('Jaket', '3,0 mm LSZH')]),
 ]
 
+SVC_LINK = {'konek': '/services/starlink-internet-satelit', 'kios': '/services/smart-display-kios'}
+
 def hw_item(h):
     if h['img']:
         pic = f'<img alt="{e(h["name"])} — {e(h["brand"])}" loading="lazy" src="/assets/img/hardware/{h["img"]}.webp"/>'
+    elif not h['logo']:
+        pic = f'<span class="hwi-icon">{icon(h["icon"])}</span>'
     else:
         pic = f'<img alt="{e(h["brand"])}" class="hwi-logo-only" loading="lazy" src="/assets/img/partners/{h["logo"]}.png"/>'
     specs = ''.join(f'<div><dt>{e(k)}</dt><dd>{e(v)}</dd></div>' for k, v in h['specs'])
     msg = f'Halo Altora, saya ingin tahu lebih lanjut tentang {h["name"]} ({h["brand"]}).'
     return (f'<article class="hwi" data-cat="{h["cat"]}" id="{h["id"]}"><div class="hwi-pic">{pic}'
-            f'<img alt="" class="hwi-brand" src="/assets/img/partners/{h["logo"]}.png"/></div>'
+            + (f'<img alt="" class="hwi-brand" src="/assets/img/partners/{h["logo"]}.png"/>' if h['logo'] else '') + '</div>'
             f'<div class="hwi-body"><small>{e(h["brand"])}</small><h3>{e(h["name"])}</h3><p>{e(h["desc"])}</p>'
             f'<dl class="hwi-specs">{specs}</dl>'
             f'<div class="pd-actions"><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Tanya produk ini →</a>'
-            f'<a class="pd-link" href="/services/pengadaan-instalasi-maintenance">Instalasi & maintenance</a></div></div></article>')
+            f'<a class="pd-link" href="{SVC_LINK.get(h["cat"], "/services/pengadaan-instalasi-maintenance")}">Instalasi & maintenance</a></div></div></article>')
 
 sections = []
 for gid, title, lead in GROUPS:
@@ -237,12 +286,12 @@ chips = ('<a href="#software">Software</a>' + ''.join(f'<a class="pd-chip-sub" h
          + '<a href="#hardware">Hardware</a>')
 hw_filters = '<button aria-pressed="true" data-filter="all" type="button">Semua</button>' + ''.join(f'<button aria-pressed="false" data-filter="{c}" type="button">{e(t)}</button>' for c, t in HW_CATS)
 hardware_html = ('<section class="pd-block" id="hardware"><div class="pd-wrap"><div class="pd-block-head"><p class="eyebrow eyebrow-purple">Hardware</p>'
-                 '<h2>Perangkat dari principal resmi</h2>'
-                 '<p>Kami bantu memilih tipe yang pas, lalu mengadakan, memasang, dan merawatnya. Spesifikasi diringkas dari katalog resmi principal.</p></div>'
+                 '<h2>Perangkat &amp; instalasi</h2>'
+                 '<p>Kami bantu memilih tipe yang pas, lalu mengadakan, memasang, dan merawatnya. Spesifikasi perangkat principal diringkas dari katalog resminya.</p></div>'
                  f'<div aria-label="Filter kategori hardware" class="hwi-filter" role="group">{hw_filters}</div>'
                  f'<div class="hwi-grid">{"".join(hw_item(h) for h in HW_ITEMS)}</div>'
                  '<div class="hwi-more"><div class="hwi-more-logos"><img alt="TP-Link" src="/assets/img/partners/tplink-v2.png"/><img alt="Lenovo" src="/assets/img/partners/lenovo-v2.png"/><img alt="VIGI" src="/assets/img/partners/vigi-v2.png"/></div>'
-                 '<div><b>Juga tersedia: kamera VIGI, jaringan TP-Link, perangkat Lenovo.</b><p>Switch, access point, router 4G/5G, kamera IP, NVR, laptop, dan PC. Tipe kami sesuaikan dengan proyek Anda.</p></div>'
+                 '<div><b>Juga tersedia: NVR VIGI, jaringan TP-Link, perangkat Lenovo.</b><p>NVR, switch PoE, access point, router 4G/5G, laptop, dan PC. Tipe kami sesuaikan dengan proyek Anda.</p></div>'
                  f'<a class="btn btn-purple" href="{WA}{quote("Halo Altora, saya ingin konsultasi perangkat CCTV/jaringan/komputer untuk proyek saya.")}" rel="noopener" target="_blank">Konsultasi perangkat →</a></div>'
                  '</div></section>')
 software_head = ('<section class="pd-block pd-block-sw" id="software"><div class="pd-wrap"><div class="pd-block-head"><p class="eyebrow eyebrow-purple">Software</p>'
@@ -256,11 +305,11 @@ ld = {'@context': 'https://schema.org', '@type': 'ItemList', 'name': 'Produk Alt
                                     'publisher': {'@type': 'Organization', 'name': 'Altora Indonesia', 'url': 'https://altora.id/'}}}
                           for i, p in enumerate(PRODUCTS)]}
 
-title = 'Produk Altora | Aplikasi, CCTV VIGI & GPS Tracker Teltonika'
-desc = ('Aplikasi siap pakai Altora untuk HRIS, AI CCTV, akses pintu, dan armada, plus perangkat resmi VIGI, Teltonika, HDe, HaganeRack, dan Fasser.')
+title = 'Produk Altora | Aplikasi, CCTV VIGI, Smartlock & Starlink'
+desc = ('Aplikasi Altora untuk HRIS, AI CCTV, armada & private AI, plus kamera VIGI, smartlock, signage, kios, Starlink, dan perangkat Teltonika, HDe, HaganeRack.')
 
 page = f'''<!DOCTYPE html>
-<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(title)}</title><meta content="{e(desc)}" name="description"/><link href="https://altora.id/produk" rel="canonical"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="{e(title)}" property="og:title"/><meta content="{e(desc)}" property="og:description"/><meta content="https://altora.id/produk" property="og:url"/><meta content="https://altora.id/assets/img/produk/vision.webp" property="og:image"/><link href="/assets/img/altora-logo-icon-v2.svg" rel="icon"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v=20261014a"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head><body class="company-page"><header class="company-nav"><a class="project-brand" href="/"><img alt="Altora" src="/assets/img/altora-logo-icon-v2.svg"/><span>Altora</span></a></header>
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(title)}</title><meta content="{e(desc)}" name="description"/><link href="https://altora.id/produk" rel="canonical"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="{e(title)}" property="og:title"/><meta content="{e(desc)}" property="og:description"/><meta content="https://altora.id/produk" property="og:url"/><meta content="https://altora.id/assets/img/produk/vision.webp" property="og:image"/><link href="/assets/img/altora-logo-icon-v2.svg" rel="icon"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v=20261014b"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head><body class="company-page"><header class="company-nav"><a class="project-brand" href="/"><img alt="Altora" src="/assets/img/altora-logo-icon-v2.svg"/><span>Altora</span></a></header>
 <main class="pd-page">
 <section class="pd-hero"><div class="pd-wrap">
 <p class="eyebrow eyebrow-purple">Produk Altora</p>
