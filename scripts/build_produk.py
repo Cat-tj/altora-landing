@@ -29,7 +29,7 @@ GROUPS = [
     ('aman', 'Keamanan & akses', 'CCTV pintar dan akses pintu digital.'),
     ('lapangan', 'Armada, lahan & sensor', 'Pantau kendaraan, lahan, dan sensor dari satu layar.'),
     ('data', 'Data & AI', 'AI dan pemetaan yang berjalan di server Anda sendiri.'),
-    ('segera', 'Segera hadir', 'Untuk toko, kafe, dan usaha dengan banyak cabang.'),
+    ('bisnis', 'Toko & operasional bisnis', 'Diterapkan mengikuti proses usaha Anda, bisa mulai dari satu modul.'),
 ]
 
 PRODUCTS = [
@@ -69,14 +69,14 @@ PRODUCTS = [
          desc='Asisten AI yang berjalan di server Anda sendiri, tanpa mengirim data ke cloud publik. Dilengkapi GIS untuk memetakan dan menganalisis data wilayah secara terpusat.',
          feats=['Model bahasa (LLM) on-premise / air-gapped', 'Membaca data internal yang sudah ada', 'GIS: peta & analisis data spasial', 'Server, enkripsi, backup & pelatihan tim'],
          cta='Konsultasi Private AI', proof='/services/private-ai-gis'),
-    dict(id='pos', group='segera', icon='cart', tone='gray', name='Altora POS', tagline='Point of Sale & Kasir', soon=True,
+    dict(id='pos', group='bisnis', icon='cart', tone='orange', name='Altora POS', tagline='Point of Sale & Kasir', status='custom',
          desc='Kasir modern untuk retail & F&B: pencatatan pesanan cepat, stok toko real-time, integrasi QRIS, dan laporan penjualan.',
          feats=['Kasir cepat retail & F&B', 'Stok & varian produk', 'Integrasi QRIS / EDC', 'Multi-cabang & laporan penjualan'],
-         cta='Daftar info peluncuran'),
-    dict(id='erp', group='segera', icon='layers', tone='gray', name='Altora ERP', tagline='Enterprise Resource Planning', soon=True,
+         cta='Diskusikan kebutuhan kasir'),
+    dict(id='erp', group='bisnis', icon='layers', tone='blue', name='Altora ERP', tagline='Enterprise Resource Planning', status='custom',
          desc='Sistem operasional terpadu: stok multi-gudang, purchasing, laporan keuangan, dan dashboard eksekutif multi-cabang.',
          feats=['Stok multi-gudang & transfer', 'Purchasing & portal supplier', 'Laporan keuangan & akuntansi', 'Dashboard operasional eksekutif'],
-         cta='Daftar info peluncuran'),
+         cta='Diskusikan kebutuhan ERP'),
 ]
 
 e = lambda t: html.escape(t, quote=True)
@@ -107,12 +107,13 @@ def card(p):
     msg = f'Halo Altora, saya tertarik dengan {p["name"]} ({p["tagline"]}).'
     if p.get('soon'):
         msg = f'Halo Altora, kabari saya saat {p["name"]} diluncurkan.'
-    badge = '<span class="pd-badge pd-soon">Segera hadir</span>' if p.get('soon') else '<span class="pd-badge">Siap dipakai</span>'
-    proof = f'<a class="pd-link" href="{p["proof"]}">Lihat implementasi</a>' if p.get('proof') else ''
+    badge = ('<span class="pd-badge pd-soon">Segera hadir</span>' if p.get('soon') else '<span class="pd-badge pd-custom">Implementasi custom</span>' if p.get('status') == 'custom'
+             else '<span class="pd-badge">Siap dipakai</span>')
+    proof = f'<a class="pd-link" href="/produk/{p["id"]}">Detail produk →</a>'
     feats = ''.join(f'<li>{e(f)}</li>' for f in p['feats'])
     return (f'<article class="pd-card pd-{p["tone"]}{" is-soon" if p.get("soon") else ""}" id="{p["id"]}">'
             f'{photo(p)}<div class="pd-top"><span class="pd-icon">{icon(p["icon"])}</span>{badge}</div>'
-            f'<h3>{e(p["name"])}</h3><p class="pd-tagline">{e(p["tagline"])}</p><p class="pd-desc">{e(p["desc"])}</p>'
+            f'<h3><a class="pd-title-link" href="/produk/{p["id"]}">{e(p["name"])}</a></h3><p class="pd-tagline">{e(p["tagline"])}</p><p class="pd-desc">{e(p["desc"])}</p>'
             f'<ul class="pd-feats">{feats}</ul>'
             f'<div class="pd-actions"><a class="btn {"btn-outline" if p.get("soon") else "btn-purple"}" href="{WA}{quote(msg)}" rel="noopener" target="_blank">{e(p["cta"])} →</a>'
             + ('' if p.get('soon') else cart_btn(p['id'], p['name'], 'Aplikasi Altora', f"/assets/img/produk/{p['id']}.webp", 'cart-add-sm'))
@@ -166,11 +167,36 @@ software_head = ('<section class="pd-block pd-block-sw" id="software"><div class
                  '<h2>Aplikasi siap pakai</h2><p>Bisa langsung dipakai atau disesuaikan.</p></div></div></section>')
 ready = sum(1 for p in PRODUCTS if not p.get('soon'))
 
+
+# ── Pencari solusi (3 pertanyaan) ──
+FINDER_NEEDS = {
+    'cctv': ('Keamanan & CCTV', [('/katalog-cctv-vigi', 'Katalog CCTV VIGI', '148 model kamera, NVR & solar'), ('/produk/vision', 'Altora Vision', 'AI deteksi APD & zona terlarang'), ('/cctv-tenaga-surya-{c}', 'CCTV tenaga surya & 4G', 'Untuk lokasi tanpa listrik')]),
+    'absensi': ('Absensi & SDM', [('/produk/attendance', 'Altora Smart Attendance', 'Absensi wajah dari CCTV'), ('/produk/teams', 'Altora Teams', 'HRIS, cuti, lembur, payroll'), ('/absensi-face-recognition-{c}', 'Absensi wajah di kota Anda', 'Survei & pemasangan')]),
+    'armada': ('Armada & kendaraan', [('/produk/fms', 'Altora FMS', 'GPS, BBM, CAN-Bus, TPMS'), ('/produk#telt-fmc920', 'GPS tracker Teltonika', 'Perangkat telematika'), ('/gps-tracker-kendaraan-{c}', 'Pasang GPS tracker', 'Teknisi lokal')]),
+    'internet': ('Internet di lokasi terpencil', [('/jual-starlink-{c}', 'Starlink + instalasi', 'V5, Mini, Enterprise, Performance'), ('/services/starlink-internet-satelit', 'Paket off-grid tenaga surya', 'Panel, baterai, Wi-Fi repeater'), ('/jasa-instalasi-jaringan-{c}', 'Jaringan & wireless bridge', 'Antar gedung & site')]),
+    'akses': ('Akses pintu & gedung', [('/produk/pass', 'Altora Pass', 'Hak akses & riwayat'), ('/jual-smartlock-{c}', 'Smartlock & EM lock', 'Survei dan pasang'), ('/produk/attendance', 'Absensi + akses', 'Wajah membuka pintu')]),
+    'layanan': ('Layanan publik & antrean', [('/mesin-kiosk-{c}', 'Kios layanan mandiri', 'Antrean & cetak dokumen'), ('/videotron-{c}', 'Videotron & signage', 'Informasi publik'), ('/industri/pemerintahan', 'Solusi pemerintahan', 'GIS, kios, CCTV kota')]),
+    'display': ('Display & ruang rapat', [('/interactive-flat-panel-{c}', 'Interactive flat panel', 'Kelas & ruang rapat'), ('/videotron-{c}', 'Videotron indoor/outdoor', 'Aula, lobi, panggung'), ('/produk#hde-mrs', 'Meeting recording system', 'Rekam rapat')]),
+    'data': ('Data, peta & AI', [('/produk/private-ai', 'Altora Private AI & GIS', 'AI on-premise & peta wilayah'), ('/produk/command', 'Altora Command', 'Ruang kendali terpadu'), ('/services/software-custom', 'Software custom', 'Dashboard & integrasi')]),
+    'bisnis': ('Kasir, stok & keuangan', [('/produk/pos', 'Altora POS', 'Kasir retail & F&B'), ('/produk/erp', 'Altora ERP', 'Stok, pembelian, keuangan'), ('/jasa-pembuatan-aplikasi-{c}', 'Aplikasi custom', 'Sesuai proses Anda')]),
+    'infra': ('Jaringan, server & IT', [('/it-support-{c}', 'IT support', 'Komputer, jaringan, server'), ('/rak-server-{c}', 'Rak server & data center', 'HaganeRack'), ('/alat-fiber-optik-{c}', 'Fiber optik', 'Splicing & alat ukur')]),
+}
+FINDER_IND = [('pertambangan', 'Tambang & industri berat'), ('pemerintahan', 'Pemerintahan & layanan publik'), ('pendidikan', 'Kampus & sekolah'), ('korporasi', 'Korporasi & dunia usaha')]
+finder_data = json.dumps({k: v[1] for k, v in FINDER_NEEDS.items()}, ensure_ascii=False)
+finder_html = ('<section class="fd-sec" id="cari-solusi"><div class="pd-wrap"><div class="fd-box">'
+               '<div class="fd-head"><p class="eyebrow eyebrow-purple">Cari solusi</p><h2>Bingung mulai dari mana? Jawab 3 pertanyaan.</h2></div>'
+               '<form class="fd-form" onsubmit="return false">'
+               '<label>Sektor Anda<select name="ind">' + ''.join(f'<option value="{k}">{e(t)}</option>' for k, t in FINDER_IND) + '</select></label>'
+               '<label>Yang paling dibutuhkan<select name="need">' + ''.join(f'<option value="{k}">{e(v[0])}</option>' for k, v in FINDER_NEEDS.items()) + '</select></label>'
+               '<label>Lokasi<select name="city"><option value="samarinda">Samarinda</option><option value="balikpapan">Balikpapan</option><option value="samarinda">Kota lain di Kaltim</option></select></label>'
+               '</form><div aria-live="polite" class="fd-result"></div>'
+               f'<script type="application/json" id="fd-data">{finder_data}</script></div></div></section>')
+
 # ── Sorotan produk (bento) di bawah hero ──
 def _feat(pid, big=False):
     p = next(x for x in PRODUCTS if x['id'] == pid)
     feats = ''.join(f'<li>{e(f)}</li>' for f in p['feats'][:3 if big else 2])
-    return (f'<a class="ph-feat{" ph-big" if big else ""} pd-{p["tone"]}" href="#{p["id"]}">'
+    return (f'<a class="ph-feat{" ph-big" if big else ""} pd-{p["tone"]}" href="/produk/{p["id"]}">'
             f'<span class="ph-photo"><img alt="" loading="{"eager" if big else "lazy"}" src="/assets/img/produk/{p["id"]}.webp" style="object-position:{PHOTO_FOCUS.get(p["id"], "50% 50%")}"/></span>'
             f'<span class="ph-body"><span class="ph-kicker">{e(p["tagline"])}</span><b>{e(p["name"])}</b>'
             f'<span class="ph-desc">{e(p["desc"])}</span><ul>{feats}</ul><span class="ph-more">Lihat detail →</span></span></a>')
@@ -206,16 +232,17 @@ title = 'Produk Altora | Aplikasi, CCTV VIGI, Smartlock & Starlink'
 desc = ('Aplikasi Altora untuk HRIS, AI CCTV, armada & private AI, plus kamera VIGI, smartlock, signage, kios, Starlink, dan perangkat Teltonika, HDe, HaganeRack.')
 
 page = f'''<!DOCTYPE html>
-<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(title)}</title><meta content="{e(desc)}" name="description"/><link href="https://altora.id/produk" rel="canonical"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="{e(title)}" property="og:title"/><meta content="{e(desc)}" property="og:description"/><meta content="https://altora.id/produk" property="og:url"/><meta content="https://altora.id/assets/img/produk/vision.webp" property="og:image"/><link href="/assets/img/altora-logo-icon-v2.svg" rel="icon"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v=20261014i"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head><body class="company-page"><header class="company-nav"><a class="project-brand" href="/"><img alt="Altora" src="/assets/img/altora-logo-icon-v2.svg"/><span>Altora</span></a></header>
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(title)}</title><meta content="{e(desc)}" name="description"/><link href="https://altora.id/produk" rel="canonical"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="{e(title)}" property="og:title"/><meta content="{e(desc)}" property="og:description"/><meta content="https://altora.id/produk" property="og:url"/><meta content="https://altora.id/assets/img/produk/vision.webp" property="og:image"/><link href="/assets/img/altora-logo-icon-v2.svg" rel="icon"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v=20261014k"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head><body class="company-page"><header class="company-nav"><a class="project-brand" href="/"><img alt="Altora" src="/assets/img/altora-logo-icon-v2.svg"/><span>Altora</span></a></header>
 <main class="pd-page">
 <section class="pd-hero"><div class="pd-wrap">
 <p class="eyebrow eyebrow-purple">Produk Altora</p>
 <h1>Aplikasi dan perangkat untuk bisnis dan instansi.</h1>
 <p class="pd-lead">{ready} aplikasi siap pakai, mulai dari absensi dan CCTV pintar sampai pemantauan armada. Ditambah perangkat dari principal resmi seperti VIGI, Teltonika, HDe, dan HaganeRack.</p>
-<p class="pd-note">Foto produk adalah ilustrasi.</p>
+<p class="pd-note">Foto aplikasi adalah ilustrasi. <a href="/katalog">Unduh katalog (PDF)</a> · <a href="#cari-solusi">Cari solusi</a></p>
 <nav aria-label="Kategori produk" class="pd-chips">{chips}</nav>
 </div></section>
 {highlight_html}
+{finder_html}
 {software_head}{"".join(sections)}
 {hardware_html}
 <section class="pd-compare"><div class="pd-wrap pd-compare-grid">
@@ -225,16 +252,16 @@ page = f'''<!DOCTYPE html>
 <section class="pd-cta"><div class="pd-wrap pd-cta-inner"><div><h2>Belum yakin produk mana yang pas?</h2><p>Ceritakan kebutuhan Anda, kami bantu pilihkan.</p></div><a class="btn btn-purple" href="/contact">Konsultasi gratis</a></div></section>
 </main>
 <footer></footer>
-<script defer="" src="/assets/js/site-shell.js?v=20261010e"></script><script defer="" src="/assets/js/hw-filter.js?v=20261011"></script></body></html>
+<script defer="" src="/assets/js/site-shell.js?v=20261010e"></script><script defer="" src="/assets/js/hw-filter.js?v=20261011"></script><script defer="" src="/assets/js/finder.js?v=20261014"></script></body></html>
 '''
 (root / 'produk.html').write_text(page, encoding='utf-8')
 print('produk.html dibuat:', len(PRODUCTS), 'produk')
 
 # ── Grid produk ringkas di beranda (index.html, di antara penanda produk-ringkas) ──
 def home_card(p):
-    soon = '<span class="hp-soon">Segera hadir</span>' if p.get('soon') else ''
+    soon = '<span class="hp-soon">Custom</span>' if p.get('status') == 'custom' else ''
     pos = PHOTO_FOCUS.get(p['id'], '50% 50%')
-    return (f'<a class="hp-card" href="/produk#{p["id"]}"><span class="hp-pic"><img alt="" loading="lazy" '
+    return (f'<a class="hp-card" href="/produk/{p["id"]}"><span class="hp-pic"><img alt="" loading="lazy" '
             f'src="/assets/img/produk/{p["id"]}.webp" style="object-position:{pos}"/>{soon}</span>'
             f'<b>{e(p["name"])}</b><small>{e(p["tagline"])}</small></a>')
 

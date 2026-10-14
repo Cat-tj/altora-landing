@@ -22,7 +22,7 @@ root = pathlib.Path(__file__).resolve().parent.parent
 SRC = root / 'content/blog'
 OUT = root / 'blog'
 SITE = 'https://altora.id'
-CSS_VER = '20261014i'
+CSS_VER = '20261014k'
 BULAN = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
 
 e = lambda t: html.escape(t, quote=True)
