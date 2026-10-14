@@ -1,43 +1,54 @@
 ---
 title: Membimbing Siswa SMP Negeri 5 Balikpapan sampai Juara 2 Nasional Innovakids 2026
 seo_title: Membimbing SMPN 5 Balikpapan ke Juara 2 Innovakids 2026
-description: Cerita Altora membimbing tim SMP Negeri 5 Balikpapan belajar web app, stack website, AI, dan presentasi hingga Juara 2 Nasional Innovakids 2026.
+description: Cerita Altora membimbing tim SMP Negeri 5 Balikpapan membangun sistem barang hilang berbasis AI untuk sekolah, hingga Juara 2 Nasional Innovakids 2026.
 date: 2026-10-14
 category: Cerita Altora
 image: /assets/img/extra/products/website.jpg
 related: /industri/pendidikan | Solusi untuk kampus & sekolah
+related: /services/software-custom | Layanan aplikasi & software custom
 related: /about | Tentang Altora
-related: /blog/cara-memilih-software-house-samarinda-balikpapan | Cara memilih software house di Samarinda & Balikpapan
 ---
-Tahun ini tim Altora mendapat kesempatan yang berbeda dari proyek biasanya: menjadi pembimbing siswa SMP Negeri 5 Balikpapan untuk ajang Innovakids 2026. Tim siswa tersebut berhasil meraih **Juara 2 tingkat nasional** dengan solusi inovasi berbasis AI.
+Tahun ini tim Altora mendapat kesempatan yang berbeda dari proyek biasanya: menjadi pembimbing siswa SMP Negeri 5 Balikpapan untuk ajang Innovakids 2026. Tim siswa tersebut meraih **Juara 2 tingkat nasional** dengan solusi yang lahir dari masalah sehari-hari di sekolah mereka: **barang hilang**.
 
-Kami menulis cerita ini bukan untuk pamer, tetapi karena prosesnya menunjukkan bahwa anak SMP sudah sangat mampu membangun teknologi sungguhan, asalkan didampingi dengan cara yang tepat.
+## Masalahnya: barang hilang di sekolah
 
-## Dari ide menjadi aplikasi yang bisa dicoba
+Botol minum, jaket, kotak pensil, sampai kunci sering tertinggal atau hilang di sekolah. Siswa yang kehilangan tidak tahu harus bertanya ke mana, sementara barang yang ditemukan menumpuk tanpa catatan jelas.
 
-Langkah pertama adalah memastikan idenya menjawab masalah nyata. Setelah itu, siswa belajar mengubah ide menjadi **web app** yang bisa dibuka dan dicoba orang lain, bukan hanya gambar di slide.
+## Solusinya: sistem lapor dan cari barang hilang dengan AI
 
-## Belajar stack website dari dasar
+Bersama tim siswa, kami membangun aplikasi dan website dengan alur sebagai berikut:
 
-Kami mengenalkan bagian-bagian sebuah website secara bertahap:
+1. **Melapor.** Siswa dan guru yang menemukan atau kehilangan barang bisa melaporkannya, lengkap dengan rincian seperti jenis barang, warna, ciri khusus, dan lokasi terakhir.
+2. **Bertanya ke AI.** Siswa yang merasa kehilangan cukup bertanya ke asisten AI di website, misalnya "botol minum biru saya hilang di dekat kantin". AI mencocokkan deskripsi tersebut dengan data barang yang tersimpan di database dan menampilkan barang yang paling mirip.
+3. **Konfirmasi guru BK.** Sebelum barang diserahkan, guru BK memeriksa dan mengonfirmasi bahwa barang tersebut memang milik siswa yang mengklaim.
+4. **Poin untuk penemu.** Siswa yang melaporkan barang temuan mendapat poin, dan poin ini bisa ditukar di koperasi sekolah.
 
-- **Tampilan (frontend):** HTML, CSS, dan JavaScript untuk halaman yang dilihat pengguna.
-- **Logika dan data (backend):** bagaimana aplikasi menyimpan dan mengolah data.
-- **Database:** tempat data disimpan dengan rapi.
-- **Hosting dan deploy:** cara membuat aplikasi bisa diakses dari internet.
+Sistem ini tidak hanya membantu barang kembali ke pemiliknya, tetapi juga mendorong kejujuran dan kebiasaan saling membantu di sekolah.
 
-Tujuannya bukan menghafal istilah, tetapi memahami alur: pengguna mengisi sesuatu, data diproses, lalu hasilnya ditampilkan kembali.
+## Apa yang siswa pelajari
 
-## Memanfaatkan AI dengan benar
+### Membangun web app
 
-Siswa belajar bagaimana AI bisa membantu solusi mereka: memilih kemampuan AI yang sesuai, menyambungkannya ke aplikasi, dan menguji apakah hasilnya masuk akal. Kami juga menekankan bahwa AI adalah alat. Masalah dan pengguna tetap menjadi pusatnya.
+Siswa belajar mengubah ide menjadi aplikasi yang bisa dicoba orang lain: halaman lapor, halaman cari, dan dashboard untuk guru BK.
 
-## Presentasi dan cara bercerita
+### Stack website dari dasar
 
-Solusi yang bagus perlu dijelaskan dengan jelas. Siswa berlatih menyusun alur presentasi: masalah, solusi, demo, dan dampak. Mereka juga berlatih menjawab pertanyaan juri dengan tenang dan berdasarkan data dari aplikasi yang mereka buat.
+- **Frontend:** halaman yang dilihat dan dipakai siswa.
+- **Backend:** logika laporan, pencocokan, konfirmasi, dan poin.
+- **Database:** tempat menyimpan data barang dan laporan dengan rapi.
+- **Hosting dan deploy:** supaya website bisa dibuka dari HP siapa saja.
+
+### Memakai AI dengan tepat
+
+Siswa belajar menghubungkan AI ke data mereka sendiri, sehingga AI menjawab berdasarkan isi database sekolah, bukan menebak. Mereka juga belajar bahwa keputusan akhir tetap di tangan manusia, dalam hal ini guru BK.
+
+### Presentasi
+
+Solusi yang bagus perlu dijelaskan dengan jelas. Siswa berlatih menyusun alur presentasi: masalah, solusi, demo langsung, dan dampaknya bagi sekolah, serta menjawab pertanyaan juri dengan tenang.
 
 ## Yang kami pelajari
 
-Mendampingi siswa mengingatkan kami pada prinsip yang sama dengan proyek klien: mulai dari masalah nyata, bangun bertahap, uji bersama pengguna, lalu sampaikan hasilnya dengan jelas.
+Mendampingi siswa mengingatkan kami pada prinsip yang sama dengan proyek klien: mulai dari masalah nyata, libatkan pengguna dan pihak yang memutuskan, bangun bertahap, lalu sampaikan hasilnya dengan jelas.
 
 Selamat untuk tim SMP Negeri 5 Balikpapan dan guru pendamping. Kami terbuka untuk kolaborasi pembinaan teknologi dengan sekolah dan kampus lain di Kalimantan Timur.

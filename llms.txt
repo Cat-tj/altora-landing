@@ -32,7 +32,7 @@
 - Support: https://altora.id/support
 
 ## Prestasi & kredibilitas
-- Membimbing tim SMP Negeri 5 Balikpapan hingga Juara 2 Nasional Innovakids 2026 (web app, AI, presentasi).
+- Membimbing tim SMP Negeri 5 Balikpapan membangun sistem lapor & cari barang hilang berbasis AI (poin ditukar di koperasi, konfirmasi guru BK), Juara 2 Nasional Innovakids 2026.
 - Klien: Pemkot Samarinda, Pemkab Barito Utara, InJourney Airports, Universitas Mulawarman, Institut Teknologi Kalimantan, Kideco Jaya Agung, Adhi, Alba Aluminium, Labschool, 1Ci Enterprise, MBC Entertainment, YODI.
 
 ## Halaman penting
