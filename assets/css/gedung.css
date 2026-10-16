@@ -88,3 +88,42 @@
 .gd-3d .gd-hero,.gd-3d .gd-outro-copy{z-index:5}
 .gd-3d .gc{transform-origin:50% 50%!important;left:auto;top:auto;will-change:auto}
 .gd-3d .gc.act{pointer-events:auto}
+
+/* ── konten di layar ruangan (versi ruangan) ── */
+.gd-3d .gc{border:0!important;outline:0!important;box-shadow:none!important;border-radius:0!important;padding:0;overflow:hidden;box-sizing:border-box;
+  background:linear-gradient(135deg,#FFFFFF 0%,#F6F2FF 60%,#EEE7FF 100%);display:flex;flex-direction:column;justify-content:center}
+.gd-3d .gc:after{display:none!important}
+.gd-3d .gc h2{letter-spacing:-.03em}
+.gd-3d .gc .gc-clients{display:none}
+/* layar lebar 16:9 (proyektor, TV, monitor, video wall) */
+.gd-3d .gc.sc-wide{width:960px;height:540px;padding:60px 72px}
+.gd-3d .sc-wide .gc-kicker{font-size:22px}
+.gd-3d .sc-wide h2{font-size:58px;margin:10px 0 16px;max-width:15ch}
+.gd-3d .sc-wide .gc-text{font-size:22px;max-width:42ch}
+.gd-3d .sc-wide .gc-links{gap:12px;margin-top:26px}
+.gd-3d .sc-wide .gc-links a{font-size:19px;padding:12px 20px;border-radius:999px;background:#fff}
+.gd-3d.gd-m .gc.sc-wide{width:600px;height:338px;padding:30px 36px}
+.gd-3d.gd-m .sc-wide .gc-kicker{font-size:17px}
+.gd-3d.gd-m .sc-wide h2{font-size:38px;margin:6px 0 10px}
+.gd-3d.gd-m .sc-wide .gc-text{display:none}
+.gd-3d.gd-m .sc-wide .gc-links{margin-top:12px;gap:8px}
+.gd-3d.gd-m .sc-wide .gc-links a{font-size:16px;padding:8px 14px}
+.gd-3d.gd-m .sc-wide .gc-links a:nth-child(n+5){display:none}
+/* layar HP */
+.gd-3d .gc.sc-phone{width:390px;height:844px;padding:80px 28px 40px;justify-content:flex-start;background:linear-gradient(180deg,#F3EEFF,#FFFFFF 40%)}
+.gd-3d .gc.sc-phone:before{content:'';position:absolute;top:18px;left:50%;width:110px;height:30px;margin-left:-55px;border-radius:20px;background:#0F1230}
+.gd-3d .sc-phone .gc-kicker{font-size:17px}
+.gd-3d .sc-phone h2{font-size:36px;margin:8px 0 12px}
+.gd-3d .sc-phone .gc-text{font-size:17px}
+.gd-3d .sc-phone .gc-stats{grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}
+.gd-3d .sc-phone .gc-stats b{font-size:28px}.gd-3d .sc-phone .gc-stats span{font-size:13px}
+.gd-3d .sc-phone .gc-clients{display:block;font-size:14px;line-height:1.6;color:#5A6785;margin:16px 0 0}
+.gd-3d .sc-phone .gc-links{margin-top:18px}
+.gd-3d .sc-phone .gc-links a{font-size:15px;border-radius:999px}
+/* tablet resepsionis */
+.gd-3d .gc.sc-tablet{width:800px;height:600px;padding:56px 60px}
+.gd-3d .sc-tablet .gc-kicker{font-size:21px}
+.gd-3d .sc-tablet h2{font-size:52px;margin:10px 0 14px}
+.gd-3d .sc-tablet .gc-text{font-size:21px}
+.gd-3d .sc-tablet .gc-links a{font-size:18px;padding:12px 18px;border-radius:999px;background:#fff}
+.gd-3d .sc-tablet .gc-cta{font-size:20px;padding:16px 28px;align-self:flex-start;margin-top:22px}

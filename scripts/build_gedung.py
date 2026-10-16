@@ -42,11 +42,11 @@ FLOORS = [
      [('/services/software-custom', 'Aplikasi & sistem internal'), ('/services/website-seo', 'Website & SEO'), ('/services/ai-cctv', 'AI & CCTV pintar'),
       ('/services/iot-command-center', 'IoT & akses pintar'), ('/services/pengadaan-instalasi-maintenance', 'Pengadaan & instalasi'),
       ('/services/fleet-management-service', 'Armada & GPS tracker'), ('/services/starlink-internet-satelit', 'Starlink & internet site')]),
-    (6, 'Aplikasi Altora', 'Siap dipakai tim Anda', 'SDM di Altora Teams, tugas di Altora Projek, dokumen dan rapat di Altora Office, armada di Altora FMS, dan CCTV pintar di Altora Vision.',
+    (6, 'AI & ruang kendali', 'Keputusan dari satu layar', 'AI mengenali pelanggaran APD dari CCTV, asisten AI berjalan di server Anda sendiri, dan pimpinan memantau semuanya dari ruang kendali.',
+     [('/produk/private-ai', 'Private AI & GIS'), ('/produk/command', 'Command center'), ('/produk/attendance', 'Absensi wajah')]),
+    (5, 'Aplikasi Altora', 'Siap dipakai tim Anda', 'SDM di Altora Teams, tugas di Altora Projek, dokumen dan rapat di Altora Office, armada di Altora FMS, dan CCTV pintar di Altora Vision.',
      [('/produk/teams', 'Altora Teams'), ('/produk/projek', 'Altora Projek'), ('/produk/office', 'Altora Office'), ('/produk/fms', 'Altora FMS'),
       ('/produk/vision', 'Altora Vision'), ('/produk/pass', 'Altora Pass')]),
-    (5, 'AI & ruang kendali', 'Keputusan dari satu layar', 'AI mengenali pelanggaran APD dari CCTV, asisten AI berjalan di server Anda sendiri, dan pimpinan memantau semuanya dari ruang kendali.',
-     [('/produk/private-ai', 'Private AI & GIS'), ('/produk/command', 'Command center'), ('/produk/attendance', 'Absensi wajah')]),
     (4, 'Jaringan & server', 'Jalur data yang rapi', 'LAN, WiFi, fiber optik, rak server, sampai Starlink untuk site terpencil. Dipasang, diuji, dan didokumentasikan.',
      [('/jasa-instalasi-jaringan-samarinda', 'Instalasi jaringan'), ('/katalog#cat-rack', 'Rak server'), ('/katalog#cat-konek', 'Starlink'), ('/katalog#cat-fiber', 'Fiber optik')]),
     (3, 'Perangkat lapangan', 'Mata dan telinga di lokasi', 'Kamera CCTV VIGI, GPS tracker Teltonika, sensor, smartlock, dan kios layanan dari principal resmi.',
@@ -62,7 +62,8 @@ for k, kicker, title, text, links in FLOORS:
     extra = ''
     if k == 2:
         extra = ('<div class="gc-stats"><div><b>2019</b><span>berdiri di Samarinda</span></div><div><b>50+</b><span>proyek selesai</span></div>'
-                 '<div><b>13</b><span>tim inti</span></div><div><b>3</b><span>kantor di Kaltim</span></div></div>')
+                 '<div><b>13</b><span>tim inti</span></div><div><b>3</b><span>kantor di Kaltim</span></div></div>'
+                 '<p class="gc-clients">Pemkot Samarinda · Pemkab Barito Utara · InJourney Airports · Universitas Mulawarman · Institut Teknologi Kalimantan · Adhi · Alba Aluminium · Labschool · 1Ci Enterprise · MBC Entertainment</p>')
     if k == 1:
         extra = f'<a class="btn btn-purple gc-cta" href="{WA}" rel="noopener" target="_blank">Chat WhatsApp</a>'
     cards += (f'<article class="gc" data-k="{k}"><p class="gc-kicker">{e(kicker)}</p><h2>{e(title)}</h2><p class="gc-text">{e(text)}</p>'
@@ -75,7 +76,7 @@ page = f'''<!DOCTYPE html>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/>
 <link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/>
-<link rel="stylesheet" href="/assets/css/unify.css?v={CSS_VER}"/><link rel="stylesheet" href="/assets/css/gedung.css?v=60"/></head>
+<link rel="stylesheet" href="/assets/css/unify.css?v={CSS_VER}"/><link rel="stylesheet" href="/assets/css/gedung.css?v=70"/></head>
 <body class="company-page gd-body"><header></header>
 <main class="gd2">
 <section class="gd-story"><div class="gd-stage">
@@ -88,7 +89,7 @@ page = f'''<!DOCTYPE html>
 </div></section>
 </main>
 <footer></footer>
-<script defer="" src="/assets/js/site-shell.js?v=20261010e"></script><script type="importmap">{{"imports":{{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}}}</script><script type="module" src="/assets/js/gedung3d.js?v=8"></script></body></html>
+<script defer="" src="/assets/js/site-shell.js?v=20261010e"></script><script type="importmap">{{"imports":{{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}}}</script><script type="module" src="/assets/js/gedung3d.js?v=22"></script></body></html>
 '''
 (root / 'preview-gedung.html').write_text(page, encoding='utf-8')
 print('preview-gedung.html dibuat')
