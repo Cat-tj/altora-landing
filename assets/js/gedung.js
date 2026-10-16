@@ -18,7 +18,7 @@
     plate[k] = f.querySelector('.fc-plate');
   });
 
-  var TOTAL = 422, RY = -35, LIFT = 560;
+  var TOTAL = 422, LIFT = 560, RY0 = -35, RY1 = -14, RX0 = -22, RX1 = -24;
   function base(k) { return floors[k].y; }                                // tinggi pelat lantai k dari tanah
   function clamp(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
   function ease(t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
@@ -30,11 +30,16 @@
     var desk = vw >= 900;
     s0 = Math.min(V * 0.5 / 560, vw * 0.78 / 420, 1.15);
     s1 = (desk ? Math.min(vw * 0.6, 720) : vw * 0.84) / 294;
-    cw = desk ? Math.min(640, vw * 0.5) : vw - 32;
-    ty = desk ? 0.72 : 0.76;
+    cw = desk ? Math.min(600, vw * 0.44) : vw * 0.8;
+    RY1 = desk ? -14 : -6;
+    ty = desk ? 0.8 : 0.86;
     INTRO = 1.6 * V; SEG = 1.3 * V; OUTRO = 1.7 * V;
     story.style.setProperty('--story-h', (INTRO + cards.length * SEG + OUTRO + V) + 'px');
-    cards.forEach(function (c) { c.style.setProperty('--cw', cw + 'px'); });
+    cards.forEach(function (c) {
+      c.style.setProperty('--cw', cw + 'px');
+      var f = floors[+c.dataset.k];
+      if (c.parentNode !== f.el) f.el.appendChild(c);   // papan konten berdiri di dalam lantainya
+    });
   }
 
   function setFloor(k, lift) {
@@ -46,11 +51,9 @@
     roof.style.transform = 'translateY(' + (-TOTAL - lift * LIFT) + 'px)';
     roof.style.setProperty('--fo', 1 - clamp(lift * 1.25));
   }
-  function cam(s, rx, Y) {
-    var cos = Math.cos(rx * Math.PI / 180);
-    var oy = Y === null ? V * 0.9 : V * ty + s * Y * cos;
-    world.style.transform = 'translate3d(0,' + oy + 'px,0) scale(' + s + ') rotateX(' + rx + 'deg) rotateY(' + RY + 'deg)';
-    return oy;
+  function cam(s, rx, ry, Y) {
+    var oy = V * ty + s * Y * Math.cos(rx * Math.PI / 180);
+    world.style.transform = 'translate3d(0,' + oy + 'px,0) scale(' + s + ') rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
   }
 
   function frame() {
@@ -61,10 +64,9 @@
 
     if (g < INTRO) {
       var p = clamp(g / INTRO), z = ease(clamp((p - 0.03) / 0.6));
-      var s = lerp(s0, s1, z), rx = lerp(-22, -38, z);
-      var cos = Math.cos(rx * Math.PI / 180);
-      var oy = lerp(V * 0.9, V * ty + s * base(7) * cos, z);
-      world.style.transform = 'translate3d(0,' + oy + 'px,0) scale(' + s + ') rotateX(' + rx + 'deg) rotateY(' + RY + 'deg)';
+      var s = lerp(s0, s1, z), rx = lerp(RX0, RX1, z), ry = lerp(RY0, RY1, z);
+      var oy = lerp(V * 0.9, V * ty + s * base(7) * Math.cos(rx * Math.PI / 180), z);
+      world.style.transform = 'translate3d(0,' + oy + 'px,0) scale(' + s + ') rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
       roofLift = ease(clamp((p - 0.5) / 0.42));
       hero = 1 - clamp(p / 0.18);
       cardState[7] = { pop: ease(clamp((p - 0.88) / 0.12)) * 0.25, gone: 0 };
@@ -75,16 +77,15 @@
       lifts[cur] = peel;
       roofLift = 1;
       var Y = cur > 1 ? lerp(base(cur), base(cur - 1), peel) : base(1);
-      cam(s1, -38, Y);
+      cam(s1, RX1, RY1, Y);
       cardState[cur] = { pop: i === 0 ? lerp(0.25, 1, ease(clamp(u / 0.18))) : ease(clamp(u / 0.22)), gone: peel };
       if (cur > 1 && peel > 0) cardState[cur - 1] = { pop: 0, gone: 0 };
     } else {
       var q = clamp((g - INTRO - N * SEG) / OUTRO), z2 = ease(clamp(q / 0.8));
       for (k = 2; k <= 7; k++) lifts[k] = 1 - ease(clamp((q * 1.7 - (k - 2) * 0.1) / 0.45));
       roofLift = 1 - ease(clamp((q * 1.7 - 0.7) / 0.45));
-      var so = lerp(s1, s0, z2), rxo = lerp(-38, -22, z2);
-      var coso = Math.cos(rxo * Math.PI / 180);
-      world.style.transform = 'translate3d(0,' + lerp(V * ty, V * 0.9, z2) + 'px,0) scale(' + so + ') rotateX(' + rxo + 'deg) rotateY(' + RY + 'deg)';
+      var so = lerp(s1, s0, z2), rxo = lerp(RX1, RX0, z2), ryo = lerp(RY1, RY0, z2);
+      world.style.transform = 'translate3d(0,' + lerp(V * ty, V * 0.9, z2) + 'px,0) scale(' + so + ') rotateX(' + rxo + 'deg) rotateY(' + ryo + 'deg)';
       outroO = clamp((q - 0.65) / 0.25);
       cardState[1] = { pop: 1, gone: clamp(q / 0.15) };
     }
@@ -93,17 +94,14 @@
     stage.style.setProperty('--hero', hero);
     stage.style.setProperty('--outro', outroO);
 
-    // kartu berdiri dari pelat lantainya dan ikut terangkat saat lantainya dikupas
+    // papan konten: berdiri di dalam lantainya (koordinat lantai), tumbuh naik dari pelat; ikut terangkat saat lantai dikupas
     cards.forEach(function (c) {
-      var kk = +c.dataset.k, st = cardState[kk];
+      var kk = +c.dataset.k, st = cardState[kk], f = floors[kk];
       if (!st || st.pop <= 0.001 || st.gone >= 0.999) { c.style.opacity = 0; c.classList.remove('act'); return; }
-      var r = plate[kk].getBoundingClientRect();
-      var ch = c.offsetHeight, px = r.left + r.width / 2, py = r.top + r.height * 0.62;
-      var left = Math.max(16, Math.min(vw - cw - 16, px - cw / 2));
-      var top = Math.max(88, py - ch);
-      var sy = lerp(0.03, 1, st.pop), sx = lerp(0.6, 1, st.pop);
-      c.style.transform = 'translate(' + left + 'px,' + top + 'px) scale(' + sx + ',' + sy + ')';
-      var op = Math.min(clamp(st.pop * 2.2), 1 - clamp(st.gone * 1.4));
+      var ch = c.offsetHeight, inv = 1 / s1;
+      var sy = lerp(0.02, 1, st.pop), sx = lerp(0.7, 1, st.pop);
+      c.style.transform = 'translate3d(0,' + (f.h / 2) + 'px,' + (-85 + 30) + 'px) scale(' + inv + ') scale(' + sx + ',' + sy + ') translate(' + (-cw / 2) + 'px,' + (-ch) + 'px)';
+      var op = Math.min(clamp(st.pop * 2.2), 1 - clamp(st.gone * 1.3));
       c.style.opacity = op;
       c.classList.toggle('act', op > 0.6);
     });
