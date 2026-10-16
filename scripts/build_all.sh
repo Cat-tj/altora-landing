@@ -17,5 +17,6 @@ python3 scripts/build_produk_kota.py
 python3 scripts/build_about.py
 python3 scripts/build_support.py
 python3 scripts/build_trust.py
+python3 scripts/build_gedung.py
 python3 scripts/apply_shell.py
 python3 scripts/apply_seo.py
