@@ -1404,3 +1404,4 @@ main#top .systems-inline{margin-top:clamp(48px,6vw,80px)}
 .nav-links{gap:2px}
 .ap-shots figure:only-child{max-width:520px}
 .ap-actions .ap-login{background:#fff!important;color:#10224F!important;border:1px solid #E4DEFA!important}
+main#top .ts-stats b,.gc-stats b,.gf-stats b{font-variant-numeric:tabular-nums}
