@@ -1401,3 +1401,17 @@ main#top .cta-panel{text-align:center}
 main#top .cta-copy{margin:0 auto}
 main#top .cta-actions,main#top .cta-trust{justify-content:center}
 main#top .systems-inline{margin-top:clamp(48px,6vw,80px)}
+/* Hero: maskot berdiri di samping dashboard, hanya menyentuh tepi kartu */
+main#top .hero-stage{position:relative;justify-content:flex-start;min-height:560px}
+main#top .hero-stage .app{max-width:420px;margin:0 auto 0 0;position:relative;z-index:1}
+main#top .hero-mascot{position:absolute;z-index:2;right:-2%;bottom:-36px;top:auto;left:auto;width:auto;height:min(118%,640px);max-width:none;transform:none;filter:drop-shadow(0 24px 30px rgba(43,30,110,.18))}
+main#top .hero-stage:before{content:'';position:absolute;z-index:0;right:2%;bottom:-10px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(169,139,255,.35),rgba(169,139,255,0) 70%)}
+@media (max-width:1180px){main#top .hero-stage .app{max-width:380px}main#top .hero-mascot{height:min(110%,560px)}}
+main#top .hero-stage{width:100%!important;margin-left:0!important}
+main#top .hero-stage .app{width:360px!important;max-width:360px!important;margin:0!important}
+main#top .hero-mascot{right:0;height:560px;bottom:-30px}
+@media (max-width:1180px){main#top .hero-stage .app{width:330px!important;max-width:330px!important}main#top .hero-mascot{height:500px}}
+main#top .hero-mascot{right:44px}
+main#top .hero-stage:before{right:30px;bottom:20px;width:320px;height:320px;background:radial-gradient(circle,rgba(169,139,255,.45),rgba(169,139,255,0) 68%)}
+@media (max-width:1180px){main#top .hero-mascot{right:0}}
+@media (max-width:1180px){main#top .hero-mascot{right:14px;height:470px}}
