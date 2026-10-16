@@ -1,177 +1,100 @@
-"""Prototipe landing 'gedung yang dibangun': /preview-gedung (noindex).
-Gedung isometrik digambar sebagai SVG statis dari kode ini; scroll menyalakan lantai demi lantai (assets/js/gedung.js).
+"""Prototipe landing 'halaman = gedung': /preview-gedung (noindex).
+Alur: gedung utuh -> zoom in ke puncak, atap terangkat -> konten keluar dari tiap lantai (7 -> lobi) -> zoom out, footer di bawah gedung.
+Gedung tampak depan digambar sebagai SVG dari kode ini; animasi di assets/js/gedung.js, gaya di assets/css/gedung.css.
 Jalankan lewat scripts/build_all.sh (atau: python3 scripts/build_gedung.py && python3 scripts/apply_shell.py)."""
 import html, pathlib
 
 root = pathlib.Path(__file__).resolve().parent.parent
 e = lambda t: html.escape(str(t), quote=True)
 CSS_VER = '20261016i'
-
-# ── Proyeksi isometrik ──
-CX, CY = 300, 560
-C30, S30 = 0.866, 0.5
-
-
-def p(x, y, z=0):
-    return (round(CX + (x - y) * C30, 1), round(CY + (x + y) * S30 - z, 1))
-
-
-def poly(pts, cls='', extra=''):
-    d = ' '.join(f'{a},{b}' for a, b in pts)
-    return f'<polygon class="{cls}" points="{d}"{extra}/>'
-
-
-HALF = 80          # setengah lebar tapak gedung
-FLOOR_H = 70       # tinggi per lantai
-BASE_H = 22        # fondasi
-
-# lantai: (judul label, warna kiri, warna kanan, warna atas)
-FLOORS = [
-    ('Fondasi · Perangkat lapangan', '#3A3F78', '#2A2F5E', '#4A4F8C'),
-    ('Lantai 1 · Jaringan & server', '#5B3FC4', '#4A31A8', '#7C5CE8'),
-    ('Lantai 2 · Aplikasi Altora', '#7C5CE8', '#6447D6', '#9C84F5'),
-    ('Lantai 3 · AI & dashboard', '#9C84F5', '#8468E8', '#C2B2FF'),
-    ('Atap · Klien & hasil', '#C2B2FF', '#A892F5', '#E4DCFF'),
-]
-
-
-def floor_z(i):
-    zb = 0 if i == 0 else BASE_H + (i - 1) * FLOOR_H
-    zt = BASE_H if i == 0 else zb + FLOOR_H
-    if i == len(FLOORS) - 1:
-        zt = zb + 30  # atap lebih tipis
-    return zb, zt
-
-
-def box(zb, zt, cl, cr, ct, h=HALF):
-    left = poly([p(-h, h, zb), p(h, h, zb), p(h, h, zt), p(-h, h, zt)], 'fl-left', f' fill="{cl}"')
-    right = poly([p(h, -h, zb), p(h, h, zb), p(h, h, zt), p(h, -h, zt)], 'fl-right', f' fill="{cr}"')
-    top = poly([p(-h, -h, zt), p(h, -h, zt), p(h, h, zt), p(-h, h, zt)], 'fl-top', f' fill="{ct}"')
-    return left + right + top
-
-
-def windows(zb, zt, n=4, h=HALF):
-    out = ''
-    zl, zh = zb + 16, zt - 16
-    span = 2 * h / n
-    for k in range(n):
-        a, b = -h + k * span + 8, -h + (k + 1) * span - 8
-        out += poly([p(a, h, zl), p(b, h, zl), p(b, h, zh), p(a, h, zh)], 'win')
-        out += poly([p(h, a, zl), p(h, b, zl), p(h, b, zh), p(h, a, zh)], 'win win-r')
-    return out
-
-
-def floor_svg(i):
-    name, cl, cr, ct = FLOORS[i]
-    zb, zt = floor_z(i)
-    g = box(zb, zt, cl, cr, ct)
-    if 0 < i < len(FLOORS) - 1:
-        g += windows(zb, zt)
-    if i == len(FLOORS) - 1:  # atap: papan nama + antena
-        ax, ay = p(0, 0, zt)
-        g += f'<line class="ant" x1="{ax}" y1="{ay}" x2="{ax}" y2="{ay - 70}"/>'
-        g += f'<circle class="ant-dot" cx="{ax}" cy="{ay - 74}" r="6"/>'
-        lx, ly = p(-40, 80, zb + 6)
-        rx, ry = p(40, 80, zb + 6)
-        g += f'<text class="roof-name" x="{(lx + rx) / 2:.1f}" y="{(ly + ry) / 2 - 2:.1f}" transform="rotate(30 {(lx + rx) / 2:.1f} {(ly + ry) / 2:.1f})">ALTORA</text>'
-    # label di kanan
-    mx, my = p(HALF, HALF / 2, (zb + zt) / 2)
-    g += (f'<g class="fl-tag"><line x1="{mx + 6}" y1="{my}" x2="{560}" y2="{my}"/>'
-          f'<text x="566" y="{my + 4}">{e(name)}</text></g>')
-    # riser data di sudut depan (menyambung ke lantai bawah)
-    fx, fy_b = p(HALF, HALF, zb)
-    _, fy_t = p(HALF, HALF, zt)
-    if i > 0:
-        g += f'<line class="riser" x1="{fx}" y1="{fy_b + 2}" x2="{fx}" y2="{fy_t}"/>'
-    bx, by = p(-HALF, HALF, zb)
-    _, byt = p(-HALF, HALF, zt)
-    if i > 0:
-        g += f'<line class="riser riser-b" x1="{bx}" y1="{by}" x2="{bx}" y2="{byt}"/>'
-    return f'<g class="fl" data-i="{i}">{g}</g>'
-
-
-def ground():
-    G = 150
-    plate = poly([p(-G, -G), p(G, -G), p(G, G), p(-G, G)], 'plate')
-    grid = ''
-    for k in range(-G + 40, G, 40):
-        grid += f'<line class="grid" x1="{p(k, -G)[0]}" y1="{p(k, -G)[1]}" x2="{p(k, G)[0]}" y2="{p(k, G)[1]}"/>'
-        grid += f'<line class="grid" x1="{p(-G, k)[0]}" y1="{p(-G, k)[1]}" x2="{p(G, k)[0]}" y2="{p(G, k)[1]}"/>'
-    # perangkat di tanah + kabel data ke gedung
-    devs = [('cctv', -125, 30), ('truck', -30, 130), ('dish', 128, -5), ('sensor', 75, 120)]
-    out = ''
-    for kind, x, y in devs:
-        sx, sy = p(x, y)
-        tx, ty = p(max(-HALF, min(HALF, x)), max(-HALF, min(HALF, y)))
-        out += f'<path class="cable" d="M{sx},{sy} L{tx},{ty}"/>'
-        if kind == 'cctv':
-            out += (f'<g class="dev"><line x1="{sx}" y1="{sy}" x2="{sx}" y2="{sy - 46}" class="pole"/>'
-                    f'<rect x="{sx - 2}" y="{sy - 54}" width="22" height="11" rx="3" class="cam"/><circle cx="{sx + 18}" cy="{sy - 48.5}" r="2.6" class="lens"/></g>')
-        elif kind == 'truck':
-            out += (f'<g class="dev"><rect x="{sx - 22}" y="{sy - 22}" width="28" height="18" rx="3" class="body"/><rect x="{sx + 6}" y="{sy - 17}" width="14" height="13" rx="3" class="cab"/>'
-                    f'<circle cx="{sx - 14}" cy="{sy - 3}" r="4" class="wheel"/><circle cx="{sx + 12}" cy="{sy - 3}" r="4" class="wheel"/></g>')
-        elif kind == 'dish':
-            out += (f'<g class="dev"><line x1="{sx}" y1="{sy}" x2="{sx}" y2="{sy - 18}" class="pole"/>'
-                    f'<ellipse cx="{sx}" cy="{sy - 26}" rx="16" ry="8" class="dish" transform="rotate(-20 {sx} {sy - 26})"/></g>')
-        else:
-            out += (f'<g class="dev"><rect x="{sx - 7}" y="{sy - 20}" width="14" height="20" rx="4" class="sensor"/>'
-                    f'<path class="wave" d="M{sx + 12},{sy - 18} q6,6 0,12 M{sx + 17},{sy - 22} q10,10 0,20"/></g>')
-    return f'<g class="ground">{plate}{grid}</g><g class="devs">{out}</g>'
-
-
-def crane():
-    mx, my = p(130, -130, 0)
-    top = 70
-    zz = ''.join(f'{mx - 6 if k % 2 else mx + 6},{my - k * 16} ' for k in range(int((my - top) / 16) + 1))
-    jz = ''.join(f'{x},{top + (0 if k % 2 else 10)} ' for k, x in enumerate(range(int(mx + 50), int(CX - 70), -14)))
-    return (f'<g class="crane"><line class="mast" x1="{mx - 6}" y1="{my}" x2="{mx - 6}" y2="{top}"/><line class="mast" x1="{mx + 6}" y1="{my}" x2="{mx + 6}" y2="{top}"/>'
-            f'<polyline class="lattice" points="{zz.strip()}"/>'
-            f'<line class="jib" x1="{mx + 50}" y1="{top}" x2="{CX - 70}" y2="{top}"/><line class="jib" x1="{mx + 50}" y1="{top + 10}" x2="{CX - 70}" y2="{top + 10}"/>'
-            f'<polyline class="lattice" points="{jz.strip()}"/>'
-            f'<rect class="cw" x="{mx + 30}" y="{top + 10}" width="22" height="16" rx="2"/><rect class="cab" x="{mx - 12}" y="{top + 12}" width="24" height="18" rx="3"/>'
-            f'<line class="hook" x1="{CX}" y1="{top + 10}" x2="{CX}" y2="{top + 60}"/>'
-            f'<rect class="hook-box" x="{CX - 8}" y="{top + 60}" width="16" height="10" rx="2"/></g>')
-
-
-def blueprint():
-    zt = floor_z(len(FLOORS) - 1)[1]
-    h = HALF
-    out = poly([p(-h, h, 0), p(h, h, 0), p(h, h, zt), p(-h, h, zt)], 'bp')
-    out += poly([p(h, -h, 0), p(h, h, 0), p(h, h, zt), p(h, -h, zt)], 'bp')
-    out += poly([p(-h, -h, zt), p(h, -h, zt), p(h, h, zt), p(-h, h, zt)], 'bp')
-    for i in range(1, len(FLOORS)):
-        zb = floor_z(i)[0]
-        out += f'<polyline class="bp" points="{p(-h, h, zb)[0]},{p(-h, h, zb)[1]} {p(h, h, zb)[0]},{p(h, h, zb)[1]} {p(h, -h, zb)[0]},{p(h, -h, zb)[1]}"/>'
-    return f'<g class="blueprint">{out}</g>'
-
-
-
-svg = (f'<svg class="gd-svg" viewBox="60 40 700 640" role="img" aria-label="Ilustrasi gedung Altora: fondasi perangkat, jaringan, aplikasi, AI, dan atap klien">'
-       f'{ground()}{blueprint()}{crane()}' + ''.join(floor_svg(i) for i in range(len(FLOORS))) + '</svg>')
-
 WA = 'https://wa.me/6285190911170?text=Halo%20Altora%2C%20saya%20ingin%20konsultasi.'
-SECTIONS = [
-    (0, 'Fondasi', 'Perangkat di lapangan', 'Semua dimulai dari yang menangkap kejadian nyata: kamera CCTV VIGI, GPS tracker Teltonika di kendaraan, sensor, smartlock, dan kios layanan.',
-     [('/katalog-cctv-vigi', 'CCTV VIGI'), ('/katalog#cat-gps', 'GPS tracker'), ('/katalog#cat-akses', 'Smartlock'), ('/katalog#cat-kios', 'Kios layanan')]),
-    (1, 'Lantai 1', 'Jaringan, server & internet', 'Data dari lapangan mengalir lewat jaringan yang rapi: LAN, WiFi, fiber optik, rak server, sampai Starlink untuk site terpencil.',
-     [('/services/pengadaan-instalasi-maintenance', 'Jaringan & server'), ('/services/starlink-internet-satelit', 'Starlink'), ('/katalog#cat-rack', 'Rak server')]),
-    (2, 'Lantai 2', 'Aplikasi Altora', 'Di sini data diolah menjadi pekerjaan: absensi dan SDM di Altora Teams, tugas di Altora Projek, dokumen dan rapat di Altora Office, armada di Altora FMS.',
-     [('/produk/teams', 'Altora Teams'), ('/produk/projek', 'Altora Projek'), ('/produk/office', 'Altora Office'), ('/produk/fms', 'Altora FMS'), ('/produk/vision', 'Altora Vision')]),
-    (3, 'Lantai 3', 'AI & dashboard', 'AI mengenali pelanggaran APD dari CCTV, asisten AI berjalan di server Anda sendiri, dan pimpinan melihat semuanya dari satu ruang kendali.',
-     [('/produk/private-ai', 'Private AI & GIS'), ('/produk/command', 'Command center'), ('/services/ai-cctv', 'AI CCTV')]),
-    (4, 'Atap', 'Dipakai klien kami', 'Gedung yang sama sudah berdiri untuk pemerintah daerah, kampus, dan perusahaan di Kalimantan Timur, dari Pemkot Samarinda sampai Universitas Mulawarman.',
-     [('/portfolio', 'Lihat portofolio'), ('/about', 'Tentang Altora')]),
+
+# ── Gedung tampak depan (satuan SVG) ──
+BW = 360            # lebar badan gedung
+PIL = 14            # tebal pilar kiri/kanan
+SLAB = 6            # tebal pelat lantai
+FH = 60             # tinggi lantai
+LOBBY = 80          # tinggi lobi
+ROOF_Y = 70         # atap dari y=0 sampai 70
+N = 7               # jumlah lantai
+
+
+def floor_top(k):
+    """y atas lantai k (7 = teratas, 1 = lobi)."""
+    return ROOF_Y + (N - k) * FH
+
+
+def floor_h(k):
+    return LOBBY if k == 1 else FH
+
+
+def building_svg(cls):
+    g = []
+    gy = floor_top(1) + LOBBY
+    g.append(f'<rect class="b-ground" x="-220" y="{gy}" width="800" height="36" rx="4"/>')
+    for tx in (-170, -110, 470, 530):
+        g.append(f'<g class="b-tree"><rect x="{tx - 3}" y="{gy - 22}" width="6" height="22"/><circle cx="{tx}" cy="{gy - 32}" r="16"/></g>')
+    for k in range(N, 0, -1):
+        y, h = floor_top(k), floor_h(k)
+        f = [f'<rect class="b-interior" x="0" y="{y}" width="{BW}" height="{h}"/>']
+        glass = []
+        if k == 1:
+            glass.append(f'<rect class="b-glass" x="{PIL}" y="{y + SLAB}" width="{BW - 2 * PIL}" height="{h - SLAB}"/>')
+            glass.append(f'<rect class="b-door" x="{BW / 2 - 34}" y="{y + 22}" width="68" height="{h - 22}" rx="3"/>')
+            glass.append(f'<text class="b-lobby" x="{BW / 2}" y="{y + 17}">LOBI</text>')
+        else:
+            n, gap = 5, 6
+            span = (BW - 2 * PIL - gap * (n + 1)) / n
+            for i in range(n):
+                x = PIL + gap + i * (span + gap)
+                glass.append(f'<rect class="b-win" x="{x:.1f}" y="{y + SLAB + 8}" width="{span:.1f}" height="{h - SLAB - 16}" rx="2"/>')
+        f.append(f'<g class="b-facade">{"".join(glass)}</g>')
+        f.append(f'<rect class="b-pillar" x="0" y="{y}" width="{PIL}" height="{h}"/><rect class="b-pillar" x="{BW - PIL}" y="{y}" width="{PIL}" height="{h}"/>')
+        f.append(f'<rect class="b-slab" x="0" y="{y}" width="{BW}" height="{SLAB}"/>')
+        f.append(f'<text class="b-num" x="{PIL / 2}" y="{y + h / 2 + 4}">{k}</text>')
+        g.append(f'<g class="b-floor" data-k="{k}">{"".join(f)}</g>')
+    g.append('<g class="b-roof">'
+             f'<rect class="b-parapet" x="-8" y="{ROOF_Y - 12}" width="{BW + 16}" height="12" rx="3"/>'
+             f'<rect class="b-sign" x="{BW / 2 - 90}" y="{ROOF_Y - 52}" width="180" height="34" rx="8"/>'
+             f'<text class="b-sign-t" x="{BW / 2}" y="{ROOF_Y - 29}">ALTORA</text>'
+             f'<line class="b-ant" x1="{BW - 40}" y1="{ROOF_Y - 12}" x2="{BW - 40}" y2="{ROOF_Y - 66}"/><circle class="b-ant-dot" cx="{BW - 40}" cy="{ROOF_Y - 69}" r="5"/>'
+             '</g>')
+    return f'<svg class="{cls}" viewBox="-220 -10 800 {gy + 46}" aria-hidden="true">{"".join(g)}</svg>'
+
+
+# ── Isi tiap lantai (dari atas ke bawah) ──
+FLOORS = [
+    (7, 'Layanan', 'Yang kami bangun untuk Anda', 'Aplikasi, website, CCTV pintar, jaringan, sampai pengadaan perangkat. Satu tim dari konsultasi sampai perawatan.',
+     [('/services/software-custom', 'Aplikasi & sistem internal'), ('/services/website-seo', 'Website & SEO'), ('/services/ai-cctv', 'AI & CCTV pintar'),
+      ('/services/iot-command-center', 'IoT & akses pintar'), ('/services/pengadaan-instalasi-maintenance', 'Pengadaan & instalasi'),
+      ('/services/fleet-management-service', 'Armada & GPS tracker'), ('/services/starlink-internet-satelit', 'Starlink & internet site')]),
+    (6, 'Aplikasi Altora', 'Siap dipakai tim Anda', 'SDM di Altora Teams, tugas di Altora Projek, dokumen dan rapat di Altora Office, armada di Altora FMS, dan CCTV pintar di Altora Vision.',
+     [('/produk/teams', 'Altora Teams'), ('/produk/projek', 'Altora Projek'), ('/produk/office', 'Altora Office'), ('/produk/fms', 'Altora FMS'),
+      ('/produk/vision', 'Altora Vision'), ('/produk/pass', 'Altora Pass')]),
+    (5, 'AI & ruang kendali', 'Keputusan dari satu layar', 'AI mengenali pelanggaran APD dari CCTV, asisten AI berjalan di server Anda sendiri, dan pimpinan memantau semuanya dari ruang kendali.',
+     [('/produk/private-ai', 'Private AI & GIS'), ('/produk/command', 'Command center'), ('/produk/attendance', 'Absensi wajah')]),
+    (4, 'Jaringan & server', 'Jalur data yang rapi', 'LAN, WiFi, fiber optik, rak server, sampai Starlink untuk site terpencil. Dipasang, diuji, dan didokumentasikan.',
+     [('/jasa-instalasi-jaringan-samarinda', 'Instalasi jaringan'), ('/katalog#cat-rack', 'Rak server'), ('/katalog#cat-konek', 'Starlink'), ('/katalog#cat-fiber', 'Fiber optik')]),
+    (3, 'Perangkat lapangan', 'Mata dan telinga di lokasi', 'Kamera CCTV VIGI, GPS tracker Teltonika, sensor, smartlock, dan kios layanan dari principal resmi.',
+     [('/katalog-cctv-vigi', 'Katalog CCTV VIGI'), ('/katalog#cat-gps', 'GPS tracker'), ('/katalog#cat-akses', 'Smartlock'), ('/katalog', 'Semua katalog')]),
+    (2, 'Klien & bukti', 'Sudah berdiri di banyak tempat', 'Pemerintah daerah, kampus, dan perusahaan di Kalimantan Timur mempercayakan sistemnya kepada kami.',
+     [('/portfolio', 'Lihat portofolio'), ('/blog', 'Artikel & cerita'), ('/about', 'Tentang Altora')]),
+    (1, 'Lobi', 'Selamat datang di Altora', 'Ceritakan kebutuhan Anda. Diskusi awal gratis, lalu kami susun rencana dan jadwalnya bersama.',
+     [('/contact', 'Kirim email'), ('/support', 'Butuh bantuan teknis')]),
 ]
-secs = ''
-for i, kicker, title, text, links in SECTIONS:
+floors_html = ''
+for k, kicker, title, text, links in FLOORS:
     ls = ''.join(f'<a href="{u}">{e(t)}</a>' for u, t in links)
     extra = ''
-    if i == 4:
-        extra = ('<div class="gd-stats"><div><b>2019</b><span>berdiri</span></div><div><b>50+</b><span>proyek</span></div>'
-                 '<div><b>13</b><span>tim inti</span></div><div><b>3</b><span>kantor</span></div></div>'
-                 f'<a class="btn btn-purple" href="{WA}" rel="noopener" target="_blank">Mulai bangun bersama kami</a>')
-    secs += (f'<section class="gd-sec" data-floor="{i}"><p class="gd-kicker"><span>{e(kicker)}</span></p><h2>{e(title)}</h2>'
-             f'<p class="gd-text">{e(text)}</p><div class="gd-links">{ls}</div>{extra}</section>')
+    if k == 2:
+        extra = ('<div class="gf-stats"><div><b>2019</b><span>berdiri di Samarinda</span></div><div><b>50+</b><span>proyek selesai</span></div>'
+                 '<div><b>13</b><span>tim inti</span></div><div><b>3</b><span>kantor di Kaltim</span></div></div>'
+                 '<p class="gf-clients">Pemkot Samarinda · Pemkab Barito Utara · InJourney Airports · Universitas Mulawarman · Institut Teknologi Kalimantan · Adhi · Alba Aluminium · Labschool · 1Ci Enterprise · MBC Entertainment</p>')
+    if k == 1:
+        extra = f'<a class="btn btn-purple gf-cta" href="{WA}" rel="noopener" target="_blank">Chat WhatsApp</a>'
+    floors_html += (f'<section class="gf" data-k="{k}"><div class="gf-hatch" aria-hidden="true"><i></i><i></i></div>'
+                    f'<div class="gf-room"><div class="gf-copy"><p class="gf-kicker"><b>LT {k}</b>{e(kicker)}</p><h2>{e(title)}</h2><p>{e(text)}</p></div>'
+                    f'<div class="gf-side"><div class="gf-links">{ls}</div>{extra}</div></div></section>')
 
 page = f'''<!DOCTYPE html>
 <html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>
@@ -180,23 +103,24 @@ page = f'''<!DOCTYPE html>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/>
 <link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/>
-<link rel="stylesheet" href="/assets/css/unify.css?v={CSS_VER}"/><link rel="stylesheet" href="/assets/css/gedung.css?v=3"/></head>
+<link rel="stylesheet" href="/assets/css/unify.css?v={CSS_VER}"/><link rel="stylesheet" href="/assets/css/gedung.css?v=11"/></head>
 <body class="company-page gd-body"><header></header>
-<main class="gd-page" data-level="-1">
-<div class="gd-layout">
-<div class="gd-flow">
-<section class="gd-sec gd-hero" data-floor="-1"><p class="eyebrow eyebrow-purple">Altora Indonesia · Samarinda &amp; Balikpapan</p>
+<main class="gd2">
+<section class="gd-intro"><div class="gd-scene">
+<div class="gd-hero"><p class="eyebrow eyebrow-purple">Altora Indonesia · Samarinda &amp; Balikpapan</p>
 <h1>Kami membangun sistem Anda, <span>lantai demi lantai.</span></h1>
-<p class="gd-text">Dari perangkat di lapangan sampai keputusan di dashboard. Setiap lantai saling terhubung, dikerjakan oleh satu tim.</p>
-<div class="gd-actions"><a class="btn btn-purple" href="{WA}" rel="noopener" target="_blank">Konsultasi gratis</a><a class="gd-scroll" href="#mulai">Scroll untuk membangun ↓</a></div></section>
-<div id="mulai"></div>
-{secs}
-</div>
-<div class="gd-stage" aria-hidden="false"><div class="gd-stage-inner">{svg}<div class="gd-progress"><span></span></div></div></div>
-</div>
+<p>Scroll untuk masuk ke gedung kami ↓</p></div>
+<div class="gd-bld">{building_svg('bld-svg')}</div><div class="gd-veil"></div>
+</div></section>
+<div class="gd-floors">{floors_html}</div>
+<section class="gd-outro"><div class="gd-scene">
+<div class="gd-veil"></div><div class="gd-bld gd-bld-out">{building_svg('bld-svg')}</div>
+<div class="gd-outro-copy"><h2>Gedung kami terbuka untuk Anda.</h2><p>Kantor pusat di Samarinda, dua cabang di Balikpapan.</p></div>
+</div></section>
+<div class="gd-lift" aria-hidden="true"><span>▼</span><b>7</b></div>
 </main>
 <footer></footer>
-<script defer="" src="/assets/js/site-shell.js?v=20261010e"></script><script defer="" src="/assets/js/gedung.js?v=3"></script></body></html>
+<script defer="" src="/assets/js/site-shell.js?v=20261010e"></script><script defer="" src="/assets/js/gedung.js?v=11"></script></body></html>
 '''
 (root / 'preview-gedung.html').write_text(page, encoding='utf-8')
 print('preview-gedung.html dibuat')
