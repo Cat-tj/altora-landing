@@ -20,7 +20,6 @@ CLIENTS = [
     ('Labschool', None, 'Pendidikan'),
     ('1Ci Enterprise', None, 'Korporasi'),
     ('MBC Entertainment', None, 'Korporasi'),
-    ('YODI', None, 'Korporasi'),
 ]
 
 ACHIEVEMENT = dict(
@@ -72,8 +71,7 @@ def logos_block(heading='Dipercaya oleh'):
 
 def stats_block():
     stats = ''.join(f'<div><b>{e(v)}</b><span>{e(k)}</span></div>' for v, k in STATS)
-    creds = ['Badan usaha resmi, berstatus PKP', 'Terdaftar sebagai penyedia di Inaproc / LKPP', 'Kolaborasi riset dengan Institut Teknologi Kalimantan',
-             'Partner resmi TP-Link | VIGI, Teltonika, Lenovo, HDe, HaganeRack, Fasser']
+    creds = ['Badan usaha resmi, berstatus PKP', 'Terdaftar sebagai penyedia di Inaproc / LKPP', 'Kolaborasi riset dengan Institut Teknologi Kalimantan']
     return ('<section aria-label="Angka dan legalitas" class="sec ts-sec"><div class="wrap">'
             f'<div class="ts-stats">{stats}</div>'
             '<ul class="ts-creds">' + ''.join(f'<li>{e(c)}</li>' for c in creds) + '</ul></div></section>')
@@ -81,9 +79,9 @@ def stats_block():
 
 def process_block():
     steps = [('Konsultasi', 'Pahami kebutuhan dan tujuan Anda. Gratis.'), ('Survei & desain', 'Cek lokasi dan rancang solusinya.'),
-             ('Penawaran', 'Proposal dan RAB yang transparan.'), ('Eksekusi in-house', 'Instalasi dan development oleh tim kami sendiri.'),
+             ('Penawaran', 'Proposal dan rencana kerja tertulis.'), ('Eksekusi in-house', 'Instalasi dan development oleh tim kami sendiri.'),
              ('Training & purnajual', 'Pelatihan tim Anda dan dukungan berkelanjutan.')]
-    st = ''.join(f'<li><span>{i:02d}</span><b>{e(t)}</b><p>{e(d)}</p></li>' for i, (t, d) in enumerate(steps, 1))
+    st = ''.join(f'<li><span>{i}</span><b>{e(t)}</b><p>{e(d)}</p></li>' for i, (t, d) in enumerate(steps, 1))
     promises = ['Garansi perangkat & jasa sesuai lingkup proyek', 'Lifetime support untuk paket berlangganan',
                 'Kode sumber, dokumentasi & SOP diserahkan', 'Mulai dari satu modul, buktikan lewat pilot', 'Tidak terkunci pada satu merek']
     pr = ''.join(f'<li>{e(p)}</li>' for p in promises)
