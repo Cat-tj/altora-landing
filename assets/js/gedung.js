@@ -1,14 +1,18 @@
-/* Prototipe "halaman = gedung": zoom in ke puncak, lantai terbuka satu per satu, zoom out di akhir. */
+/* Prototipe "halaman = gedung" (3D): zoom ke puncak, atap terbuka, panel terbang keluar lalu auto-scroll ke lantai 7;
+   lantai terbuka satu per satu; di akhir zoom out ke gedung utuh dengan footer di bawahnya. */
 (function () {
   var root = document.querySelector('.gd2');
   if (!root) return;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var VB_X = -220, VB_W = 800, BODY_W = 360, TOP_Y = 70, LOBBY_Y = 430, BOTTOM_Y = 546;
   var intro = root.querySelector('.gd-intro'), outro = root.querySelector('.gd-outro');
-  var bIn = intro.querySelector('.gd-bld'), bOut = outro.querySelector('.gd-bld');
   var sIn = intro.querySelector('.gd-scene'), sOut = outro.querySelector('.gd-scene');
+  var wIn = intro.querySelector('.bx3-world'), wOut = outro.querySelector('.bx3-world');
+  var bIn = intro.querySelector('.bx3'), glow = intro.querySelector('.bx3-glow');
+  var floorsWrap = root.querySelector('.gd-floors');
   var floors = [].slice.call(root.querySelectorAll('.gf'));
+  var fly = root.querySelector('.gd-fly');
   var lift = root.querySelector('.gd-lift'), liftNum = lift.querySelector('b');
+  var TOTAL = 422, LOBBY_C = 37, TILT = -22;
 
   function clamp(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
   function ease(t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
@@ -17,74 +21,84 @@
     var r = sec.getBoundingClientRect(), span = sec.offsetHeight - window.innerHeight;
     return clamp(-r.top / span);
   }
-
-  var L = {};
+  var vw, vh, s0;
   function layout() {
-    var vw = window.innerWidth, vh = window.innerHeight;
-    var W0 = Math.min(vw < 900 ? vw * 0.96 : 620, vw * 0.9);
-    var u = W0 / VB_W;
-    var H0 = W0 * (BOTTOM_Y + 10) / VB_W;
-    L = { vw: vw, vh: vh, W0: W0, u: u, left0: (vw - W0) / 2, top0: vh - H0 + 8, sEnd: vw / (BODY_W * u) };
-    bIn.style.width = bOut.style.width = W0 + 'px';
+    vw = window.innerWidth; vh = window.innerHeight;
+    s0 = Math.min(vh * 0.5 / 560, vw * 0.78 / 420, 1.15);
+  }
+  function cam(world, s, originY, ry) {
+    world.style.transform = 'translate3d(0,' + originY + 'px,0) scale(' + s + ') rotateX(' + TILT + 'deg) rotateY(' + ry + 'deg)';
   }
 
-  function place(el, s, ax, ay, Ax, Ay) {
-    el.style.transform = 'translate(' + (Ax - ax * s) + 'px,' + (Ay - ay * s) + 'px) scale(' + s + ')';
-  }
-  function unit(x, y) { return [(x - VB_X) * L.u, (y + 10) * L.u]; }
-
+  var flown = false, flying = false, lastY = window.scrollY;
   function frame() {
-    // ── intro: zoom ke puncak, atap terangkat, kaca lantai 7 memudar
-    var t = progress(intro);
-    var z = ease(clamp((t - 0.06) / 0.6));
-    var s = Math.pow(L.sEnd, z);
-    var a = unit(BODY_W / 2, TOP_Y);
-    var A0x = L.left0 + a[0], A0y = L.top0 + a[1];
-    place(bIn, s, a[0], a[1], lerp(A0x, L.vw / 2, z), lerp(A0y, L.vh * 0.36, z));
-    var r = ease(clamp((t - 0.5) / 0.25)), f = clamp((t - 0.7) / 0.18), w = clamp((t - 0.82) / 0.14);
-    bIn.style.setProperty('--roof-y', (-r * 160) + 'px');
-    bIn.style.setProperty('--roof-o', 1 - r);
-    bIn.style.setProperty('--top-facade', 1 - f);
-    bIn.style.setProperty('--rest', 1 - w);
-    sIn.style.setProperty('--walls', w);
-    sIn.style.setProperty('--hero', 1 - clamp(t / 0.22));
-    sIn.style.setProperty('--veil', clamp((t - 0.88) / 0.1));
+    // intro
+    var p = progress(intro);
+    var z = ease(clamp((p - 0.04) / 0.56));
+    var s = s0 * (1 + 1.6 * z);
+    var y0 = vh * 0.93, y1 = vh * 0.46 + s * TOTAL * 0.93;
+    cam(wIn, s, lerp(y0, y1, z), lerp(-34, -24, z));
+    var o = ease(clamp((p - 0.5) / 0.28));
+    bIn.style.setProperty('--open', (o * 112) + 'deg');
+    bIn.style.setProperty('--glow', o);
+    sIn.style.setProperty('--hero', 1 - clamp(p / 0.2));
+    var down = window.scrollY > lastY; lastY = window.scrollY;
+    if (p < 0.45) flown = false;
+    if (p >= 0.999) flown = true;           // sudah lewat intro (reload / lompat lewat tautan): jangan terbang
+    if (!flown && !flying && down && p >= 0.8) flyIn();
 
-    // ── outro: dari dalam lobi, zoom out sampai gedung utuh dan tanah terlihat
-    var o = progress(outro);
-    var zo = ease(clamp((o - 0.05) / 0.7));
-    var so = Math.pow(L.sEnd, 1 - zo);
-    var b = unit(BODY_W / 2, LOBBY_Y);
-    var endY = L.top0 + b[1];
-    place(bOut, so, b[0], b[1], L.vw / 2, lerp(L.vh * 0.08, endY, zo));
-    sOut.style.setProperty('--walls', 1 - clamp(zo / 0.25));
-    sOut.style.setProperty('--veil', 1 - clamp((o - 0.0) / 0.12));
-    sOut.style.setProperty('--outro', clamp((o - 0.7) / 0.2));
+    // outro: dari dekat lobi, mundur sampai gedung utuh
+    var q = progress(outro);
+    var zo = ease(clamp(q / 0.75));
+    var so = lerp(s0 * 2.4, s0, zo);
+    var yStart = vh * 0.55 + so * LOBBY_C, yEnd = vh * 0.88;
+    cam(wOut, so, lerp(yStart, yEnd, zo), lerp(-20, -34, zo));
+    sOut.style.setProperty('--outro', clamp((q - 0.65) / 0.25));
 
-    // ── indikator lift
-    var mid = L.vh * 0.5, cur = null;
-    floors.forEach(function (fl) {
-      var rr = fl.getBoundingClientRect();
-      if (rr.top < mid && rr.bottom > mid) cur = fl.dataset.k;
-    });
+    // lift
+    var mid = vh * 0.5, cur = null;
+    floors.forEach(function (fl) { var r = fl.getBoundingClientRect(); if (r.top < mid && r.bottom > mid) cur = fl.dataset.k; });
     lift.classList.toggle('on', !!cur);
     if (cur) liftNum.textContent = cur;
   }
 
-  // lantai terbuka saat masuk layar
+  // panel keluar dari lantai teratas -> layar penuh, lalu halaman diletakkan tepat di lantai 7
+  function flyIn() {
+    flying = true;
+    var r = glow.getBoundingClientRect();
+    var html = document.documentElement, prevOv = html.style.overflow;
+    html.style.overflow = 'hidden';
+    fly.classList.add('on');
+    var from = 'translate(' + r.left + 'px,' + r.top + 'px) scale(' + Math.max(r.width / vw, .05) + ',' + Math.max(r.height / vh, .05) + ')';
+    var anim = fly.animate([
+      { transform: from, borderRadius: '18px', opacity: .0 },
+      { transform: from, borderRadius: '18px', opacity: 1, offset: .12 },
+      { transform: 'translate(0,0) scale(1,1)', borderRadius: '0px', opacity: 1 }
+    ], { duration: 950, easing: 'cubic-bezier(.65,0,.25,1)', fill: 'forwards' });
+    anim.onfinish = function () {
+      var top = floorsWrap.getBoundingClientRect().top + window.scrollY;
+      html.style.overflow = prevOv;
+      window.scrollTo({ top: top, behavior: 'instant' });
+      flown = true;
+      var out = fly.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 260, easing: 'ease-out', fill: 'forwards' });
+      out.onfinish = function () { fly.classList.remove('on'); anim.cancel(); out.cancel(); flying = false; };
+    };
+  }
+
   if ('IntersectionObserver' in window && !reduce) {
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (en) { if (en.isIntersecting) en.target.classList.add('open'); });
-    }, { threshold: 0.18 });
+    }, { threshold: 0.2 });
     floors.forEach(function (fl) { io.observe(fl); });
   } else {
     floors.forEach(function (fl) { fl.classList.add('open'); });
   }
-  if (reduce) return;
 
+  layout();
+  if (reduce) { cam(wIn, s0, vh * 0.6, -32); cam(wOut, s0, vh * 0.6, -32); return; }
   var ticking = false;
   function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; frame(); }); } }
-  layout(); frame();
+  frame();
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', function () { layout(); frame(); });
 })();

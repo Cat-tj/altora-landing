@@ -9,57 +9,29 @@ e = lambda t: html.escape(str(t), quote=True)
 CSS_VER = '20261016i'
 WA = 'https://wa.me/6285190911170?text=Halo%20Altora%2C%20saya%20ingin%20konsultasi.'
 
-# ── Gedung tampak depan (satuan SVG) ──
-BW = 360            # lebar badan gedung
-PIL = 14            # tebal pilar kiri/kanan
-SLAB = 6            # tebal pelat lantai
-FH = 60             # tinggi lantai
-LOBBY = 80          # tinggi lobi
-ROOF_Y = 70         # atap dari y=0 sampai 70
-N = 7               # jumlah lantai
+# ── Gedung 3D (CSS 3D: setiap lantai = kotak dengan sisi depan, samping, belakang) ──
+W3, D3, FH3, LOBBY3, N = 240, 170, 58, 74, 7
+TOTAL3 = LOBBY3 + (N - 1) * FH3
+LIT = {7: (60, 130), 6: (130,), 5: (20, 170), 4: (95,), 3: (60, 165), 2: (20, 130), 1: ()}
 
 
-def floor_top(k):
-    """y atas lantai k (7 = teratas, 1 = lobi)."""
-    return ROOF_Y + (N - k) * FH
-
-
-def floor_h(k):
-    return LOBBY if k == 1 else FH
-
-
-def building_svg(cls):
-    g = []
-    gy = floor_top(1) + LOBBY
-    g.append(f'<rect class="b-ground" x="-220" y="{gy}" width="800" height="36" rx="4"/>')
-    for tx in (-170, -110, 470, 530):
-        g.append(f'<g class="b-tree"><rect x="{tx - 3}" y="{gy - 22}" width="6" height="22"/><circle cx="{tx}" cy="{gy - 32}" r="16"/></g>')
-    for k in range(N, 0, -1):
-        y, h = floor_top(k), floor_h(k)
-        f = [f'<rect class="b-interior" x="0" y="{y}" width="{BW}" height="{h}"/>']
-        glass = []
-        if k == 1:
-            glass.append(f'<rect class="b-glass" x="{PIL}" y="{y + SLAB}" width="{BW - 2 * PIL}" height="{h - SLAB}"/>')
-            glass.append(f'<rect class="b-door" x="{BW / 2 - 34}" y="{y + 22}" width="68" height="{h - 22}" rx="3"/>')
-            glass.append(f'<text class="b-lobby" x="{BW / 2}" y="{y + 17}">LOBI</text>')
-        else:
-            n, gap = 5, 6
-            span = (BW - 2 * PIL - gap * (n + 1)) / n
-            for i in range(n):
-                x = PIL + gap + i * (span + gap)
-                glass.append(f'<rect class="b-win" x="{x:.1f}" y="{y + SLAB + 8}" width="{span:.1f}" height="{h - SLAB - 16}" rx="2"/>')
-        f.append(f'<g class="b-facade">{"".join(glass)}</g>')
-        f.append(f'<rect class="b-pillar" x="0" y="{y}" width="{PIL}" height="{h}"/><rect class="b-pillar" x="{BW - PIL}" y="{y}" width="{PIL}" height="{h}"/>')
-        f.append(f'<rect class="b-slab" x="0" y="{y}" width="{BW}" height="{SLAB}"/>')
-        f.append(f'<text class="b-num" x="{PIL / 2}" y="{y + h / 2 + 4}">{k}</text>')
-        g.append(f'<g class="b-floor" data-k="{k}">{"".join(f)}</g>')
-    g.append('<g class="b-roof">'
-             f'<rect class="b-parapet" x="-8" y="{ROOF_Y - 12}" width="{BW + 16}" height="12" rx="3"/>'
-             f'<rect class="b-sign" x="{BW / 2 - 90}" y="{ROOF_Y - 52}" width="180" height="34" rx="8"/>'
-             f'<text class="b-sign-t" x="{BW / 2}" y="{ROOF_Y - 29}">ALTORA</text>'
-             f'<line class="b-ant" x1="{BW - 40}" y1="{ROOF_Y - 12}" x2="{BW - 40}" y2="{ROOF_Y - 66}"/><circle class="b-ant-dot" cx="{BW - 40}" cy="{ROOF_Y - 69}" r="5"/>'
-             '</g>')
-    return f'<svg class="{cls}" viewBox="-220 -10 800 {gy + 46}" aria-hidden="true">{"".join(g)}</svg>'
+def building3d(cls=''):
+    fl = ''
+    for k in range(1, N + 1):
+        h = LOBBY3 if k == 1 else FH3
+        y = 0 if k == 1 else LOBBY3 + (k - 2) * FH3
+        lit = ''.join(f'<b style="left:{x}px"></b>' for x in LIT[k])
+        lit_r = ''.join(f'<b style="left:{round(x * D3 / W3)}px"></b>' for x in LIT[k][:1])
+        fl += (f'<div class="bx3-floor{" bx3-lobby" if k == 1 else ""}" data-k="{k}" style="--y:{y}px;--h:{h}px">'
+               f'<i class="fc fc-front">{lit}{"<em>LOBI</em><s></s>" if k == 1 else ""}</i><i class="fc fc-right">{lit_r}</i>'
+               f'<i class="fc fc-left"></i><i class="fc fc-back"></i>'
+               f'{"<i class=fc-num>" + str(k) + "</i>" if k > 1 else ""}</div>')
+    return (f'<div class="bx3 {cls}" style="--W:{W3}px;--D:{D3}px;--T:{TOTAL3}px"><div class="bx3-world">'
+            '<div class="bx3-ground"></div>'
+            f'{fl}'
+            '<div class="bx3-glow"></div>'
+            '<div class="bx3-lid"><i class="bx3-lid-plane"></i><i class="bx3-sign">ALTORA</i></div>'
+            '</div></div>')
 
 
 # ── Isi tiap lantai (dari atas ke bawah) ──
@@ -103,24 +75,24 @@ page = f'''<!DOCTYPE html>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/>
 <link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/>
-<link rel="stylesheet" href="/assets/css/unify.css?v={CSS_VER}"/><link rel="stylesheet" href="/assets/css/gedung.css?v=11"/></head>
+<link rel="stylesheet" href="/assets/css/unify.css?v={CSS_VER}"/><link rel="stylesheet" href="/assets/css/gedung.css?v=22"/></head>
 <body class="company-page gd-body"><header></header>
 <main class="gd2">
 <section class="gd-intro"><div class="gd-scene">
 <div class="gd-hero"><p class="eyebrow eyebrow-purple">Altora Indonesia · Samarinda &amp; Balikpapan</p>
 <h1>Kami membangun sistem Anda, <span>lantai demi lantai.</span></h1>
 <p>Scroll untuk masuk ke gedung kami ↓</p></div>
-<div class="gd-bld">{building_svg('bld-svg')}</div><div class="gd-veil"></div>
+{building3d('bx3-in')}
 </div></section>
 <div class="gd-floors">{floors_html}</div>
 <section class="gd-outro"><div class="gd-scene">
-<div class="gd-veil"></div><div class="gd-bld gd-bld-out">{building_svg('bld-svg')}</div>
+{building3d('bx3-out')}
 <div class="gd-outro-copy"><h2>Gedung kami terbuka untuk Anda.</h2><p>Kantor pusat di Samarinda, dua cabang di Balikpapan.</p></div>
 </div></section>
-<div class="gd-lift" aria-hidden="true"><span>▼</span><b>7</b></div>
+<div class="gd-fly" aria-hidden="true"></div><div class="gd-lift" aria-hidden="true"><span>▼</span><b>7</b></div>
 </main>
 <footer></footer>
-<script defer="" src="/assets/js/site-shell.js?v=20261010e"></script><script defer="" src="/assets/js/gedung.js?v=11"></script></body></html>
+<script defer="" src="/assets/js/site-shell.js?v=20261010e"></script><script defer="" src="/assets/js/gedung.js?v=22"></script></body></html>
 '''
 (root / 'preview-gedung.html').write_text(page, encoding='utf-8')
 print('preview-gedung.html dibuat')

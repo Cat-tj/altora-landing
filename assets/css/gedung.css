@@ -6,8 +6,6 @@
 .gd-intro{height:320vh;position:relative}
 .gd-outro{height:240vh;position:relative}
 .gd-scene{position:sticky;top:0;height:100vh;overflow:hidden}
-.gd-bld{position:absolute;left:0;top:0;transform-origin:0 0;opacity:var(--bld-o,1)}
-.bld-svg{display:block;width:100%;height:auto;overflow:visible}
 .gd-scene:before,.gd-scene:after{content:'';position:absolute;top:0;bottom:0;width:var(--wall);background:var(--pillar);opacity:var(--walls,0);z-index:2;pointer-events:none}
 .gd-scene:before{left:0}.gd-scene:after{right:0}
 
@@ -15,25 +13,6 @@
 .gd-hero h1{margin:12px auto 10px;max-width:16ch;color:var(--ink);font-size:clamp(2.1rem,1.4rem + 2.8vw,4rem);line-height:1.02;letter-spacing:-.04em;font-weight:800}
 .gd-hero h1 span{background:linear-gradient(90deg,#7C5CE8,#C05BD0);-webkit-background-clip:text;background-clip:text;color:transparent}
 .gd-hero p:last-child{color:var(--acc);font-weight:800}
-
-/* gedung */
-.b-ground{fill:#ECE6FC}
-.b-tree rect{fill:#9B8BC9}.b-tree circle{fill:#CFC3FA}
-.b-interior{fill:var(--room)}
-.b-win{fill:#CFC3FA}
-.b-floor:nth-child(odd) .b-win:nth-child(2),.b-floor:nth-child(even) .b-win:nth-child(4){fill:#FFE7A3}
-.b-glass{fill:#DCD3FB}.b-door{fill:#fff;stroke:#B9A8F7}
-.b-lobby{fill:#5B3FC4;font:800 11px "Plus Jakarta Sans",system-ui,sans-serif;letter-spacing:.3em;text-anchor:middle}
-.b-pillar{fill:var(--pillar)}.b-slab{fill:var(--slabc)}
-.b-num{fill:#fff;font:800 9px "Plus Jakarta Sans",system-ui,sans-serif;text-anchor:middle}
-.b-parapet{fill:var(--slabc)}.b-sign{fill:#fff;stroke:#D9CFFB}
-.b-sign-t{fill:#5B3FC4;font:800 18px "Plus Jakarta Sans",system-ui,sans-serif;letter-spacing:.3em;text-anchor:middle}
-.b-ant{stroke:#4A31A8;stroke-width:3}.b-ant-dot{fill:#FF6B9A;animation:gd-blink 1.4s ease-in-out infinite}
-@keyframes gd-blink{50%{opacity:.25}}
-.b-roof{transform:translateY(var(--roof-y,0px));opacity:var(--roof-o,1)}
-.b-floor[data-k="7"] .b-facade{opacity:var(--top-facade,1)}
-.gd-bld .b-floor:not([data-k="7"]),.gd-bld .b-ground,.gd-bld .b-tree{opacity:var(--rest,1)}
-.gd-bld-out .b-floor{opacity:1}
 
 /* lantai-lantai */
 .gd-floors{position:relative;background:var(--room)}
@@ -84,9 +63,48 @@
 }
 @media (prefers-reduced-motion:reduce){
   .gd-intro,.gd-outro{height:auto}.gd-scene{position:relative;height:auto;padding:140px 0 40px}
-  .gd-bld{position:relative;transform:none!important;width:min(520px,90vw)!important;margin:200px auto 0}
+  .bx3{position:relative;height:70vh}
   .gd-hero{position:relative;top:0}.gf-room{opacity:1;transform:none}.gf-hatch{display:none}
 }
 
-.gd-veil{position:absolute;inset:0;background:var(--room);opacity:var(--veil,0);z-index:1;pointer-events:none}
 .gd-hero .eyebrow{justify-content:center;display:flex}
+
+/* ── Gedung 3D ── */
+.bx3{position:absolute;inset:0;perspective:1700px;perspective-origin:50% 35%;pointer-events:none}
+.bx3-world{position:absolute;left:50%;top:0;width:0;height:0;transform-style:preserve-3d}
+.bx3-floor{position:absolute;left:0;top:0;transform-style:preserve-3d;transform:translateY(calc(-1 * var(--y) - var(--h) / 2))}
+.fc{position:absolute;left:0;top:0;display:block;backface-visibility:hidden;overflow:hidden}
+.fc-front,.fc-back{width:var(--W);height:var(--h);margin:calc(var(--h) / -2) 0 0 calc(var(--W) / -2)}
+.fc-left,.fc-right{width:var(--D);height:var(--h);margin:calc(var(--h) / -2) 0 0 calc(var(--D) / -2)}
+.fc-front{transform:translateZ(calc(var(--D) / 2));
+  background:linear-gradient(#3E2A97,#3E2A97) top/100% 7px no-repeat,
+    repeating-linear-gradient(90deg,#5B3FC4 0 12px,#C9BCFA 12px 44px) 0 15px/100% calc(100% - 24px) no-repeat,#5B3FC4}
+.fc-right{transform:rotateY(90deg) translateZ(calc(var(--W) / 2));
+  background:linear-gradient(#2F2078,#2F2078) top/100% 7px no-repeat,
+    repeating-linear-gradient(90deg,#46309F 0 12px,#9E8CE8 12px 42px) 0 15px/100% calc(100% - 24px) no-repeat,#46309F}
+.fc-left{transform:rotateY(-90deg) translateZ(calc(var(--W) / 2));background:#4A31A8}
+.fc-back{transform:rotateY(180deg) translateZ(calc(var(--D) / 2));background:#4A31A8}
+.fc b{position:absolute;top:15px;width:32px;height:calc(100% - 24px);background:#FFE7A3;box-shadow:0 0 14px rgba(255,214,110,.7)}
+.fc-right b{width:24px;background:#E9CF86}
+.fc-num{position:absolute;left:0;top:0;width:20px;height:18px;margin:-9px 0 0 calc(var(--W) / -2 + 2px);transform:translateZ(calc(var(--D) / 2 + 1px));color:#fff;font:800 11px/18px "Plus Jakarta Sans",system-ui,sans-serif;text-align:center;font-style:normal}
+.bx3-lobby .fc-front{background:linear-gradient(#3E2A97,#3E2A97) top/100% 7px no-repeat,linear-gradient(#DCD3FB,#DCD3FB) 12px 7px/calc(100% - 24px) 100% no-repeat,#5B3FC4}
+.bx3-lobby .fc-front em{position:absolute;left:0;right:0;top:12px;text-align:center;color:#5B3FC4;font:800 10px "Plus Jakarta Sans",system-ui,sans-serif;letter-spacing:.3em}
+.bx3-lobby .fc-front s{position:absolute;left:50%;bottom:0;width:56px;height:46px;margin-left:-28px;background:#fff;border:2px solid #B9A8F7;border-bottom:0;border-radius:4px 4px 0 0}
+.bx3-ground{position:absolute;left:0;top:0;width:760px;height:620px;margin:-310px 0 0 -380px;transform:rotateX(90deg) translateZ(1px);
+  background:radial-gradient(closest-side,rgba(124,92,232,.22),rgba(124,92,232,.08) 55%,rgba(124,92,232,0));border-radius:50%}
+.bx3-glow{position:absolute;left:0;top:0;width:var(--W);height:var(--D);margin:calc(var(--D) / -2) 0 0 calc(var(--W) / -2);
+  transform:translateY(calc(-1 * var(--T))) rotateX(90deg) translateZ(-1px);background:radial-gradient(#FFF7DC,#FFE7A3);opacity:var(--glow,0)}
+.bx3-lid{position:absolute;left:0;top:0;transform-style:preserve-3d;transform:translateY(calc(-1 * var(--T) - 1px)) translateZ(calc(var(--D) / -2)) rotateX(var(--open,0deg))}
+.bx3-lid-plane{position:absolute;left:calc(var(--W) / -2 - 6px);top:0;width:calc(var(--W) + 12px);height:calc(var(--D) + 6px);transform-origin:50% 0;transform:rotateX(90deg);
+  background:linear-gradient(135deg,#9C84F5,#7C5CE8);border:6px solid #3E2A97;box-sizing:border-box;display:block}
+.bx3-sign{position:absolute;left:-70px;top:-34px;width:140px;height:30px;transform:translateZ(30px);background:#fff;border:2px solid #D9CFFB;border-radius:8px;
+  color:#5B3FC4;font:800 15px/26px "Plus Jakarta Sans",system-ui,sans-serif;letter-spacing:.3em;text-align:center;font-style:normal;display:block}
+
+/* panel yang terbang keluar dari lantai teratas */
+.gd-fly{position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:40;background:var(--room);display:none;transform-origin:0 0;pointer-events:none}
+.gd-fly:before,.gd-fly:after{content:'';position:absolute;top:0;bottom:0;width:var(--wall);background:var(--pillar)}
+.gd-fly:before{left:0}.gd-fly:after{right:0}
+.gd-fly.on{display:block}
+.gd-intro{height:260vh}
+.gd-outro{height:220vh}
+.gd-outro-copy{top:clamp(110px,18vh,170px)}
