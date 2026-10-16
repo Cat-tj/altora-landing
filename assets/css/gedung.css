@@ -1,73 +1,39 @@
-/* Prototipe "halaman = gedung" (/preview-gedung) */
+/* Prototipe "halaman = gedung" (/preview-gedung): satu adegan sticky, semua digerakkan oleh scroll */
 .gd-body{background:#FBF9FE}
-.gd2{--wall:3.89vw;--slab:max(8px,1.67vw);--ink:#10224F;--mute:#5A6785;--acc:#5B3FC4;--acc2:#7C5CE8;--pillar:#5B3FC4;--slabc:#4A31A8;--room:#F7F4FF;position:relative}
+.gd2{--ink:#10224F;--mute:#5A6785;--acc:#5B3FC4;--acc2:#7C5CE8;position:relative}
+.gd-story{position:relative}
+.gd-live .gd-story{height:var(--story-h,1100vh)}
+.gd-stage{position:relative}
+.gd-live .gd-stage{position:sticky;top:0;height:100vh;overflow:hidden}
 
-/* adegan sticky (intro & outro) */
-.gd-intro{height:320vh;position:relative}
-.gd-outro{height:240vh;position:relative}
-.gd-scene{position:sticky;top:0;height:100vh;overflow:hidden}
-.gd-scene:before,.gd-scene:after{content:'';position:absolute;top:0;bottom:0;width:var(--wall);background:var(--pillar);opacity:var(--walls,0);z-index:2;pointer-events:none}
-.gd-scene:before{left:0}.gd-scene:after{right:0}
-
-.gd-hero{position:absolute;left:0;right:0;top:clamp(96px,14vh,140px);text-align:center;padding:0 20px;z-index:3;opacity:var(--hero,1);transform:translateY(calc((1 - var(--hero,1)) * -30px))}
+.gd-hero{position:relative;text-align:center;padding:140px 20px 20px;z-index:3}
+.gd-live .gd-hero{position:absolute;left:0;right:0;top:clamp(96px,14vh,140px);padding:0 20px;opacity:var(--hero,1);transform:translateY(calc((1 - var(--hero,1)) * -30px))}
 .gd-hero h1{margin:12px auto 10px;max-width:16ch;color:var(--ink);font-size:clamp(2.1rem,1.4rem + 2.8vw,4rem);line-height:1.02;letter-spacing:-.04em;font-weight:800}
 .gd-hero h1 span{background:linear-gradient(90deg,#7C5CE8,#C05BD0);-webkit-background-clip:text;background-clip:text;color:transparent}
+.gd-hero .eyebrow{justify-content:center;display:flex}
 .gd-hero p:last-child{color:var(--acc);font-weight:800}
 
-/* lantai-lantai */
-.gd-floors{position:relative;background:var(--room)}
-.gd-floors:before,.gd-floors:after{content:'';position:absolute;top:0;bottom:0;width:var(--wall);background:var(--pillar);z-index:2}
-.gd-floors:before{left:0}.gd-floors:after{right:0}
-.gf{position:relative;min-height:92vh;padding:0 var(--wall);display:flex;flex-direction:column}
-.gf-hatch{position:relative;height:var(--slab);display:flex;z-index:1}
-.gf-hatch i{flex:1;background:var(--slabc);transition:transform 1s cubic-bezier(.7,0,.2,1)}
-.gf.open .gf-hatch i:first-child{transform:translateX(-100%)}
-.gf.open .gf-hatch i:last-child{transform:translateX(100%)}
-.gf-room{flex:1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:center;width:min(1100px,100%);margin:0 auto;padding:clamp(48px,8vh,96px) clamp(20px,4vw,48px);
-  opacity:0;transform:translateY(80px) scale(.97);transition:opacity .8s .35s,transform 1s .35s cubic-bezier(.2,.9,.25,1)}
-.gf.open .gf-room{opacity:1;transform:none}
-.gf-kicker{display:flex;align-items:center;gap:10px;margin:0;color:var(--acc);font-weight:800}
-.gf-kicker b{padding:4px 10px;border-radius:8px;background:var(--pillar);color:#fff;font-size:.8rem;letter-spacing:.05em}
-.gf-copy h2{margin:12px 0;color:var(--ink);font-size:clamp(1.8rem,1.3rem + 1.8vw,3rem);line-height:1.05;letter-spacing:-.03em;font-weight:800}
-.gf-copy p:last-child{margin:0;color:var(--mute);font-size:1.05rem;line-height:1.7;max-width:46ch}
-.gf-links{display:flex;flex-wrap:wrap;gap:10px}
-.gf-links a{padding:12px 16px;border:1px solid #E4DEFA;border-radius:14px;background:#fff;color:var(--ink);font-weight:700;text-decoration:none;box-shadow:0 10px 24px -20px rgba(43,30,110,.5);transition:transform .2s,border-color .2s}
-.gf-links a:hover{transform:translateY(-2px);border-color:var(--acc2)}
-.gf.open .gf-links a{animation:gf-pop .6s both}
-.gf.open .gf-links a:nth-child(2){animation-delay:.08s}.gf.open .gf-links a:nth-child(3){animation-delay:.16s}.gf.open .gf-links a:nth-child(4){animation-delay:.24s}
-.gf.open .gf-links a:nth-child(5){animation-delay:.32s}.gf.open .gf-links a:nth-child(6){animation-delay:.4s}.gf.open .gf-links a:nth-child(7){animation-delay:.48s}
-@keyframes gf-pop{from{opacity:0;transform:translateY(24px)}}
-.gf-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px}
-.gf-stats div{padding:12px 8px;border-radius:12px;background:#fff;border:1px solid #E9E5F6;text-align:center}
-.gf-stats b{display:block;color:var(--ink);font-size:1.4rem;font-weight:800}.gf-stats span{color:var(--mute);font-size:.72rem}
-.gf-clients{margin:14px 0 0;color:var(--mute);font-size:.85rem;line-height:1.7}
-.gf-cta{margin-top:16px}
-.gf[data-k="1"]{background:linear-gradient(#F7F4FF,#EFEAFE)}
+/* kartu konten yang keluar dari gedung */
+.gd-cards{position:relative;z-index:4;display:grid;gap:20px;width:min(1100px,calc(100% - 40px));margin:20px auto 60px}
+.gd-live .gd-cards{position:absolute;inset:0;width:auto;margin:0;display:block;pointer-events:none}
+.gc{background:#fff;border:1px solid #E7E2F7;border-radius:24px;padding:clamp(22px,3vw,36px);box-shadow:0 40px 80px -40px rgba(43,30,110,.45),0 8px 24px -16px rgba(43,30,110,.25)}
+.gd-live .gc{position:absolute;left:var(--cx);top:50%;width:var(--cw);margin-top:calc(var(--ch) / -2);transform-origin:0 0;opacity:0;will-change:transform,opacity}
+.gd-live .gc.act{pointer-events:auto}
+.gc-kicker{margin:0;color:var(--acc);font-weight:800;font-size:.9rem;letter-spacing:.02em}
+.gc h2{margin:8px 0 10px;color:var(--ink);font-size:clamp(1.6rem,1.2rem + 1.4vw,2.5rem);line-height:1.06;letter-spacing:-.03em;font-weight:800}
+.gc-text{margin:0;color:var(--mute);font-size:1.02rem;line-height:1.7}
+.gc-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.gc-links a{padding:10px 14px;border:1px solid #E4DEFA;border-radius:12px;background:#FBFAFF;color:var(--ink);font-weight:700;font-size:.9rem;text-decoration:none;transition:border-color .2s,transform .2s}
+.gc-links a:hover{border-color:var(--acc2);transform:translateY(-2px)}
+.gc-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px}
+.gc-stats div{padding:12px 6px;border-radius:12px;background:#F7F4FF;text-align:center}
+.gc-stats b{display:block;color:var(--ink);font-size:1.35rem;font-weight:800}.gc-stats span{color:var(--mute);font-size:.72rem}
+.gc-cta{margin-top:16px}
 
-/* indikator lift */
-.gd-lift{position:fixed;right:calc(var(--wall) + 14px);top:50%;z-index:20;display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 12px;border-radius:14px;background:#10224F;color:#FFE7A3;
-  font:800 1.3rem/1 "Plus Jakarta Sans",system-ui,sans-serif;box-shadow:0 14px 30px -14px rgba(16,34,79,.6);opacity:0;transform:translateY(-50%) scale(.9);transition:opacity .3s,transform .3s;pointer-events:none}
-.gd-lift span{font-size:.7rem;color:#9C84F5}
-.gd-lift.on{opacity:1;transform:translateY(-50%)}
-
-.gd-outro-copy{position:absolute;left:0;right:0;top:clamp(96px,14vh,140px);text-align:center;padding:0 20px;opacity:var(--outro,0);z-index:3}
+.gd-outro-copy{display:none}
+.gd-live .gd-outro-copy{display:block;position:absolute;left:0;right:0;top:clamp(110px,16vh,160px);text-align:center;padding:0 20px;opacity:var(--outro,0);z-index:3}
 .gd-outro-copy h2{margin:0 0 8px;color:var(--ink);font-size:clamp(1.8rem,1.3rem + 1.8vw,3rem);font-weight:800;letter-spacing:-.03em}
 .gd-outro-copy p{margin:0;color:var(--mute)}
-
-@media (max-width:900px){
-  .gf-room{grid-template-columns:1fr;align-items:start}
-  .gf{min-height:80vh}
-  .gd-lift{right:calc(var(--wall) + 6px);top:auto;bottom:90px;transform:none;padding:8px 10px;font-size:1.1rem}
-  .gd-lift.on{transform:none}
-  .gf-stats{grid-template-columns:repeat(2,1fr)}
-}
-@media (prefers-reduced-motion:reduce){
-  .gd-intro,.gd-outro{height:auto}.gd-scene{position:relative;height:auto;padding:140px 0 40px}
-  .bx3{position:relative;height:70vh}
-  .gd-hero{position:relative;top:0}.gf-room{opacity:1;transform:none}.gf-hatch{display:none}
-}
-
-.gd-hero .eyebrow{justify-content:center;display:flex}
 
 /* ── Gedung 3D ── */
 .bx3{position:absolute;inset:0;perspective:1700px;perspective-origin:50% 35%;pointer-events:none}
@@ -86,7 +52,6 @@
 .fc-back{transform:rotateY(180deg) translateZ(calc(var(--D) / 2));background:#4A31A8}
 .fc b{position:absolute;top:15px;width:32px;height:calc(100% - 24px);background:#FFE7A3;box-shadow:0 0 14px rgba(255,214,110,.7)}
 .fc-right b{width:24px;background:#E9CF86}
-.fc-num{position:absolute;left:0;top:0;width:20px;height:18px;margin:-9px 0 0 calc(var(--W) / -2 + 2px);transform:translateZ(calc(var(--D) / 2 + 1px));color:#fff;font:800 11px/18px "Plus Jakarta Sans",system-ui,sans-serif;text-align:center;font-style:normal}
 .bx3-lobby .fc-front{background:linear-gradient(#3E2A97,#3E2A97) top/100% 7px no-repeat,linear-gradient(#DCD3FB,#DCD3FB) 12px 7px/calc(100% - 24px) 100% no-repeat,#5B3FC4}
 .bx3-lobby .fc-front em{position:absolute;left:0;right:0;top:12px;text-align:center;color:#5B3FC4;font:800 10px "Plus Jakarta Sans",system-ui,sans-serif;letter-spacing:.3em}
 .bx3-lobby .fc-front s{position:absolute;left:50%;bottom:0;width:56px;height:46px;margin-left:-28px;background:#fff;border:2px solid #B9A8F7;border-bottom:0;border-radius:4px 4px 0 0}
@@ -100,11 +65,12 @@
 .bx3-sign{position:absolute;left:-70px;top:-34px;width:140px;height:30px;transform:translateZ(30px);background:#fff;border:2px solid #D9CFFB;border-radius:8px;
   color:#5B3FC4;font:800 15px/26px "Plus Jakarta Sans",system-ui,sans-serif;letter-spacing:.3em;text-align:center;font-style:normal;display:block}
 
-/* panel yang terbang keluar dari lantai teratas */
-.gd-fly{position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:40;background:var(--room);display:none;transform-origin:0 0;pointer-events:none}
-.gd-fly:before,.gd-fly:after{content:'';position:absolute;top:0;bottom:0;width:var(--wall);background:var(--pillar)}
-.gd-fly:before{left:0}.gd-fly:after{right:0}
-.gd-fly.on{display:block}
-.gd-intro{height:260vh}
-.gd-outro{height:220vh}
-.gd-outro-copy{top:clamp(110px,18vh,170px)}
+
+.bx3{display:none}
+.gd-live .bx3{display:block}
+/* lantai yang sedang "mengeluarkan" konten: jendela lebih terang */
+.bx3-floor.lit .fc-front{filter:brightness(1.18) saturate(1.1)}
+.bx3-floor.lit .fc b{background:#FFF1C2;box-shadow:0 0 22px rgba(255,214,110,.95)}
+@media (max-width:900px){.gc-stats{grid-template-columns:repeat(2,1fr)}}
+.bx3{transition:opacity .4s}
+@media (max-width:900px){.gd-live .has-card .bx3{opacity:.35}}

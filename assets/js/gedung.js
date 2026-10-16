@@ -1,104 +1,100 @@
-/* Prototipe "halaman = gedung" (3D): zoom ke puncak, atap terbuka, panel terbang keluar lalu auto-scroll ke lantai 7;
-   lantai terbuka satu per satu; di akhir zoom out ke gedung utuh dengan footer di bawahnya. */
+/* Prototipe "halaman = gedung": satu adegan sticky yang sepenuhnya mengikuti scroll (tanpa transisi/auto-scroll).
+   Intro: gedung utuh -> kamera mendekat ke puncak, atap terbuka.
+   Lantai 7 -> 1: kartu konten keluar dari lantai itu (dari dalam atap untuk lantai teratas), dibaca, lalu naik pergi
+   sementara kamera turun ke lantai berikutnya. Outro: kamera mundur ke gedung utuh, lalu footer. */
 (function () {
   var root = document.querySelector('.gd2');
-  if (!root) return;
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var intro = root.querySelector('.gd-intro'), outro = root.querySelector('.gd-outro');
-  var sIn = intro.querySelector('.gd-scene'), sOut = outro.querySelector('.gd-scene');
-  var wIn = intro.querySelector('.bx3-world'), wOut = outro.querySelector('.bx3-world');
-  var bIn = intro.querySelector('.bx3'), glow = intro.querySelector('.bx3-glow');
-  var floorsWrap = root.querySelector('.gd-floors');
-  var floors = [].slice.call(root.querySelectorAll('.gf'));
-  var fly = root.querySelector('.gd-fly');
-  var lift = root.querySelector('.gd-lift'), liftNum = lift.querySelector('b');
-  var TOTAL = 422, LOBBY_C = 37, TILT = -22;
+  if (!root || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  root.classList.add('gd-live');
 
+  var story = root.querySelector('.gd-story'), stage = root.querySelector('.gd-stage');
+  var bld = root.querySelector('.bx3'), world = root.querySelector('.bx3-world'), glow = root.querySelector('.bx3-glow');
+  var cards = [].slice.call(root.querySelectorAll('.gc'));            // urutan 7 -> 1
+  var floorEl = {};
+  [].slice.call(root.querySelectorAll('.bx3-floor')).forEach(function (f) { floorEl[f.dataset.k] = f; });
+
+  var TOTAL = 422, TILT = -22;
+  function center(k) { return k === 1 ? 37 : 74 + (k - 2) * 58 + 29; }
   function clamp(v) { return v < 0 ? 0 : v > 1 ? 1 : v; }
   function ease(t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
   function lerp(a, b, t) { return a + (b - a) * t; }
-  function progress(sec) {
-    var r = sec.getBoundingClientRect(), span = sec.offsetHeight - window.innerHeight;
-    return clamp(-r.top / span);
-  }
-  var vw, vh, s0;
+
+  var V, vw, s0, s1, xDesk, cw, cx, INTRO, SEG, OUTRO, desk;
   function layout() {
-    vw = window.innerWidth; vh = window.innerHeight;
-    s0 = Math.min(vh * 0.5 / 560, vw * 0.78 / 420, 1.15);
-  }
-  function cam(world, s, originY, ry) {
-    world.style.transform = 'translate3d(0,' + originY + 'px,0) scale(' + s + ') rotateX(' + TILT + 'deg) rotateY(' + ry + 'deg)';
+    vw = window.innerWidth; V = window.innerHeight; desk = vw >= 900;
+    s0 = Math.min(V * 0.5 / 560, vw * 0.78 / 420, 1.15);
+    s1 = s0 * (desk ? 1.9 : 1.55);
+    cw = desk ? Math.min(560, vw * 0.42) : vw - 32;
+    cx = desk ? Math.max(vw * 0.05, (vw - 1200) / 2 + 24) : 16;
+    xDesk = desk ? vw * 0.71 : vw / 2;
+    INTRO = 1.5 * V; SEG = 1.25 * V; OUTRO = 1.4 * V;
+    story.style.setProperty('--story-h', (INTRO + cards.length * SEG + OUTRO + V) + 'px');
+    cards.forEach(function (c) {
+      c.style.setProperty('--cw', cw + 'px');
+      c.style.setProperty('--cx', cx + 'px');
+      c.style.setProperty('--ch', c.offsetHeight + 'px');
+    });
   }
 
-  var flown = false, flying = false, lastY = window.scrollY;
+  function cam(s, focus, ox, oy) {
+    world.style.left = ox + 'px';
+    world.style.transform = 'translate3d(0,' + oy + 'px,0) scale(' + s + ') rotateX(' + TILT + 'deg) rotateY(' + (desk ? -30 : -32) + 'deg)';
+  }
+
   function frame() {
-    // intro
-    var p = progress(intro);
-    var z = ease(clamp((p - 0.04) / 0.56));
-    var s = s0 * (1 + 1.6 * z);
-    var y0 = vh * 0.93, y1 = vh * 0.46 + s * TOTAL * 0.93;
-    cam(wIn, s, lerp(y0, y1, z), lerp(-34, -24, z));
-    var o = ease(clamp((p - 0.5) / 0.28));
-    bIn.style.setProperty('--open', (o * 112) + 'deg');
-    bIn.style.setProperty('--glow', o);
-    sIn.style.setProperty('--hero', 1 - clamp(p / 0.2));
-    var down = window.scrollY > lastY; lastY = window.scrollY;
-    if (p < 0.45) flown = false;
-    if (p >= 0.999) flown = true;           // sudah lewat intro (reload / lompat lewat tautan): jangan terbang
-    if (!flown && !flying && down && p >= 0.8) flyIn();
+    var g = -story.getBoundingClientRect().top;          // jarak scroll di dalam cerita
+    var s, focus, ox, oy, open = 1, hero = 0, outroO = 0;
 
-    // outro: dari dekat lobi, mundur sampai gedung utuh
-    var q = progress(outro);
-    var zo = ease(clamp(q / 0.75));
-    var so = lerp(s0 * 2.4, s0, zo);
-    var yStart = vh * 0.55 + so * LOBBY_C, yEnd = vh * 0.88;
-    cam(wOut, so, lerp(yStart, yEnd, zo), lerp(-20, -34, zo));
-    sOut.style.setProperty('--outro', clamp((q - 0.65) / 0.25));
+    if (g < INTRO) {                                       // intro
+      var p = clamp(g / INTRO), z = ease(clamp((p - 0.03) / 0.62));
+      s = lerp(s0, s1, z); focus = lerp(TOTAL / 2, TOTAL, z);
+      ox = lerp(vw / 2, xDesk, z);
+      oy = lerp(V * 0.93, V * 0.5 + s * focus * 0.93, z);
+      open = ease(clamp((p - 0.5) / 0.4)); hero = 1 - clamp(p / 0.18);
+    } else if (g < INTRO + cards.length * SEG) {           // lantai
+      var x = (g - INTRO) / SEG, i = Math.min(cards.length - 1, Math.floor(x)), u = x - i;
+      var k = 7 - i, from = i === 0 ? TOTAL : center(k), next = k > 1 ? center(k - 1) : center(1);
+      focus = u < 0.7 ? lerp(from, center(k), ease(clamp(u / 0.3))) : lerp(center(k), next, ease((u - 0.7) / 0.3));
+      s = s1; ox = xDesk; oy = V * 0.5 + s * focus * 0.93;
+    } else {                                               // outro
+      var q = clamp((g - INTRO - cards.length * SEG) / OUTRO), z2 = ease(clamp(q / 0.8));
+      s = lerp(s1, s0, z2); focus = center(1);
+      ox = lerp(xDesk, vw / 2, z2);
+      oy = lerp(V * 0.5 + s * focus * 0.93, V * 0.9, z2);
+      open = 1 - ease(clamp(q / 0.6)); outroO = clamp((q - 0.6) / 0.3);
+    }
+    cam(s, focus, ox, oy);
+    bld.style.setProperty('--open', (open * 112) + 'deg');
+    bld.style.setProperty('--glow', open);
+    stage.style.setProperty('--hero', hero);
+    stage.style.setProperty('--outro', outroO);
 
-    // lift
-    var mid = vh * 0.5, cur = null;
-    floors.forEach(function (fl) { var r = fl.getBoundingClientRect(); if (r.top < mid && r.bottom > mid) cur = fl.dataset.k; });
-    lift.classList.toggle('on', !!cur);
-    if (cur) liftNum.textContent = cur;
+    // kartu: keluar dari lantainya, dibaca, lalu naik pergi
+    var any = false;
+    cards.forEach(function (c, idx) {
+      var k = +c.dataset.k, u = (g - INTRO) / SEG - idx;
+      var fl = floorEl[k];
+      if (u < -0.05 || u > 1.02) { c.style.opacity = 0; c.classList.remove('act'); fl.classList.remove('lit'); return; }
+      var ch = c.offsetHeight, tx0 = cx, ty0 = V / 2 - ch / 2;
+      var e = ease(clamp((u + 0.05) / 0.37)), out = ease(clamp((u - 0.72) / 0.28));
+      var src = (k === 7 ? glow : fl.querySelector('.fc-front')).getBoundingClientRect();
+      var dx = lerp(src.left - tx0, 0, e), dy = lerp(src.top - ty0, 0, e);
+      var sx = lerp(Math.max(src.width / cw, .04), 1, e), sy = lerp(Math.max(src.height / ch, .04), 1, e);
+      dy -= out * V * 0.55;
+      var sc = 1 - out * 0.08;
+      c.style.transform = 'translate(' + dx + 'px,' + dy + 'px) scale(' + (sx * sc) + ',' + (sy * sc) + ')';
+      var op = Math.min(clamp(e * 3), 1 - out);
+      c.style.opacity = op;
+      c.classList.toggle('act', op > 0.6);
+      if (op > 0.6) any = true;
+      fl.classList.toggle('lit', op > 0.05);
+    });
+    stage.classList.toggle('has-card', any);
   }
 
-  // panel keluar dari lantai teratas -> layar penuh, lalu halaman diletakkan tepat di lantai 7
-  function flyIn() {
-    flying = true;
-    var r = glow.getBoundingClientRect();
-    var html = document.documentElement, prevOv = html.style.overflow;
-    html.style.overflow = 'hidden';
-    fly.classList.add('on');
-    var from = 'translate(' + r.left + 'px,' + r.top + 'px) scale(' + Math.max(r.width / vw, .05) + ',' + Math.max(r.height / vh, .05) + ')';
-    var anim = fly.animate([
-      { transform: from, borderRadius: '18px', opacity: .0 },
-      { transform: from, borderRadius: '18px', opacity: 1, offset: .12 },
-      { transform: 'translate(0,0) scale(1,1)', borderRadius: '0px', opacity: 1 }
-    ], { duration: 950, easing: 'cubic-bezier(.65,0,.25,1)', fill: 'forwards' });
-    anim.onfinish = function () {
-      var top = floorsWrap.getBoundingClientRect().top + window.scrollY;
-      html.style.overflow = prevOv;
-      window.scrollTo({ top: top, behavior: 'instant' });
-      flown = true;
-      var out = fly.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 260, easing: 'ease-out', fill: 'forwards' });
-      out.onfinish = function () { fly.classList.remove('on'); anim.cancel(); out.cancel(); flying = false; };
-    };
-  }
-
-  if ('IntersectionObserver' in window && !reduce) {
-    var io = new IntersectionObserver(function (es) {
-      es.forEach(function (en) { if (en.isIntersecting) en.target.classList.add('open'); });
-    }, { threshold: 0.2 });
-    floors.forEach(function (fl) { io.observe(fl); });
-  } else {
-    floors.forEach(function (fl) { fl.classList.add('open'); });
-  }
-
-  layout();
-  if (reduce) { cam(wIn, s0, vh * 0.6, -32); cam(wOut, s0, vh * 0.6, -32); return; }
   var ticking = false;
   function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; frame(); }); } }
-  frame();
+  layout(); frame();
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', function () { layout(); frame(); });
 })();

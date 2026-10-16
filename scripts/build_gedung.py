@@ -25,7 +25,7 @@ def building3d(cls=''):
         fl += (f'<div class="bx3-floor{" bx3-lobby" if k == 1 else ""}" data-k="{k}" style="--y:{y}px;--h:{h}px">'
                f'<i class="fc fc-front">{lit}{"<em>LOBI</em><s></s>" if k == 1 else ""}</i><i class="fc fc-right">{lit_r}</i>'
                f'<i class="fc fc-left"></i><i class="fc fc-back"></i>'
-               f'{"<i class=fc-num>" + str(k) + "</i>" if k > 1 else ""}</div>')
+               '</div>')
     return (f'<div class="bx3 {cls}" style="--W:{W3}px;--D:{D3}px;--T:{TOTAL3}px"><div class="bx3-world">'
             '<div class="bx3-ground"></div>'
             f'{fl}'
@@ -54,19 +54,17 @@ FLOORS = [
     (1, 'Lobi', 'Selamat datang di Altora', 'Ceritakan kebutuhan Anda. Diskusi awal gratis, lalu kami susun rencana dan jadwalnya bersama.',
      [('/contact', 'Kirim email'), ('/support', 'Butuh bantuan teknis')]),
 ]
-floors_html = ''
+cards = ''
 for k, kicker, title, text, links in FLOORS:
     ls = ''.join(f'<a href="{u}">{e(t)}</a>' for u, t in links)
     extra = ''
     if k == 2:
-        extra = ('<div class="gf-stats"><div><b>2019</b><span>berdiri di Samarinda</span></div><div><b>50+</b><span>proyek selesai</span></div>'
-                 '<div><b>13</b><span>tim inti</span></div><div><b>3</b><span>kantor di Kaltim</span></div></div>'
-                 '<p class="gf-clients">Pemkot Samarinda · Pemkab Barito Utara · InJourney Airports · Universitas Mulawarman · Institut Teknologi Kalimantan · Adhi · Alba Aluminium · Labschool · 1Ci Enterprise · MBC Entertainment</p>')
+        extra = ('<div class="gc-stats"><div><b>2019</b><span>berdiri di Samarinda</span></div><div><b>50+</b><span>proyek selesai</span></div>'
+                 '<div><b>13</b><span>tim inti</span></div><div><b>3</b><span>kantor di Kaltim</span></div></div>')
     if k == 1:
-        extra = f'<a class="btn btn-purple gf-cta" href="{WA}" rel="noopener" target="_blank">Chat WhatsApp</a>'
-    floors_html += (f'<section class="gf" data-k="{k}"><div class="gf-hatch" aria-hidden="true"><i></i><i></i></div>'
-                    f'<div class="gf-room"><div class="gf-copy"><p class="gf-kicker"><b>LT {k}</b>{e(kicker)}</p><h2>{e(title)}</h2><p>{e(text)}</p></div>'
-                    f'<div class="gf-side"><div class="gf-links">{ls}</div>{extra}</div></div></section>')
+        extra = f'<a class="btn btn-purple gc-cta" href="{WA}" rel="noopener" target="_blank">Chat WhatsApp</a>'
+    cards += (f'<article class="gc" data-k="{k}"><p class="gc-kicker">{e(kicker)}</p><h2>{e(title)}</h2><p class="gc-text">{e(text)}</p>'
+              f'<div class="gc-links">{ls}</div>{extra}</article>')
 
 page = f'''<!DOCTYPE html>
 <html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>
@@ -75,24 +73,20 @@ page = f'''<!DOCTYPE html>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/>
 <link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/>
-<link rel="stylesheet" href="/assets/css/unify.css?v={CSS_VER}"/><link rel="stylesheet" href="/assets/css/gedung.css?v=22"/></head>
+<link rel="stylesheet" href="/assets/css/unify.css?v={CSS_VER}"/><link rel="stylesheet" href="/assets/css/gedung.css?v=31"/></head>
 <body class="company-page gd-body"><header></header>
 <main class="gd2">
-<section class="gd-intro"><div class="gd-scene">
+<section class="gd-story"><div class="gd-stage">
 <div class="gd-hero"><p class="eyebrow eyebrow-purple">Altora Indonesia · Samarinda &amp; Balikpapan</p>
 <h1>Kami membangun sistem Anda, <span>lantai demi lantai.</span></h1>
 <p>Scroll untuk masuk ke gedung kami ↓</p></div>
 {building3d('bx3-in')}
-</div></section>
-<div class="gd-floors">{floors_html}</div>
-<section class="gd-outro"><div class="gd-scene">
-{building3d('bx3-out')}
+<div class="gd-cards">{cards}</div>
 <div class="gd-outro-copy"><h2>Gedung kami terbuka untuk Anda.</h2><p>Kantor pusat di Samarinda, dua cabang di Balikpapan.</p></div>
 </div></section>
-<div class="gd-fly" aria-hidden="true"></div><div class="gd-lift" aria-hidden="true"><span>▼</span><b>7</b></div>
 </main>
 <footer></footer>
-<script defer="" src="/assets/js/site-shell.js?v=20261010e"></script><script defer="" src="/assets/js/gedung.js?v=22"></script></body></html>
+<script defer="" src="/assets/js/site-shell.js?v=20261010e"></script><script defer="" src="/assets/js/gedung.js?v=31"></script></body></html>
 '''
 (root / 'preview-gedung.html').write_text(page, encoding='utf-8')
 print('preview-gedung.html dibuat')
