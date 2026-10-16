@@ -1,9 +1,9 @@
-/* Prototipe "halaman = gedung" (Three.js). Setiap lantai adalah ruangan dengan layar yang menampilkan konten:
-   7 ruang meeting (proyektor), 6 ruang direksi (TV), 5 ruang karyawan (monitor), 4 ruang server (layar monitoring),
-   3 ruang keamanan (video wall CCTV), 2 HP di tangan seseorang, 1 lobi (tablet di tangan resepsionis).
-   Semua digerakkan oleh scroll: gedung utuh -> atap terangkat -> kamera masuk ke layar tiap ruangan; lantai yang sudah
-   dibaca terangkat dan kamera turun ke ruangan berikutnya -> di akhir gedung tersusun kembali, lalu footer.
-   Konten di layar adalah HTML asli (CSS3DRenderer): tajam, bisa diklik, tetap terbaca mesin pencari. */
+/* Prototipe "halaman = gedung", model masuk ke layar (Three.js).
+   Halaman berisi: adegan 3D -> bagian lantai (HTML biasa, bisa di-scroll) -> adegan 3D -> ... -> adegan penutup -> footer.
+   Di setiap adegan kamera bergerak antar-ruangan; di ujung adegan kamera berhenti tepat di depan layar ruangan sehingga
+   layar memenuhi layar pengunjung. Layar itu menampilkan salinan sampul (atau penutup) bagian lantai, seukuran layar
+   pengunjung, jadi saat kanvas 3D disembunyikan halaman di bawahnya terlihat sama persis: tanpa transisi atau blur.
+   Ruangan: 7 meeting (proyektor), 6 direksi (TV), 5 karyawan (monitor), 4 server, 3 keamanan (video wall), 2 HP, 1 lobi (tablet). */
 import * as THREE from 'three';
 import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
@@ -18,8 +18,8 @@ function webglOK() {
 
 function init() {
   root.classList.add('gd-live', 'gd-3d');
-  const story = root.querySelector('.gd-story'), stage = root.querySelector('.gd-stage');
-  const cards = [...root.querySelectorAll('.gc')];                     // urutan 7 -> 1
+  const scenes = [...root.querySelectorAll('.gd-scene')];
+  const sections = {}; root.querySelectorAll('.gs').forEach(s => { sections[+s.dataset.k] = s; });
   const mobile = innerWidth < 900;
   if (mobile) root.classList.add('gd-m');
 
@@ -41,10 +41,10 @@ function init() {
   gl.toneMappingExposure = 1.05;
   gl.outputColorSpace = THREE.SRGBColorSpace;
   gl.domElement.className = 'gd-canvas';
-  stage.prepend(gl.domElement);
+  root.appendChild(gl.domElement);
   const css = new CSS3DRenderer();
   css.domElement.className = 'gd-css3d';
-  stage.appendChild(css.domElement);
+  root.appendChild(css.domElement);
 
   const scene = new THREE.Scene();
   scene.fog = new THREE.Fog(BG, 180, 420);
@@ -168,16 +168,36 @@ function init() {
     return g;
   }
 
-  // ── layar konten: elemen HTML ditempatkan tepat di permukaannya ──
+  // ── layar konten: ukurannya mengikuti bentuk layar pengunjung (lebar/tinggi), lihat sizeScreens() ──
   const screens = {};
-  function contentScreen(k, room, { w, h, kind, x = 0, y, z, rx = 0, ry = 0, bezel = 0.12, surface = M.screenOff }) {
+  const unitBox = new THREE.BoxGeometry(1, 1, 1);
+  function contentScreen(k, room, opt) {
     const holder = new THREE.Group();
-    holder.position.set(x, y, z); holder.rotation.set(rx, ry, 0, 'YXZ');
-    if (bezel) holder.add(at(box(w + bezel, h + bezel, kind === 'phone' || kind === 'tablet' ? 0.012 : 0.06, M.dark), 0, 0, kind === 'phone' || kind === 'tablet' ? -0.008 : -0.035));
-    holder.add(at(box(w, h, 0.003, surface, false, false), 0, 0, 0));
+    holder.rotation.set(opt.rx || 0, opt.ry || 0, 0, 'YXZ');
+    const hand = opt.kind === 'phone' || opt.kind === 'tablet';
+    const bezel = new THREE.Mesh(unitBox, M.dark); bezel.castShadow = true;
+    bezel.position.z = hand ? -0.008 : -0.035;
+    const surface = new THREE.Mesh(unitBox, opt.surface || M.screenOff);
+    holder.add(bezel, surface);
     room.add(holder);
-    screens[k] = { holder, w, h, kind };
+    screens[k] = Object.assign({}, opt, { holder, bezel, surface, hand, w: 1, h: 1 });
     return holder;
+  }
+  function sizeScreens(aspect) {
+    for (const k in screens) {
+      const s = screens[k];
+      let w, h;
+      if (s.hand) { if (aspect >= 1) { w = s.L; h = s.L / aspect; } else { h = s.L; w = s.L * aspect; } }
+      else { h = s.hBase; w = h * aspect; if (w > s.maxW) { w = s.maxW; h = w / aspect; } }
+      s.w = w; s.h = h;
+      const b = s.bezelPad === undefined ? 0.12 : s.bezelPad;
+      s.surface.scale.set(w, h, 0.003);
+      s.bezel.scale.set(w + b, h + b, s.hand ? 0.012 : 0.06);
+      s.bezel.visible = b > 0;
+      if (s.hand) s.holder.position.set(s.x, s.y, s.z);
+      else s.holder.position.set(s.x || 0, s.bottom + h / 2, s.z);
+      if (s.onSize) s.onSize(w, h);
+    }
   }
 
   let beam = null;
@@ -185,9 +205,19 @@ function init() {
   const ROOMS = {
     // 7 · ruang meeting: proyektor menyala ke layar
     7(room, k) {
-      const sw = 7.6, sh = sw * 9 / 16, sy = 0.9 + sh / 2;
-      contentScreen(k, room, { w: sw, h: sh, kind: 'wide', y: sy, z: BACK, bezel: 0, surface: M.white });
-      room.add(at(box(sw + 0.6, 0.22, 0.25, M.dark), 0, sy + sh / 2 + 0.2, BACK + 0.05));       // rumah layar gulung
+      const housing = at(box(1, 0.22, 0.25, M.dark), 0, 0, BACK + 0.05); room.add(housing);
+      const lens = new THREE.Vector3(0, 0.87, 1.92);
+      const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(new Array(36).fill(0), 3));
+      beam = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: 0xFFF2C8, transparent: true, opacity: 0, side: THREE.DoubleSide, depthWrite: false, blending: THREE.AdditiveBlending, fog: false }));
+      room.add(beam);
+      contentScreen(k, room, { kind: 'wide', hBase: 4.1, maxW: 9.6, bottom: 0.9, z: BACK, bezelPad: 0, surface: M.white, onSize(sw, sh) {
+        const sy = 0.9 + sh / 2;
+        housing.scale.x = sw + 0.6; housing.position.y = sy + sh / 2 + 0.2;
+        const c = [[-sw / 2, sy - sh / 2], [sw / 2, sy - sh / 2], [sw / 2, sy + sh / 2], [-sw / 2, sy + sh / 2]].map(([x, y]) => new THREE.Vector3(x, y, BACK + 0.02));
+        const p = beam.geometry.attributes.position;
+        for (let i = 0; i < 4; i++) { const a2 = c[i], b2 = c[(i + 1) % 4]; p.setXYZ(i * 3, lens.x, lens.y, lens.z); p.setXYZ(i * 3 + 1, a2.x, a2.y, a2.z); p.setXYZ(i * 3 + 2, b2.x, b2.y, b2.z); }
+        p.needsUpdate = true; beam.geometry.computeBoundingSphere();
+      } });
       room.add(at(desk(9.5, 3, 0.75, M.wood), 0, 0, 1.4));
       for (let i = 0; i < 4; i++) {
         const x = -3.3 + i * 2.2;
@@ -198,20 +228,12 @@ function init() {
       }
       const proj = new THREE.Group(); proj.add(at(box(0.55, 0.2, 0.5, M.white), 0, 0, 0)); proj.add(at(cyl(0.07, 0.07, 0.06, M.dark), 0, 0, -0.27)); proj.children[1].rotation.x = Math.PI / 2;
       room.add(at(proj, 0, 0.87, 2.2));
-      const lens = new THREE.Vector3(0, 0.87, 1.92);
-      const corners = [[-sw / 2, sy - sh / 2], [sw / 2, sy - sh / 2], [sw / 2, sy + sh / 2], [-sw / 2, sy + sh / 2]].map(([x, y]) => new THREE.Vector3(x, y, BACK + 0.02));
-      const pos = [];
-      for (let i = 0; i < 4; i++) { const a = corners[i], b = corners[(i + 1) % 4]; pos.push(lens.x, lens.y, lens.z, a.x, a.y, a.z, b.x, b.y, b.z); }
-      const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
-      beam = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: 0xFFF2C8, transparent: true, opacity: 0, side: THREE.DoubleSide, depthWrite: false, blending: THREE.AdditiveBlending, fog: false }));
-      room.add(beam);
       [[-10.5, -6.5], [10.5, -6.5], [-10.5, 6.5], [10.5, 6.5]].forEach(([x, z]) => room.add(at(plant(1.1), x, 0, z)));
     },
     // 6 · ruang direksi: TV dinding menampilkan dashboard
     6(room, k) {
-      const sw = 4.8, sh = sw * 9 / 16;
-      contentScreen(k, room, { w: sw, h: sh, kind: 'wide', y: 1.2 + sh / 2, z: BACK });
-      room.add(at(box(sw + 2.4, 0.5, 0.45, M.wood), 0, 0.25, BACK + 0.4));                          // kabinet bawah TV
+      contentScreen(k, room, { kind: 'wide', hBase: 2.7, maxW: 6.2, bottom: 1.2, z: BACK });
+      room.add(at(box(7.2, 0.5, 0.45, M.wood), 0, 0.25, BACK + 0.4));                                // kabinet bawah TV
       const carpet = new THREE.Mesh(new THREE.PlaneGeometry(9, 6), M.carpet); carpet.rotation.x = -Math.PI / 2; carpet.position.set(0, 0.012, 1.5); carpet.receiveShadow = true; room.add(carpet);
       room.add(at(desk(3, 1.3, 0.78, M.wood), 0, 0, 2.2));
       room.add(at(monitor(0.55, 0.32), -0.8, 0.8, 1.9));
@@ -233,16 +255,14 @@ function init() {
       }));
       // meja depan dengan monitor besar (konten)
       room.add(at(desk(2.2, 0.9), 0, 0, 3.2));
-      const mw = 1.25, mh = mw * 9 / 16;
-      contentScreen(k, room, { w: mw, h: mh, kind: 'wide', y: 0.775 + 0.14 + mh / 2, z: 2.95, bezel: 0.05 });
+      contentScreen(k, room, { kind: 'wide', hBase: 0.72, maxW: 1.5, bottom: 0.775 + 0.14, z: 2.95, bezelPad: 0.05 });
       room.add(at(box(0.08, 0.14, 0.08, M.dark), 0, 0.84, 2.9));
       const p = person({ seated: true, arms: 'desk', shirt: 0x7C5CE8 }); p.rotation.y = 0.35; room.add(at(p, 1.0, 0, 4.1));
       [[-10.5, 6.5], [10.5, 6.5]].forEach(([x, z]) => room.add(at(plant(), x, 0, z)));
     },
     // 4 · ruang server: rak berlampu dan layar monitoring
     4(room, k) {
-      const sw = 4.2, sh = sw * 9 / 16;
-      contentScreen(k, room, { w: sw, h: sh, kind: 'wide', y: 1.1 + sh / 2, z: BACK });
+      contentScreen(k, room, { kind: 'wide', hBase: 2.4, maxW: 5.2, bottom: 1.1, z: BACK });
       [-1, 1].forEach(side => {
         for (let i = 0; i < 5; i++) {
           const z = -4.5 + i * 2.1, x = side * 6.5;
@@ -258,7 +278,7 @@ function init() {
     // 3 · ruang keamanan: video wall CCTV, layar tengah menampilkan konten
     3(room, k) {
       const sw = 3.6, sh = sw * 9 / 16, cy = 1.2 + sh / 2;
-      contentScreen(k, room, { w: sw, h: sh, kind: 'wide', y: cy, z: BACK });
+      contentScreen(k, room, { kind: 'wide', hBase: 2.05, maxW: 3.7, bottom: 1.2, z: BACK });
       let i = 0;
       [-1, 1].forEach(side => [0.5, -0.5].forEach(r => {
         const m = box(1.7, 0.96, 0.06, camFeed(i++)); room.add(at(m, side * (sw / 2 + 1.05), cy + r * 1.02, BACK));
@@ -283,7 +303,7 @@ function init() {
       const hand = p.userData.hands[1].getWorldPosition(new THREE.Vector3());
       room.worldToLocal(hand);
       const pw = 0.075, ph = pw * 844 / 390;
-      contentScreen(k, room, { w: pw, h: ph, kind: 'phone', x: hand.x - 0.03, y: hand.y + ph / 2 - 0.02, z: hand.z - 0.04, rx: -0.12, bezel: 0.008 });
+      contentScreen(k, room, { kind: 'phone', L: 0.16, x: hand.x - 0.03, y: hand.y + 0.06, z: hand.z - 0.04, rx: -0.12, bezelPad: 0.008 });
       [-6, 6].forEach(x => { const q = person({ seated: true, shirt: x < 0 ? 0x7C5CE8 : 0xFFFFFF }); q.rotation.y = Math.PI; room.add(at(q, x, 0, -4.7)); });
     },
     // 1 · lobi: tablet di tangan resepsionis
@@ -297,7 +317,7 @@ function init() {
       const a = rec.userData.hands[0].getWorldPosition(new THREE.Vector3()), b = rec.userData.hands[1].getWorldPosition(new THREE.Vector3());
       room.worldToLocal(a); room.worldToLocal(b);
       const tw = Math.max(0.26, a.distanceTo(b) + 0.02), th = tw * 0.75;
-      contentScreen(k, room, { w: tw, h: th, kind: 'tablet', x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 + th * 0.32, z: (a.z + b.z) / 2 + 0.02, rx: -0.35, bezel: 0.02 });
+      contentScreen(k, room, { kind: 'tablet', L: Math.max(0.3, tw), x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 + th * 0.32, z: (a.z + b.z) / 2 + 0.02, rx: -0.35, bezelPad: 0.02 });
       [-1, 1].forEach(s => { const so = sofa(3); so.rotation.y = s * Math.PI / 2; room.add(at(so, s * 8.5, 0, 3)); });
       [[-3.4, -2], [3.4, -2], [-10.5, -6.5], [10.5, -6.5]].forEach(([x, z]) => room.add(at(plant(1.3), x, 0, z)));
       room.add(at(box(5, 6.2, 0.3, M.frame), 0, 3.1, D / 2 - 0.1));                                 // pintu masuk
@@ -357,133 +377,152 @@ function init() {
   const farMat = std(0xE4DCFF, { roughness: 0.9 });
   [[-75, -65, 34], [-48, -88, 50], [58, -75, 40], [90, -42, 26], [-100, -32, 22], [26, -100, 58]].forEach(([x, z, hh]) => scene.add(at(box(17, hh, 15, farMat, false, true), x, hh / 2, z)));
 
-  // ── konten HTML di layar ──
-  const boards = {};
-  cards.forEach(c => {
-    const k = +c.dataset.k, sc = screens[k];
-    c.classList.add('sc-' + sc.kind);
-    const obj = new CSS3DObject(c);
+
+  // ── salinan sampul/penutup di layar ──
+  const faces = {};
+  for (const k in screens) {
+    const el = document.createElement('div');
+    el.className = 'gd-face'; el.setAttribute('aria-hidden', 'true');
+    const obj = new CSS3DObject(el);
     obj.position.z = 0.004;
-    sc.holder.add(obj);
-    boards[k] = { obj, el: c };
-  });
-  function layoutBoards() {
-    cards.forEach(c => {
-      const k = +c.dataset.k, sc = screens[k], b = boards[k];
-      const prev = c.style.display; c.style.display = 'block';
-      b.w = c.offsetWidth; b.h = c.offsetHeight;
-      c.style.display = prev;
-      b.obj.scale.setScalar(sc.w / b.w);
-    });
+    screens[k].holder.add(obj);
+    faces[k] = { el, obj, shown: null };
+  }
+  function showFace(k, which) {                       // which: 'cover' | 'close' | null
+    const f = faces[k];
+    if (f.shown === which) return;
+    f.shown = which;
+    f.cache = f.cache || {};
+    if (which && !f.cache[which]) f.cache[which] = sections[k].querySelector(which === 'cover' ? '.gs-cover' : '.gs-close').cloneNode(true);
+    f.el.replaceChildren(...(which ? [f.cache[which]] : []));
   }
 
   // ── kamera ──
   const clamp = v => (v < 0 ? 0 : v > 1 ? 1 : v);
   const ease = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
   const TAN = Math.tan(THREE.MathUtils.degToRad(16));
-  const tq = new THREE.Quaternion();
-  function shot(k) {
-    const sc = screens[k], g = floors[k].g, saved = g.position.y;
+  const tq = new THREE.Quaternion(), up = new THREE.Vector3(0, 1, 0);
+  let VW = innerWidth, VH = innerHeight;
+  function screenFrame(k) {                           // pusat & arah hadap layar k saat lantainya belum terangkat
+    const s = screens[k], g = floors[k].g, saved = g.position.y;
     g.position.y = base(k); g.updateMatrixWorld(true);
-    const look = new THREE.Vector3().setFromMatrixPosition(sc.holder.matrixWorld);
-    sc.holder.getWorldQuaternion(tq);
+    const c = new THREE.Vector3().setFromMatrixPosition(s.holder.matrixWorld);
+    s.holder.getWorldQuaternion(tq);
     g.position.y = saved; g.updateMatrixWorld(true);
-    const normal = new THREE.Vector3(0, 0, 1).applyQuaternion(tq).normalize();
-    const aspect = stage.clientWidth / stage.clientHeight;
-    const fillW = mobile ? 0.94 : (sc.kind === 'phone' ? 0.3 : sc.kind === 'tablet' ? 0.5 : 0.54), fillH = sc.kind === 'phone' ? 0.8 : 0.72;
-    const d = Math.max(sc.w / (2 * TAN * aspect) / fillW, sc.h / (2 * TAN) / fillH);
-    const side = new THREE.Vector3().crossVectors(new THREE.Vector3(0, 1, 0), normal).normalize();
-    const pos = look.clone().addScaledVector(normal, d).addScaledVector(side, d * 0.12).add(new THREE.Vector3(0, d * 0.06, 0));
-    return { pos, look, d };
+    const n = new THREE.Vector3(0, 0, 1).applyQuaternion(tq).normalize();
+    const side = new THREE.Vector3().crossVectors(up, n).normalize();
+    const camUp = new THREE.Vector3().crossVectors(n, side).normalize();
+    return { c, n, side, camUp, s };
+  }
+  const poses = {};
+  function buildPoses() {
+    for (let k = 1; k <= N; k++) {
+      const f = screenFrame(k), d = (f.s.h / 2) / TAN;
+      const fill = { pos: f.c.clone().addScaledVector(f.n, d), look: f.c.clone(), up: f.camUp.clone() };
+      const back = Math.max(d * 3.2, f.s.hand ? 1.6 : 7);
+      const room = { pos: f.c.clone().addScaledVector(f.n, back).addScaledVector(f.side, back * 0.32).addScaledVector(up, back * 0.28), look: f.c.clone().addScaledVector(up, -0.15 * back * 0.3), up: up.clone() };
+      poses[k] = { fill, room };
+    }
   }
   const far = () => {
-    const look = new THREE.Vector3(0, mobile ? 30 : 40, 0), az = 0.62, el = 0.1, d = mobile ? 260 : 200;
-    return { pos: new THREE.Vector3(Math.sin(az) * Math.cos(el) * d, look.y + Math.sin(el) * d, Math.cos(az) * Math.cos(el) * d), look };
+    const look = new THREE.Vector3(0, VW < 900 ? 58 : 40, 0), az = 0.62, el = 0.1, d = VW < 900 ? 300 : 200;
+    return { pos: new THREE.Vector3(Math.sin(az) * Math.cos(el) * d, look.y + Math.sin(el) * d, Math.cos(az) * Math.cos(el) * d), look, up };
   };
-  const above = () => ({ pos: new THREE.Vector3(16, TOTAL + 30, 34), look: new THREE.Vector3(0, base(7) + 2, -1) });
-  const vA = new THREE.Vector3(), vB = new THREE.Vector3(), arcV = new THREE.Vector3();
+  const above = () => ({ pos: new THREE.Vector3(18, TOTAL + 34, 40), look: new THREE.Vector3(0, base(7) + 2, -1), up });
+  const vA = new THREE.Vector3(), vB = new THREE.Vector3(), vU = new THREE.Vector3(), arcV = new THREE.Vector3();
   function blend(a, b, t, arc = 0) {
     vA.lerpVectors(a.pos, b.pos, t);
-    if (arc) vA.add(arcV.set(arc * 0.3, arc * 0.55, arc).multiplyScalar(Math.sin(Math.PI * t)));
+    if (arc) vA.add(arcV.set(arc * 0.35, arc * 0.5, arc).multiplyScalar(Math.sin(Math.PI * t)));
     vB.lerpVectors(a.look, b.look, t);
-    camera.position.copy(vA); camera.lookAt(vB);
+    vU.lerpVectors(a.up, b.up, t).normalize();
+    camera.position.copy(vA); camera.up.copy(vU); camera.lookAt(vB);
   }
+  const seg = (t, a, b) => ease(clamp((t - a) / (b - a)));
 
-  let INTRO, SEG, OUTRO; const shots = {};
+  // ── tinggi adegan & ukuran layar ──
   function resize() {
-    const w = stage.clientWidth, h = stage.clientHeight;
-    gl.setSize(w, h); css.setSize(w, h);
-    camera.aspect = w / h; camera.updateProjectionMatrix();
-    const V = innerHeight; INTRO = 1.9 * V; SEG = 1.5 * V; OUTRO = 1.8 * V;
-    story.style.setProperty('--story-h', (INTRO + cards.length * SEG + OUTRO + V) + 'px');
-    layoutBoards();
-    for (let k = 1; k <= N; k++) shots[k] = shot(k);
-  }
-  function setLift(k, lift) {
-    const f = floors[k];
-    f.g.position.y = base(k) + lift * 42;
-    f.g.rotation.z = lift * 0.05;
-    f.g.visible = lift < 0.985;
-  }
-  function setRoof(lift) {
-    roof.position.y = TOTAL + lift * 42; roof.rotation.z = -lift * 0.05;
-    roofAll.forEach(m => { m.opacity = 1 - clamp(lift * 1.3); }); roof.visible = lift < 0.985;
-  }
-  function setScreen(k, on, gone) {
-    const b = boards[k], el = b.el, op = Math.min(clamp(on), 1 - clamp(gone * 1.6));
-    el.style.opacity = op;
-    el.classList.toggle('act', op > 0.6);
-    b.obj.visible = op > 0.01;
-    if (k === 7 && beam) beam.material.opacity = 0.14 * op;
+    VW = innerWidth; VH = innerHeight;
+    root.style.setProperty('--vhp', VH + 'px');
+    gl.setSize(VW, VH); css.setSize(VW, VH);
+    camera.aspect = VW / VH; camera.updateProjectionMatrix();
+    sizeScreens(VW / VH);
+    for (const k in faces) {
+      const f = faces[k], s = screens[k];
+      f.el.style.width = VW + 'px'; f.el.style.height = VH + 'px';
+      f.obj.scale.setScalar(s.w / VW);
+    }
+    scenes.forEach(sc => {
+      const to = +sc.dataset.to, from = +(sc.dataset.from || 0);
+      const len = !from ? 3.4 : !to ? 2.8 : 2.6;      // intro, penutup, antar-ruangan (dalam tinggi layar)
+      sc.style.setProperty('--scene-h', (len * VH) + 'px');
+    });
+    buildPoses();
   }
 
-  function frame() {
-    const g = -story.getBoundingClientRect().top, n = cards.length;
-    const lifts = {}, on = {}, gone = {};
-    for (let k = 1; k <= N; k++) lifts[k] = 0;
-    let roofLift = 0, hero = 0, outroO = 0;
-    if (g < INTRO) {
-      const p = clamp(g / INTRO);
-      hero = 1 - clamp(p / 0.15);
-      roofLift = ease(clamp((p - 0.3) / 0.3));
-      if (p < 0.45) blend(far(), above(), ease(clamp(p / 0.45)));
-      else blend(above(), shots[7], ease(clamp((p - 0.45) / 0.55)));
-      on[7] = clamp((p - 0.82) / 0.18);
-    } else if (g < INTRO + n * SEG) {
-      const x = (g - INTRO) / SEG, i = Math.min(n - 1, Math.floor(x)), u = x - i, cur = 7 - i;
-      roofLift = 1;
-      for (let k = cur + 1; k <= N; k++) lifts[k] = 1;
-      const move = cur > 1 ? ease(clamp((u - 0.62) / 0.38)) : 0;
-      lifts[cur] = cur > 1 ? ease(clamp((u - 0.62) / 0.3)) : 0;
-      on[cur] = 1; gone[cur] = move;
-      if (cur > 1) on[cur - 1] = clamp((move - 0.7) / 0.3);
-      if (move > 0) blend(shots[cur], shots[cur - 1], move, 10);
-      else blend(shots[cur], shots[cur], 0);
-    } else {
-      const q = clamp((g - INTRO - n * SEG) / OUTRO), z = ease(clamp(q / 0.8));
-      for (let k = 2; k <= N; k++) lifts[k] = 1 - ease(clamp((q * 1.7 - 0.15 - (k - 2) * 0.1) / 0.45));
-      roofLift = 1 - ease(clamp((q * 1.7 - 0.8) / 0.45));
-      blend(shots[1], far(), z, 14);
-      on[1] = 1; gone[1] = clamp(q / 0.12);
-      outroO = clamp((q - 0.7) / 0.22);
+  function setLift(k, lift) { const f = floors[k]; f.g.position.y = base(k) + lift * 44; f.g.rotation.z = lift * 0.05; f.g.visible = lift < 0.985; }
+  function setRoof(lift) { roof.position.y = TOTAL + lift * 44; roof.rotation.z = -lift * 0.05; roofAll.forEach(m => { m.opacity = 1 - clamp(lift * 1.3); }); roof.visible = lift < 0.985; }
+
+  // ── adegan aktif ──
+  function activeScene() {
+    for (const sc of scenes) {
+      const r = sc.getBoundingClientRect(), span = r.height - VH;
+      const intro = !sc.dataset.from;
+      if ((r.top <= 0.5 || (intro && r.top < VH)) && -r.top <= span - 0.5) return { sc, t: clamp(-r.top / span) };
     }
+    return null;
+  }
+  let on3d = false;
+  function frame() {
+    const a = activeScene();
+    if (!a || a.t >= 0.999) { if (on3d) { root.classList.remove('gd-3d-on'); on3d = false; } return false; }
+    if (!on3d) { root.classList.add('gd-3d-on'); on3d = true; }
+    const t = a.t, from = +(a.sc.dataset.from || 0), to = +a.sc.dataset.to;
+    const lifts = {}; for (let k = 1; k <= N; k++) lifts[k] = 0;
+    let roofLift = 1, hero = 0, outro = 0;
+    const want = {};
+    if (!from) {                                         // intro: luar gedung -> atap -> ruang meeting -> layar
+      hero = 1 - clamp(t / 0.14);
+      roofLift = seg(t, 0.24, 0.5);
+      if (t < 0.36) blend(far(), above(), seg(t, 0, 0.36));
+      else if (t < 0.7) blend(above(), poses[7].room, seg(t, 0.36, 0.7));
+      else blend(poses[7].room, poses[7].fill, seg(t, 0.7, 1));
+      want[7] = 'cover';
+      beam.material.opacity = 0.15 * clamp((t - 0.55) / 0.2);
+    } else if (to) {                                     // antar-ruangan: keluar dari layar 'from' -> turun -> masuk layar 'to'
+      for (let k = from + 1; k <= N; k++) lifts[k] = 1;
+      lifts[from] = seg(t, 0.24, 0.56);
+      if (t < 0.24) blend(poses[from].fill, poses[from].room, seg(t, 0, 0.24));
+      else if (t < 0.64) blend(poses[from].room, poses[to].room, seg(t, 0.24, 0.64), 10);
+      else blend(poses[to].room, poses[to].fill, seg(t, 0.64, 1));
+      if (t < 0.5) want[from] = 'close';
+      if (t > 0.3) want[to] = 'cover';
+      beam.material.opacity = from === 7 ? 0.15 * (1 - seg(t, 0, 0.3)) : 0;
+    } else {                                             // penutup: keluar dari tablet lobi -> gedung utuh
+      for (let k = 2; k <= N; k++) lifts[k] = 1 - seg(t * 1.6 - (k - 2) * 0.08, 0.3, 0.75);
+      roofLift = 1 - seg(t * 1.6, 0.85, 1.3);
+      if (t < 0.22) blend(poses[1].fill, poses[1].room, seg(t, 0, 0.22));
+      else blend(poses[1].room, far(), seg(t, 0.22, 0.9), 16);
+      if (t < 0.3) want[1] = 'close';
+      outro = clamp((t - 0.72) / 0.2);
+      beam.material.opacity = 0;
+    }
+    for (const k in faces) showFace(+k, want[k] || null);       // hanya berubah bila isinya berganti
     for (let k = 1; k <= N; k++) setLift(k, lifts[k]);
     setRoof(roofLift);
-    for (let k = 1; k <= N; k++) setScreen(k, on[k] || 0, gone[k] || 0);
-    stage.style.setProperty('--hero', hero);
-    stage.style.setProperty('--outro', outroO);
+    root.style.setProperty('--hero', hero);
+    root.style.setProperty('--outro', outro);
+    return true;
   }
 
-  let visible = true; const t0 = performance.now();
-  new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible) loop(); }).observe(story);
+  const t0 = performance.now();
   function loop() {
-    if (!visible) return;
-    const t = (performance.now() - t0) / 1000;
-    beacon.material.emissiveIntensity = 1.2 + Math.sin(t * 3.3);
-    leds.forEach((l, i) => { l.visible = Math.sin(t * 4 + i * 1.7) > -0.3; });
-    frame();
-    gl.render(scene, camera);
-    css.render(scene, camera);
+    if (frame()) {
+      const tt = (performance.now() - t0) / 1000;
+      beacon.material.emissiveIntensity = 1.2 + Math.sin(tt * 3.3);
+      leds.forEach((l, i) => { l.visible = Math.sin(tt * 4 + i * 1.7) > -0.3; });
+      gl.render(scene, camera);
+      css.render(scene, camera);
+    }
     requestAnimationFrame(loop);
   }
   addEventListener('resize', resize);
