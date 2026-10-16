@@ -42,6 +42,14 @@ PRODUCTS = [
          desc='Sistem kelola SDM: absensi GPS & selfie, shift kerja, pengajuan cuti/izin, reimbursement, dan payroll otomatis.',
          feats=['Absensi GPS & validasi', 'Shift & schedule builder', 'Cuti, izin & reimbursement', 'Payroll & portal karyawan'],
          cta='Coba Altora Teams', proof='/portfolio/altora-teams'),
+    dict(id='projek', group='sdm', icon='layers', tone='blue', name='Altora Projek', tagline='Manajemen proyek & tugas',
+         desc='Proyek, tugas, tenggat, dan progres tim dalam satu tempat: papan kanban, kalender, timeline, dan laporan.',
+         feats=['Tugas & penanggung jawab', 'Papan, daftar & kalender', 'Timeline & sprint', 'Laporan progres'],
+         cta='Minta demo Altora Projek'),
+    dict(id='office', group='kerja', icon='doc', tone='purple', name='Altora Office', tagline='Paket kerja kantor di server sendiri',
+         desc='Word, Sheets, Docs, dan Meet dalam satu paket, berjalan di server atau cloud milik organisasi Anda.',
+         feats=['Dokumen, spreadsheet & rapat', 'Satu akun untuk semua', 'Di server Anda sendiri', 'Bisa mulai dari satu divisi'],
+         cta='Minta demo Altora Office'),
     dict(id='attendance', group='sdm', icon='face', tone='pink', name='Altora Smart Attendance', tagline='Face recognition dari CCTV',
          desc='Absensi otomatis berbasis AI yang mengenali wajah dari kamera CCTV. Tanpa antre di mesin absensi atau tempel kartu.',
          feats=['Face recognition dari CCTV', 'Check-in otomatis & timestamp', 'Integrasi ke HRIS & akses gedung', 'Audit log kehadiran'],
@@ -106,7 +114,7 @@ e = lambda t: html.escape(t, quote=True)
 # Nilai = object-position agar potongan 4:3 tetap fokus ke layar perangkat.
 PHOTO_FOCUS = {
     'teams': '60% 62%', 'attendance': '75% 35%', 'vision': '60% 62%', 'pass': '60% 58%', 'fms': '55% 62%',
-    'sense': '62% 58%', 'farming': '62% 58%', 'command': '60% 62%', 'pos': '50% 58%', 'erp': '62% 58%', 'private-ai': '50% 50%', 'word': '50% 45%', 'docs': '50% 45%', 'sheets': '50% 45%', 'meet': '50% 45%',
+    'sense': '62% 58%', 'farming': '62% 58%', 'command': '60% 62%', 'pos': '50% 58%', 'erp': '62% 58%', 'private-ai': '50% 50%', 'projek': '50% 45%', 'office': '50% 45%', 'word': '50% 45%', 'docs': '50% 45%', 'sheets': '50% 45%', 'meet': '50% 45%',
 }
 
 def cart_btn(pid, name, meta, img, extra=''):
@@ -199,7 +207,7 @@ FINDER_NEEDS = {
     'layanan': ('Layanan publik & antrean', [('/mesin-kiosk-{c}', 'Kios layanan mandiri', 'Antrean & cetak dokumen'), ('/videotron-{c}', 'Videotron & signage', 'Informasi publik'), ('/industri/pemerintahan', 'Solusi pemerintahan', 'GIS, kios, CCTV kota')]),
     'display': ('Display & ruang rapat', [('/interactive-flat-panel-{c}', 'Interactive flat panel', 'Kelas & ruang rapat'), ('/videotron-{c}', 'Videotron indoor/outdoor', 'Aula, lobi, panggung'), ('/katalog#hde-mrs', 'Meeting recording system', 'Rekam rapat')]),
     'data': ('Data, peta & AI', [('/produk/private-ai', 'Altora Private AI & GIS', 'AI on-premise & peta wilayah'), ('/produk/command', 'Altora Command', 'Ruang kendali terpadu'), ('/services/software-custom', 'Software custom', 'Dashboard & integrasi')]),
-    'kerja': ('Dokumen & rapat privat', [('/produk/docs', 'Altora Docs & Word', 'Dokumen di server sendiri'), ('/produk/sheets', 'Altora Sheets', 'Spreadsheet bersama'), ('/produk/meet', 'Altora Meet', 'Rapat video privat')]),
+    'kerja': ('Dokumen, rapat & proyek', [('/produk/office', 'Altora Office', 'Word, Sheets, Docs, Meet'), ('/produk/projek', 'Altora Projek', 'Tugas & progres proyek'), ('/produk/meet', 'Altora Meet', 'Rapat video privat')]),
     'bisnis': ('Kasir, stok & keuangan', [('/produk/pos', 'Altora POS', 'Kasir retail & F&B'), ('/produk/erp', 'Altora ERP', 'Stok, pembelian, keuangan'), ('/jasa-pembuatan-aplikasi-{c}', 'Aplikasi custom', 'Sesuai proses Anda')]),
     'infra': ('Jaringan, server & IT', [('/it-support-{c}', 'IT support', 'Komputer, jaringan, server'), ('/rak-server-{c}', 'Rak server & data center', 'HaganeRack'), ('/alat-fiber-optik-{c}', 'Fiber optik', 'Splicing & alat ukur')]),
 }
@@ -254,13 +262,13 @@ def head(title, desc, url, ld, extra_css=''):
             '<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>'
             '<link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/>'
             '<link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/>'
-            f'<link rel="stylesheet" href="/assets/css/unify.css?v=20261016h"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head>'
+            f'<link rel="stylesheet" href="/assets/css/unify.css?v=20261016i"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head>'
             '<body class="company-page"><header class="company-nav"></header>\n')
 
 # ── /produk: halaman pengetahuan ──
-KN_GROUPS = [('Keamanan & akses', ['vision', 'attendance', 'pass']), ('SDM & operasional', ['teams', 'pos', 'erp']),
+KN_GROUPS = [('Keamanan & akses', ['vision', 'attendance', 'pass']), ('SDM, proyek & operasional', ['teams', 'projek', 'pos', 'erp']),
              ('Armada, lahan & sensor', ['fms', 'sense', 'farming']), ('Pusat kendali & data', ['command', 'private-ai']),
-             ('Kerja & kolaborasi privat', ['word', 'docs', 'sheets', 'meet'])]
+             ('Kerja & kolaborasi privat', ['office', 'word', 'docs', 'sheets', 'meet'])]
 
 def kn_app(k):
     a = APPS[k]

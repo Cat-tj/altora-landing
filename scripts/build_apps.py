@@ -35,7 +35,7 @@ APPS = {
                ('Cuti, izin, lembur', 'Pengajuan dan persetujuan dari aplikasi.'), ('Reimbursement', 'Pengajuan klaim pengeluaran dengan foto bukti.'),
                ('KPI & kalender kerja', 'Target, penilaian, dan kalender tim.'), ('Payroll & slip gaji', 'Gaji dihitung dari data kehadiran, slip digital.')],
         steps=['Impor data karyawan dan struktur', 'Atur aturan absensi, shift, dan cuti', 'Karyawan mulai absen dari HP', 'HR menarik rekap dan payroll'],
-        hw=[('/produk/attendance', 'Absensi wajah dari CCTV'), ('/jual-smartlock-samarinda', 'Smartlock & akses pintu')],
+        hw=[('/produk/attendance', 'Absensi wajah dari CCTV'), ('/produk/projek', 'Altora Projek (tugas & proyek)'), ('/produk/office', 'Altora Office'), ('/jual-smartlock-samarinda', 'Smartlock & akses pintu')],
         shots=[(P + 'altora-teams-kpi-analytics.jpg', 'Analitik KPI'), (P + 'altora-teams-work-calendar.jpg', 'Kalender kerja'), (P + 'hris.jpg', 'Aplikasi karyawan')],
         who=['Perusahaan multi-lokasi', 'Instansi & kampus', 'Kontraktor dengan tim lapangan'],
         faq=[('Apakah bisa untuk karyawan lapangan?', 'Bisa. Absensi memakai GPS dan foto dari HP, cocok untuk tim lapangan.'),
@@ -133,6 +133,34 @@ APPS = {
         faq=[('Apakah data keluar dari server kami?', 'Tidak. Proses AI berjalan di server Anda, bisa tanpa koneksi internet publik.'),
              ('Apa contoh pemakaian GIS?', 'Pemetaan sarana transportasi dan kebijakan satu peta, seperti yang kami bangun untuk Barito Utara.')],
         proof=[('/portfolio/portal-one-map', 'Portal One Map Policy'), ('/portfolio/dashboard-geospasial-dapodik', 'Dashboard geospasial')]),
+    'office': dict(name='Altora Office', tag='Paket kerja kantor di server sendiri', status='ready', tone='purple',
+        lead='Satu paket kerja kantor: Altora Word untuk dokumen, Sheets untuk spreadsheet, Docs untuk menyimpan dan berbagi, dan Meet untuk rapat video. Semuanya berjalan di server atau cloud milik organisasi Anda sendiri.',
+        pains=['Dokumen, angka, dan rapat internal tersebar di layanan cloud milik pihak lain.', 'Lisensi aplikasi perkantoran per pengguna terus bertambah.', 'Admin tidak punya kendali penuh atas akun dan data.'],
+        feats=[('Altora Word', 'Menulis dan menyunting dokumen .docx dari browser.'), ('Altora Sheets', 'Spreadsheet .xlsx yang bisa diisi bersama.'),
+               ('Altora Docs', 'Simpan dan bagikan dokumen dengan hak akses per folder.'), ('Altora Meet', 'Rapat video dengan rekaman tersimpan di server Anda.'),
+               ('Satu akun', 'Satu akun pengguna untuk semua aplikasi Office.'), ('Data di tangan Anda', 'Server, backup, dan akses dikelola organisasi Anda sendiri.')],
+        steps=['Tentukan server atau cloud dan jumlah pengguna', 'Kami pasang dan konfigurasi Altora Office', 'Pindahkan dokumen dan akun yang ada', 'Pelatihan pengguna dan admin'],
+        hw=[('/produk/word', 'Altora Word'), ('/produk/sheets', 'Altora Sheets'), ('/produk/docs', 'Altora Docs'), ('/produk/meet', 'Altora Meet'), ('/produk/projek', 'Altora Projek'), ('/rak-server-samarinda', 'Server & rak')],
+        shots=[('/assets/img/produk/office.webp', 'Ilustrasi Altora Office'), ('/assets/img/produk/word.webp', 'Altora Word'), ('/assets/img/produk/meet.webp', 'Altora Meet')],
+        who=['Instansi & pemerintah daerah', 'Perusahaan dengan data sensitif', 'Kampus, sekolah & yayasan'],
+        faq=[('Apa saja yang termasuk Altora Office?', 'Altora Word, Altora Sheets, Altora Docs, dan Altora Meet. Bisa dipakai semuanya atau dipilih sesuai kebutuhan.'),
+             ('Di mana data disimpan?', 'Di server atau cloud milik organisasi Anda sendiri, bukan di layanan publik.'),
+             ('Bisakah dicoba dulu?', 'Bisa. Kami tunjukkan demo dan bisa mulai dari satu divisi sebagai uji coba.')],
+        proof=[]),
+    'projek': dict(name='Altora Projek', tag='Manajemen proyek & tugas', status='ready', tone='blue', login='https://project.altora.id',
+        lead='Kelola proyek dan tugas tim di satu tempat: siapa mengerjakan apa, tenggatnya kapan, dan sejauh mana progresnya. Berjalan di server Altora atau server milik Anda sendiri.',
+        pains=['Tugas tim tercecer di grup chat dan spreadsheet.', 'Pimpinan sulit melihat progres proyek yang sedang berjalan.', 'Tenggat terlewat karena tidak ada yang mengingatkan.'],
+        feats=[('Tugas & penanggung jawab', 'Setiap tugas punya pemilik, prioritas, dan tenggat.'), ('Papan, daftar & kalender', 'Lihat pekerjaan sebagai papan kanban, daftar, atau kalender.'),
+               ('Timeline & sprint', 'Rencanakan pekerjaan per periode dan pantau jadwal proyek.'), ('Catatan proyek', 'Dokumentasi dan keputusan tersimpan bersama tugasnya.'),
+               ('Laporan progres', 'Ringkasan pekerjaan yang selesai dan yang tertunda.'), ('Privat', 'Data proyek tersimpan di server yang Anda percaya.')],
+        steps=['Buat ruang kerja dan undang tim', 'Susun proyek dan pecah menjadi tugas', 'Tim memperbarui progres setiap hari', 'Pimpinan memantau laporan progres'],
+        hw=[('/produk/teams', 'Altora Teams (HRIS)'), ('/produk/office', 'Altora Office'), ('/services/software-custom', 'Integrasi sistem')],
+        shots=[('/assets/img/produk/projek.webp', 'Ilustrasi papan tugas Altora Projek')],
+        who=['Tim proyek & kontraktor', 'Software house & agensi', 'Instansi dengan banyak program kerja'],
+        faq=[('Apa bedanya dengan Altora Teams?', 'Altora Teams mengurus SDM: absensi, cuti, lembur, dan payroll. Altora Projek mengurus pekerjaan: proyek, tugas, dan progresnya.'),
+             ('Apakah bisa dipasang di server kami?', 'Bisa. Altora Projek bisa berjalan di server Altora atau di server milik organisasi Anda.'),
+             ('Bagaimana cara mencobanya?', 'Hubungi kami untuk demo, atau masuk lewat project.altora.id bila Anda sudah punya akun.')],
+        proof=[]),
     'word': dict(name='Altora Word', tag='Pengolah dokumen privat', status='ready', tone='blue',
         lead='Menulis dan menyunting surat, laporan, dan kontrak di browser, dengan dokumen yang tersimpan di server atau cloud milik organisasi Anda sendiri, bukan di layanan publik.',
         pains=['Dokumen rahasia tersimpan di layanan cloud milik pihak lain.', 'File Word berpindah-pindah lewat email dan chat, versinya membingungkan.', 'Lisensi aplikasi perkantoran per pengguna terus bertambah.'],
@@ -232,6 +260,7 @@ def page(key, a):
     faq = ''.join(f'<details><summary>{e(q)}</summary><p>{e(x)}</p></details>' for q, x in a['faq'])
     others = ''.join(f'<a class="ap-other" href="/produk/{k}"><img alt="" loading="lazy" src="/assets/img/produk/{k}.webp"/><b>{e(o["name"])}</b><small>{e(o["tag"])}</small></a>'
                      for k, o in APPS.items() if k != key)
+    login = (f'<a class="btn btn-white ap-login" href="{a["login"]}" rel="noopener" target="_blank">Masuk ke {e(a["name"])} ↗</a>' if a.get('login') else '')
     cart = (f'<button class="cart-add" data-cart-id="{key}" data-cart-img="/assets/img/produk/{key}.webp" data-cart-meta="Aplikasi Altora" '
             f'data-cart-name="{e(a["name"])}" type="button"><span aria-hidden="true">+</span><span class="cart-add-label">Tambah ke keranjang</span></button>')
     ld = {'@context': 'https://schema.org', '@graph': [
@@ -247,7 +276,7 @@ def page(key, a):
 <section class="ap-hero"><div class="ct-wrap ap-hero-grid"><div>
 <nav aria-label="Breadcrumb" class="vg-crumb"><a href="/">Beranda</a> / <a href="/produk">Produk</a> / <span>{e(a["name"])}</span></nav>
 <p class="ap-tag">{e(a["tag"])} {badge}</p><h1>{e(a["name"])}</h1><p class="ct-lead">{e(a["lead"])}</p>
-<div class="ap-actions"><a class="btn btn-purple" href="{WA}{quote(msg_demo)}" rel="noopener" target="_blank">Minta demo</a>{cart}</div></div>
+<div class="ap-actions"><a class="btn btn-purple" href="{WA}{quote(msg_demo)}" rel="noopener" target="_blank">Minta demo</a>{login}{cart}</div></div>
 <figure class="ap-hero-pic"><img alt="{e(a["name"])}" src="/assets/img/produk/{key}.webp"/></figure></div></section>
 <section class="ap-sec"><div class="ct-wrap ap-two"><div><h2>Masalah yang diselesaikan</h2><ul class="ap-pains">{pains}</ul></div>
 <div><h2>Cocok untuk</h2><ul class="ap-who">{who}</ul></div></div></section>
