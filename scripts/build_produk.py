@@ -8,6 +8,10 @@ root = pathlib.Path(__file__).resolve().parent.parent
 WA = 'https://wa.me/6285190911170?text='
 
 ICONS = {
+    'doc': '<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 15h6M9 18h4"/>',
+    'folder': '<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+    'grid': '<rect height="16" rx="2" width="18" x="3" y="4"/><path d="M3 9h18M3 14h18M9 4v16M15 4v16"/>',
+    'video': '<rect height="12" rx="2" width="13" x="3" y="6"/><path d="m16 10 5-3v10l-5-3z"/>',
     'users': '<circle cx="9" cy="8" r="3.2"/><path d="M3 19c.6-3.2 3-5 6-5s5.4 1.8 6 5"/><circle cx="17" cy="9" r="2.4"/><path d="M16.5 14.2c2.3.2 3.9 1.7 4.5 4.3"/>',
     'eye': '<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/>',
     'key': '<circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l2.5 2.5M14.5 8.5 17 11"/>',
@@ -29,6 +33,7 @@ GROUPS = [
     ('aman', 'Keamanan & akses', 'CCTV pintar dan akses pintu digital.'),
     ('lapangan', 'Armada, lahan & sensor', 'Pantau kendaraan, lahan, dan sensor dari satu layar.'),
     ('data', 'Data & AI', 'AI dan pemetaan yang berjalan di server Anda sendiri.'),
+    ('kerja', 'Kerja & kolaborasi privat', 'Dokumen, spreadsheet, dan rapat online di server Anda sendiri.'),
     ('bisnis', 'Toko & operasional bisnis', 'Diterapkan mengikuti proses usaha Anda, bisa mulai dari satu modul.'),
 ]
 
@@ -69,6 +74,22 @@ PRODUCTS = [
          desc='Asisten AI yang berjalan di server Anda sendiri, tanpa mengirim data ke cloud publik. Dilengkapi GIS untuk memetakan dan menganalisis data wilayah secara terpusat.',
          feats=['Model bahasa (LLM) on-premise / air-gapped', 'Membaca data internal yang sudah ada', 'GIS: peta & analisis data spasial', 'Server, enkripsi, backup & pelatihan tim'],
          cta='Konsultasi Private AI', proof='/services/private-ai-gis'),
+    dict(id='word', group='kerja', icon='doc', tone='blue', name='Altora Word', tagline='Pengolah dokumen privat',
+         desc='Menulis dan menyunting dokumen Word di browser, tersimpan di server atau cloud milik organisasi Anda sendiri.',
+         feats=['Buka & simpan .docx', 'Komentar & revisi', 'Template surat & laporan', 'Di server Anda sendiri'],
+         cta='Minta demo Altora Word'),
+    dict(id='docs', group='kerja', icon='folder', tone='purple', name='Altora Docs', tagline='Penyimpanan & berbagi dokumen privat',
+         desc='Simpan, cari, dan bagikan dokumen dengan hak akses per orang dan per folder, di server Anda sendiri.',
+         feats=['Folder & pencarian', 'Hak akses per folder', 'Riwayat versi', 'Di server Anda sendiri'],
+         cta='Minta demo Altora Docs'),
+    dict(id='sheets', group='kerja', icon='grid', tone='green', name='Altora Sheets', tagline='Spreadsheet privat',
+         desc='Spreadsheet untuk rekap dan laporan yang bisa disunting bersama, dengan data tetap di server Anda.',
+         feats=['Buka & simpan .xlsx', 'Rumus & grafik', 'Edit bersama', 'Di server Anda sendiri'],
+         cta='Minta demo Altora Sheets'),
+    dict(id='meet', group='kerja', icon='video', tone='pink', name='Altora Meet', tagline='Rapat video privat',
+         desc='Rapat video antar kantor dan tim lapangan, termasuk rekamannya, berjalan di server Anda sendiri.',
+         feats=['Ruang rapat & tamu', 'Berbagi layar & chat', 'Rekaman di server Anda', 'Dari browser & HP'],
+         cta='Minta demo Altora Meet'),
     dict(id='pos', group='bisnis', icon='cart', tone='orange', name='Altora POS', tagline='Point of Sale & Kasir', status='custom',
          desc='Kasir modern untuk retail & F&B: pencatatan pesanan cepat, stok toko real-time, integrasi QRIS, dan laporan penjualan.',
          feats=['Kasir cepat retail & F&B', 'Stok & varian produk', 'Integrasi QRIS / EDC', 'Multi-cabang & laporan penjualan'],
@@ -85,7 +106,7 @@ e = lambda t: html.escape(t, quote=True)
 # Nilai = object-position agar potongan 4:3 tetap fokus ke layar perangkat.
 PHOTO_FOCUS = {
     'teams': '60% 62%', 'attendance': '75% 35%', 'vision': '60% 62%', 'pass': '60% 58%', 'fms': '55% 62%',
-    'sense': '62% 58%', 'farming': '62% 58%', 'command': '60% 62%', 'pos': '50% 58%', 'erp': '62% 58%', 'private-ai': '50% 50%',
+    'sense': '62% 58%', 'farming': '62% 58%', 'command': '60% 62%', 'pos': '50% 58%', 'erp': '62% 58%', 'private-ai': '50% 50%', 'word': '50% 45%', 'docs': '50% 45%', 'sheets': '50% 45%', 'meet': '50% 45%',
 }
 
 def cart_btn(pid, name, meta, img, extra=''):
@@ -178,6 +199,7 @@ FINDER_NEEDS = {
     'layanan': ('Layanan publik & antrean', [('/mesin-kiosk-{c}', 'Kios layanan mandiri', 'Antrean & cetak dokumen'), ('/videotron-{c}', 'Videotron & signage', 'Informasi publik'), ('/industri/pemerintahan', 'Solusi pemerintahan', 'GIS, kios, CCTV kota')]),
     'display': ('Display & ruang rapat', [('/interactive-flat-panel-{c}', 'Interactive flat panel', 'Kelas & ruang rapat'), ('/videotron-{c}', 'Videotron indoor/outdoor', 'Aula, lobi, panggung'), ('/katalog#hde-mrs', 'Meeting recording system', 'Rekam rapat')]),
     'data': ('Data, peta & AI', [('/produk/private-ai', 'Altora Private AI & GIS', 'AI on-premise & peta wilayah'), ('/produk/command', 'Altora Command', 'Ruang kendali terpadu'), ('/services/software-custom', 'Software custom', 'Dashboard & integrasi')]),
+    'kerja': ('Dokumen & rapat privat', [('/produk/docs', 'Altora Docs & Word', 'Dokumen di server sendiri'), ('/produk/sheets', 'Altora Sheets', 'Spreadsheet bersama'), ('/produk/meet', 'Altora Meet', 'Rapat video privat')]),
     'bisnis': ('Kasir, stok & keuangan', [('/produk/pos', 'Altora POS', 'Kasir retail & F&B'), ('/produk/erp', 'Altora ERP', 'Stok, pembelian, keuangan'), ('/jasa-pembuatan-aplikasi-{c}', 'Aplikasi custom', 'Sesuai proses Anda')]),
     'infra': ('Jaringan, server & IT', [('/it-support-{c}', 'IT support', 'Komputer, jaringan, server'), ('/rak-server-{c}', 'Rak server & data center', 'HaganeRack'), ('/alat-fiber-optik-{c}', 'Fiber optik', 'Splicing & alat ukur')]),
 }
@@ -232,12 +254,13 @@ def head(title, desc, url, ld, extra_css=''):
             '<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>'
             '<link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/>'
             '<link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/>'
-            f'<link rel="stylesheet" href="/assets/css/unify.css?v=20261016g"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head>'
+            f'<link rel="stylesheet" href="/assets/css/unify.css?v=20261016h"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head>'
             '<body class="company-page"><header class="company-nav"></header>\n')
 
 # ── /produk: halaman pengetahuan ──
 KN_GROUPS = [('Keamanan & akses', ['vision', 'attendance', 'pass']), ('SDM & operasional', ['teams', 'pos', 'erp']),
-             ('Armada, lahan & sensor', ['fms', 'sense', 'farming']), ('Pusat kendali & data', ['command', 'private-ai'])]
+             ('Armada, lahan & sensor', ['fms', 'sense', 'farming']), ('Pusat kendali & data', ['command', 'private-ai']),
+             ('Kerja & kolaborasi privat', ['word', 'docs', 'sheets', 'meet'])]
 
 def kn_app(k):
     a = APPS[k]

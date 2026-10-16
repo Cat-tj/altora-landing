@@ -1402,3 +1402,4 @@ main#top .systems-inline{margin-top:clamp(48px,6vw,80px)}
 /* Menu atas: penanda halaman aktif lebih halus */
 .universal-shell .nav-link[aria-current="page"],.nav-links a[aria-current="page"]{background:#F1EDFD!important;box-shadow:none!important;color:#5B3FC4!important}
 .nav-links{gap:2px}
+.ap-shots figure:only-child{max-width:520px}
