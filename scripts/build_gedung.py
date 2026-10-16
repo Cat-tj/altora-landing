@@ -16,6 +16,8 @@ LIT = {7: (60, 130), 6: (130,), 5: (20, 170), 4: (95,), 3: (60, 165), 2: (20, 13
 
 
 def building3d(cls=''):
+    """Setiap lantai = kotak terbuka di atas: pelat lantai, dinding luar depan & kanan (berjendela),
+    dinding dalam belakang & kiri (terlihat saat atap/lantai di atasnya dikupas)."""
     fl = ''
     for k in range(1, N + 1):
         h = LOBBY3 if k == 1 else FH3
@@ -23,14 +25,14 @@ def building3d(cls=''):
         lit = ''.join(f'<b style="left:{x}px"></b>' for x in LIT[k])
         lit_r = ''.join(f'<b style="left:{round(x * D3 / W3)}px"></b>' for x in LIT[k][:1])
         fl += (f'<div class="bx3-floor{" bx3-lobby" if k == 1 else ""}" data-k="{k}" style="--y:{y}px;--h:{h}px">'
+               '<i class="fc fc-plate"></i>'
                f'<i class="fc fc-front">{lit}{"<em>LOBI</em><s></s>" if k == 1 else ""}</i><i class="fc fc-right">{lit_r}</i>'
-               f'<i class="fc fc-left"></i><i class="fc fc-back"></i>'
+               '<i class="fc fc-backin"></i><i class="fc fc-leftin"></i>'
                '</div>')
     return (f'<div class="bx3 {cls}" style="--W:{W3}px;--D:{D3}px;--T:{TOTAL3}px"><div class="bx3-world">'
             '<div class="bx3-ground"></div>'
             f'{fl}'
-            '<div class="bx3-glow"></div>'
-            '<div class="bx3-lid"><i class="bx3-lid-plane"></i><i class="bx3-sign">ALTORA</i></div>'
+            '<div class="bx3-roof"><i class="bx3-roof-plane"></i><i class="bx3-sign">ALTORA</i></div>'
             '</div></div>')
 
 
@@ -73,7 +75,7 @@ page = f'''<!DOCTYPE html>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/>
 <link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/>
-<link rel="stylesheet" href="/assets/css/unify.css?v={CSS_VER}"/><link rel="stylesheet" href="/assets/css/gedung.css?v=31"/></head>
+<link rel="stylesheet" href="/assets/css/unify.css?v={CSS_VER}"/><link rel="stylesheet" href="/assets/css/gedung.css?v=40"/></head>
 <body class="company-page gd-body"><header></header>
 <main class="gd2">
 <section class="gd-story"><div class="gd-stage">
@@ -86,7 +88,7 @@ page = f'''<!DOCTYPE html>
 </div></section>
 </main>
 <footer></footer>
-<script defer="" src="/assets/js/site-shell.js?v=20261010e"></script><script defer="" src="/assets/js/gedung.js?v=31"></script></body></html>
+<script defer="" src="/assets/js/site-shell.js?v=20261010e"></script><script defer="" src="/assets/js/gedung.js?v=40"></script></body></html>
 '''
 (root / 'preview-gedung.html').write_text(page, encoding='utf-8')
 print('preview-gedung.html dibuat')
