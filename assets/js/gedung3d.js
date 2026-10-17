@@ -410,6 +410,7 @@ function init() {
   let lastT = performance.now();
   function moveCars(now) {
     const dt = Math.min(0.1, (now - lastT) / 1000); lastT = now;
+    moveWorld(dt, now);
     cars.forEach(k => { k.c.position.x += k.dir * k.speed * dt; if (k.c.position.x > 170) k.c.position.x = -170; if (k.c.position.x < -170) k.c.position.x = 170; });
     crowd.forEach(c => {
       c.p.position[c.axis] += c.dir * c.speed * dt;
@@ -421,6 +422,157 @@ function init() {
       if (Math.abs(w.p.position.x) > 19) { w.dir *= -1; w.p.rotation.y = w.dir > 0 ? -Math.PI / 2 : Math.PI / 2; }
       w.p.position.y = 0.4 + Math.abs(Math.sin(now / 160 + w.x0)) * 0.12;                  // langkah melompat kecil
     });
+  }
+
+  // ── kota luas sampai cakrawala: blok gedung (instanced), jalan silang, sungai, rel kereta, gunung, balon udara ──
+  let seed = 7;
+  const rnd = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+  const XR = [D / 2 + 13, -D / 2 - 15, D / 2 + 44, -100, 128, 215, -235];          // jalan sepanjang x (z tengah)
+  const ZR = [-125, -245, 118, 240];                                               // jalan sepanjang z (x tengah)
+  const RAIL = -140, RIVER = -182;
+  [-100, 128, 215, -235].forEach(z => {
+    scene.add(at(box(900, 0.12, 12, V.road, false, true), 0, 0.06, z));
+    [-1, 1].forEach(sd => scene.add(at(box(900, 0.35, 0.6, V.curb, false, false), 0, 0.17, z + sd * 6.3)));
+  });
+  ZR.forEach(x => {
+    scene.add(at(box(12, 0.12, 900, V.road, false, true), x, 0.065, 0));
+    [-1, 1].forEach(sd => scene.add(at(box(0.6, 0.35, 900, V.curb, false, false), x + sd * 6.3, 0.17, 0)));
+  });
+  // garis putus-putus semua jalan baru dalam satu InstancedMesh
+  const dashSpots = [];
+  [-100, 128, 215, -235].forEach(z => { for (let x = -440; x < 440; x += 7) dashSpots.push([x, z, 0]); });
+  ZR.forEach(x => { for (let z = -440; z < 440; z += 7) dashSpots.push([x, z, 1]); });
+  const dashes = new THREE.InstancedMesh(new THREE.BoxGeometry(3.2, 0.02, 0.35), V.dash, dashSpots.length);
+  const o3 = new THREE.Object3D();
+  dashSpots.forEach(([x, z, r], i) => { o3.position.set(x, 0.14, z); o3.rotation.set(0, r ? Math.PI / 2 : 0, 0); o3.scale.set(1, 1, 1); o3.updateMatrix(); dashes.setMatrixAt(i, o3.matrix); });
+  scene.add(dashes);
+  // sungai + tepian + kayu hanyut
+  const water = std(0x5CC6F2, { roughness: 0.25, metalness: 0.1 });
+  scene.add(at(box(900, 0.1, 18, water, false, true), 0, 0.03, RIVER));
+  [-1, 1].forEach(sd => scene.add(at(box(900, 0.6, 1.4, std(0xD9C7A0, { flatShading: true }), false, false), 0, 0.3, RIVER + sd * 9.5)));
+  ZR.forEach(x => { scene.add(at(box(14, 1.2, 22, V.road, false, true), x, 0.6, RIVER)); [-1, 1].forEach(sd => scene.add(at(box(0.6, 1.4, 22, V.curb, false, false), x + sd * 6.6, 1.5, RIVER))); });
+  const logMat = std(0x9A6446, { flatShading: true }), logs = [];
+  for (let i = 0; i < 16; i++) {
+    const L = 6 + (i % 3) * 3, lg = box(L, 0.9, 1.8, logMat, false, false);
+    lg.position.set(-440 + i * 56 + (i % 2) * 20, 0.35, RIVER + (i % 2 ? 4 : -4)); scene.add(lg); logs.push({ m: lg, dir: i % 2 ? 1 : -1, speed: 3 + (i % 3) });
+  }
+  // rel kereta + kereta voxel
+  scene.add(at(box(900, 0.3, 7, std(0xA59BB8, { flatShading: true }), false, true), 0, 0.15, RAIL));
+  [-1.4, 1.4].forEach(dz => scene.add(at(box(900, 0.25, 0.3, std(0x6B6F86, { metalness: 0.6, roughness: 0.4 }), false, false), 0, 0.45, RAIL + dz)));
+  const sleeperSpots = []; for (let x = -440; x < 440; x += 2.2) sleeperSpots.push(x);
+  const sleepers = new THREE.InstancedMesh(new THREE.BoxGeometry(0.6, 0.15, 4.4), V.trunk, sleeperSpots.length);
+  sleeperSpots.forEach((x, i) => { o3.position.set(x, 0.33, RAIL); o3.rotation.set(0, 0, 0); o3.updateMatrix(); sleepers.setMatrixAt(i, o3.matrix); });
+  scene.add(sleepers);
+  const train = new THREE.Group();
+  const trainCols = [0x7C5CE8, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF];
+  trainCols.forEach((col, i) => {
+    const car = new THREE.Group(), body = std(col, { flatShading: true, roughness: 0.5 });
+    car.add(at(box(11, 3.4, 3.4, body, false, false), 0, 2.4, 0));
+    car.add(at(box(11.02, 0.5, 3.42, std(0x7C5CE8, { flatShading: true }), false, false), 0, 1.4, 0));
+    car.add(at(box(9, 0.9, 3.46, V.win, false, false), 0, 2.9, 0));
+    if (i === 0) car.add(at(box(1.6, 2.4, 3.2, body, false, false), 6, 1.9, 0));
+    train.add(at(car, -i * 11.6, 0.3, 0));
+  });
+  train.position.set(-300, 0, RAIL); scene.add(train);
+  // gedung kota: satu InstancedMesh, jendela digambar di shader (malam: sebagian menyala)
+  const winU = { uNight: { value: 0 } };
+  const bldMat = std(0xffffff, { roughness: 0.85 });
+  bldMat.onBeforeCompile = sh => {
+    sh.uniforms.uNight = winU.uNight;
+    sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nvarying vec3 vWP; varying vec3 vLN;')
+      .replace('#include <begin_vertex>', '#include <begin_vertex>\nvWP = (modelMatrix * instanceMatrix * vec4(position, 1.0)).xyz; vLN = normal;');
+    sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nuniform float uNight; varying vec3 vWP; varying vec3 vLN; float gWin; float gLit;')
+      .replace('#include <color_fragment>', `#include <color_fragment>
+        vec2 gq = vec2(abs(vLN.x) > 0.5 ? vWP.z : vWP.x, vWP.y) / vec2(3.0, 3.4);
+        vec2 gf = fract(gq);
+        gWin = (1.0 - abs(vLN.y)) * step(0.22, gf.x) * step(gf.x, 0.78) * step(0.28, gf.y) * step(gf.y, 0.82) * step(2.5, vWP.y);
+        gLit = step(0.5, fract(sin(dot(floor(gq) + vec2(floor(vWP.x * 0.1), floor(vWP.z * 0.1)) * 7.0, vec2(12.9898, 78.233))) * 43758.5453));
+        diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.32, 0.36, 0.52), gWin * (0.55 + uNight * 0.4));`)
+      .replace('#include <emissivemap_fragment>', '#include <emissivemap_fragment>\ntotalEmissiveRadiance += gWin * gLit * uNight * vec3(1.0, 0.82, 0.5) * 2.6;');
+  };
+  const PASTEL = [0xFFD6A5, 0xBDE0FE, 0xCDB4DB, 0xFFC8DD, 0xE2ECE9, 0xD0C4FF, 0xFDE2E4, 0xC1F0DC, 0xFFE5B4, 0xF1E3FF, 0xCFE8FF, 0xFFF1C1];
+  const bSpots = [], parkSpots = [];
+  const CELL = 26;
+  const near = (v, list, r) => list.some(c => Math.abs(v - c) < r);
+  for (let gx = -16; gx <= 16; gx++) for (let gz = -16; gz <= 16; gz++) {
+    const x = gx * CELL + (rnd() - 0.5) * 4, z = gz * CELL + (rnd() - 0.5) * 4;
+    if (Math.hypot(x, z) > 430) continue;
+    if (Math.abs(x) < 92 && z > -68 && z < 76) continue;                           // area gedung Altora & tetangga dekat
+    if (near(z, XR, 14) || near(x, ZR, 14) || Math.abs(z - RAIL) < 13 || Math.abs(z - RIVER) < 19) continue;
+    const t = x * 0.58 + z * 0.81, lat = Math.abs(x * 0.81 - z * 0.58);           // koridor pandang kamera dibiarkan kosong
+    if (t > 30 && lat < 90) continue;
+    if (rnd() < 0.3) { parkSpots.push([x, z]); continue; }
+    const dist = Math.hypot(x, z), far2 = Math.max(0, dist - 200) / 230;            // dekat gedung Altora rendah, makin jauh makin tinggi (siluet kota)
+    const w = 10 + rnd() * 9, d = 10 + rnd() * 9, h = 5 + rnd() * 10 + far2 * (10 + rnd() * 30);
+    bSpots.push([x, z, w, d, h, PASTEL[(rnd() * PASTEL.length) | 0]]);
+  }
+  const blds = new THREE.InstancedMesh(new THREE.BoxGeometry(1, 1, 1), bldMat, bSpots.length);
+  const capMat = std(0xffffff, { flatShading: true, roughness: 0.9 });
+  const caps = new THREE.InstancedMesh(new THREE.BoxGeometry(1, 1, 1), capMat, bSpots.length);
+  const lots = new THREE.InstancedMesh(new THREE.BoxGeometry(1, 1, 1), V.walk, bSpots.length);
+  const col = new THREE.Color();
+  bSpots.forEach(([x, z, w, d, h, c], i) => {
+    o3.rotation.set(0, 0, 0);
+    o3.position.set(x, h / 2, z); o3.scale.set(w, h, d); o3.updateMatrix(); blds.setMatrixAt(i, o3.matrix); blds.setColorAt(i, col.set(c));
+    o3.position.set(x - w * 0.15, h + 0.8, z); o3.scale.set(w * 0.4, 1.6, d * 0.4); o3.updateMatrix(); caps.setMatrixAt(i, o3.matrix); caps.setColorAt(i, col.set(c).lerp(new THREE.Color(0xffffff), 0.5));
+    o3.position.set(x, 0.15, z); o3.scale.set(w + 5, 0.3, d + 5); o3.updateMatrix(); lots.setMatrixAt(i, o3.matrix);
+  });
+  scene.add(blds, caps, lots);
+  // taman: pohon voxel instanced (batang + 2 tumpuk daun)
+  const treeArr = [];
+  parkSpots.forEach(([x, z]) => { for (let k = 0; k < 5; k++) treeArr.push([x + (rnd() - 0.5) * 16, z + (rnd() - 0.5) * 16, 0.8 + rnd() * 0.6]); });
+  for (let i = 0; i < 260; i++) {                                                    // pohon di pinggir jalan & sungai
+    const onRiver = i % 3 === 0, x = -430 + rnd() * 860;
+    const z = onRiver ? RIVER + (rnd() < 0.5 ? -13 : 13) : XR[3 + (i % 4)] + (rnd() < 0.5 ? -9 : 9);
+    if (Math.abs(x) < 95 || near(x, ZR, 9)) continue;
+    treeArr.push([x, z, 0.8 + rnd() * 0.5]);
+  }
+  const trunks = new THREE.InstancedMesh(new THREE.BoxGeometry(0.9, 1.6, 0.9), V.trunk, treeArr.length);
+  const leaf1 = new THREE.InstancedMesh(new THREE.BoxGeometry(2.6, 1.5, 2.6), V.leafA, treeArr.length);
+  const leaf2 = new THREE.InstancedMesh(new THREE.BoxGeometry(2.0, 1.5, 2.0), V.leafB, treeArr.length);
+  treeArr.forEach(([x, z, s], i) => {
+    o3.rotation.set(0, 0, 0); o3.scale.setScalar(s * 1.3);
+    o3.position.set(x, 0.8 * s * 1.3, z); o3.updateMatrix(); trunks.setMatrixAt(i, o3.matrix);
+    o3.position.set(x, 2.3 * s * 1.3, z); o3.updateMatrix(); leaf1.setMatrixAt(i, o3.matrix);
+    o3.position.set(x, 3.8 * s * 1.3, z); o3.updateMatrix(); leaf2.setMatrixAt(i, o3.matrix);
+  });
+  scene.add(trunks, leaf1, leaf2);
+  // gunung low-poly mengelilingi cakrawala
+  const mtnMats = [std(0x8FB8A8, { flatShading: true, roughness: 1 }), std(0x9C9BD0, { flatShading: true, roughness: 1 }), std(0x7FA89A, { flatShading: true, roughness: 1 })];
+  const snow = std(0xFFFFFF, { flatShading: true, roughness: 1 });
+  for (let i = 0; i < 34; i++) {
+    const a = (i / 34) * Math.PI * 2 + rnd() * 0.1, r = 620 + rnd() * 140, h = 90 + rnd() * 140, rad = 90 + rnd() * 70;
+    const m = new THREE.Mesh(new THREE.ConeGeometry(rad, h, 5 + (i % 3), 1), mtnMats[i % 3]);
+    m.rotation.y = rnd() * Math.PI; scene.add(at(m, Math.cos(a) * r, h / 2 - 2, Math.sin(a) * r));
+    if (h > 170) { const s = new THREE.Mesh(new THREE.ConeGeometry(rad * 0.28, h * 0.28, 5 + (i % 3), 1), snow); s.rotation.y = m.rotation.y; scene.add(at(s, Math.cos(a) * r, h - h * 0.14 - 2, Math.sin(a) * r)); }
+  }
+  // mobil di jalan silang & jalan jauh
+  const farCars = [];
+  ZR.forEach((x, ri) => [-1, 1].forEach((dir, li) => { for (let i = 0; i < 5; i++) {
+    const c = vcar(carColors[(ri + li * 3 + i) % carColors.length], (i + ri) % 4 === 1);
+    c.rotation.y = dir > 0 ? -Math.PI / 2 : Math.PI / 2; c.position.set(x + dir * 3, 0.12, -420 + i * 168 + li * 60);
+    c.traverse(o => { o.castShadow = false; }); scene.add(c); farCars.push({ c, dir, axis: 'z', speed: 8 + ((i + ri) % 5) });
+  } }));
+  [-100, 128, 215, -235].forEach((z, ri) => [-1, 1].forEach((dir, li) => { for (let i = 0; i < 4; i++) {
+    const c = vcar(carColors[(ri * 2 + li + i) % carColors.length], (i + li) % 3 === 0);
+    c.rotation.y = dir > 0 ? 0 : Math.PI; c.position.set(-420 + i * 210 + li * 80, 0.12, z + dir * 3);
+    c.traverse(o => { o.castShadow = false; }); scene.add(c); farCars.push({ c, dir, axis: 'x', speed: 8 + ((i + ri) % 5) });
+  } }));
+  // balon udara voxel
+  const balloons = [];
+  [[0xFF8FB1, 0xFFFFFF, -60, 95, -150], [0xF5C04A, 0x7C5CE8, 140, 80, -60], [0x7AC74F, 0xFFFFFF, -190, 110, 40]].forEach(([a, b, x, y, z], i) => {
+    const g = new THREE.Group(), ma = std(a, { flatShading: true }), mb = std(b, { flatShading: true });
+    [[5, 0], [7, 2.5], [7.6, 5], [7, 7.5], [5, 10]].forEach(([s, yy], j) => g.add(at(box(s, 2.5, s, j % 2 ? mb : ma, false, false), 0, 8 + yy, 0)));
+    g.add(at(box(2.4, 1.6, 2.4, V.trunk, false, false), 0, 0.8, 0));
+    [-1, 1].forEach(sx => [-1, 1].forEach(sz => g.add(at(box(0.12, 6.5, 0.12, V.wheel, false, false), sx * 1.1, 4.4, sz * 1.1))));
+    g.scale.setScalar(1.4); g.position.set(x, y, z); scene.add(g); balloons.push({ g, x, y, z, ph: i * 2.1 });
+  });
+  function moveWorld(dt, now) {
+    const sec = now / 1000;
+    farCars.forEach(k => { const p = k.c.position; p[k.axis] += k.dir * k.speed * dt; if (p[k.axis] > 430) p[k.axis] = -430; if (p[k.axis] < -430) p[k.axis] = 430; });
+    logs.forEach(l => { l.m.position.x += l.dir * l.speed * dt; if (l.m.position.x > 450) l.m.position.x = -450; if (l.m.position.x < -450) l.m.position.x = 450; l.m.position.y = 0.35 + Math.sin(sec * 1.5 + l.m.position.x) * 0.08; });
+    train.position.x += 26 * dt; if (train.position.x > 520) train.position.x = -520;
+    balloons.forEach(b => { b.g.position.set(b.x + Math.sin(sec * 0.05 + b.ph) * 40, b.y + Math.sin(sec * 0.4 + b.ph) * 3, b.z + Math.cos(sec * 0.04 + b.ph) * 25); });
   }
 
   // ── langit mengikuti jam pengunjung: pagi, siang, senja, malam ──
@@ -469,6 +621,12 @@ function init() {
     // malam: lampu gedung & jendela lebih terang
     [ceilLight, screenGlow].forEach(m => { m.emissiveIntensity = 1.1 + night.v * 1.6; });
     gl.toneMappingExposure = 1.05 + night.v * 0.15;
+    winU.uNight.value = night.v;
+    scene.traverse(o => { if (!o.material) return; (Array.isArray(o.material) ? o.material : [o.material]).forEach(m => {   // malam: pantulan lingkungan ikut redup
+      if (m.envMapIntensity === undefined) return;
+      if (m.userData.env0 === undefined) m.userData.env0 = m.envMapIntensity;
+      m.envMapIntensity = m.userData.env0 * (1 - night.v * 0.75);
+    }); });
     // cakram matahari/bulan
     orbMat.color.set(night.v > 0.5 ? 0xEEF1FF : (h < 7 || h > 17 ? 0xFFB070 : 0xFFE27A));
     halo.material.color.set(night.v > 0.5 ? 0xB9C4FF : 0xFFE9A8);

@@ -28,7 +28,7 @@ s = s.replace('<section class="hero">', '<section class="hero" data-gd-cover="">
 # skrip 3D
 s = s.replace('</body>', '<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",'
               '"three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>'
-              '<script type="module" src="/assets/js/gedung3d.js?v=218"></script></body>', 1)
+              '<script type="module" src="/assets/js/gedung3d.js?v=221"></script></body>', 1)
 
 (root / 'preview-gedung.html').write_text(s, encoding='utf-8')
 print('preview-gedung.html dibuat (beranda + pembuka gedung)')
