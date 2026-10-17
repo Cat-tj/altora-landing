@@ -56,7 +56,7 @@ function init() {
   sun.position.set(45, 90, 55);
   sun.castShadow = true;
   sun.shadow.mapSize.set(mobile ? 1024 : 2048, mobile ? 1024 : 2048);
-  Object.assign(sun.shadow.camera, { left: -40, right: 40, top: 70, bottom: -25, near: 10, far: 260 });
+  Object.assign(sun.shadow.camera, { left: -80, right: 80, top: 90, bottom: -60, near: 10, far: 320 });
   sun.shadow.camera.updateProjectionMatrix();
   sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.03;
   scene.add(sun);
@@ -102,31 +102,35 @@ function init() {
   }) });
 
   // ── orang (stilisasi) ──
-  function person({ shirt = 0x7C5CE8, seated = false, arms = 'down' } = {}) {
-    const g = new THREE.Group(), shirtM = std(shirt);
-    const hip = seated ? 0.5 : 0.95;
+  // orang voxel (gaya kotak-kotak): kepala kubus, rambut kotak, badan/lengan/kaki balok
+  const SKIN = [0xF2B48C, 0xD9946B, 0xB9784F], HAIR = [0x5A3825, 0x2B2140, 0x8A5A2B];
+  function person({ shirt = 0x7C5CE8, pants = 0x3FA7B5, seated = false, arms = 'down', beard = false, v = 0 } = {}) {
+    const g = new THREE.Group(), sh = std(shirt, { flatShading: true }), pt = std(pants, { flatShading: true });
+    const skin = std(SKIN[v % 3], { flatShading: true }), hair = std(HAIR[v % 3], { flatShading: true }), shoe = std(0x5B5560, { flatShading: true }), eye = std(0x1B1F45);
+    const hip = seated ? 0.5 : 0.72;
     if (seated) {
-      [-0.11, 0.11].forEach(x => { g.add(at(box(0.15, 0.14, 0.5, M.pants), x, 0.5, -0.22)); g.add(at(box(0.14, 0.48, 0.14, M.pants), x, 0.24, -0.45)); });
+      [-0.12, 0.12].forEach(x => { g.add(at(box(0.2, 0.2, 0.5, pt), x, 0.5, -0.2)); g.add(at(box(0.2, 0.42, 0.2, pt), x, 0.27, -0.44)); g.add(at(box(0.22, 0.12, 0.3, shoe), x, 0.06, -0.48)); });
     } else {
-      [-0.11, 0.11].forEach(x => g.add(at(box(0.15, 0.92, 0.17, M.pants), x, 0.46, 0)));
+      [-0.12, 0.12].forEach(x => { g.add(at(box(0.21, 0.6, 0.24, pt), x, 0.42, 0)); g.add(at(box(0.23, 0.14, 0.3, shoe), x, 0.07, -0.03)); });
     }
-    const torso = new THREE.Mesh(new THREE.CapsuleGeometry(0.21, 0.42, 6, 12), shirtM); torso.castShadow = true;
-    torso.scale.z = 0.72; g.add(at(torso, 0, hip + 0.38, 0));
-    g.add(at(cyl(0.07, 0.07, 0.12, M.skin), 0, hip + 0.76, 0));
-    const head = new THREE.Mesh(new THREE.SphereGeometry(0.135, 20, 16), M.skin); head.castShadow = true; g.add(at(head, 0, hip + 0.92, 0));
-    const hair = new THREE.Mesh(new THREE.SphereGeometry(0.142, 20, 12, 0, Math.PI * 2, 0, Math.PI * 0.55), M.hair); g.add(at(hair, 0, hip + 0.94, 0.01));
+    g.add(at(box(0.56, 0.6, 0.34, sh), 0, hip + 0.3, 0));                                   // badan
+    g.add(at(box(0.08, 0.32, 0.02, std(0xffffff)), 0, hip + 0.42, -0.175));                  // kerah/dasi
+    const head = new THREE.Group(); head.position.set(0, hip + 0.86, 0); g.add(head);
+    head.add(at(box(0.5, 0.48, 0.48, skin), 0, 0, 0));                                       // kepala kubus
+    head.add(at(box(0.54, 0.16, 0.52, hair), 0, 0.26, 0.01));                                // rambut atas
+    head.add(at(box(0.54, 0.4, 0.14, hair), 0, 0.06, 0.2));                                  // rambut belakang
+    [-0.11, 0.11].forEach(x => head.add(at(box(0.07, 0.07, 0.02, eye), x, 0.03, -0.245)));   // mata
+    if (beard) head.add(at(box(0.4, 0.16, 0.06, hair), 0, -0.17, -0.23));
     const hands = [];
-    [-0.27, 0.27].forEach((x, i) => {
-      const a = new THREE.Group(); a.position.set(x, hip + 0.66, 0);
-      a.add(at(cyl(0.058, 0.052, 0.34, shirtM), 0, -0.17, 0));
-      const fore = new THREE.Group(); fore.position.set(0, -0.34, 0); a.add(fore);
-      fore.add(at(cyl(0.05, 0.045, 0.3, M.skin), 0, -0.15, 0));
-      const hand = at(new THREE.Mesh(new THREE.SphereGeometry(0.055, 10, 8), M.skin), 0, -0.31, 0); fore.add(hand);
-      hands.push(hand);
-      if (arms === 'hold') { a.rotation.x = -0.75; a.rotation.z = i ? 0.32 : -0.32; fore.rotation.x = -1.0; fore.rotation.z = i ? -0.55 : 0.55; }
-      else if (arms === 'phone' && i === 1) { a.rotation.x = -0.55; a.rotation.z = 0.12; fore.rotation.x = -1.55; }
-      else if (arms === 'desk') { a.rotation.x = -0.95; a.rotation.z = i ? 0.12 : -0.12; fore.rotation.x = -0.45; }
-      else a.rotation.z = i ? 0.08 : -0.08;
+    [-0.36, 0.36].forEach((x, i) => {
+      const a = new THREE.Group(); a.position.set(x, hip + 0.56, 0);
+      a.add(at(box(0.17, 0.32, 0.2, sh), 0, -0.14, 0));
+      const fore = new THREE.Group(); fore.position.set(0, -0.3, 0); a.add(fore);
+      fore.add(at(box(0.15, 0.2, 0.18, sh), 0, -0.08, 0));
+      const hand = at(box(0.15, 0.14, 0.16, skin), 0, -0.24, 0); fore.add(hand); hands.push(hand);
+      if (arms === 'hold') { a.rotation.x = -0.7; fore.rotation.x = -0.9; }
+      else if (arms === 'phone' && i === 1) { a.rotation.x = -0.5; fore.rotation.x = -1.5; }
+      else if (arms === 'desk') { a.rotation.x = -1.0; fore.rotation.x = -0.4; }
       g.add(a);
     });
     g.userData.hands = hands;
@@ -139,11 +143,12 @@ function init() {
     g.add(at(cyl(0.04, 0.04, seatY, M.frame), 0, seatY / 2, 0));
     return g;
   }
-  function plant(s = 1) {
+  function plant(s = 1) {                                                // tanaman voxel
     const g = new THREE.Group();
-    g.add(at(cyl(0.28 * s, 0.22 * s, 0.5 * s, M.pot), 0, 0.25 * s, 0));
-    const leaf = new THREE.Mesh(new THREE.IcosahedronGeometry(0.55 * s, 0), M.plant); leaf.castShadow = true;
-    g.add(at(leaf, 0, 0.95 * s, 0)); return g;
+    g.add(at(box(0.55 * s, 0.5 * s, 0.55 * s, M.pot), 0, 0.25 * s, 0));
+    g.add(at(box(0.8 * s, 0.6 * s, 0.8 * s, M.plant), 0, 0.85 * s, 0));
+    g.add(at(box(0.5 * s, 0.45 * s, 0.5 * s, M.plant), 0, 1.35 * s, 0));
+    return g;
   }
   function desk(w = 1.6, d = 0.8, h = 0.75, mat = M.white) {
     const g = new THREE.Group();
@@ -222,7 +227,7 @@ function init() {
         [[-1, 3.15], [1, -0.35]].forEach(([side, z]) => {
           const c = chair(); c.rotation.y = side < 0 ? 0 : Math.PI; room.add(at(c, x, 0, z));
         });
-        if (i % 2 === 0 || i === 3) { const p = person({ seated: true, shirt: [0x7C5CE8, 0xFFFFFF, 0x3E2A97, 0xC9BCFA][i] }); p.rotation.y = 0.15 * (i - 1.5); room.add(at(p, x, 0, 3.0)); }
+        if (i % 2 === 0 || i === 3) { const p = person({ seated: true, shirt: [0x7C5CE8, 0x6B3F3A, 0x3E2A97, 0xF26B3A][i], v: i, beard: i === 1, arms: 'desk' }); p.rotation.y = 0.15 * (i - 1.5); room.add(at(p, x, 0, 3.0)); }
       }
       const proj = new THREE.Group(); proj.add(at(box(0.55, 0.2, 0.5, M.white), 0, 0, 0)); proj.add(at(cyl(0.07, 0.07, 0.06, M.dark), 0, 0, -0.27)); proj.children[1].rotation.x = Math.PI / 2;
       room.add(at(proj, 0, 0.87, 2.2));
@@ -269,20 +274,96 @@ function init() {
   const roofAll = [...Object.values(roofMats), signMat, beacon.material];
   roofAll.forEach(m => { m.transparent = true; });
 
-  // ── lingkungan ──
-  const ground = new THREE.Mesh(new THREE.CircleGeometry(320, 64), std(0xF3EFFE, { roughness: 1 }));
+  // ── lingkungan: kota voxel ala Crossy Road (jalur rumput & jalan, mobil lewat, pohon kotak, gedung tetangga) ──
+  const V = {
+    grass: std(0xA6DE7C, { roughness: 1, flatShading: true }), grass2: std(0x94D16C, { roughness: 1, flatShading: true }),
+    road: std(0x4B5068, { roughness: 0.95 }), dash: std(0xF4F4F8), walk: std(0xEDE8FB, { roughness: 0.9 }), curb: std(0xD9D2F2),
+    trunk: std(0x8A5A44, { flatShading: true }), leafA: std(0x8CCB4E, { flatShading: true }), leafB: std(0x76B83E, { flatShading: true }),
+    wheel: std(0x1E2033), win: std(0x2B2F4A, { roughness: 0.3 }), white: std(0xFFFFFF, { roughness: 0.6 }),
+  };
+  const ground = new THREE.Mesh(new THREE.PlaneGeometry(700, 700), V.grass);
   ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
-  scene.add(at(box(W + 18, 0.3, D + 18, std(0xFFFFFF, { roughness: 0.9 }), false, true), 0, 0.15, 0));
-  scene.add(at(box(320, 0.1, 9, std(0xDCD3FB, { roughness: 1 }), false, true), 0, 0.06, D / 2 + 16));
-  const treeMat = [std(0xB9A8F7, { flatShading: true }), std(0xA7D7C5, { flatShading: true })];
-  [[-21, 6], [-21, -6], [21, 8], [22, -5], [-12, 15], [13, 15], [-32, 19], [33, 17], [-38, -2], [38, 0]].forEach(([x, z], i) => {
-    const t = new THREE.Group(); t.add(at(box(0.5, 2.8, 0.5, std(0x9B8BC9)), 0, 1.4, 0));
-    const crown = new THREE.Mesh(new THREE.IcosahedronGeometry(2.1 + (i % 3) * 0.4, 0), treeMat[i % 2]); crown.castShadow = true; t.add(at(crown, 0, 4.2, 0));
-    scene.add(at(t, x, 0, z));
+  // jalur sepanjang sumbu x: [z tengah, lebar, jenis]
+  const ROADS = [[D / 2 + 13, 12], [-D / 2 - 15, 12], [D / 2 + 44, 12]];
+  ROADS.forEach(([z, w]) => {
+    scene.add(at(box(700, 0.12, w, V.road, false, true), 0, 0.06, z));
+    for (let x = -340; x < 340; x += 7) scene.add(at(box(3.2, 0.02, 0.35, V.dash, false, true), x, 0.13, z));
+    [-1, 1].forEach(sd => scene.add(at(box(700, 0.35, 0.6, V.curb, false, true), 0, 0.17, z + sd * (w / 2 + 0.3))));
   });
-  const farMat = std(0xE4DCFF, { roughness: 0.9 });
-  [[-75, -65, 34], [-48, -88, 50], [58, -75, 40], [90, -42, 26], [-100, -32, 22], [26, -100, 58]].forEach(([x, z, hh]) => scene.add(at(box(17, hh, 15, farMat, false, true), x, hh / 2, z)));
+  // jalur rumput gelap/terang bergantian (khas Crossy Road)
+  for (let z = -120; z < 120; z += 8) if (((z / 8) | 0) % 2 === 0) scene.add(at(box(700, 0.04, 8, V.grass2, false, true), 0, 0.02, z));
+  // plaza gedung
+  scene.add(at(box(W + 14, 0.4, D + 12, V.walk, false, true), 0, 0.2, 0));
 
+  // pohon voxel: batang + 1-3 tumpukan daun
+  function vtree(x, z, h = 2) {
+    const t = new THREE.Group();
+    t.add(at(box(0.9, 1.6, 0.9, V.trunk), 0, 0.8, 0));
+    for (let i = 0; i < h; i++) { const s2 = 2.6 - i * 0.5; t.add(at(box(s2, 1.5, s2, i % 2 ? V.leafB : V.leafA), 0, 2.3 + i * 1.5, 0)); }
+    scene.add(at(t, x, 0, z));
+  }
+  const treeSpots = [];
+  for (let x = -110; x <= 110; x += 9) [D / 2 + 26, D / 2 + 31, -D / 2 - 27].forEach((z, i) => { if (Math.abs(x) > 16 || i === 2) treeSpots.push([x + ((x * 7) % 5), z, 1 + ((x + i * 3) & 1) + (i === 1 ? 1 : 0)]); });
+  [[-17, -4], [-17, 4], [17, -3], [17, 5]].forEach(([x, z]) => treeSpots.push([x, z, 2]));
+  treeSpots.forEach(([x, z, h]) => vtree(x, z, h));
+
+  // pejalan kaki voxel di plaza & trotoar
+  const walkers = [];
+  [[-9, D / 2 + 3.2, 1, 0x7C5CE8], [6, D / 2 + 4.2, -1, 0xF26B3A], [-4, D / 2 + 5.4, 1, 0x3FA7B5], [12, -D / 2 - 4, -1, 0x6B3F3A], [-14, -D / 2 - 3.5, 1, 0xF5C04A]]
+    .forEach(([x, z, dir, col], i) => {
+      const p = person({ shirt: col, pants: [0x3FA7B5, 0x2A2F5E, 0x6B4F3F][i % 3], v: i, beard: i % 2 === 0 });
+      p.scale.setScalar(1.6); p.rotation.y = dir > 0 ? -Math.PI / 2 : Math.PI / 2;
+      scene.add(at(p, x, 0.4, z)); walkers.push({ p, dir, x0: x, speed: 1.2 + (i % 3) * 0.3 });
+    });
+  // gedung tetangga voxel: kotak pastel dengan grid jendela
+  const winTex = (base) => canvasTex(64, 64, (x) => { x.fillStyle = base; x.fillRect(0, 0, 64, 64); x.fillStyle = 'rgba(43,47,74,.85)'; x.fillRect(10, 12, 18, 22); x.fillRect(36, 12, 18, 22); x.fillStyle = 'rgba(255,231,163,.9)'; x.fillRect(36, 12, 18, 22); });
+  function neighbor(x, z, w, d, h, color) {
+    const t = winTex(color); t.wrapS = t.wrapT = THREE.RepeatWrapping;
+    const side = std(0xffffff, { map: t, roughness: 0.8 });
+    side.map.repeat.set(Math.max(1, Math.round(w / 3)), Math.max(1, Math.round(h / 3.2)));
+    const sideD = side.clone(); sideD.map = t.clone(); sideD.map.repeat.set(Math.max(1, Math.round(d / 3)), Math.max(1, Math.round(h / 3.2))); sideD.map.needsUpdate = true;
+    const top = std(color, { flatShading: true });
+    const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), [sideD, sideD, top, top, side, side]);
+    m.castShadow = true; m.receiveShadow = true; scene.add(at(m, x, h / 2, z));
+    scene.add(at(box(w * 0.4, 1.6, d * 0.4, std(0xE4DEFA, { flatShading: true })), x - w * 0.15, h + 0.8, z));   // mesin atap
+  }
+  [[-38, -2, 14, 12, 24, '#FFD6A5'], [-56, 6, 10, 10, 14, '#BDE0FE'], [36, -4, 12, 14, 30, '#CDB4DB'], [55, 4, 10, 10, 18, '#FFC8DD'],
+   [-36, -46, 16, 12, 34, '#E2ECE9'], [0, -50, 18, 12, 40, '#D0C4FF'], [36, -48, 14, 12, 26, '#FDE2E4'], [70, -40, 12, 12, 22, '#C1F0DC'],
+   [-72, -38, 12, 12, 28, '#FFE5B4'], [-30, 62, 12, 10, 16, '#BDE0FE'], [28, 62, 14, 10, 20, '#FFD6A5'], [64, 60, 10, 10, 12, '#CDB4DB']]
+    .forEach(([x, z, w, d, h, c]) => neighbor(x, z, w, d, h, c));
+
+  // mobil voxel yang lewat terus
+  const carColors = [0xF26B3A, 0x7AC74F, 0x5BB5F0, 0xF5C04A, 0x7C5CE8, 0xFF8FB1];
+  const cars = [];
+  function vcar(color, truck = false) {
+    const g = new THREE.Group(), body = std(color, { flatShading: true, roughness: 0.6 });
+    const L = truck ? 7 : 4.6;
+    g.add(at(box(L, 1.1, 2.3, body), 0, 0.95, 0));
+    if (truck) { g.add(at(box(4.6, 2.2, 2.3, V.white), -1.1, 2.6, 0)); g.add(at(box(1.6, 1.2, 2.2, body), 2.4, 2.0, 0)); g.add(at(box(0.1, 0.7, 1.9, V.win), 3.22, 2.1, 0)); }
+    else { g.add(at(box(2.6, 1.0, 2.1, V.white), -0.3, 2.0, 0)); [-1, 1].forEach(sd => g.add(at(box(2.0, 0.6, 0.05, V.win), -0.3, 2.05, sd * 1.06))); g.add(at(box(0.05, 0.6, 1.8, V.win), 1.0, 2.05, 0)); }
+    [-1, 1].forEach(sx => [-1, 1].forEach(sz => g.add(at(box(0.9, 0.9, 0.4, V.wheel), sx * (L / 2 - 1.0), 0.45, sz * 1.2))));
+    return g;
+  }
+  ROADS.forEach(([z], ri) => [-1, 1].forEach((dir, li) => {
+    const n = 4 + ((ri + li) % 2);
+    for (let i = 0; i < n; i++) {
+      const c = vcar(carColors[(ri * 3 + li * 2 + i) % carColors.length], (i + ri + li) % 4 === 0);
+      c.rotation.y = dir > 0 ? 0 : Math.PI;
+      c.position.set(-160 + i * (320 / n) + li * 23, 0.12, z + dir * 3);
+      scene.add(c);
+      cars.push({ c, dir, speed: 7 + ((i * 5 + ri * 3 + li * 7) % 6) });
+    }
+  }));
+  let lastT = performance.now();
+  function moveCars(now) {
+    const dt = Math.min(0.1, (now - lastT) / 1000); lastT = now;
+    cars.forEach(k => { k.c.position.x += k.dir * k.speed * dt; if (k.c.position.x > 170) k.c.position.x = -170; if (k.c.position.x < -170) k.c.position.x = 170; });
+    walkers.forEach(w => {
+      w.p.position.x += w.dir * w.speed * dt;
+      if (Math.abs(w.p.position.x) > 19) { w.dir *= -1; w.p.rotation.y = w.dir > 0 ? -Math.PI / 2 : Math.PI / 2; }
+      w.p.position.y = 0.4 + Math.abs(Math.sin(now / 160 + w.x0)) * 0.12;                  // langkah melompat kecil
+    });
+  }
 
   // ── salinan sampul/penutup di layar ──
   const faces = {};
@@ -429,6 +510,7 @@ function init() {
     if (frame()) {
       const tt = (performance.now() - t0) / 1000;
       beacon.material.emissiveIntensity = 1.2 + Math.sin(tt * 3.3);
+      moveCars(performance.now());
       leds.forEach((l, i) => { l.visible = Math.sin(tt * 4 + i * 1.7) > -0.3; });
       gl.render(scene, camera);
       css.render(scene, camera);
