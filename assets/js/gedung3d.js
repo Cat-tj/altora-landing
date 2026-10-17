@@ -70,7 +70,7 @@ function init() {
       + '\n#include <tonemapping_fragment>\n#include <colorspace_fragment>\n}' });
   const quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), blurMat); quad.frustumCulled = false; quadScene.add(quad);
   let blurK = 0;
-  const BLUR = 0.05;                                                   // kekuatan blur latar di menu lantai (1 = penuh); 5% = hanya sedikit lembut
+  const BLUR = 0.1;                                                    // kekuatan blur latar di menu lantai (1 = penuh); 10% = sedikit lembut
   function renderScene() {
     if (blurK < 0.02) { gl.render(scene, camera); return; }
     camera.layers.set(0);                                                // 1) latar tanpa gedung -> tekstur setengah resolusi
