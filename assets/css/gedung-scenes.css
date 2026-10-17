@@ -7,16 +7,16 @@
 .gd-scene{position:relative}
 .gd-scene-in{position:relative}
 .gd-live .gd-scene{height:var(--scene-h,240vh)}
-.gd-live .gd-scene-in{position:sticky;top:0;height:var(--vhp);pointer-events:none;z-index:6}
+.gd-live .gd-scene-in{position:sticky;top:0;height:var(--vhp);pointer-events:none;z-index:42}
 .gd-live .gs,.gd-live .gs + .gd-scene{margin-top:calc(-1 * var(--vhp))}
 .gd-canvas,.gd-css3d{position:fixed!important;inset:0;width:100vw;height:var(--vhp);display:none}
-.gd-canvas{z-index:3}.gd-css3d{z-index:4;pointer-events:none}
+.gd-canvas{z-index:40}.gd-css3d{z-index:41;pointer-events:none}
 .gd-3d-on .gd-canvas,.gd-3d-on .gd-css3d{display:block}
 
 .gd-hero{text-align:center;padding:140px 20px 40px}
 .gd-live .gd-hero{position:absolute;left:0;right:0;top:clamp(96px,14vh,140px);padding:0 20px;opacity:var(--hero,1);transform:translateY(calc((1 - var(--hero,1)) * -30px))}
-.gd-hero h1{margin:12px auto 10px;max-width:16ch;color:var(--ink);font-size:clamp(2.1rem,1.4rem + 2.8vw,4rem);line-height:1.02;letter-spacing:-.04em;font-weight:800}
-.gd-hero h1 span{background:linear-gradient(90deg,#7C5CE8,#C05BD0);-webkit-background-clip:text;background-clip:text;color:transparent}
+.gd-hero h1,.gd-title{margin:12px auto 10px;max-width:16ch;color:var(--ink);font-size:clamp(2.1rem,1.4rem + 2.8vw,4rem);line-height:1.02;letter-spacing:-.04em;font-weight:800}
+.gd-hero h1 span,.gd-title span{background:linear-gradient(90deg,#7C5CE8,#C05BD0);-webkit-background-clip:text;background-clip:text;color:transparent}
 .gd-hero .eyebrow{justify-content:center;display:flex}
 .gd-hero p:last-child{color:var(--acc);font-weight:800}
 .gd-outro-copy{display:none}
@@ -95,3 +95,8 @@
 /* salinan sampul/penutup yang tampil di layar 3D */
 .gd-face{overflow:hidden;background:#FBF9FE;pointer-events:none}
 .gd-face>.gs-cover,.gd-face>.gs-close{height:100%!important;min-height:0}
+
+.gd-face{background:#FBF9FE}
+#top-face{display:block;width:100%;height:100%;overflow:hidden}
+.gd2:not(.gd-3d-on) .gd-canvas,.gd2:not(.gd-3d-on) .gd-css3d{display:none!important}
+.gd-live:not(.gd-3d-on) .gd-scene-in{visibility:hidden}

@@ -19,7 +19,7 @@ function webglOK() {
 function init() {
   root.classList.add('gd-live', 'gd-3d');
   const scenes = [...root.querySelectorAll('.gd-scene')];
-  const sections = {}; root.querySelectorAll('.gs').forEach(s => { sections[+s.dataset.k] = s; });
+  const coverEl = root.querySelector('[data-gd-cover]');              // hero beranda = isi layar proyektor
   const mobile = innerWidth < 900;
   if (mobile) root.classList.add('gd-m');
 
@@ -392,9 +392,16 @@ function init() {
     const f = faces[k];
     if (f.shown === which) return;
     f.shown = which;
-    f.cache = f.cache || {};
-    if (which && !f.cache[which]) f.cache[which] = sections[k].querySelector(which === 'cover' ? '.gs-cover' : '.gs-close').cloneNode(true);
-    f.el.replaceChildren(...(which ? [f.cache[which]] : []));
+    if (which && !f.wrap) {
+      const wrap = document.createElement('div'); wrap.id = 'top-face';      // aturan 'main#top ...' ikut berlaku
+      const c = coverEl.cloneNode(true);
+      c.removeAttribute('style'); c.removeAttribute('data-gd-cover'); c.removeAttribute('id');
+      c.style.marginTop = '0'; c.style.minHeight = VH + 'px';
+      c.querySelectorAll('.reveal').forEach(x => x.classList.add('revealed'));
+      c.querySelectorAll('[id]').forEach(x => x.removeAttribute('id'));
+      wrap.appendChild(c); f.wrap = wrap;
+    }
+    f.el.replaceChildren(...(which ? [f.wrap] : []));
   }
 
   // ── kamera ──
@@ -453,9 +460,10 @@ function init() {
     }
     scenes.forEach(sc => {
       const to = +sc.dataset.to, from = +(sc.dataset.from || 0);
-      const len = !from ? 3.4 : !to ? 2.8 : 2.6;      // intro, penutup, antar-ruangan (dalam tinggi layar)
+      const len = 3.2;      // intro, penutup, antar-ruangan (dalam tinggi layar)
       sc.style.setProperty('--scene-h', (len * VH) + 'px');
     });
+    if (coverEl) { coverEl.style.setProperty('margin-top', -VH + 'px', 'important'); coverEl.style.setProperty('min-height', VH + 'px', 'important'); faces[7] && (faces[7].wrap = null, faces[7].shown = null); }
     buildPoses();
   }
 
