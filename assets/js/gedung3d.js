@@ -1,9 +1,7 @@
-/* Prototipe "halaman = gedung", model masuk ke layar (Three.js).
-   Halaman berisi: adegan 3D -> bagian lantai (HTML biasa, bisa di-scroll) -> adegan 3D -> ... -> adegan penutup -> footer.
-   Di setiap adegan kamera bergerak antar-ruangan; di ujung adegan kamera berhenti tepat di depan layar ruangan sehingga
-   layar memenuhi layar pengunjung. Layar itu menampilkan salinan sampul (atau penutup) bagian lantai, seukuran layar
-   pengunjung, jadi saat kanvas 3D disembunyikan halaman di bawahnya terlihat sama persis: tanpa transisi atau blur.
-   Ruangan: 7 meeting (proyektor), 6 direksi (TV), 5 karyawan (monitor), 4 server, 3 keamanan (video wall), 2 HP, 1 lobi (tablet). */
+/* Pembuka beranda "gedung Altora" (Three.js), dipakai di /preview-gedung.
+   Adegan: gedung kaca utuh -> atap terangkat -> kamera masuk ke ruang meeting di lantai teratas -> layar proyektor
+   menampilkan salinan hero beranda seukuran layar pengunjung -> saat layar memenuhi layar, kanvas 3D disembunyikan dan
+   beranda asli (tepat di posisi yang sama) berlanjut seperti biasa. Lantai lain hanya tampak dari luar. */
 import * as THREE from 'three';
 import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
@@ -230,99 +228,6 @@ function init() {
       room.add(at(proj, 0, 0.87, 2.2));
       [[-10.5, -6.5], [10.5, -6.5], [-10.5, 6.5], [10.5, 6.5]].forEach(([x, z]) => room.add(at(plant(1.1), x, 0, z)));
     },
-    // 6 · ruang direksi: TV dinding menampilkan dashboard
-    6(room, k) {
-      contentScreen(k, room, { kind: 'wide', hBase: 2.7, maxW: 6.2, bottom: 1.2, z: BACK });
-      room.add(at(box(7.2, 0.5, 0.45, M.wood), 0, 0.25, BACK + 0.4));                                // kabinet bawah TV
-      const carpet = new THREE.Mesh(new THREE.PlaneGeometry(9, 6), M.carpet); carpet.rotation.x = -Math.PI / 2; carpet.position.set(0, 0.012, 1.5); carpet.receiveShadow = true; room.add(carpet);
-      room.add(at(desk(3, 1.3, 0.78, M.wood), 0, 0, 2.2));
-      room.add(at(monitor(0.55, 0.32), -0.8, 0.8, 1.9));
-      const c = chair(0.5, M.purple); room.add(at(c, 0.6, 0, 3.4));
-      const dir = person({ seated: true, shirt: 0x2A2F5E }); dir.rotation.y = 0.25; room.add(at(dir, 0.6, 0, 3.2));
-      const s1 = sofa(3); s1.rotation.y = Math.PI / 2; room.add(at(s1, -8.5, 0, 1));
-      room.add(at(box(1.4, 0.4, 0.9, M.wood), -6.8, 0.2, 1));
-      for (let i = 0; i < 3; i++) room.add(at(box(2.2, 0.06, 0.45, M.wood), 8.8, 0.8 + i * 0.9, -4));            // rak buku
-      room.add(at(box(2.2, 2.8, 0.06, M.wood), 8.8, 1.4, -4.25));
-      [[-10.5, -6.5], [10.5, 6.5], [-10.5, 6.5]].forEach(([x, z]) => room.add(at(plant(1.2), x, 0, z)));
-    },
-    // 5 · ruang karyawan: deretan meja dan monitor; satu monitor menampilkan konten
-    5(room, k) {
-      [-7.5, -2.5, 2.5, 7.5].forEach((x, ix) => [-4.2, -0.6].forEach((z, iz) => {
-        room.add(at(desk(1.8, 0.8), x, 0, z));
-        room.add(at(monitor(), x, 0.775, z - 0.2));
-        if ((ix + iz) % 2 === 0) { const p = person({ seated: true, arms: 'desk', shirt: [0xFFFFFF, 0x7C5CE8, 0xC9BCFA, 0x3E2A97][ix] }); room.add(at(p, x, 0, z + 0.85)); }
-        else room.add(at(chair(), x, 0, z + 0.85));
-      }));
-      // meja depan dengan monitor besar (konten)
-      room.add(at(desk(2.2, 0.9), 0, 0, 3.2));
-      contentScreen(k, room, { kind: 'wide', hBase: 0.72, maxW: 1.5, bottom: 0.775 + 0.14, z: 2.95, bezelPad: 0.05 });
-      room.add(at(box(0.08, 0.14, 0.08, M.dark), 0, 0.84, 2.9));
-      const p = person({ seated: true, arms: 'desk', shirt: 0x7C5CE8 }); p.rotation.y = 0.35; room.add(at(p, 1.0, 0, 4.1));
-      [[-10.5, 6.5], [10.5, 6.5]].forEach(([x, z]) => room.add(at(plant(), x, 0, z)));
-    },
-    // 4 · ruang server: rak berlampu dan layar monitoring
-    4(room, k) {
-      contentScreen(k, room, { kind: 'wide', hBase: 2.4, maxW: 5.2, bottom: 1.1, z: BACK });
-      [-1, 1].forEach(side => {
-        for (let i = 0; i < 5; i++) {
-          const z = -4.5 + i * 2.1, x = side * 6.5;
-          room.add(at(box(1.0, 2.4, 1.2, M.dark), x, 1.2, z));
-          for (let r = 0; r < 6; r++) {
-            const led = at(box(0.04, 0.04, 0.04, (r + i) % 3 ? M.led : M.ledP, false, false), x - side * 0.51, 0.4 + r * 0.32, z - 0.4 + ((r * 7 + i) % 5) * 0.18);
-            room.add(led); leds.push(led);
-          }
-        }
-      });
-      const eng = person({ shirt: 0xFFFFFF }); eng.rotation.y = Math.PI * 0.8; room.add(at(eng, -3.5, 0, 1.5));
-    },
-    // 3 · ruang keamanan: video wall CCTV, layar tengah menampilkan konten
-    3(room, k) {
-      const sw = 3.6, sh = sw * 9 / 16, cy = 1.2 + sh / 2;
-      contentScreen(k, room, { kind: 'wide', hBase: 2.05, maxW: 3.7, bottom: 1.2, z: BACK });
-      let i = 0;
-      [-1, 1].forEach(side => [0.5, -0.5].forEach(r => {
-        const m = box(1.7, 0.96, 0.06, camFeed(i++)); room.add(at(m, side * (sw / 2 + 1.05), cy + r * 1.02, BACK));
-        room.add(at(box(1.8, 1.06, 0.05, M.dark), side * (sw / 2 + 1.05), cy + r * 1.02, BACK - 0.04));
-      }));
-      room.add(at(desk(5.5, 1.0, 0.78), 0, 0, 1.6));
-      [-1.6, 0, 1.6].forEach(x => room.add(at(monitor(0.5, 0.3), x, 0.805, 1.35)));
-      const op = person({ seated: true, arms: 'desk', shirt: 0x2A2F5E }); room.add(at(op, -0.9, 0, 2.5));
-      room.add(at(chair(), 1.2, 0, 2.5));
-      const cam = new THREE.Group(); cam.add(at(box(0.5, 0.22, 0.22, M.white), 0, 0, 0)); cam.add(at(box(0.08, 0.3, 0.08, M.white), 0, 0.2, 0.1));
-      room.add(at(cam, 11, 4.6, -7.5));
-    },
-    // 2 · HP di tangan seseorang (sudut pandang orang itu)
-    2(room, k) {
-      const s1 = sofa(3); s1.rotation.y = Math.PI; room.add(at(s1, -5, 0, -4.5));
-      const s2 = sofa(3); s2.rotation.y = Math.PI; room.add(at(s2, 5, 0, -4.5));
-      room.add(at(box(1.6, 0.4, 0.8, M.wood), -5, 0.2, -2.8));
-      [[-10.5, -6.5], [10.5, -6.5], [-10.5, 6.5], [10.5, 6.5], [0, -6.8]].forEach(([x, z]) => room.add(at(plant(1.2), x, 0, z)));
-      const p = person({ arms: 'phone', shirt: 0xC9BCFA });
-      room.add(at(p, 0, 0, 2.2));
-      room.updateMatrixWorld(true);
-      const hand = p.userData.hands[1].getWorldPosition(new THREE.Vector3());
-      room.worldToLocal(hand);
-      const pw = 0.075, ph = pw * 844 / 390;
-      contentScreen(k, room, { kind: 'phone', L: 0.16, x: hand.x - 0.03, y: hand.y + 0.06, z: hand.z - 0.04, rx: -0.12, bezelPad: 0.008 });
-      [-6, 6].forEach(x => { const q = person({ seated: true, shirt: x < 0 ? 0x7C5CE8 : 0xFFFFFF }); q.rotation.y = Math.PI; room.add(at(q, x, 0, -4.7)); });
-    },
-    // 1 · lobi: tablet di tangan resepsionis
-    1(room, k) {
-      const logo = canvasTex(1024, 256, (x) => { x.fillStyle = '#5B3FC4'; x.fillRect(0, 0, 1024, 256); x.fillStyle = '#fff'; x.font = '800 140px "Plus Jakarta Sans", system-ui, sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('A L T O R A', 512, 134); });
-      room.add(at(box(8, 2, 0.08, std(0xffffff, { map: logo, emissive: 0xffffff, emissiveMap: logo, emissiveIntensity: 0.25 })), 0, 3.6, BACK));
-      room.add(at(box(5.2, 1.1, 1.1, M.white), 0, 0.55, -1.8));
-      room.add(at(box(5.2, 0.12, 1.12, M.purple), 0, 0.85, -1.79));
-      const rec = person({ arms: 'hold', shirt: 0x7C5CE8 }); rec.rotation.y = Math.PI; room.add(at(rec, 0, 0, -2.85));
-      room.updateMatrixWorld(true);
-      const a = rec.userData.hands[0].getWorldPosition(new THREE.Vector3()), b = rec.userData.hands[1].getWorldPosition(new THREE.Vector3());
-      room.worldToLocal(a); room.worldToLocal(b);
-      const tw = Math.max(0.26, a.distanceTo(b) + 0.02), th = tw * 0.75;
-      contentScreen(k, room, { kind: 'tablet', L: Math.max(0.3, tw), x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 + th * 0.32, z: (a.z + b.z) / 2 + 0.02, rx: -0.35, bezelPad: 0.02 });
-      [-1, 1].forEach(s => { const so = sofa(3); so.rotation.y = s * Math.PI / 2; room.add(at(so, s * 8.5, 0, 3)); });
-      [[-3.4, -2], [3.4, -2], [-10.5, -6.5], [10.5, -6.5]].forEach(([x, z]) => room.add(at(plant(1.3), x, 0, z)));
-      room.add(at(box(5, 6.2, 0.3, M.frame), 0, 3.1, D / 2 - 0.1));                                 // pintu masuk
-      room.add(at(box(4.4, 5.8, 0.32, std(0xDCD3FB, { roughness: 0.1, metalness: 0.2, transparent: true, opacity: 0.6 })), 0, 2.9, D / 2 - 0.1));
-    },
   };
 
   // ── lantai ──
@@ -339,7 +244,8 @@ function init() {
     g.add(at(box(W - 0.6, gh, 0.2, M.wall, false, true), 0, gy, -D / 2 + 0.4));
     const room = new THREE.Group(); room.position.y = SLAB; g.add(room);
     scene.add(g);
-    ROOMS[k](room, k);
+    if (k === N) ROOMS[k](room, k);                                  // hanya lantai teratas yang dikunjungi kamera
+    else room.add(at(box(W - 1.2, 0.05, D - 1.2, M.lilac, false, true), 0, 0.03, 0));
     g.position.y = base(k);
     floors[k] = { g, h };
   }
@@ -423,8 +329,8 @@ function init() {
   }
   const poses = {};
   function buildPoses() {
-    for (let k = 1; k <= N; k++) {
-      const f = screenFrame(k), d = (f.s.h / 2) / TAN;
+    for (const kk in screens) {
+      const k = +kk, f = screenFrame(k), d = (f.s.h / 2) / TAN;
       const fill = { pos: f.c.clone().addScaledVector(f.n, d), look: f.c.clone(), up: f.camUp.clone() };
       const back = Math.max(d * 3.2, f.s.hand ? 1.6 : 7);
       const room = { pos: f.c.clone().addScaledVector(f.n, back).addScaledVector(f.side, back * 0.32).addScaledVector(up, back * 0.28), look: f.c.clone().addScaledVector(up, -0.15 * back * 0.3), up: up.clone() };
@@ -484,11 +390,11 @@ function init() {
     const a = activeScene();
     if (!a || a.t >= 0.999) { if (on3d) { root.classList.remove('gd-3d-on'); on3d = false; } return false; }
     if (!on3d) { root.classList.add('gd-3d-on'); on3d = true; }
-    const t = a.t, from = +(a.sc.dataset.from || 0), to = +a.sc.dataset.to;
+    const t = a.t;
     const lifts = {}; for (let k = 1; k <= N; k++) lifts[k] = 0;
     let roofLift = 1, hero = 0, outro = 0;
     const want = {};
-    if (!from) {                                         // intro: luar gedung -> atap -> ruang meeting -> layar
+    {                                                    // luar gedung -> atap -> ruang meeting -> layar
       hero = 1 - clamp(t / 0.14);
       roofLift = seg(t, 0.24, 0.5);
       if (t < 0.36) blend(far(), above(), seg(t, 0, 0.36));
@@ -496,23 +402,6 @@ function init() {
       else blend(poses[7].room, poses[7].fill, seg(t, 0.7, 1));
       want[7] = 'cover';
       beam.material.opacity = 0.15 * clamp((t - 0.55) / 0.2);
-    } else if (to) {                                     // antar-ruangan: keluar dari layar 'from' -> turun -> masuk layar 'to'
-      for (let k = from + 1; k <= N; k++) lifts[k] = 1;
-      lifts[from] = seg(t, 0.24, 0.56);
-      if (t < 0.24) blend(poses[from].fill, poses[from].room, seg(t, 0, 0.24));
-      else if (t < 0.64) blend(poses[from].room, poses[to].room, seg(t, 0.24, 0.64), 10);
-      else blend(poses[to].room, poses[to].fill, seg(t, 0.64, 1));
-      if (t < 0.5) want[from] = 'close';
-      if (t > 0.3) want[to] = 'cover';
-      beam.material.opacity = from === 7 ? 0.15 * (1 - seg(t, 0, 0.3)) : 0;
-    } else {                                             // penutup: keluar dari tablet lobi -> gedung utuh
-      for (let k = 2; k <= N; k++) lifts[k] = 1 - seg(t * 1.6 - (k - 2) * 0.08, 0.3, 0.75);
-      roofLift = 1 - seg(t * 1.6, 0.85, 1.3);
-      if (t < 0.22) blend(poses[1].fill, poses[1].room, seg(t, 0, 0.22));
-      else blend(poses[1].room, far(), seg(t, 0.22, 0.9), 16);
-      if (t < 0.3) want[1] = 'close';
-      outro = clamp((t - 0.72) / 0.2);
-      beam.material.opacity = 0;
     }
     for (const k in faces) showFace(+k, want[k] || null);       // hanya berubah bila isinya berganti
     for (let k = 1; k <= N; k++) setLift(k, lifts[k]);
