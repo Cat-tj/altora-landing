@@ -10,7 +10,15 @@ import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 
 const root = document.querySelector('.gd2');
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-if (root && !reduce && webglOK()) init();
+if (root && !reduce && webglOK()) {
+  try { init(); } catch (e) { fail(e); }
+}
+function fail(e) {                                                    // apa pun yang gagal: matikan adegan, beranda biasa tetap tampil
+  console.warn('gedung3d dimatikan:', e);
+  if (window.__gdStop) window.__gdStop();
+  root.classList.remove('gd-live', 'gd-3d', 'gd-3d-on', 'gd-m', 'gd-night');
+  root.querySelectorAll('.gd-canvas,.gd-css3d,.gd-floormenu,.gd-floortip').forEach(el => el.remove());
+}
 
 function webglOK() {
   try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch (e) { return false; }
@@ -47,6 +55,37 @@ function init() {
   root.appendChild(css.domElement);
 
   const scene = new THREE.Scene();
+  // menu lantai: latar (kota, langit) diburamkan, gedung tetap tajam di depannya
+  const rtA = new THREE.WebGLRenderTarget(2, 2, { type: THREE.HalfFloatType }), rtB = rtA.clone();
+  const quadCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1), quadScene = new THREE.Scene();
+  const QV = 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }';
+  const blurMat = new THREE.ShaderMaterial({ uniforms: { tex: { value: null }, dir: { value: new THREE.Vector2() } }, vertexShader: QV, depthTest: false, depthWrite: false,
+    fragmentShader: 'uniform sampler2D tex; uniform vec2 dir; varying vec2 vUv; void main(){ vec4 c = texture2D(tex, vUv) * 0.227027;'
+      + ' c += (texture2D(tex, vUv + dir * 1.3846) + texture2D(tex, vUv - dir * 1.3846)) * 0.316216;'
+      + ' c += (texture2D(tex, vUv + dir * 3.2308) + texture2D(tex, vUv - dir * 3.2308)) * 0.070270; gl_FragColor = c; }' });
+  const outMat = new THREE.ShaderMaterial({ uniforms: { tex: { value: null }, dim: { value: 0 }, tint: { value: new THREE.Color() } }, vertexShader: QV, depthTest: false, depthWrite: false,
+    fragmentShader: 'uniform sampler2D tex; uniform float dim; uniform vec3 tint; varying vec2 vUv; void main(){ vec4 c = texture2D(tex, vUv); c.rgb = mix(c.rgb, tint, dim); gl_FragColor = vec4(c.rgb, 1.0);'
+      + '\n#include <tonemapping_fragment>\n#include <colorspace_fragment>\n}' });
+  const quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), blurMat); quad.frustumCulled = false; quadScene.add(quad);
+  let blurK = 0;
+  function renderScene() {
+    if (blurK < 0.02) { gl.render(scene, camera); return; }
+    camera.layers.set(0);                                                // 1) latar tanpa gedung -> tekstur setengah resolusi
+    gl.setRenderTarget(rtA); gl.render(scene, camera);
+    quad.material = blurMat;
+    for (let i = 1; i <= 3; i++) {                                       // 2) blur gaussian bolak-balik, makin lebar
+      const r = blurK * i;
+      blurMat.uniforms.tex.value = rtA.texture; blurMat.uniforms.dir.value.set(r / rtA.width, 0); gl.setRenderTarget(rtB); gl.render(quadScene, quadCam);
+      blurMat.uniforms.tex.value = rtB.texture; blurMat.uniforms.dir.value.set(0, r / rtA.height); gl.setRenderTarget(rtA); gl.render(quadScene, quadCam);
+    }
+    gl.setRenderTarget(null);                                            // 3) latar buram (sedikit diredupkan) ke layar
+    quad.material = outMat; outMat.uniforms.tex.value = rtA.texture; outMat.uniforms.dim.value = blurK * 0.3;
+    outMat.uniforms.tint.value.set(night.v > 0.5 ? 0x05061A : 0xF1EDFF);
+    gl.render(quadScene, quadCam);
+    camera.layers.set(1);                                                // 4) gedung tajam di atasnya
+    gl.autoClear = false; gl.clearDepth(); gl.render(scene, camera); gl.autoClear = true;
+    camera.layers.enable(0);
+  }
   scene.fog = new THREE.Fog(BG, 420, 900);                              // hanya memudarkan cakrawala, bukan kabut
   const pmrem = new THREE.PMREMGenerator(gl);
   scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
@@ -237,7 +276,7 @@ function init() {
       const proj = new THREE.Group(); proj.add(at(box(0.55, 0.2, 0.5, M.white), 0, 0, 0)); proj.add(at(cyl(0.07, 0.07, 0.06, M.dark), 0, 0, -0.27)); proj.children[1].rotation.x = Math.PI / 2;
       room.add(at(proj, 0, 0.87, 2.2));
       [[-10.5, -6.5], [10.5, -6.5], [-10.5, 6.5], [10.5, 6.5]].forEach(([x, z]) => room.add(at(plant(1.1), x, 0, z)));
-      [-1, 1].forEach(sd => { const c = chair(); c.rotation.y = sd * Math.PI / 2; room.add(at(c, sd * 5.6, 0, 1.4)); const p = person({ seated: true, shirt: sd > 0 ? 0xF26B3A : 0x7C5CE8, v: sd > 0 ? 2 : 0, arms: 'desk' }); p.rotation.y = -sd * Math.PI / 2; room.add(at(p, sd * 5.45, 0, 1.4)); });
+      [-1, 1].forEach(sd => { const c = chair(); c.rotation.y = sd * Math.PI / 2; room.add(at(c, sd * 5.6, 0, 1.4)); const p = person({ seated: true, shirt: sd > 0 ? 0xF26B3A : 0x7C5CE8, v: sd > 0 ? 2 : 0, arms: 'desk' }); p.rotation.y = sd * Math.PI / 2; room.add(at(p, sd * 5.45, 0, 1.4)); });   // yang duduk di ujung meja menghadap meja
       const pres = person({ shirt: 0x3E2A97, v: 1, arms: 'reach' }); pres.rotation.y = Math.PI + 0.9; room.add(at(pres, -5.6, 0, -6.2));   // presenter menunjuk layar
       [[-3, 5.6], [-1.6, 5.9], [2.2, 5.7], [3.6, 5.5]].forEach(([x, z], j) => { const p = person({ shirt: [0xF5C04A, 0x3FA7B5, 0x6B3F3A, 0xFF8FB1][j], v: j, arms: j % 2 ? 'hold' : 'down' }); room.add(at(p, x, 0, z)); });   // peserta berdiri di belakang
     },
@@ -445,7 +484,7 @@ function init() {
     });
     const c = all.getCenter(new THREE.Vector3()), size = all.getSize(new THREE.Vector3());
     const sc = 30 / Math.max(size.x, size.y);
-    meshes.forEach(m => { m.geometry.translate(-c.x, -c.y, -c.z); logo3d.add(m); });
+    meshes.forEach(m => { m.geometry.translate(-c.x, -c.y, -c.z); m.layers.set(1); logo3d.add(m); });   // layer 1: tetap tajam di menu lantai
     logo3d.scale.set(sc, -sc, sc);                                             // sumbu y SVG terbalik
   });
   const glowC = canvasTex(256, 256, (x) => { const g = x.createRadialGradient(128, 128, 0, 128, 128, 128); g.addColorStop(0, 'rgba(216,107,255,.9)'); g.addColorStop(0.45, 'rgba(124,92,232,.35)'); g.addColorStop(1, 'rgba(124,92,232,0)'); x.fillStyle = g; x.fillRect(0, 0, 256, 256); });
@@ -696,11 +735,60 @@ function init() {
     [-1, 1].forEach(sx => [-1, 1].forEach(sz => g.add(at(box(0.12, 6.5, 0.12, V.wheel, false, false), sx * 1.1, 4.4, sz * 1.1))));
     g.scale.setScalar(1.4); g.position.set(x, y, z); scene.add(g); balloons.push({ g, x, y, z, ph: i * 2.1 });
   });
+  // pesawat voxel menarik spanduk ALTORA (logo + tulisan), mengitari kota
+  const plane = new THREE.Group();
+  {
+    const body = std(0xFFFFFF, { flatShading: true }), acc = std(0x7C5CE8, { flatShading: true }), glass = std(0x9FC3FF, { roughness: 0.2 });
+    plane.add(at(box(9, 1.8, 1.8, body, false, false), 0, 0, 0));
+    plane.add(at(box(1.2, 1.4, 1.4, acc, false, false), 5.1, 0, 0));
+    plane.add(at(box(1.8, 0.8, 1.6, glass, false, false), 2.4, 1.2, 0));
+    plane.add(at(box(2.6, 0.3, 14, body, false, false), 1, 0.2, 0));
+    plane.add(at(box(2.6, 0.32, 1.2, acc, false, false), 1, 0.22, 6.4));
+    plane.add(at(box(2.6, 0.32, 1.2, acc, false, false), 1, 0.22, -6.4));
+    plane.add(at(box(1.6, 0.3, 5, body, false, false), -4, 0.4, 0));
+    plane.add(at(box(1.8, 2.6, 0.3, acc, false, false), -4, 1.6, 0));
+    const prop = at(box(0.2, 3.6, 0.4, V.wheel, false, false), 5.8, 0, 0); plane.add(prop); plane.userData.prop = prop;
+    plane.add(at(box(6, 0.06, 0.06, V.wheel, false, false), -6.5, 0, 0));
+    const cv = document.createElement('canvas'); cv.width = 1024; cv.height = 300;
+    const g = cv.getContext('2d'), tex = new THREE.CanvasTexture(cv); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
+    const draw = img => {
+      g.fillStyle = '#FFFFFF'; g.fillRect(0, 0, 1024, 300);
+      g.strokeStyle = '#7C5CE8'; g.lineWidth = 16; g.strokeRect(8, 8, 1008, 284);
+      if (img) g.drawImage(img, 60, 50, 200, 200);
+      g.fillStyle = '#10224F'; g.font = '800 150px "Plus Jakarta Sans", system-ui, sans-serif'; g.textBaseline = 'middle';
+      g.fillText('ALTORA', img ? 290 : 120, 140);
+      g.fillStyle = '#7C5CE8'; g.font = '700 40px "Plus Jakarta Sans", system-ui, sans-serif';
+      g.fillText('altora.id', img ? 296 : 126, 240);
+      tex.needsUpdate = true; if (plane.userData.tb) plane.userData.tb.needsUpdate = true;
+    };
+    draw(null);
+    const img = new Image(); img.onload = () => draw(img); img.src = '/assets/img/altora-logo-icon-v2.svg';
+    const bm = new THREE.MeshStandardMaterial({ map: tex, emissive: 0xFFFFFF, emissiveMap: tex, emissiveIntensity: 0.35, roughness: 0.8 });
+    const geo = new THREE.PlaneGeometry(9.5, 2.8, 16, 1); geo.translate(-4.75, 0, 0);   // spanduk setinggi pesawat
+    const banner = new THREE.Group(); banner.position.x = -9.5;
+    const tb = tex.clone(); tb.wrapS = THREE.RepeatWrapping; tb.repeat.x = -1; tb.offset.x = 1;   // sisi belakang: tulisan tetap terbaca
+    plane.userData.tb = tb;
+    const bb = bm.clone(); bb.map = tb; bb.emissiveMap = tb; bb.side = THREE.BackSide;
+    const f = new THREE.Mesh(geo, bm), b = new THREE.Mesh(geo, bb);
+    banner.add(f, b); plane.add(banner);
+    plane.userData.geo = geo; plane.userData.base = geo.attributes.position.array.slice();
+    plane.scale.setScalar(2.4); scene.add(plane);
+  }
+  function movePlane(sec) {                                               // melintas di langit di belakang gedung, tegak lurus arah pandang
+    const az = 0.56, dx = Math.cos(az), dz = -Math.sin(az), u = ((sec * 16) % 600) - 300;
+    plane.position.set(dx * u - Math.sin(az) * 70, 83 + Math.sin(sec * 0.5) * 2, dz * u - Math.cos(az) * 70);
+    plane.rotation.set(0, Math.atan2(-dz, dx), 0);
+    plane.userData.prop.rotation.x = sec * 40;
+    const pos = plane.userData.geo.attributes.position, b0 = plane.userData.base;
+    for (let i = 0; i < pos.count; i++) { const x = b0[i * 3]; pos.array[i * 3 + 2] = Math.sin(x * 0.9 + sec * 6) * 0.25 * (-x / 9.5); }
+    pos.needsUpdate = true;
+  }
   function moveWorld(dt, now) {
     const sec = now / 1000;
     farCars.forEach(k => { const p = k.c.position; p[k.axis] += k.dir * k.speed * dt; if (p[k.axis] > 430) p[k.axis] = -430; if (p[k.axis] < -430) p[k.axis] = 430; });
     logs.forEach(l => { l.m.position.x += l.dir * l.speed * dt; if (l.m.position.x > 450) l.m.position.x = -450; if (l.m.position.x < -450) l.m.position.x = 450; l.m.position.y = 0.35 + Math.sin(sec * 1.5 + l.m.position.x) * 0.08; });
     train.position.x += 26 * dt; if (train.position.x > 520) train.position.x = -520;
+    movePlane(sec);
     balloons.forEach(b => { b.g.position.set(b.x + Math.sin(sec * 0.05 + b.ph) * 40, b.y + Math.sin(sec * 0.4 + b.ph) * 3, b.z + Math.cos(sec * 0.04 + b.ph) * 25); });
   }
 
@@ -917,12 +1005,15 @@ function init() {
   const seg = (t, a, b) => ease(clamp((t - a) / (b - a)));
 
   // ── tinggi adegan & ukuran layar ──
+  let ready = false;
   function resize() {
     VW = document.documentElement.clientWidth || innerWidth; VH = innerHeight;
+    if (VW < 2 || VH < 2) return;                                          // tab tersembunyi / belum punya ukuran: tunggu
     Z = parseFloat(getComputedStyle(document.body).zoom) || 1;               // situs memakai zoom .9 di desktop
     const cw = VW / Z, ch = VH / Z;                                          // ukuran dalam px CSS halaman
     root.style.setProperty('--vhp', ch + 'px');
     gl.setSize(VW, VH, false);
+    { const ds = gl.getDrawingBufferSize(new THREE.Vector2()); rtA.setSize(Math.ceil(ds.x / 2), Math.ceil(ds.y / 2)); rtB.setSize(Math.ceil(ds.x / 2), Math.ceil(ds.y / 2)); }
     css.domElement.style.zoom = String(1 / Z);                               // lapisan 3D bekerja di px layar, tanpa zoom halaman
     css.setSize(VW, VH);
     camera.aspect = VW / VH; camera.updateProjectionMatrix();
@@ -941,6 +1032,7 @@ function init() {
     if (coverEl) { coverEl.style.setProperty('margin-top', -ch + 'px', 'important'); coverEl.style.setProperty('min-height', ch + 'px', 'important'); faces[N] && (faces[N].wrap = null, faces[N].shown = null); }
     buildPoses();
     placeOrb();
+    ready = true;
   }
   function placeOrb() {                                                  // matahari/bulan terbit di balik puncak gunung, kanan atas pandangan
     const f = far(), dir = f.look.clone().sub(f.pos).normalize();
@@ -978,7 +1070,7 @@ function init() {
   let visit = null;                                                    // { k, t0 } saat lantai diklik
   const VISIT_MS = 2600;
   function frame() {
-    if (visit) return visitFrame();
+    if (visit) { if (!on3d) { root.classList.add('gd-3d-on'); on3d = true; } return visitFrame(); }
     const a = activeScene();
     if (!a || a.t >= 0.999) { if (on3d) { root.classList.remove('gd-3d-on'); on3d = false; } return false; }
     if (!on3d) { root.classList.add('gd-3d-on'); on3d = true; }
@@ -1004,7 +1096,10 @@ function init() {
     return true;
   }
   function visitFrame() {
-    const k = visit.k, t = clamp((performance.now() - visit.t0) / VISIT_MS), rise = TOTAL - base(k) + 70;
+    const now = performance.now(); if (!visit.t0 || (visit.rev && (visit.f = (visit.f || 0) + 1) < 8)) visit.t0 = now;   // rev: tunggu beberapa frame pertama (kompilasi shader) baru mulai
+    if (!visit.from) visit.from = startPose();
+    const raw = clamp((now - visit.t0) / VISIT_MS), t = visit.rev ? 1 - raw : raw;   // rev: dari layar lantai mundur ke menu lantai
+    const k = visit.k, rise = TOTAL - base(k) + 70;
     const open = seg(t, 0.04, 0.32);                                  // lantai di atasnya & atap terangkat
     for (let j = 1; j <= N; j++) setLift(j, j > k ? open : 0, rise);
     setRoof(k === N ? seg(t, 0.04, 0.32) : open, rise);
@@ -1015,7 +1110,8 @@ function init() {
     beam.material.opacity = k === N ? 0.15 * clamp((t - 0.5) / 0.2) : 0;
     root.style.setProperty('--hero', (1 - clamp(t / 0.12)) * (1 - menuK));
     hl.visible = false; tip.style.opacity = 0; placeMenu(menuK * (1 - clamp(t / 0.1)));
-    if (t >= 1 && !visit.gone) { visit.gone = true; location.href = PAGES[k][1]; }
+    if (visit.rev && raw >= 1) { visit = null; auto = null; settle = true; lockUntil = now + 900; return true; }
+    if (!visit.rev && t >= 1 && !visit.gone) { visit.gone = true; location.href = PAGES[k][1]; }
     return true;
   }
   function startVisit(k) {
@@ -1024,6 +1120,12 @@ function init() {
     if (k === N) screens[N].surface.material = LABELS[N].mat;
     visit = { k, t0: performance.now(), from: startPose() };
     auto = true;                                                         // input scroll diabaikan selama perjalanan
+  }
+  function startReturn(k) {                                            // datang dari halaman lantai k: mundur dari layarnya ke menu lantai
+    if (k === N) screens[N].surface.material = LABELS[N].mat;
+    menu = true; menuP = menuK = 1;
+    visit = { k, t0: 0, from: null, rev: true };
+    auto = true;
   }
   addEventListener('pageshow', e => { if (e.persisted && visit) { visit = null; auto = null; menu = false; menuP = menuK = 0; screens[N].surface.material = M.white; scrollTo({ top: 0, behavior: 'instant' }); } });
 
@@ -1044,6 +1146,7 @@ function init() {
   const pv = new THREE.Vector3();
   const toScreen = (x, y, z) => { pv.set(x, y, z).project(camera); return [(pv.x + 1) / 2 * VW / Z, (1 - pv.y) / 2 * VH / Z]; };
   function placeMenu(o) {
+    blurK = o;
     fm.style.opacity = o; fm.classList.toggle('on', o > 0.85);
     if (o <= 0.01) return;
     camera.updateMatrixWorld();
@@ -1088,9 +1191,17 @@ function init() {
 
   const t0 = performance.now();
   let skyTick = 0;
+  let stopped = false;
+  window.__gdStop = () => { stopped = true; };
   function loop() {
+    if (stopped) return;
+    try { step(); } catch (e) { fail(e); return; }
+    requestAnimationFrame(loop);
+  }
+  function step() {
     const cw = document.documentElement.clientWidth || innerWidth;
-    if (cw !== VW || innerHeight !== VH) resize();                        // zoom/resize yang tidak memicu event
+    if (cw !== VW || innerHeight !== VH || !ready) resize();               // zoom/resize yang tidak memicu event
+    if (!ready) return;
     tickMenu(performance.now());
     if (frame()) {
       const tt = (performance.now() - t0) / 1000;
@@ -1099,48 +1210,68 @@ function init() {
       animateSky(performance.now());
       if (++skyTick % 600 === 1) applySky();                                    // perbarui langit tiap ~10 detik
       leds.forEach((l, i) => { l.visible = Math.sin(tt * 4 + i * 1.7) > -0.3; });
-      gl.render(scene, camera);
+      renderScene();
       css.render(scene, camera);
     }
-    requestAnimationFrame(loop);
   }
   // ── sekali scroll ke bawah di pembuka -> animasi berjalan sendiri sampai beranda ──
-  let auto = null;
+  let auto = null, settle = false;                                       // settle: sisa momentum setelah animasi ditahan sampai ada usapan baru
   function introProgress() {
     const sc = scenes[0]; if (!sc) return null;
     const r = sc.getBoundingClientRect(), span = r.height - VH;
     if (-r.top > span - 1) return null;                                    // sudah lewat pembuka
     return { r, span, t: clamp(-r.top / span) };
   }
-  function playIntro() {
-    const ip = introProgress(); if (!ip || auto) return false;
-    const from = scrollY, dist = (ip.r.top + ip.span) / Z + 2;             // px CSS sampai pembuka selesai
-    const dur = 3200 * (1 - ip.t) + 400, t0 = performance.now();
+  function scrollAnim(to, dur, done) {
+    const from = scrollY, t0 = performance.now();
     const ez = x => (x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2);
     auto = true;
     (function step(now) {
       const k = Math.min(1, (now - t0) / dur);
-      scrollTo({ top: from + dist * ez(k), behavior: 'instant' });          // situs memakai scroll-behavior:smooth
-      if (k < 1) requestAnimationFrame(step); else auto = null;
+      scrollTo({ top: from + (to - from) * ez(k), behavior: 'instant' });   // situs memakai scroll-behavior:smooth
+      if (k < 1) requestAnimationFrame(step); else { auto = null; settle = true; if (done) done(); }
     })(t0);
     return true;
   }
+  function playIntro() {                                                  // menu lantai -> beranda
+    const ip = introProgress(); if (!ip || auto) return false;
+    return scrollAnim(scrollY + (ip.r.top + ip.span) / Z + 2, 3200 * (1 - ip.t) + 400);
+  }
+  function playBack() {                                                   // beranda -> kembali ke menu lantai
+    const sc = scenes[0]; if (!sc || auto) return false;
+    const r = sc.getBoundingClientRect(), span = r.height - VH, t = clamp(-r.top / span);
+    menu = true; menuP = 1; menuK = 1;
+    return scrollAnim(scrollY + r.top / Z, 2400 * t + 400, () => { lockUntil = performance.now() + 900; });
+  }
+  function nearIntroEnd() {                                               // di puncak konten beranda, tepat di bawah pembuka
+    const sc = scenes[0]; if (!sc) return false;
+    const r = sc.getBoundingClientRect();
+    return (-r.top - (r.height - VH)) / Z < 80;
+  }
   const block = e => { if (auto) { e.preventDefault(); return true; } return false; };
-  function goDown() {                                                    // true = ditangani (scroll halaman dicegah)
+  // urutan: 1 pembuka -> (scroll) 2 menu lantai -> (klik) 3 masuk lantai | (scroll) 4 beranda
+  // scroll ke atas dari beranda -> 2 menu lantai -> (scroll ke atas lagi) 1 pembuka
+  function goDown(gap = 1e9) {                                            // true = ditangani (scroll halaman dicegah); gap = jeda sejak event wheel sebelumnya
     const ip = introProgress(); if (!ip) return false;
     if (ip.t > 0.02) return playIntro();
     if (!menu) { menu = true; lockUntil = performance.now() + 900; return true; }
-    if (performance.now() < lockUntil) return true;
+    if (performance.now() < lockUntil || gap < 280) return true;          // sisa momentum usapan pertama diabaikan
     return playIntro();
   }
-  function goUp() {
-    const ip = introProgress(); if (!ip || ip.t > 0.02 || !menu) return false;
-    if (performance.now() >= lockUntil) { menu = false; lockUntil = performance.now() + 600; }
+  function goUp(gap = 1e9) {
+    const ip = introProgress();
+    if (!ip) return nearIntroEnd() ? playBack() : false;
+    if (ip.t > 0.02) return playBack();
+    if (!menu) return false;
+    if (performance.now() >= lockUntil && gap >= 280) { menu = false; lockUntil = performance.now() + 600; }
     return true;
   }
+  let lastWheel = 0;
   addEventListener('wheel', e => {
+    const now = performance.now(), gap = now - lastWheel; lastWheel = now;
     if (block(e)) return;
-    if ((e.deltaY > 4 && goDown()) || (e.deltaY < -4 && goUp())) e.preventDefault();
+    if (settle) { if (gap < 280) { e.preventDefault(); return; } settle = false; }   // stopper: jangan keterusan
+    if ((e.deltaY > 4 && goDown(gap)) || (e.deltaY < -4 && goUp(gap))) e.preventDefault();
   }, { passive: false });
   let ty0 = null;
   addEventListener('touchstart', e => { ty0 = e.touches[0].clientY; }, { passive: true });
@@ -1158,6 +1289,13 @@ function init() {
   });
   addEventListener('resize', resize);
   if (window.visualViewport) visualViewport.addEventListener('resize', resize);
+  // gedung di layer 1 (dirender tajam terpisah saat menu lantai), sisanya layer 0; cahaya menyinari keduanya
+  for (let k = 1; k <= N; k++) floors[k].g.traverse(o => o.layers.set(1));
+  roof.traverse(o => o.layers.set(1)); hl.layers.set(1);
+  scene.traverse(o => { if (o.isLight) o.layers.enableAll(); });
+  camera.layers.enable(1);
   resize();
+  let back = 0; try { back = +sessionStorage.getItem('gdBack') || 0; sessionStorage.removeItem('gdBack'); } catch (e) {}
+  if (back >= 1 && back <= N) { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; scrollTo({ top: 0, behavior: 'instant' }); startReturn(back); }
   loop();
 }
