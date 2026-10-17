@@ -72,7 +72,7 @@ function init() {
 
   // ── material ──
   const M = {
-    glass: new THREE.MeshPhysicalMaterial({ color: 0x8C76F2, roughness: 0.06, metalness: 0.15, transparent: true, opacity: 0.4, envMapIntensity: 1.4, clearcoat: 1, clearcoatRoughness: 0.08 }),
+    glass: new THREE.MeshPhysicalMaterial({ color: 0x8C76F2, roughness: 0.06, metalness: 0.15, transparent: true, opacity: 0.26, envMapIntensity: 1.2, clearcoat: 1, clearcoatRoughness: 0.08 }),
     frame: std(0x3E2A97, { roughness: 0.45, metalness: 0.35 }),
     slab: std(0xFBFAFF, { roughness: 0.6 }),
     wall: std(0xEDE7FF, { roughness: 0.9 }),
@@ -235,6 +235,59 @@ function init() {
     },
   };
 
+  // ── aktivitas lantai lain (ringan: tanpa bayangan, orang 5 balok) ──
+  const crowd = [];                                                    // orang yang berjalan bolak-balik
+  const lite = (w, h, d, mat) => box(w, h, d, mat, false, false);
+  const SHIRTS = [0x7C5CE8, 0xF26B3A, 0x3FA7B5, 0xF5C04A, 0x6B3F3A, 0xFFFFFF, 0x3E2A97];
+  const shirtMats = SHIRTS.map(c => std(c, { flatShading: true }));
+  const skinMats = [0xF2B48C, 0xD9946B, 0xB9784F].map(c => std(c, { flatShading: true }));
+  const hairMat = std(0x3A2A30, { flatShading: true });
+  function mini(i, seated) {                                           // orang voxel sederhana
+    const g = new THREE.Group(), sh = shirtMats[i % shirtMats.length], sk = skinMats[i % 3];
+    g.add(at(lite(0.42, seated ? 0.45 : 0.75, 0.3, M.pants), 0, seated ? 0.45 : 0.38, 0));
+    g.add(at(lite(0.56, 0.6, 0.34, sh), 0, seated ? 0.95 : 1.05, 0));
+    g.add(at(lite(0.46, 0.44, 0.44, sk), 0, seated ? 1.48 : 1.58, 0));
+    g.add(at(lite(0.5, 0.16, 0.48, hairMat), 0, seated ? 1.72 : 1.82, 0.02));
+    return g;
+  }
+  const ceilLight = std(0xFFFFFF, { emissive: 0xFFF4DA, emissiveIntensity: 1.1 });
+  const screenGlow = std(0xFFFFFF, { emissive: 0xD9CFFF, emissiveIntensity: 1.2 });
+  const deskTop = std(0xFFFFFF, { roughness: 0.6 });
+  function busyFloor(room, k, gh) {
+    room.add(at(lite(W - 1.2, 0.05, D - 1.2, M.lilac), 0, 0.03, 0));
+    for (let x = -8; x <= 8; x += 8) room.add(at(lite(5, 0.08, 0.6, ceilLight), x, gh - 0.1, 0));        // lampu langit-langit
+    const kind = k === 1 ? 'lobby' : k === 4 ? 'server' : k === 3 ? 'lounge' : 'office';
+    if (kind === 'office') {
+      let i = k;
+      for (const z of [D / 2 - 2.6, -1.2]) for (let x = -9; x <= 9; x += 3) {
+        room.add(at(lite(2.2, 0.08, 1, deskTop), x, 0.78, z));
+        room.add(at(lite(0.9, 0.55, 0.05, screenGlow), x, 1.15, z - 0.35));
+        if ((x + k) % 2 === 0 || i % 3 === 0) { const p = mini(i, true); p.rotation.y = Math.PI; room.add(at(p, x, 0, z - 1.0)); }
+        i++;
+      }
+      for (let j = 0; j < 2; j++) { const p = mini(k + j * 3, false); room.add(at(p, -6 + j * 9, 0, 2.2)); crowd.push({ p, axis: 'x', min: -10, max: 10, dir: j ? -1 : 1, speed: 1.1 + j * 0.4 }); }
+    } else if (kind === 'server') {
+      for (let x = -9; x <= 9; x += 2.6) [-3.5, 3.5].forEach(z => {
+        room.add(at(lite(1.6, 2.3, 1, M.dark), x, 1.15, z));
+        for (let r = 0; r < 4; r++) { const led = at(lite(0.08, 0.08, 0.05, (r + x) % 2 ? M.led : M.ledP), x - 0.5 + r * 0.32, 0.6 + r * 0.4, z + 0.52); room.add(led); leds.push(led); }
+      });
+      const p = mini(2, false); room.add(at(p, 0, 0, 0)); crowd.push({ p, axis: 'x', min: -9, max: 9, dir: 1, speed: 0.9 });
+    } else if (kind === 'lounge') {
+      [[-7, 3], [0, 4], [7, 3]].forEach(([x, z], j) => {
+        room.add(at(lite(1.2, 0.75, 1.2, deskTop), x, 0.38, z));
+        for (let a = 0; a < 3; a++) { const p = mini(j * 3 + a, false); const ang = a * 2.1; p.rotation.y = -ang + Math.PI; room.add(at(p, x + Math.sin(ang) * 1.2, 0, z + Math.cos(ang) * 1.2)); }
+      });
+      room.add(at(lite(6, 0.9, 1.2, std(0xD9CFFB, { flatShading: true })), -4, 0.45, -5));
+      const p = mini(5, false); room.add(at(p, 0, 0, -1)); crowd.push({ p, axis: 'x', min: -10, max: 10, dir: -1, speed: 1.3 });
+    } else {                                                                                               // lobi
+      room.add(at(lite(6, 1.1, 1.2, deskTop), 0, 0.55, -3));
+      room.add(at(lite(6, 0.15, 1.22, M.purple), 0, 0.9, -3));
+      const rec = mini(0, false); rec.rotation.y = 0; room.add(at(rec, 0, 0, -4.1));
+      for (let j = 0; j < 3; j++) { const p = mini(j + 2, false); room.add(at(p, -5 + j * 5, 0, 3 + j)); crowd.push({ p, axis: 'z', min: -1, max: 7, dir: j % 2 ? 1 : -1, speed: 0.9 + j * 0.3 }); }
+      [-10, 10].forEach(x => room.add(at(lite(0.8, 2.2, 0.8, M.plant), x, 1.1, 6)));
+    }
+  }
+
   // ── lantai ──
   const floors = {};
   for (let k = 1; k <= N; k++) {
@@ -249,8 +302,8 @@ function init() {
     g.add(at(box(W - 0.6, gh, 0.2, M.wall, false, true), 0, gy, -D / 2 + 0.4));
     const room = new THREE.Group(); room.position.y = SLAB; g.add(room);
     scene.add(g);
-    if (k === N) ROOMS[k](room, k);                                  // hanya lantai teratas yang dikunjungi kamera
-    else room.add(at(box(W - 1.2, 0.05, D - 1.2, M.lilac, false, true), 0, 0.03, 0));
+    if (k === N) ROOMS[k](room, k);                                  // lantai teratas: ruang meeting yang dikunjungi kamera
+    else busyFloor(room, k, gh);                                       // lantai lain: aktivitas yang terlihat dari luar
     g.position.y = base(k);
     floors[k] = { g, h };
   }
@@ -358,6 +411,11 @@ function init() {
   function moveCars(now) {
     const dt = Math.min(0.1, (now - lastT) / 1000); lastT = now;
     cars.forEach(k => { k.c.position.x += k.dir * k.speed * dt; if (k.c.position.x > 170) k.c.position.x = -170; if (k.c.position.x < -170) k.c.position.x = 170; });
+    crowd.forEach(c => {
+      c.p.position[c.axis] += c.dir * c.speed * dt;
+      if (c.p.position[c.axis] > c.max || c.p.position[c.axis] < c.min) c.dir *= -1;
+      c.p.rotation.y = c.axis === 'x' ? (c.dir > 0 ? -Math.PI / 2 : Math.PI / 2) : (c.dir > 0 ? Math.PI : 0);
+    });
     walkers.forEach(w => {
       w.p.position.x += w.dir * w.speed * dt;
       if (Math.abs(w.p.position.x) > 19) { w.dir *= -1; w.p.rotation.y = w.dir > 0 ? -Math.PI / 2 : Math.PI / 2; }
