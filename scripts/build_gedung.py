@@ -8,12 +8,12 @@ Idempoten: pembuka lama dilepas dulu sebelum dipasang ulang, jadi aman dijalanka
 Jalankan lewat scripts/build_all.sh (setelah build_produk/build_trust yang mengubah index.html)."""
 import pathlib, re
 
-JS_V, CSS_V, BACK_V = 256, 16, 4
+JS_V, CSS_V, BACK_V = 257, 16, 4
 root = pathlib.Path(__file__).resolve().parent.parent
 idx = root / 'index.html'
 s = idx.read_text(encoding='utf-8')
 
-INTRO = ('<div class="gd-scene" data-to="8"><div class="gd-scene-in"><div class="gd-hero">'
+INTRO = ('<div class="gd-scene" data-to="9"><div class="gd-scene-in"><div class="gd-hero">'
          '<p class="eyebrow eyebrow-purple">Altora Indonesia · Samarinda &amp; Balikpapan</p>'
          '<p class="gd-title">Kami membangun sistem Anda, <span>lantai demi lantai.</span></p>'
          '<p>Scroll untuk masuk ↓</p><p class="gd-hint">atau klik salah satu lantai gedung untuk langsung ke halamannya</p></div></div></div>')
