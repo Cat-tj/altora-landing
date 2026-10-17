@@ -42,10 +42,11 @@ function init() {
   // ── renderer ──
   const BG = 0xFBF9FE;
   const gl = new THREE.WebGLRenderer({ antialias: true });
-  gl.setPixelRatio(Math.min(devicePixelRatio, mobile ? 1.5 : 1.75));
+  gl.setPixelRatio(Math.min(devicePixelRatio, mobile ? 1.3 : 1.75));
   gl.setClearColor(BG, 1);
   gl.shadowMap.enabled = true;
-  gl.shadowMap.type = THREE.PCFSoftShadowMap;
+  gl.shadowMap.type = mobile ? THREE.PCFShadowMap : THREE.PCFSoftShadowMap;
+  if (mobile) gl.shadowMap.autoUpdate = false;                       // HP: peta bayangan diperbarui tiap beberapa frame (lihat step)
   gl.toneMapping = THREE.ACESFilmicToneMapping;
   gl.toneMappingExposure = 1.05;
   gl.outputColorSpace = THREE.SRGBColorSpace;
@@ -146,9 +147,11 @@ function init() {
   // ── orang (stilisasi) ──
   // orang voxel (gaya kotak-kotak): kepala kubus, rambut kotak, badan/lengan/kaki balok
   const SKIN = [0xF2B48C, 0xD9946B, 0xB9784F], HAIR = [0x5A3825, 0x2B2140, 0x8A5A2B];
+  const flatCache = new Map();
+  function flatMat(c, flat = true) { const key = c + (flat ? 'f' : ''); if (!flatCache.has(key)) flatCache.set(key, std(c, flat ? { flatShading: true } : {})); return flatCache.get(key); }
   function person({ shirt = 0x7C5CE8, pants = 0x3FA7B5, seated = false, arms = 'down', beard = false, v = 0 } = {}) {
-    const g = new THREE.Group(), sh = std(shirt, { flatShading: true }), pt = std(pants, { flatShading: true });
-    const skin = std(SKIN[v % 3], { flatShading: true }), hair = std(HAIR[v % 3], { flatShading: true }), shoe = std(0x5B5560, { flatShading: true }), eye = std(0x1B1F45);
+    const g = new THREE.Group(), sh = flatMat(shirt), pt = flatMat(pants);   // material dipakai bersama per warna supaya bisa digabung
+    const skin = flatMat(SKIN[v % 3]), hair = flatMat(HAIR[v % 3]), shoe = flatMat(0x5B5560), eye = flatMat(0x1B1F45, false);
     const hip = seated ? 0.5 : 0.72;
     if (seated) {
       [-0.12, 0.12].forEach(x => { g.add(at(box(0.2, 0.2, 0.5, pt), x, 0.5, -0.2)); g.add(at(box(0.2, 0.42, 0.2, pt), x, 0.27, -0.44)); g.add(at(box(0.22, 0.12, 0.3, shoe), x, 0.06, -0.48)); });
@@ -156,7 +159,7 @@ function init() {
       [-0.12, 0.12].forEach(x => { g.add(at(box(0.21, 0.6, 0.24, pt), x, 0.42, 0)); g.add(at(box(0.23, 0.14, 0.3, shoe), x, 0.07, -0.03)); });
     }
     g.add(at(box(0.56, 0.6, 0.34, sh), 0, hip + 0.3, 0));                                   // badan
-    g.add(at(box(0.08, 0.32, 0.02, std(0xffffff)), 0, hip + 0.42, -0.175));                  // kerah/dasi
+    g.add(at(box(0.08, 0.32, 0.02, flatMat(0xffffff, false)), 0, hip + 0.42, -0.175));                  // kerah/dasi
     const head = new THREE.Group(); head.position.set(0, hip + 0.86, 0); g.add(head);
     head.add(at(box(0.5, 0.48, 0.48, skin), 0, 0, 0));                                       // kepala kubus
     head.add(at(box(0.54, 0.16, 0.52, hair), 0, 0.26, 0.01));                                // rambut atas
@@ -280,6 +283,7 @@ function init() {
       [-1, 1].forEach(sd => { const c = chair(); c.rotation.y = sd * Math.PI / 2; room.add(at(c, sd * 5.6, 0, 1.4)); const p = person({ seated: true, shirt: sd > 0 ? 0xF26B3A : 0x7C5CE8, v: sd > 0 ? 2 : 0, arms: 'desk' }); p.rotation.y = sd * Math.PI / 2; room.add(at(p, sd * 5.45, 0, 1.4)); });   // yang duduk di ujung meja menghadap meja
       const pres = person({ shirt: 0x3E2A97, v: 1, arms: 'reach' }); pres.rotation.y = Math.PI + 0.9; room.add(at(pres, -5.6, 0, -6.2));   // presenter menunjuk layar
       [[-3, 5.6], [-1.6, 5.9], [2.2, 5.7], [3.6, 5.5]].forEach(([x, z], j) => { const p = person({ shirt: [0xF5C04A, 0x3FA7B5, 0x6B3F3A, 0xFF8FB1][j], v: j, arms: j % 2 ? 'hold' : 'down' }); room.add(at(p, x, 0, z)); });   // peserta berdiri di belakang
+      bake(room, new Set([housing, beam, screens[k].holder]));             // perabot & orang digabung; proyektor/sinar/layar tetap terpisah
     },
   };
 
@@ -349,12 +353,50 @@ function init() {
   };
   const portoImgs = ['fms.jpg', 'barito-dash.jpg', 'dapodik.jpg', 'attendance.jpg', 'smart-farming.webp', 'hris.jpg', 'clinic.jpg', 'logistik.jpg']
     .map(f => { const t = new THREE.TextureLoader().load('/assets/img/portfolio/' + f); t.colorSpace = THREE.SRGBColorSpace; return std(0xffffff, { map: t, emissive: 0xffffff, emissiveMap: t, emissiveIntensity: 0.35, roughness: 0.5 }); });
-  function bake(group) {                                               // gabungkan semua mesh statis per material: ratusan objek -> belasan draw call
+  function bake(group, keep) {                                         // gabungkan mesh statis per material (+ setelan bayangan): ratusan objek -> belasan draw call
+    group.updateMatrixWorld(true);                                     // keep: objek (beserta isinya) yang dibiarkan utuh karena dianimasikan/diubah ukurannya
+    const inv = group.matrixWorld.clone().invert(), byKey = new Map(), m4 = new THREE.Matrix4(), take = [];
+    (function walk(o) {
+      if (o !== group && keep && keep.has(o)) return;
+      if (o.isMesh && !o.isInstancedMesh && !Array.isArray(o.material) && o.visible && !o.morphTargetInfluences) take.push(o);
+      o.children.forEach(walk);
+    })(group);
+    take.forEach(o => {
+      const key = o.material.uuid + (o.castShadow ? 'c' : '') + (o.receiveShadow ? 'r' : '');
+      if (!byKey.has(key)) byKey.set(key, { mat: o.material, cast: o.castShadow, recv: o.receiveShadow, list: [] });
+      byKey.get(key).list.push(o);
+    });
+    byKey.forEach(({ mat, cast, recv, list }) => {
+      if (list.length < 2) return;
+      let gs = list.map(o => o.geometry.clone().applyMatrix4(m4.multiplyMatrices(inv, o.matrixWorld)));
+      if (gs.some(g => !g.index) && gs.some(g => g.index)) gs = gs.map(g => g.index ? g.toNonIndexed() : g);
+      const merged = mergeGeometries(gs, false); gs.forEach(g => g.dispose());
+      if (!merged) return;                                               // atribut tidak cocok: biarkan apa adanya
+      list.forEach(o => o.parent.remove(o));
+      const m = new THREE.Mesh(merged, mat); m.castShadow = cast; m.receiveShadow = recv; group.add(m);
+    });
+  }
+  const vcMat = new THREE.MeshStandardMaterial({ vertexColors: true, flatShading: true, roughness: 0.7 });
+  function bakeColor(group) {                                          // objek bergerak berwarna polos -> satu mesh, warna tiap bagian disimpan di vertex (1 draw call)
     group.updateMatrixWorld(true);
-    const inv = group.matrixWorld.clone().invert(), byMat = new Map(), m4 = new THREE.Matrix4();
-    group.traverse(o => { if (o.isMesh && !Array.isArray(o.material)) { const g = o.geometry.clone().applyMatrix4(m4.multiplyMatrices(inv, o.matrixWorld)); if (!byMat.has(o.material)) byMat.set(o.material, []); byMat.get(o.material).push(g); } });
-    group.clear();
-    byMat.forEach((gs, mat) => { const merged = mergeGeometries(gs.map(g => (g.index ? g : g)), false); if (merged) group.add(new THREE.Mesh(merged, mat)); gs.forEach(g => g.dispose()); });
+    const inv = group.matrixWorld.clone().invert(), m4 = new THREE.Matrix4(), gs = [], take = [];
+    let cast = false;
+    group.traverse(o => { if (o.isMesh && !Array.isArray(o.material) && o.visible && !o.material.map && !o.material.transparent) take.push(o); });
+    if (take.length < 2) return;
+    take.forEach(o => {
+      let g = o.geometry.clone().applyMatrix4(m4.multiplyMatrices(inv, o.matrixWorld));
+      if (g.index) g = g.toNonIndexed();
+      const n = g.attributes.position.count, c = o.material.color, a = new Float32Array(n * 3);
+      for (let i = 0; i < n; i++) { a[i * 3] = c.r; a[i * 3 + 1] = c.g; a[i * 3 + 2] = c.b; }
+      g.setAttribute('color', new THREE.BufferAttribute(a, 3));
+      for (const key of Object.keys(g.attributes)) if (!['position', 'normal', 'uv', 'color'].includes(key)) g.deleteAttribute(key);
+      if (!g.attributes.uv) g.setAttribute('uv', new THREE.BufferAttribute(new Float32Array(n * 2), 2));
+      gs.push(g); cast = cast || o.castShadow;
+    });
+    const merged = mergeGeometries(gs, false); gs.forEach(g => g.dispose());
+    if (!merged) return;
+    take.forEach(o => o.parent.remove(o));
+    const m = new THREE.Mesh(merged, vcMat); m.castShadow = cast; group.add(m);
   }
   function busyFloor(room, k, gh) {
     const st = new THREE.Group(); room.add(st);
@@ -539,6 +581,7 @@ function init() {
     trunk: std(0x8A5A44, { flatShading: true }), leafA: std(0x8CCB4E, { flatShading: true }), leafB: std(0x76B83E, { flatShading: true }),
     wheel: std(0x1E2033), win: std(0x2B2F4A, { roughness: 0.3 }), white: std(0xFFFFFF, { roughness: 0.6 }),
   };
+  const envFrom = scene.children.length;                               // objek kota statis mulai dari sini (digabung setelah gunung)
   const ground = new THREE.Mesh(new THREE.PlaneGeometry(1600, 1600), V.grass);
   ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
   // jalur sepanjang sumbu x: [z tengah, lebar, jenis]
@@ -558,7 +601,7 @@ function init() {
     const t = new THREE.Group();
     t.add(at(box(0.9, 1.6, 0.9, V.trunk), 0, 0.8, 0));
     for (let i = 0; i < h; i++) { const s2 = 2.6 - i * 0.5; t.add(at(box(s2, 1.5, s2, i % 2 ? V.leafB : V.leafA), 0, 2.3 + i * 1.5, 0)); }
-    scene.add(at(t, x, 0, z));
+    t.userData.still = true; scene.add(at(t, x, 0, z));
   }
   const treeSpots = [];
   for (let x = -110; x <= 110; x += 9) [D / 2 + 26, D / 2 + 31, -D / 2 - 27].forEach((z, i) => { if (Math.abs(x) > 16 || i === 2) treeSpots.push([x + ((x * 7) % 5), z, 1 + ((x + i * 3) & 1) + (i === 1 ? 1 : 0)]); });
@@ -583,8 +626,9 @@ function init() {
   // mobil voxel yang lewat terus
   const carColors = [0xF26B3A, 0x7AC74F, 0x5BB5F0, 0xF5C04A, 0x7C5CE8, 0xFF8FB1];
   const cars = [];
+  const carMats = new Map(), carMat = c => carMats.get(c) || (carMats.set(c, std(c, { flatShading: true, roughness: 0.6 })), carMats.get(c));
   function vcar(color, truck = false) {
-    const g = new THREE.Group(), body = std(color, { flatShading: true, roughness: 0.6 });
+    const g = new THREE.Group(), body = carMat(color);
     const L = truck ? 7 : 4.6;
     g.add(at(box(L, 1.1, 2.3, body), 0, 0.95, 0));
     if (truck) { g.add(at(box(4.6, 2.2, 2.3, V.white), -1.1, 2.6, 0)); g.add(at(box(1.6, 1.2, 2.2, body), 2.4, 2.0, 0)); g.add(at(box(0.06, 0.7, 1.9, V.win), 3.24, 2.1, 0)); }
@@ -747,16 +791,22 @@ function init() {
   const moonMtn = new THREE.Mesh(new THREE.ConeGeometry(1, 1, 6, 1), mtnMats[1]);
   const moonSnow = new THREE.Mesh(new THREE.ConeGeometry(0.3, 0.3, 6, 1), snow);
   scene.add(moonMtn, moonSnow);
+  {                                                                    // jalan, marka, rumput, sungai, rel, jembatan, gunung: ratusan mesh -> beberapa
+    const skip = new Set([...logs.map(l => l.m), moonMtn, moonSnow]), envG = new THREE.Group(); scene.add(envG);
+    scene.children.slice(envFrom).forEach(o => { if ((o.isMesh && !o.isInstancedMesh && !skip.has(o)) || o.userData.still) envG.attach(o); });   // + pohon
+    bake(envG);
+  }
   // mobil di jalan silang & jalan jauh
   const farCars = [];
-  ZR.forEach((x, ri) => [-1, 1].forEach((dir, li) => { for (let i = 0; i < 5; i++) {
+  const nZ = mobile ? 2 : 5, nX = mobile ? 2 : 4;                         // HP: mobil jauh lebih sedikit (terlalu kecil untuk terlihat)
+  ZR.forEach((x, ri) => [-1, 1].forEach((dir, li) => { for (let i = 0; i < nZ; i++) {
     const c = vcar(carColors[(ri + li * 3 + i) % carColors.length], (i + ri) % 4 === 1);
-    c.rotation.y = dir > 0 ? -Math.PI / 2 : Math.PI / 2; c.position.set(x + dir * 3, 0.12, -420 + i * 168 + li * 60);
+    c.rotation.y = dir > 0 ? -Math.PI / 2 : Math.PI / 2; c.position.set(x + dir * 3, 0.12, -420 + i * (840 / nZ) + li * 60);
     c.traverse(o => { o.castShadow = false; }); scene.add(c); farCars.push({ c, dir, axis: 'z', speed: 8 + ((i + ri) % 5) });
   } }));
-  [-100, 128, 215, -235].forEach((z, ri) => [-1, 1].forEach((dir, li) => { for (let i = 0; i < 4; i++) {
+  [-100, 128, 215, -235].forEach((z, ri) => [-1, 1].forEach((dir, li) => { for (let i = 0; i < nX; i++) {
     const c = vcar(carColors[(ri * 2 + li + i) % carColors.length], (i + li) % 3 === 0);
-    c.rotation.y = dir > 0 ? 0 : Math.PI; c.position.set(-420 + i * 210 + li * 80, 0.12, z + dir * 3);
+    c.rotation.y = dir > 0 ? 0 : Math.PI; c.position.set(-420 + i * (840 / nX) + li * 80, 0.12, z + dir * 3);
     c.traverse(o => { o.castShadow = false; }); scene.add(c); farCars.push({ c, dir, axis: 'x', speed: 8 + ((i + ri) % 5) });
   } }));
   // balon udara voxel
@@ -1228,9 +1278,13 @@ function init() {
   let skyTick = 0;
   let stopped = false;
   window.__gdStop = () => { stopped = true; };
-  function loop() {
+  let lastDraw = 0, busyUntil = 0;
+  ['scroll', 'wheel', 'touchmove'].forEach(ev => addEventListener(ev, () => { busyUntil = performance.now() + 500; }, { passive: true }));
+  function loop(now = performance.now()) {
     if (stopped) return;
-    try { step(); } catch (e) { fail(e); return; }
+    // HP: saat diam cukup 30 fps (mobil/awan tetap mulus, GPU & baterai separuh); saat scroll/animasi tetap penuh
+    const idle = mobile && !auto && !visit && now > busyUntil && (menuP === 0 || menuP === 1);
+    if (!idle || now - lastDraw > 30) { lastDraw = now; try { step(); } catch (e) { fail(e); return; } }
     requestAnimationFrame(loop);
   }
   function step() {
@@ -1245,6 +1299,7 @@ function init() {
       animateSky(performance.now());
       if (++skyTick % 600 === 1) applySky();                                    // perbarui langit tiap ~10 detik
       leds.forEach((l, i) => { l.visible = Math.sin(tt * 4 + i * 1.7) > -0.3; });
+      if (mobile && (skyTick % 4 === 1 || visit || auto)) gl.shadowMap.needsUpdate = true;   // HP: bayangan tiap 4 frame, tiap frame saat animasi
       renderScene();
       css.render(scene, camera);
     }
@@ -1331,6 +1386,11 @@ function init() {
   });
   addEventListener('resize', resize);
   if (window.visualViewport) visualViewport.addEventListener('resize', resize);
+  // tiap objek bergerak digabung jadi satu mesh per material (bergerak sebagai satu kesatuan), struktur lantai & atap juga
+  walkers.forEach(w => bakeColor(w.p)); cars.forEach(k => bakeColor(k.c)); farCars.forEach(k => bakeColor(k.c)); crowd.forEach(c => bakeColor(c.p));
+  bakeColor(train); balloons.forEach(b => bakeColor(b.g)); clouds.forEach(c => bake(c.g));
+  for (let k = 1; k <= N; k++) bake(floors[k].g, new Set(floors[k].g.children.filter(o => !o.isMesh)));
+  bake(roof, new Set([logoHolder]));
   // gedung di layer 1 (dirender tajam terpisah saat menu lantai), sisanya layer 0; cahaya menyinari keduanya
   for (let k = 1; k <= N; k++) floors[k].g.traverse(o => o.layers.set(1));
   roof.traverse(o => o.layers.set(1)); hl.layers.set(1);
