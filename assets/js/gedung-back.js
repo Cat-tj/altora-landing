@@ -8,7 +8,7 @@
   var k = MAP[location.pathname.replace(/^\/|\.html$|\/$/g, '')];
   if (!k || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var FONT = 'font:600 .875rem/1.2 "Plus Jakarta Sans",system-ui,sans-serif;';
-  var armed = 0, dir = 0, last = 0, hint = null, hideT = 0, ty0 = null;
+  var armed = 0, dir = 0, last = 0, lastAbs = 0, gest = 0, armGest = 0, hint = null, hideT = 0, ty0 = null;
   function go() {
     try { sessionStorage.setItem('gdBack', String(k)); } catch (e) {}
     location.href = '/';
@@ -34,22 +34,25 @@
   function reset() { if (armed) show(false, dir); armed = 0; dir = 0; }
   var atTop = function () { return scrollY <= 2; };
   var atEnd = function () { return innerHeight + scrollY >= document.documentElement.scrollHeight - 4; };
-  function push(d, gap) {                                              // d: -1 ke atas, 1 ke bawah
+  function push(d) {                                                   // d: -1 ke atas, 1 ke bawah
     if (!(d < 0 ? atTop() : atEnd())) { if (armed) reset(); return; }
     var now = performance.now();
-    if (!armed || dir !== d) { if (armed) reset(); armed = now; dir = d; show(true, d); return; }
-    if (now - armed < 600 || gap < 280) return;                         // sisa momentum usapan pertama tidak dihitung
+    if (!armed || dir !== d) { if (armed) reset(); armed = now; dir = d; armGest = gest; show(true, d); return; }
+    if (gest === armGest || now - armed < 500) return;                  // harus usapan berikutnya, bukan sisa usapan yang memunculkan pil
     go();
   }
   addEventListener('wheel', function (e) {
-    var now = performance.now(), gap = now - last; last = now;
-    if (e.deltaY < -4) push(-1, gap); else if (e.deltaY > 4) push(1, gap);
+    var now = performance.now(), abs = Math.abs(e.deltaY);
+    // usapan baru = ada jeda, atau kecepatan melonjak (momentum selalu melambat), atau scroll terus tanpa melambat >1,2 dtk sejak pil muncul
+    if (now - last >= 250 || abs > lastAbs * 1.5 + 4 || (armed && now - armed > 1200 && abs >= 12 && abs >= lastAbs)) gest++;
+    last = now; lastAbs = abs;
+    if (e.deltaY < -4) push(-1); else if (e.deltaY > 4) push(1);
   }, { passive: true });
   addEventListener('touchstart', function (e) { ty0 = e.touches[0].clientY; }, { passive: true });
   addEventListener('touchmove', function (e) {
     if (ty0 === null) return;
     var dy = e.touches[0].clientY - ty0;
-    if (dy > 40) { ty0 = null; push(-1, 1e9); } else if (dy < -40) { ty0 = null; push(1, 1e9); }
+    if (dy > 40) { ty0 = null; gest++; push(-1); } else if (dy < -40) { ty0 = null; gest++; push(1); }
   }, { passive: true });
 
   // tombol tetap "Kembali ke gedung"

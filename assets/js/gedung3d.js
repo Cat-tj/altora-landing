@@ -1110,7 +1110,7 @@ function init() {
     beam.material.opacity = k === N ? 0.15 * clamp((t - 0.5) / 0.2) : 0;
     root.style.setProperty('--hero', (1 - clamp(t / 0.12)) * (1 - menuK));
     hl.visible = false; tip.style.opacity = 0; placeMenu(menuK * (1 - clamp(t / 0.1)));
-    if (visit.rev && raw >= 1) { visit = null; auto = null; settle = true; lockUntil = now + 900; return true; }
+    if (visit.rev && raw >= 1) { visit = null; auto = null; settle = true; gestUsed = true; lockUntil = now + 900; return true; }
     if (!visit.rev && t >= 1 && !visit.gone) { visit.gone = true; location.href = PAGES[k][1]; }
     return true;
   }
@@ -1229,7 +1229,7 @@ function init() {
     (function step(now) {
       const k = Math.min(1, (now - t0) / dur);
       scrollTo({ top: from + (to - from) * ez(k), behavior: 'instant' });   // situs memakai scroll-behavior:smooth
-      if (k < 1) requestAnimationFrame(step); else { auto = null; settle = true; lockUntil = performance.now() + 900; if (done) done(); }
+      if (k < 1) requestAnimationFrame(step); else { auto = null; settle = true; gestUsed = true; lockUntil = performance.now() + 900; if (done) done(); }
     })(t0);
     return true;
   }
@@ -1266,16 +1266,19 @@ function init() {
     if (performance.now() >= lockUntil && gap >= 280) { menu = false; lockUntil = performance.now() + 900; }
     return true;
   }
-  let lastWheel = 0, lastAbs = 0;
+  let lastWheel = 0, lastAbs = 0, gestUsed = false;                      // gestUsed: usapan ini sudah memicu perpindahan adegan
   addEventListener('wheel', e => {
     const now = performance.now(), abs = Math.abs(e.deltaY);
     // usapan baru = ada jeda, atau kecepatan melonjak (momentum selalu melambat), atau scroll tetap tidak melambat >1,6 dtk sejak pindah adegan
     const fresh = now - lastWheel >= 250 || abs > lastAbs * 1.5 + 4 || (now > lockUntil + 700 && abs >= 12 && abs >= lastAbs);
     lastWheel = now; lastAbs = abs;
-    const gap = fresh ? 1e9 : 0;
-    if (block(e)) return;
-    if (settle) { if (!fresh) { e.preventDefault(); return; } settle = false; }   // stopper: jangan keterusan
-    if ((e.deltaY > 4 && goDown(gap)) || (e.deltaY < -4 && goUp(gap))) e.preventDefault();
+    if (fresh) gestUsed = false;
+    if (block(e)) { gestUsed = true; return; }
+    if (settle) { if (gestUsed) { e.preventDefault(); return; } settle = false; }   // stopper: sisa usapan tadi tidak keterusan
+    const was = menu, gap = gestUsed ? 0 : 1e9;                          // usapan yang belum terpakai tetap berlaku sampai kunci selesai
+    const handled = (e.deltaY > 4 && goDown(gap)) || (e.deltaY < -4 && goUp(gap));
+    if (menu !== was || auto) gestUsed = true;
+    if (handled) e.preventDefault();
   }, { passive: false });
   let ty0 = null;
   addEventListener('touchstart', e => { ty0 = e.touches[0].clientY; }, { passive: true });
