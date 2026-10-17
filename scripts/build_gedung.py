@@ -14,13 +14,13 @@ s = re.sub(r'<title>.*?</title>', '<title>Preview: Gedung Altora</title>', s, co
 s = re.sub(r'<link[^>]*rel="canonical"[^>]*/>', '', s, count=1)
 s = re.sub(r'<script type="application/ld\+json">.*?</script>', '', s, flags=re.S)
 s = re.sub(r'<meta[^>]*name="robots"[^>]*/>', '', s)
-s = s.replace('</head>', '<meta content="noindex,nofollow" name="robots"/><link rel="stylesheet" href="/assets/css/gedung-scenes.css?v=10"/></head>', 1)
+s = s.replace('</head>', '<meta content="noindex,nofollow" name="robots"/><link rel="stylesheet" href="/assets/css/gedung-scenes.css?v=11"/></head>', 1)
 
 # adegan pembuka di awal <main>, hero beranda ditandai sebagai isi layar proyektor
 intro = ('<div class="gd-scene" data-to="7"><div class="gd-scene-in"><div class="gd-hero">'
          '<p class="eyebrow eyebrow-purple">Altora Indonesia · Samarinda &amp; Balikpapan</p>'
          '<p class="gd-title">Kami membangun sistem Anda, <span>lantai demi lantai.</span></p>'
-         '<p>Scroll untuk masuk ↓</p></div></div></div>')
+         '<p>Scroll untuk masuk ↓</p><p class="gd-hint">atau klik salah satu lantai gedung untuk langsung ke halamannya</p></div></div></div>')
 assert '<main id="top">' in s and '<section class="hero">' in s
 s = s.replace('<main id="top">', '<main class="gd2" id="top">' + intro, 1)
 s = s.replace('<section class="hero">', '<section class="hero" data-gd-cover="">', 1)
@@ -28,7 +28,7 @@ s = s.replace('<section class="hero">', '<section class="hero" data-gd-cover="">
 # skrip 3D
 s = s.replace('</body>', '<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",'
               '"three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>'
-              '<script type="module" src="/assets/js/gedung3d.js?v=229"></script></body>', 1)
+              '<script type="module" src="/assets/js/gedung3d.js?v=232"></script></body>', 1)
 
 (root / 'preview-gedung.html').write_text(s, encoding='utf-8')
 print('preview-gedung.html dibuat (beranda + pembuka gedung)')

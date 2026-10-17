@@ -23,7 +23,7 @@ function init() {
   if (mobile) root.classList.add('gd-m');
 
   // ── ukuran gedung (meter) ──
-  const W = 24, D = 17, FH = 6, LOBBY = 7, N = 7, SLAB = 0.5;
+  const W = 24, D = 17, FH = 6, LOBBY = 7, N = 8, SLAB = 0.5;
   const base = k => (k === 1 ? 0 : LOBBY + (k - 2) * FH);
   const height = k => (k === 1 ? LOBBY : FH);
   const TOTAL = LOBBY + (N - 1) * FH;
@@ -202,13 +202,14 @@ function init() {
       else s.holder.position.set(s.x || 0, s.bottom + h / 2, s.z);
       if (s.onSize) s.onSize(w, h);
     }
+    for (const k in LABELS) LABELS[k].draw(aspect);
   }
 
   let beam = null;
   const leds = [];
   const ROOMS = {
-    // 7 · ruang meeting: proyektor menyala ke layar
-    7(room, k) {
+    // 8 · ruang meeting: proyektor menyala ke layar
+    8(room, k) {
       const housing = at(box(1, 0.22, 0.25, M.dark), 0, 0, BACK + 0.05); room.add(housing);
       const lens = new THREE.Vector3(0, 0.87, 1.92);
       const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(new Array(36).fill(0), 3));
@@ -257,7 +258,7 @@ function init() {
   function busyFloor(room, k, gh) {
     room.add(at(lite(W - 1.2, 0.05, D - 1.2, M.lilac), 0, 0.03, 0));
     for (let x = -8; x <= 8; x += 8) room.add(at(lite(5, 0.08, 0.6, ceilLight), x, gh - 0.1, 0));        // lampu langit-langit
-    const kind = k === 1 ? 'lobby' : k === 4 ? 'server' : k === 3 ? 'lounge' : 'office';
+    const kind = k === 1 ? 'lobby' : k === 7 ? 'server' : k === 3 || k === 5 ? 'lounge' : 'office';
     if (kind === 'office') {
       let i = k;
       for (const z of [D / 2 - 2.6, -1.2]) for (let x = -9; x <= 9; x += 3) {
@@ -289,6 +290,44 @@ function init() {
     }
   }
 
+  // ── tiap lantai = satu halaman; klik lantai -> lantai terbuka -> kamera masuk ke layarnya -> halaman dibuka ──
+  const PAGES = { 8: ['Layanan', '/services'], 7: ['Produk', '/produk'], 6: ['Katalog', '/katalog'], 5: ['Portofolio', '/portfolio'],
+    4: ['Artikel', '/blog'], 3: ['Tentang', '/about'], 2: ['Karier', '/careers'], 1: ['Support', '/support'] };
+  const LABELS = {};
+  function labelMat(k) {                                                // isi layar: judul halaman, digambar ulang mengikuti rasio layar pengunjung
+    const c = document.createElement('canvas'), tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
+    const mat = new THREE.MeshStandardMaterial({ map: tex, emissive: 0xffffff, emissiveMap: tex, emissiveIntensity: 0.9, roughness: 0.4 });
+    LABELS[k] = { mat, draw(aspect) {
+      const w = aspect >= 1 ? 1280 : Math.round(1280 * aspect), h = aspect >= 1 ? Math.round(1280 / aspect) : 1280;
+      c.width = w; c.height = h; const x = c.getContext('2d');
+      const g = x.createLinearGradient(0, 0, w, h); g.addColorStop(0, '#FFFFFF'); g.addColorStop(0.6, '#F3EEFF'); g.addColorStop(1, '#E4DAFF'); x.fillStyle = g; x.fillRect(0, 0, w, h);
+      const r = x.createRadialGradient(w * 0.85, 0, 0, w * 0.85, 0, Math.max(w, h) * 0.7); r.addColorStop(0, 'rgba(124,92,232,.22)'); r.addColorStop(1, 'rgba(124,92,232,0)'); x.fillStyle = r; x.fillRect(0, 0, w, h);
+      const fs = Math.min(w * 0.17, h * 0.22);
+      x.textAlign = 'center'; x.textBaseline = 'middle';
+      x.fillStyle = '#7C5CE8'; x.font = '700 ' + Math.round(fs * 0.3) + 'px "Plus Jakarta Sans", system-ui, sans-serif'; x.fillText('ALTORA', w / 2, h / 2 - fs * 0.85);
+      x.fillStyle = '#10224F'; x.font = '800 ' + Math.round(fs) + 'px "Plus Jakarta Sans", system-ui, sans-serif'; x.fillText(PAGES[k][0], w / 2, h / 2);
+      x.fillStyle = '#5A6785'; x.font = '600 ' + Math.round(fs * 0.26) + 'px "Plus Jakarta Sans", system-ui, sans-serif'; x.fillText('Membuka halaman…', w / 2, h / 2 + fs * 0.85);
+      tex.needsUpdate = true;
+    } };
+    return mat;
+  }
+  function floorScreen(k, room) {                                      // proyektor / TV dinding / monitor meja / HP, sesuai ruangan
+    const surface = labelMat(k);
+    if (k === 2) {                                                       // Karier: HP di meja
+      room.add(at(desk(1.4, 0.8, 0.75, deskTop), 0, 0, -5.4));
+      room.add(at(lite(0.26, 0.14, 0.18, M.dark), 0, 0.84, -5.5));
+      contentScreen(k, room, { kind: 'phone', L: 0.34, x: 0, y: 1.02, z: -5.3, rx: -0.3, bezelPad: 0.03, surface });
+      const p = mini(4, true); p.rotation.y = Math.PI; room.add(at(p, 1.3, 0, -4.4));
+    } else if (k === 4 || k === 6) {                                     // Artikel, Katalog: monitor besar di meja
+      room.add(at(desk(2.2, 0.9, 0.75, deskTop), 0, 0, -5.6));
+      room.add(at(lite(0.14, 0.22, 0.1, M.dark), 0, 0.88, -5.98));
+      contentScreen(k, room, { kind: 'wide', hBase: 0.62, maxW: 1.15, bottom: 0.98, z: -5.8, bezelPad: 0.05, surface });
+      const p = mini(k, true); p.rotation.y = Math.PI; room.add(at(p, 1.5, 0, -4.7));
+    } else {                                                             // Produk, Portofolio, Tentang, Support: TV di dinding belakang
+      contentScreen(k, room, { kind: 'wide', hBase: 2.3, maxW: 4.4, bottom: k === 1 ? 2.2 : 1.5, z: BACK, bezelPad: 0.14, surface });
+    }
+  }
+
   // ── lantai ──
   const floors = {};
   for (let k = 1; k <= N; k++) {
@@ -303,8 +342,8 @@ function init() {
     g.add(at(box(W - 0.6, gh, 0.2, M.wall, false, true), 0, gy, -D / 2 + 0.4));
     const room = new THREE.Group(); room.position.y = SLAB; g.add(room);
     scene.add(g);
-    if (k === N) ROOMS[k](room, k);                                  // lantai teratas: ruang meeting yang dikunjungi kamera
-    else busyFloor(room, k, gh);                                       // lantai lain: aktivitas yang terlihat dari luar
+    if (k === N) { ROOMS[k](room, k); labelMat(k); }                                  // lantai teratas: ruang meeting yang dikunjungi kamera
+    else { busyFloor(room, k, gh); floorScreen(k, room); }             // lantai lain: aktivitas yang terlihat dari luar + layar halamannya
     g.position.y = base(k);
     floors[k] = { g, h };
   }
@@ -651,8 +690,6 @@ function init() {
     // cakram matahari/bulan
     orbMat.color.set(night.v > 0.5 ? 0xEEF1FF : (h < 7 || h > 17 ? 0xFFB070 : 0xFFE27A));
     halo.material.color.set(night.v > 0.5 ? 0xB9C4FF : 0xFFE9A8);
-    const lbl = h < 5.5 || h >= 19.5 ? ['🌙', 'Malam'] : h < 9 ? ['🌅', 'Pagi'] : h < 16.5 ? ['☀️', 'Siang'] : ['🌇', 'Senja'];
-    skyBtn.innerHTML = '<span aria-hidden="true">' + lbl[0] + '</span> ' + lbl[1] + (skyHour === null ? ' · waktu Anda' : '') + '<small>Klik ' + (night.v > 0.5 ? 'bulan' : 'matahari') + ' untuk ganti</small>';
   }
   // matahari/bulan yang bisa diklik
   const orbMat = new THREE.MeshBasicMaterial({ color: 0xFFE27A, fog: false });
@@ -667,10 +704,6 @@ function init() {
     else skyHour = CYCLE.find(x => x > cur + 0.1) ?? CYCLE[0];
     applySky();
   }
-  const skyBtn = document.createElement('button');
-  skyBtn.type = 'button'; skyBtn.className = 'gd-skybtn';
-  skyBtn.addEventListener('click', nextSky);
-  root.querySelector('.gd-scene-in')?.appendChild(skyBtn);
   const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
   gl.domElement.addEventListener('click', e => {
     ndc.set((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
@@ -784,11 +817,11 @@ function init() {
   }
   const far = () => {                                                  // desktop: gedung di kanan (panel teks di kiri); mobile: gedung di atas (panel di bawah)
     const narrow = VW < 900, az = 0.62, el = narrow ? 0.14 : 0.1, d = narrow ? 330 : 230;
-    const look = new THREE.Vector3(0, narrow ? 10 : 44, 0);
+    const look = new THREE.Vector3(0, narrow ? 13 : 47, 0);
     if (!narrow) look.add(new THREE.Vector3(-Math.cos(az), 0, Math.sin(az)).multiplyScalar(Math.min(60, 0.26 * TAN * d * (VW / VH) * 2)));
     return { pos: new THREE.Vector3(Math.sin(az) * Math.cos(el) * d, look.y + Math.sin(el) * d, Math.cos(az) * Math.cos(el) * d).add(new THREE.Vector3(look.x, 0, look.z)), look, up };
   };
-  const above = () => ({ pos: new THREE.Vector3(18, TOTAL + 34, 40), look: new THREE.Vector3(0, base(7) + 2, -1), up });
+  const above = (k = N) => ({ pos: new THREE.Vector3(18, base(k) + height(k) + 34, 40), look: new THREE.Vector3(0, base(k) + 2, -1), up });
   const vA = new THREE.Vector3(), vB = new THREE.Vector3(), vU = new THREE.Vector3(), arcV = new THREE.Vector3();
   function blend(a, b, t, arc = 0) {
     vA.lerpVectors(a.pos, b.pos, t);
@@ -821,7 +854,7 @@ function init() {
       const len = 3.2;      // intro, penutup, antar-ruangan (dalam tinggi layar)
       sc.style.setProperty('--scene-h', (len * ch) + 'px');
     });
-    if (coverEl) { coverEl.style.setProperty('margin-top', -ch + 'px', 'important'); coverEl.style.setProperty('min-height', ch + 'px', 'important'); faces[7] && (faces[7].wrap = null, faces[7].shown = null); }
+    if (coverEl) { coverEl.style.setProperty('margin-top', -ch + 'px', 'important'); coverEl.style.setProperty('min-height', ch + 'px', 'important'); faces[N] && (faces[N].wrap = null, faces[N].shown = null); }
     buildPoses();
     placeOrb();
   }
@@ -845,8 +878,8 @@ function init() {
     orb.position.copy(f.pos).addScaledVector(tip, od).addScaledVector(up, orbR * 0.15);   // separuh bawah tertutup puncak
   }
 
-  function setLift(k, lift) { const f = floors[k]; f.g.position.y = base(k) + lift * 44; f.g.rotation.z = lift * 0.05; f.g.visible = lift < 0.985; }
-  function setRoof(lift) { roof.position.y = TOTAL + lift * 44; roof.rotation.z = -lift * 0.05; roofAll.forEach(m => { m.opacity = 1 - clamp(lift * 1.3); }); logoHalo.material.opacity = haloBase * (1 - clamp(lift * 1.3)); roof.visible = lift < 0.985; }
+  function setLift(k, lift, rise = 44) { const f = floors[k]; f.g.position.y = base(k) + lift * rise; f.g.rotation.z = lift * 0.05; f.g.visible = lift < 0.985; }
+  function setRoof(lift, rise = 44) { roof.position.y = TOTAL + lift * rise; roof.rotation.z = -lift * 0.05; roofAll.forEach(m => { m.opacity = 1 - clamp(lift * 1.3); }); logoHalo.material.opacity = haloBase * (1 - clamp(lift * 1.3)); roof.visible = lift < 0.985; }
 
   // ── adegan aktif ──
   function activeScene() {
@@ -858,7 +891,10 @@ function init() {
     return null;
   }
   let on3d = false;
+  let visit = null;                                                    // { k, t0 } saat lantai diklik
+  const VISIT_MS = 2600;
   function frame() {
+    if (visit) return visitFrame();
     const a = activeScene();
     if (!a || a.t >= 0.999) { if (on3d) { root.classList.remove('gd-3d-on'); on3d = false; } return false; }
     if (!on3d) { root.classList.add('gd-3d-on'); on3d = true; }
@@ -870,9 +906,9 @@ function init() {
       hero = 1 - clamp(t / 0.14);
       roofLift = seg(t, 0.24, 0.5);
       if (t < 0.36) blend(far(), above(), seg(t, 0, 0.36));
-      else if (t < 0.7) blend(above(), poses[7].room, seg(t, 0.36, 0.7));
-      else blend(poses[7].room, poses[7].fill, seg(t, 0.7, 1));
-      if (t > 0.42) want[7] = 'cover';                                // isi layar HTML tidak bisa tertutup atap: tampilkan setelah atap terangkat
+      else if (t < 0.7) blend(above(), poses[N].room, seg(t, 0.36, 0.7));
+      else blend(poses[N].room, poses[N].fill, seg(t, 0.7, 1));
+      if (t > 0.42) want[N] = 'cover';                                // isi layar HTML tidak bisa tertutup atap: tampilkan setelah atap terangkat
       beam.material.opacity = 0.15 * clamp((t - 0.55) / 0.2);
     }
     for (const k in faces) showFace(+k, want[k] || null);       // hanya berubah bila isinya berganti
@@ -882,6 +918,56 @@ function init() {
     root.style.setProperty('--outro', outro);
     return true;
   }
+  function visitFrame() {
+    const k = visit.k, t = clamp((performance.now() - visit.t0) / VISIT_MS), rise = TOTAL - base(k) + 70;
+    const open = seg(t, 0.04, 0.32);                                  // lantai di atasnya & atap terangkat
+    for (let j = 1; j <= N; j++) setLift(j, j > k ? open : 0, rise);
+    setRoof(k === N ? seg(t, 0.04, 0.32) : open, rise);
+    if (t < 0.36) blend(visit.from, above(k), seg(t, 0, 0.36));
+    else if (t < 0.7) blend(above(k), poses[k].room, seg(t, 0.36, 0.7));
+    else blend(poses[k].room, poses[k].fill, seg(t, 0.7, 1));
+    for (const f in faces) showFace(+f, null);
+    beam.material.opacity = k === N ? 0.15 * clamp((t - 0.5) / 0.2) : 0;
+    root.style.setProperty('--hero', 1 - clamp(t / 0.12));
+    hl.visible = false; tip.style.opacity = 0;
+    if (t >= 1 && !visit.gone) { visit.gone = true; location.href = PAGES[k][1]; }
+    return true;
+  }
+  function startVisit(k) {
+    if (visit || auto) return;
+    const ip = introProgress(); if (!ip || ip.t > 0.02) return;           // hanya dari tampilan awal gedung
+    if (k === N) screens[N].surface.material = LABELS[N].mat;
+    visit = { k, t0: performance.now(), from: far() };
+    auto = true;                                                         // input scroll diabaikan selama perjalanan
+  }
+  addEventListener('pageshow', e => { if (e.persisted && visit) { visit = null; auto = null; screens[N].surface.material = M.white; scrollTo({ top: 0, behavior: 'instant' }); } });
+
+  // sorot lantai saat kursor di atasnya + label halaman
+  const hits = [];
+  for (let k = 1; k <= N; k++) { const m = new THREE.Mesh(new THREE.BoxGeometry(W + 1.4, height(k), D + 1.4)); m.position.y = base(k) + height(k) / 2; m.visible = false; m.userData.k = k; m.updateMatrixWorld(); hits.push(m); }
+  const hl = new THREE.Mesh(new THREE.BoxGeometry(W + 1.6, 1, D + 1.6), new THREE.MeshBasicMaterial({ color: 0x9B6BFF, transparent: true, opacity: 0.45, depthWrite: false, fog: false, toneMapped: false }));
+  hl.visible = false; scene.add(hl);
+  const tip = document.createElement('div'); tip.className = 'gd-floortip'; tip.setAttribute('aria-hidden', 'true'); root.appendChild(tip);
+  function floorAt(e) {
+    const ip = introProgress(); if (visit || auto || !ip || ip.t > 0.02) return 0;
+    ndc.set((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    if (ray.intersectObject(orb, true).length) return 0;
+    const h = ray.intersectObjects(hits, false)[0];
+    return h ? h.object.userData.k : 0;
+  }
+  gl.domElement.addEventListener('mousemove', e => {
+    const k = floorAt(e);
+    hl.visible = !!k; tip.style.opacity = k ? 1 : 0;
+    if (k) {
+      hl.scale.y = height(k) + 0.1; hl.position.y = base(k) + height(k) / 2;
+      tip.innerHTML = PAGES[k][0] + ' <span aria-hidden="true">→</span>';
+      tip.style.transform = 'translate(' + (e.clientX / Z + 16) + 'px,' + (e.clientY / Z - 14) + 'px)';
+      gl.domElement.style.cursor = 'pointer';
+    }
+  });
+  gl.domElement.addEventListener('mouseleave', () => { hl.visible = false; tip.style.opacity = 0; });
+  gl.domElement.addEventListener('click', e => { const k = floorAt(e); if (k) startVisit(k); });
 
   const t0 = performance.now();
   let skyTick = 0;
