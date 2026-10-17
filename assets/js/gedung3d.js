@@ -291,6 +291,8 @@ function init() {
     2: ['Katalog', '/katalog', 'Belanja perangkat'], 1: ['Support', '/support', 'Bantuan teknis'],
   };
   const LABELS = {};
+  const SHOTS = [390, 820, 1440, 1920];                                  // lebar tangkapan layar yang tersedia; pilih yang paling dekat dengan lebar layar
+  const shotW = () => SHOTS.reduce((a, b) => Math.abs(b - VW) < Math.abs(a - VW) ? b : a);
   function labelMat(k, poster = false) {                                // isi layar: judul halaman, digambar ulang mengikuti rasio layar pengunjung
     const c = document.createElement('canvas'), tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
     const mat = new THREE.MeshStandardMaterial({ map: tex, emissive: 0xffffff, emissiveMap: tex, emissiveIntensity: poster ? 0.55 : 0.9, roughness: poster ? 0.8 : 0.4 });
@@ -298,12 +300,12 @@ function init() {
       L.aspect = aspect;
       const w = aspect >= 1 ? 1280 : Math.round(1280 * aspect), h = aspect >= 1 ? Math.round(1280 / aspect) : 1280;
       c.width = w; c.height = h; const x = c.getContext('2d');
-      const vv = VW < 900 ? 'm' : 'd', im = L.img && L.img[vv];          // sama dengan breakpoint situs
-      if (L.img && !im) L.load(vv);                                        // ukuran jendela pindah breakpoint
-      if (im) {                                                          // tangkapan layar asli halamannya, isi penuh dari atas (seperti halaman dibuka)
-        const sc = Math.max(w / im.width, h / im.height);
+      const vv = shotW(), im = L.img && L.img[vv];
+      if (L.img && !im) L.load(vv);                                        // ukuran jendela berubah jauh
+      if (im) {                                                          // tangkapan layar asli halamannya, pas lebar & rata atas (seperti halaman dibuka di layar ini)
+        const sc = w / im.width;
         x.fillStyle = '#FBF9FE'; x.fillRect(0, 0, w, h);
-        x.drawImage(im, (w - im.width * sc) / 2, 0, im.width * sc, im.height * sc);
+        x.drawImage(im, 0, 0, w, im.height * sc);
         tex.needsUpdate = true; return;
       }
       const g = x.createLinearGradient(0, 0, w, h); g.addColorStop(0, '#FFFFFF'); g.addColorStop(0.6, '#F3EEFF'); g.addColorStop(1, '#E4DAFF'); x.fillStyle = g; x.fillRect(0, 0, w, h);
@@ -314,11 +316,11 @@ function init() {
       x.fillStyle = '#10224F'; x.font = '800 ' + Math.round(fs) + 'px ' + F; x.fillText(PAGES[k][0], w / 2, h / 2);
       x.fillStyle = '#5A6785'; x.font = '600 ' + Math.round(fs * 0.26) + 'px ' + F; x.fillText(PAGES[k][2], w / 2, h / 2 + fs * 0.85);
       tex.needsUpdate = true;
-    }, load(v) {                                                        // v: 'd' desktop / 'm' mobile (scripts/shot_lantai.sh)
+    }, load(v) {                                                        // v: lebar tangkapan layar (scripts/shot_lantai.sh)
       if (L.img && L.img[v]) return;
       const im = new Image(); im.decoding = 'async';
       im.onload = () => { L.img = L.img || {}; L.img[v] = im; L.draw(L.aspect); };
-      im.src = '/assets/img/lantai/' + PAGES[k][1].slice(1) + '-' + v + '.webp?v=1';
+      im.src = '/assets/img/lantai/' + PAGES[k][1].slice(1) + '-' + v + '.webp?v=2';
     } };
     return mat;
   }
@@ -1139,7 +1141,7 @@ function init() {
   function startReturn(k) {                                            // datang dari halaman lantai k: mundur dari layarnya ke menu lantai
     if (k === N) screens[N].surface.material = LABELS[N].mat;
     menu = true; menuP = menuK = 1;
-    const v = VW < 900 ? 'm' : 'd'; if (LABELS[k]) LABELS[k].load(v);   // layar lantai: tangkapan layar halaman asalnya
+    const v = shotW(); if (LABELS[k]) LABELS[k].load(v);   // layar lantai: tangkapan layar halaman asalnya
     visit = { k, t0: 0, from: null, rev: true, v, since: performance.now() };
     auto = true;
   }
@@ -1318,7 +1320,7 @@ function init() {
   scene.traverse(o => { if (o.isLight) o.layers.enableAll(); });
   camera.layers.enable(1);
   resize();
-  setTimeout(() => { const v = VW < 900 ? 'm' : 'd'; for (const k in LABELS) LABELS[k].load(v); }, 1200);   // tangkapan layar halaman dimuat setelah gedung tampil
+  setTimeout(() => { const v = shotW(); for (const k in LABELS) LABELS[k].load(v); }, 1200);   // tangkapan layar halaman dimuat setelah gedung tampil
   let back = 0; try { back = +sessionStorage.getItem('gdBack') || 0; sessionStorage.removeItem('gdBack'); } catch (e) {}
   if (back >= 1 && back <= N) { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; scrollTo({ top: 0, behavior: 'instant' }); startReturn(back); }
   loop();
