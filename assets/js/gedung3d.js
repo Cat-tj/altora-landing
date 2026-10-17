@@ -1279,10 +1279,12 @@ function init() {
   let skyTick = 0;
   let stopped = false;
   window.__gdStop = () => { stopped = true; };
-  let lastDraw = 0, busyUntil = 0;
+  let lastDraw = 0, busyUntil = 0, lastRaf = 0, frameMs = 16;
   ['scroll', 'wheel', 'touchmove'].forEach(ev => addEventListener(ev, () => { busyUntil = performance.now() + 500; }, { passive: true }));
   function loop(now = performance.now()) {
     if (stopped) return;
+    if (lastRaf) frameMs = frameMs * 0.9 + Math.min(500, now - lastRaf) * 0.1;   // rata-rata waktu frame (untuk deteksi usapan)
+    lastRaf = now;
     // HP: saat diam cukup 30 fps (mobil/awan tetap mulus, GPU & baterai separuh); saat scroll/animasi tetap penuh
     const idle = mobile && !auto && !visit && now > busyUntil && (menuP === 0 || menuP === 1);
     if (!idle || now - lastDraw > 30) { lastDraw = now; try { step(); } catch (e) { fail(e); return; } }
@@ -1360,8 +1362,10 @@ function init() {
   let lastWheel = 0, gestUsed = false;                                   // gestUsed: usapan ini sudah memicu perpindahan adegan
   addEventListener('wheel', e => {
     const now = performance.now();
-    // usapan baru = ada jeda; sisa momentum trackpad mengalir tanpa jeda (dan berhenti begitu jari menyentuh lagi)
-    const fresh = now - lastWheel >= 120;
+    // usapan baru = ada jeda; sisa momentum trackpad mengalir tanpa jeda (dan berhenti begitu jari menyentuh lagi).
+    // Event scroll datang sekali per frame, jadi di perangkat lambat batas jedanya ikut membesar (3x waktu frame);
+    // jeda selama masa kunci setelah pindah adegan (mis. frame macet) tidak dihitung sebagai usapan baru
+    const fresh = now - lastWheel >= Math.max(150, frameMs * 3) && now >= lockUntil;
     lastWheel = now;
     if (fresh) gestUsed = false;
     if (block(e)) { gestUsed = true; return; }
@@ -1401,7 +1405,8 @@ function init() {
   camera.layers.enable(1);
   resize();
   setTimeout(() => { const v = shotW(); for (const k in LABELS) LABELS[k].load(v); }, 1200);   // tangkapan layar halaman dimuat setelah gedung tampil
-  { const ip = introProgress(); if (ip && ip.t > 0.02) scrollTo({ top: 0, behavior: 'instant' }); }   // posisi scroll yang dipulihkan di tengah pembuka -> mulai dari gedung
+  { const ip = introProgress(); if (ip && ip.t > 0.02) scrollTo({ top: 0, behavior: 'instant' }); }
+  try { gl.compile(quadScene, quadCam); blurK = 0.5; renderScene(); blurK = 0; } catch (e) {}   // kompilasi shader blur sekarang, bukan saat menu pertama dibuka (frame macet)   // posisi scroll yang dipulihkan di tengah pembuka -> mulai dari gedung
   let back = 0; try { back = +sessionStorage.getItem('gdBack') || 0; sessionStorage.removeItem('gdBack'); } catch (e) {}
   if (back >= 1 && back <= N) { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; scrollTo({ top: 0, behavior: 'instant' }); startReturn(back); }
   loop();

@@ -8,7 +8,7 @@ Idempoten: pembuka lama dilepas dulu sebelum dipasang ulang, jadi aman dijalanka
 Jalankan lewat scripts/build_all.sh (setelah build_produk/build_trust yang mengubah index.html)."""
 import pathlib, re
 
-JS_V, CSS_V, BACK_V = 269, 16, 5
+JS_V, CSS_V, BACK_V = 271, 16, 5
 root = pathlib.Path(__file__).resolve().parent.parent
 idx = root / 'index.html'
 s = idx.read_text(encoding='utf-8')
@@ -22,7 +22,9 @@ CSS = f'<link rel="stylesheet" href="/assets/css/gedung-scenes.css?v={CSS_V}"/>'
 BOOT = ('<script id="gd-boot">(function(){try{if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;'
         'var g=document.createElement("canvas"),x=g.getContext("webgl2")||g.getContext("webgl");if(!x)return;'
         'var l=x.getExtension("WEBGL_lose_context");if(l)l.loseContext();'
-        'var d=document.documentElement,h=new Date().getHours();d.classList.add("gd-boot");if(h<5||h>=19)d.classList.add("gd-boot-night");setTimeout(function(){d.classList.remove("gd-boot","gd-boot-night")},8000)}catch(e){}})()</script>')
+        'var d=document.documentElement,h=new Date().getHours();d.classList.add("gd-boot");if(h<5||h>=19)d.classList.add("gd-boot-night");'
+        'var b=function(e){if(d.classList.contains("gd-boot"))e.preventDefault()};'  # selama loading scroll ditahan (tidak terlanjur ke konten)
+        'addEventListener("wheel",b,{passive:false});addEventListener("touchmove",b,{passive:false});setTimeout(function(){d.classList.remove("gd-boot","gd-boot-night")},8000)}catch(e){}})()</script>')
 JS = ('<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",'
       '"three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>'
       f'<script type="module" src="/assets/js/gedung3d.js?v={JS_V}"></script>')
