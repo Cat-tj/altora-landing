@@ -70,18 +70,19 @@ function init() {
       + '\n#include <tonemapping_fragment>\n#include <colorspace_fragment>\n}' });
   const quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), blurMat); quad.frustumCulled = false; quadScene.add(quad);
   let blurK = 0;
+  const BLUR = 0.05;                                                   // kekuatan blur latar di menu lantai (1 = penuh); 5% = hanya sedikit lembut
   function renderScene() {
     if (blurK < 0.02) { gl.render(scene, camera); return; }
     camera.layers.set(0);                                                // 1) latar tanpa gedung -> tekstur setengah resolusi
     gl.setRenderTarget(rtA); gl.render(scene, camera);
     quad.material = blurMat;
     for (let i = 1; i <= 3; i++) {                                       // 2) blur gaussian bolak-balik, makin lebar
-      const r = blurK * i;
+      const r = blurK * BLUR * i;
       blurMat.uniforms.tex.value = rtA.texture; blurMat.uniforms.dir.value.set(r / rtA.width, 0); gl.setRenderTarget(rtB); gl.render(quadScene, quadCam);
       blurMat.uniforms.tex.value = rtB.texture; blurMat.uniforms.dir.value.set(0, r / rtA.height); gl.setRenderTarget(rtA); gl.render(quadScene, quadCam);
     }
     gl.setRenderTarget(null);                                            // 3) latar buram (sedikit diredupkan) ke layar
-    quad.material = outMat; outMat.uniforms.tex.value = rtA.texture; outMat.uniforms.dim.value = blurK * 0.3;
+    quad.material = outMat; outMat.uniforms.tex.value = rtA.texture; outMat.uniforms.dim.value = blurK * BLUR * 0.3;
     outMat.uniforms.tint.value.set(night.v > 0.5 ? 0x05061A : 0xF1EDFF);
     gl.render(quadScene, quadCam);
     camera.layers.set(1);                                                // 4) gedung tajam di atasnya
