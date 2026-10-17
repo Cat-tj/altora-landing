@@ -1369,6 +1369,10 @@ function init() {
     lastWheel = now;
     if (fresh) gestUsed = false;
     if (block(e)) { gestUsed = true; return; }
+    // Browser hanya mengizinkan menahan scroll pada event PERTAMA tiap usapan; trackpad sering mulai dengan delta 1-4 px.
+    // Jadi di area pembuka (dan scroll ke atas di puncak beranda) semua event ditahan, sekecil apa pun, agar usapan tidak terkunci jadi scroll biasa
+    const ipw = introProgress();
+    if (ipw || (e.deltaY < 0 && nearIntroEnd())) e.preventDefault();
     if (settle) { if (gestUsed) { e.preventDefault(); return; } settle = false; }   // stopper: sisa usapan tadi tidak keterusan
     const was = menu, gap = gestUsed ? 0 : 1e9;                          // usapan yang belum terpakai tetap berlaku sampai kunci selesai
     const handled = (e.deltaY > 4 && goDown(gap)) || (e.deltaY < -4 && goUp(gap));
