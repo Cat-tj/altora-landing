@@ -315,10 +315,10 @@ function init() {
   roof.add(at(box(W + 1.2, 0.9, D + 1.2, roofMats.roof), 0, 0.45, 0));
   [[0, D / 2 + 0.4], [0, -D / 2 - 0.4]].forEach(([x, z]) => roof.add(at(box(W + 1.2, 1.2, 0.4, roofMats.slab), x, 1.5, z)));
   [[W / 2 + 0.4, 0], [-W / 2 - 0.4, 0]].forEach(([x, z]) => roof.add(at(box(0.4, 1.2, D + 1.2, roofMats.slab), x, 1.5, z)));
-  [[-6, -3], [-1, -4], [6, 2]].forEach(([x, z]) => roof.add(at(box(3.4, 1.8, 2.6, roofMats.hvac), x, 1.8, z)));
-  roof.add(at(box(0.25, 7, 0.25, roofMats.frame), 8, 4.4, -4));
+  [[-7, 1.5], [-1.5, 1.5], [6, 2]].forEach(([x, z]) => roof.add(at(box(3.4, 1.8, 2.6, roofMats.hvac), x, 1.8, z)));
+  roof.add(at(box(0.25, 7, 0.25, roofMats.frame), 10.6, 4.4, 6.6));               // tiang suar di sudut depan, jauh dari logo
   const beacon = new THREE.Mesh(new THREE.SphereGeometry(0.45, 16, 12), new THREE.MeshStandardMaterial({ color: 0xFF6B9A, emissive: 0xFF3D7F, emissiveIntensity: 2, transparent: true }));
-  roof.add(at(beacon, 8, 8.1, -4));
+  roof.add(at(beacon, 10.6, 8.1, 6.6));
   // logo Altora 3D besar yang menyala di atap: huruf A navy + pita ungu-pink, diekstrusi dari SVG logo
   const logoNavy = new THREE.MeshStandardMaterial({ color: 0x0B2E66, roughness: 0.3, metalness: 0.45, emissive: 0x1B2F8A, emissiveIntensity: 0.35, transparent: true });
   const signMat = new THREE.MeshStandardMaterial({ color: 0xB14BE6, roughness: 0.25, metalness: 0.1, emissive: 0xC23BEA, emissiveIntensity: 0.6, transparent: true });
@@ -729,6 +729,7 @@ function init() {
     const obj = new CSS3DObject(el);
     obj.position.z = 0.004;
     screens[k].holder.add(obj);
+    el.style.visibility = 'hidden';                    // kosong = tak terlihat (lapisan HTML selalu di atas WebGL)
     faces[k] = { el, obj, shown: null };
   }
   function showFace(k, which) {                       // which: 'cover' | 'close' | null
@@ -747,6 +748,7 @@ function init() {
       wrap.appendChild(c); f.wrap = wrap;
     }
     f.el.replaceChildren(...(which ? [f.wrap] : []));
+    f.el.style.visibility = which ? '' : 'hidden';
   }
 
   // ── kamera ──
