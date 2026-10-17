@@ -5,6 +5,7 @@
 import * as THREE from 'three';
 import { CSS3DRenderer, CSS3DObject } from 'three/addons/renderers/CSS3DRenderer.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { SVGLoader } from 'three/addons/loaders/SVGLoader.js';
 
 const root = document.querySelector('.gd2');
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -318,13 +319,35 @@ function init() {
   roof.add(at(box(0.25, 7, 0.25, roofMats.frame), 8, 4.4, -4));
   const beacon = new THREE.Mesh(new THREE.SphereGeometry(0.45, 16, 12), new THREE.MeshStandardMaterial({ color: 0xFF6B9A, emissive: 0xFF3D7F, emissiveIntensity: 2, transparent: true }));
   roof.add(at(beacon, 8, 8.1, -4));
-  const signTex = canvasTex(1024, 220, (x) => { x.fillStyle = '#fff'; x.fillRect(0, 0, 1024, 220); x.fillStyle = '#5B3FC4'; x.font = '800 150px "Plus Jakarta Sans", system-ui, sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('A L T O R A', 512, 118); });
-  const signMat = new THREE.MeshStandardMaterial({ map: signTex, emissive: 0xffffff, emissiveMap: signTex, emissiveIntensity: 0.35, transparent: true });
-  const sign = new THREE.Mesh(new THREE.BoxGeometry(12, 2.6, 0.3), [roofMats.frame, roofMats.frame, roofMats.frame, roofMats.frame, signMat, roofMats.frame]);
-  sign.castShadow = true; roof.add(at(sign, -1, 3.6, D / 2 - 1.2));
-  [-5.5, 3.5].forEach(x => roof.add(at(box(0.25, 2.4, 0.25, roofMats.frame), x, 1.6, D / 2 - 1.2)));
+  // logo Altora 3D besar yang menyala di atap: huruf A navy + pita ungu-pink, diekstrusi dari SVG logo
+  const logoNavy = new THREE.MeshStandardMaterial({ color: 0x0B2E66, roughness: 0.3, metalness: 0.45, emissive: 0x1B2F8A, emissiveIntensity: 0.35, transparent: true });
+  const signMat = new THREE.MeshStandardMaterial({ color: 0xB14BE6, roughness: 0.25, metalness: 0.1, emissive: 0xC23BEA, emissiveIntensity: 0.6, transparent: true });
+  const logoHolder = new THREE.Group();
+  const logo3d = new THREE.Group(); logoHolder.add(at(logo3d, 0, 18, 0));
+  new SVGLoader().load('/assets/img/altora-logo-icon-v2.svg', data => {
+    const all = new THREE.Box3();
+    const meshes = data.paths.map(pth => {
+      const ribbon = String(pth.userData?.style?.fill || '').includes('ribbon');
+      const geo = new THREE.ExtrudeGeometry(SVGLoader.createShapes(pth), { depth: ribbon ? 150 : 110, bevelEnabled: true, bevelThickness: 14, bevelSize: 10, bevelSegments: 2, curveSegments: 6 });
+      if (ribbon) geo.translate(0, 0, -20);                                     // pita sedikit lebih tebal di depan & belakang
+      geo.computeBoundingBox(); all.union(geo.boundingBox);
+      const m = new THREE.Mesh(geo, ribbon ? signMat : logoNavy); m.castShadow = true; return m;
+    });
+    const c = all.getCenter(new THREE.Vector3()), size = all.getSize(new THREE.Vector3());
+    const sc = 30 / Math.max(size.x, size.y);
+    meshes.forEach(m => { m.geometry.translate(-c.x, -c.y, -c.z); logo3d.add(m); });
+    logo3d.scale.set(sc, -sc, sc);                                             // sumbu y SVG terbalik
+  });
+  const glowC = canvasTex(256, 256, (x) => { const g = x.createRadialGradient(128, 128, 0, 128, 128, 128); g.addColorStop(0, 'rgba(216,107,255,.9)'); g.addColorStop(0.45, 'rgba(124,92,232,.35)'); g.addColorStop(1, 'rgba(124,92,232,0)'); x.fillStyle = g; x.fillRect(0, 0, 256, 256); });
+  const logoHalo = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowC, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0.4 }));
+  logoHalo.scale.set(60, 60, 1); logoHolder.add(at(logoHalo, 0, 18, -4));
+  [-5, 5].forEach(x => logoHolder.add(at(box(0.6, 5, 0.6, roofMats.frame), x, 3.4, 0)));        // tiang penyangga voxel
+  logoHolder.add(at(box(12, 0.5, 0.8, roofMats.frame), 0, 1.2, 0));
+  logoHolder.rotation.y = 0.35; roof.add(at(logoHolder, -1, 0, -D / 2 + 2.2));
+  const logoLight = new THREE.PointLight(0xD86BFF, 0, 60, 1.6); logoHolder.add(at(logoLight, 0, 12, 3));
+  let haloBase = 0.4;
   roof.position.y = TOTAL; scene.add(roof);
-  const roofAll = [...Object.values(roofMats), signMat, beacon.material];
+  const roofAll = [...Object.values(roofMats), signMat, logoNavy, beacon.material];
   roofAll.forEach(m => { m.transparent = true; });
 
   // ── lingkungan: kota voxel ala Crossy Road (jalur rumput & jalan, mobil lewat, pohon kotak, gedung tetangga) ──
@@ -368,22 +391,12 @@ function init() {
       p.scale.setScalar(1.6); p.rotation.y = dir > 0 ? -Math.PI / 2 : Math.PI / 2;
       scene.add(at(p, x, 0.4, z)); walkers.push({ p, dir, x0: x, speed: 1.2 + (i % 3) * 0.3 });
     });
-  // gedung tetangga voxel: kotak pastel dengan grid jendela
-  const winTex = (base) => canvasTex(64, 64, (x) => { x.fillStyle = base; x.fillRect(0, 0, 64, 64); x.fillStyle = 'rgba(43,47,74,.85)'; x.fillRect(10, 12, 18, 22); x.fillRect(36, 12, 18, 22); x.fillStyle = 'rgba(255,231,163,.9)'; x.fillRect(36, 12, 18, 22); });
-  function neighbor(x, z, w, d, h, color) {
-    const t = winTex(color); t.wrapS = t.wrapT = THREE.RepeatWrapping;
-    const side = std(0xffffff, { map: t, roughness: 0.8 });
-    side.map.repeat.set(Math.max(1, Math.round(w / 3)), Math.max(1, Math.round(h / 3.2)));
-    const sideD = side.clone(); sideD.map = t.clone(); sideD.map.repeat.set(Math.max(1, Math.round(d / 3)), Math.max(1, Math.round(h / 3.2))); sideD.map.needsUpdate = true;
-    const top = std(color, { flatShading: true });
-    const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), [sideD, sideD, top, top, side, side]);
-    m.castShadow = true; m.receiveShadow = true; scene.add(at(m, x, h / 2, z));
-    scene.add(at(box(w * 0.4, 1.6, d * 0.4, std(0xE4DEFA, { flatShading: true })), x - w * 0.15, h + 0.8, z));   // mesin atap
-  }
+  // gedung tetangga: digambar bersama kota di bawah (gaya sama)
+  const NEAR = [];
   [[-38, -2, 14, 12, 24, '#FFD6A5'], [-56, 6, 10, 10, 14, '#BDE0FE'], [36, -4, 12, 14, 30, '#CDB4DB'], [55, 4, 10, 10, 18, '#FFC8DD'],
    [-36, -46, 16, 12, 34, '#E2ECE9'], [0, -50, 18, 12, 40, '#D0C4FF'], [36, -48, 14, 12, 26, '#FDE2E4'], [70, -40, 12, 12, 22, '#C1F0DC'],
    [-72, -38, 12, 12, 28, '#FFE5B4'], [-30, 62, 12, 10, 16, '#BDE0FE'], [28, 62, 14, 10, 20, '#FFD6A5'], [64, 60, 10, 10, 12, '#CDB4DB']]
-    .forEach(([x, z, w, d, h, c]) => neighbor(x, z, w, d, h, c));
+    .forEach(([x, z, w, d, h, c]) => NEAR.push([x, z, w, d, h * 0.8, c]));
 
   // mobil voxel yang lewat terus
   const carColors = [0xF26B3A, 0x7AC74F, 0x5BB5F0, 0xF5C04A, 0x7C5CE8, 0xFF8FB1];
@@ -503,9 +516,10 @@ function init() {
     if (t > 30 && lat < 90) continue;
     if (rnd() < 0.3) { parkSpots.push([x, z]); continue; }
     const dist = Math.hypot(x, z), far2 = Math.max(0, dist - 200) / 230;            // dekat gedung Altora rendah, makin jauh makin tinggi (siluet kota)
-    const w = 10 + rnd() * 9, d = 10 + rnd() * 9, h = 5 + rnd() * 10 + far2 * (10 + rnd() * 30);
+    const w = 10 + rnd() * 9, d = 10 + rnd() * 9, h = 7 + rnd() * 12 + far2 * (10 + rnd() * 30);
     bSpots.push([x, z, w, d, h, PASTEL[(rnd() * PASTEL.length) | 0]]);
   }
+  bSpots.push(...NEAR);
   const blds = new THREE.InstancedMesh(new THREE.BoxGeometry(1, 1, 1), bldMat, bSpots.length);
   const capMat = std(0xffffff, { flatShading: true, roughness: 0.9 });
   const caps = new THREE.InstancedMesh(new THREE.BoxGeometry(1, 1, 1), capMat, bSpots.length);
@@ -517,6 +531,7 @@ function init() {
     o3.position.set(x - w * 0.15, h + 0.8, z); o3.scale.set(w * 0.4, 1.6, d * 0.4); o3.updateMatrix(); caps.setMatrixAt(i, o3.matrix); caps.setColorAt(i, col.set(c).lerp(new THREE.Color(0xffffff), 0.5));
     o3.position.set(x, 0.15, z); o3.scale.set(w + 5, 0.3, d + 5); o3.updateMatrix(); lots.setMatrixAt(i, o3.matrix);
   });
+  blds.castShadow = blds.receiveShadow = caps.castShadow = true;
   scene.add(blds, caps, lots);
   // taman: pohon voxel instanced (batang + 2 tumpuk daun)
   const treeArr = [];
@@ -538,14 +553,18 @@ function init() {
   });
   scene.add(trunks, leaf1, leaf2);
   // gunung low-poly mengelilingi cakrawala
-  const mtnMats = [std(0x8FB8A8, { flatShading: true, roughness: 1 }), std(0x9C9BD0, { flatShading: true, roughness: 1 }), std(0x7FA89A, { flatShading: true, roughness: 1 })];
-  const snow = std(0xFFFFFF, { flatShading: true, roughness: 1 });
+  const mtnMats = [std(0xA7C9C0, { flatShading: true, roughness: 1, fog: false }), std(0xB5B2E6, { flatShading: true, roughness: 1, fog: false }), std(0x9DBFC9, { flatShading: true, roughness: 1, fog: false })];
+  const snow = std(0xFFFFFF, { flatShading: true, roughness: 1, fog: false });
   for (let i = 0; i < 34; i++) {
     const a = (i / 34) * Math.PI * 2 + rnd() * 0.1, r = 620 + rnd() * 140, h = 90 + rnd() * 140, rad = 90 + rnd() * 70;
     const m = new THREE.Mesh(new THREE.ConeGeometry(rad, h, 5 + (i % 3), 1), mtnMats[i % 3]);
     m.rotation.y = rnd() * Math.PI; scene.add(at(m, Math.cos(a) * r, h / 2 - 2, Math.sin(a) * r));
-    if (h > 170) { const s = new THREE.Mesh(new THREE.ConeGeometry(rad * 0.28, h * 0.28, 5 + (i % 3), 1), snow); s.rotation.y = m.rotation.y; scene.add(at(s, Math.cos(a) * r, h - h * 0.14 - 2, Math.sin(a) * r)); }
+    const s = new THREE.Mesh(new THREE.ConeGeometry(rad * 0.3 + 0.6, h * 0.3 + 0.6, 5 + (i % 3), 1), snow); s.rotation.y = m.rotation.y; scene.add(at(s, Math.cos(a) * r, h - h * 0.15 - 2.2, Math.sin(a) * r));
   }
+  // gunung tempat matahari/bulan bersembunyi (posisinya diatur placeOrb mengikuti kamera)
+  const moonMtn = new THREE.Mesh(new THREE.ConeGeometry(1, 1, 6, 1), mtnMats[1]);
+  const moonSnow = new THREE.Mesh(new THREE.ConeGeometry(0.3, 0.3, 6, 1), snow);
+  scene.add(moonMtn, moonSnow);
   // mobil di jalan silang & jalan jauh
   const farCars = [];
   ZR.forEach((x, ri) => [-1, 1].forEach((dir, li) => { for (let i = 0; i < 5; i++) {
@@ -622,6 +641,8 @@ function init() {
     [ceilLight, screenGlow].forEach(m => { m.emissiveIntensity = 1.1 + night.v * 1.6; });
     gl.toneMappingExposure = 1.05 + night.v * 0.15;
     winU.uNight.value = night.v;
+    [...mtnMats, snow].forEach(m => { m.userData.c0 ??= m.color.clone(); m.color.copy(m.userData.c0).multiplyScalar(1 - night.v * 0.6); });
+    signMat.emissiveIntensity = 0.6 + night.v * 1.6; logoNavy.emissiveIntensity = 0.35 + night.v * 0.8; haloBase = 0.4 + night.v * 0.5; logoLight.intensity = night.v * 900;
     scene.traverse(o => { if (!o.material) return; (Array.isArray(o.material) ? o.material : [o.material]).forEach(m => {   // malam: pantulan lingkungan ikut redup
       if (m.envMapIntensity === undefined) return;
       if (m.userData.env0 === undefined) m.userData.env0 = m.envMapIntensity;
@@ -687,6 +708,7 @@ function init() {
   function animateSky(now) {
     const sec = now / 1000;
     orb.lookAt(camera.position);
+    logo3d.rotation.y = Math.sin(sec * 0.6) * 0.4;                         // logo berayun pelan supaya bentuk 3D-nya terlihat
     clouds.forEach(c => { c.g.position.x += c.speed * 0.016; if (c.g.position.x > 260) c.g.position.x = -260; });
     cloudMat.color.setRGB(1 - night.v * 0.62, 1 - night.v * 0.6, 1 - night.v * 0.45);
     birds.forEach(b => {
@@ -758,9 +780,11 @@ function init() {
       poses[k] = { fill, room };
     }
   }
-  const far = () => {
-    const look = new THREE.Vector3(0, VW < 900 ? 58 : 40, 0), az = 0.62, el = 0.1, d = VW < 900 ? 300 : 200;
-    return { pos: new THREE.Vector3(Math.sin(az) * Math.cos(el) * d, look.y + Math.sin(el) * d, Math.cos(az) * Math.cos(el) * d), look, up };
+  const far = () => {                                                  // desktop: gedung di kanan (panel teks di kiri); mobile: gedung di atas (panel di bawah)
+    const narrow = VW < 900, az = 0.62, el = narrow ? 0.14 : 0.1, d = narrow ? 330 : 230;
+    const look = new THREE.Vector3(0, narrow ? 10 : 44, 0);
+    if (!narrow) look.add(new THREE.Vector3(-Math.cos(az), 0, Math.sin(az)).multiplyScalar(Math.min(60, 0.26 * TAN * d * (VW / VH) * 2)));
+    return { pos: new THREE.Vector3(Math.sin(az) * Math.cos(el) * d, look.y + Math.sin(el) * d, Math.cos(az) * Math.cos(el) * d).add(new THREE.Vector3(look.x, 0, look.z)), look, up };
   };
   const above = () => ({ pos: new THREE.Vector3(18, TOTAL + 34, 40), look: new THREE.Vector3(0, base(7) + 2, -1), up });
   const vA = new THREE.Vector3(), vB = new THREE.Vector3(), vU = new THREE.Vector3(), arcV = new THREE.Vector3();
@@ -799,16 +823,28 @@ function init() {
     buildPoses();
     placeOrb();
   }
-  function placeOrb() {                                                  // matahari/bulan selalu di kanan atas pandangan pembuka
+  function placeOrb() {                                                  // matahari/bulan terbit di balik puncak gunung, kanan atas pandangan
     const f = far(), dir = f.look.clone().sub(f.pos).normalize();
     const right = new THREE.Vector3().crossVectors(dir, up).normalize();
-    const narrow = VW < 900, dist = 420;
-    const vh = 2 * Math.tan(THREE.MathUtils.degToRad(16)) * dist, vw = vh * (VW / VH);
-    orb.position.copy(f.pos).addScaledVector(dir, dist).addScaledVector(right, vw * (narrow ? 0.3 : 0.36)).addScaledVector(up, vh * (narrow ? 0.27 : 0.28));
+    const narrow = VW < 900, ref = 420;
+    const vh = 2 * TAN * ref, vw = vh * (VW / VH);
+    const aim = f.pos.clone().addScaledVector(dir, ref).addScaledVector(right, vw * (narrow ? 0.3 : 0.37)).sub(f.pos);
+    const hd = new THREE.Vector3(aim.x, 0, aim.z).normalize();
+    const b = f.pos.x * hd.x + f.pos.z * hd.z, R = 700, cc = f.pos.x * f.pos.x + f.pos.z * f.pos.z - R * R;
+    const sd = -b + Math.sqrt(b * b - cc);                               // jarak datar kamera -> lingkar gunung
+    const pitch = Math.asin(dir.y), elev = pitch + (narrow ? 0.52 : 0.6) * THREE.MathUtils.degToRad(16);
+    const H = f.pos.y + sd * Math.tan(elev), rad = H * 0.7;
+    const px = f.pos.x + hd.x * sd, pz = f.pos.z + hd.z * sd;
+    moonMtn.scale.set(rad, H, rad); moonMtn.position.set(px, H / 2 - 2, pz);
+    moonSnow.scale.set(rad, H, rad); moonSnow.position.set(px, H - H * 0.15 - 2, pz);
+    const od = sd + 220, orbR = 0.04 * od;                                 // ukuran tampak tetap seperti sebelumnya
+    orb.scale.setScalar(orbR / 16);
+    const tip = new THREE.Vector3(px, H - 2, pz).sub(f.pos).normalize();
+    orb.position.copy(f.pos).addScaledVector(tip, od).addScaledVector(up, orbR * 0.15);   // separuh bawah tertutup puncak
   }
 
   function setLift(k, lift) { const f = floors[k]; f.g.position.y = base(k) + lift * 44; f.g.rotation.z = lift * 0.05; f.g.visible = lift < 0.985; }
-  function setRoof(lift) { roof.position.y = TOTAL + lift * 44; roof.rotation.z = -lift * 0.05; roofAll.forEach(m => { m.opacity = 1 - clamp(lift * 1.3); }); roof.visible = lift < 0.985; }
+  function setRoof(lift) { roof.position.y = TOTAL + lift * 44; roof.rotation.z = -lift * 0.05; roofAll.forEach(m => { m.opacity = 1 - clamp(lift * 1.3); }); logoHalo.material.opacity = haloBase * (1 - clamp(lift * 1.3)); roof.visible = lift < 0.985; }
 
   // ── adegan aktif ──
   function activeScene() {
