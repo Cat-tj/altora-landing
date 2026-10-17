@@ -435,6 +435,40 @@ function init() {
     }
     requestAnimationFrame(loop);
   }
+  // ── sekali scroll ke bawah di pembuka -> animasi berjalan sendiri sampai beranda ──
+  let auto = null;
+  function introProgress() {
+    const sc = scenes[0]; if (!sc) return null;
+    const r = sc.getBoundingClientRect(), span = r.height - VH;
+    if (-r.top > span - 1) return null;                                    // sudah lewat pembuka
+    return { r, span, t: clamp(-r.top / span) };
+  }
+  function playIntro() {
+    const ip = introProgress(); if (!ip || auto) return false;
+    const from = scrollY, dist = (ip.r.top + ip.span) / Z + 2;             // px CSS sampai pembuka selesai
+    const dur = 3200 * (1 - ip.t) + 400, t0 = performance.now();
+    const ez = x => (x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2);
+    auto = true;
+    (function step(now) {
+      const k = Math.min(1, (now - t0) / dur);
+      scrollTo({ top: from + dist * ez(k), behavior: 'instant' });          // situs memakai scroll-behavior:smooth
+      if (k < 1) requestAnimationFrame(step); else auto = null;
+    })(t0);
+    return true;
+  }
+  const block = e => { if (auto) { e.preventDefault(); return true; } return false; };
+  addEventListener('wheel', e => { if (block(e)) return; if (e.deltaY > 4 && introProgress() && playIntro()) e.preventDefault(); }, { passive: false });
+  let ty0 = null;
+  addEventListener('touchstart', e => { ty0 = e.touches[0].clientY; }, { passive: true });
+  addEventListener('touchmove', e => {
+    if (block(e)) return;
+    if (ty0 !== null && ty0 - e.touches[0].clientY > 8 && introProgress() && playIntro()) e.preventDefault();
+  }, { passive: false });
+  addEventListener('keydown', e => {
+    if (!['ArrowDown', 'PageDown', ' ', 'Spacebar', 'End'].includes(e.key)) return;
+    if (block(e)) return;
+    if (introProgress() && playIntro()) e.preventDefault();
+  });
   addEventListener('resize', resize);
   if (window.visualViewport) visualViewport.addEventListener('resize', resize);
   resize();
