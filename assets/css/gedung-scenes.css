@@ -155,3 +155,4 @@
   .gd-fl-line{width:14px}.gd-fl-dot{width:7px;height:7px}
   .gd-fm-hint{white-space:normal;text-align:center;width:max-content;max-width:calc(100% - 110px);left:16px;transform:none;font-size:.76rem;padding:8px 14px;border-radius:16px;bottom:18px}
 }
+.gd2:not(.gd-live) .gd-scene{display:none}
