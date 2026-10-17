@@ -102,3 +102,13 @@
 .gd-live:not(.gd-3d-on) .gd-scene-in{visibility:hidden}
 .gd-canvas{width:100%!important;height:100%!important;left:0!important;top:0!important;right:0!important;bottom:0!important}
 .gd-3d-on [data-gd-cover]{visibility:hidden}
+/* tombol ganti waktu langit + teks pembuka saat malam */
+.gd-skybtn{position:absolute;right:max(16px,3vw);bottom:24px;pointer-events:auto;display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:10px 16px;border:1px solid rgba(255,255,255,.7);border-radius:16px;
+  background:rgba(255,255,255,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#10224F;font:800 .9rem "Plus Jakarta Sans",system-ui,sans-serif;cursor:pointer;opacity:var(--hero,1);box-shadow:0 10px 24px -14px rgba(16,34,79,.5)}
+.gd-skybtn small{font-weight:600;font-size:.72rem;color:#5A6785}
+.gd-night .gd-skybtn{background:rgba(16,20,56,.7);color:#fff;border-color:rgba(255,255,255,.2)}
+.gd-night .gd-skybtn small{color:#C9C4F5}
+.gd-night .gd-hero .gd-title,.gd-night .gd-hero p{color:#fff!important}
+.gd-night .gd-hero .eyebrow{color:#D9CFFF!important}
+.gd-night .gd-hero .gd-title span{background:linear-gradient(90deg,#C9B8FF,#FFB3E6);-webkit-background-clip:text;background-clip:text;color:transparent}
+@media (max-width:900px){.gd-skybtn{left:16px;right:auto;bottom:18px}}

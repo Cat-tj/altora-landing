@@ -14,7 +14,7 @@ s = re.sub(r'<title>.*?</title>', '<title>Preview: Gedung Altora</title>', s, co
 s = re.sub(r'<link[^>]*rel="canonical"[^>]*/>', '', s, count=1)
 s = re.sub(r'<script type="application/ld\+json">.*?</script>', '', s, flags=re.S)
 s = re.sub(r'<meta[^>]*name="robots"[^>]*/>', '', s)
-s = s.replace('</head>', '<meta content="noindex,nofollow" name="robots"/><link rel="stylesheet" href="/assets/css/gedung-scenes.css?v=7"/></head>', 1)
+s = s.replace('</head>', '<meta content="noindex,nofollow" name="robots"/><link rel="stylesheet" href="/assets/css/gedung-scenes.css?v=8"/></head>', 1)
 
 # adegan pembuka di awal <main>, hero beranda ditandai sebagai isi layar proyektor
 intro = ('<div class="gd-scene" data-to="7"><div class="gd-scene-in"><div class="gd-hero">'
@@ -28,7 +28,7 @@ s = s.replace('<section class="hero">', '<section class="hero" data-gd-cover="">
 # skrip 3D
 s = s.replace('</body>', '<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",'
               '"three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>'
-              '<script type="module" src="/assets/js/gedung3d.js?v=214"></script></body>', 1)
+              '<script type="module" src="/assets/js/gedung3d.js?v=217"></script></body>', 1)
 
 (root / 'preview-gedung.html').write_text(s, encoding='utf-8')
 print('preview-gedung.html dibuat (beranda + pembuka gedung)')

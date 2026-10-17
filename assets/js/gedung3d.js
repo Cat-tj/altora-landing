@@ -51,7 +51,7 @@ function init() {
   const camera = new THREE.PerspectiveCamera(32, 1, 0.05, 1000);
 
   // ── cahaya ──
-  scene.add(new THREE.HemisphereLight(0xF4F0FF, 0xCFC3FA, 1.0));
+  const hemi = new THREE.HemisphereLight(0xF4F0FF, 0xCFC3FA, 1.0); scene.add(hemi);
   const sun = new THREE.DirectionalLight(0xFFF4E6, 2.2);
   sun.position.set(45, 90, 55);
   sun.castShadow = true;
@@ -423,6 +423,124 @@ function init() {
     });
   }
 
+  // ── langit mengikuti jam pengunjung: pagi, siang, senja, malam ──
+  const SKY = [            // jam, langit atas, cakrawala, warna & kekuatan matahari, cahaya lingkungan
+    [0, 0x0A0F2E, 0x232A5C, 0x9FB4FF, 0.35, 0.32],
+    [4.5, 0x0E1438, 0x2B2F66, 0x9FB4FF, 0.35, 0.34],
+    [6, 0x6874D6, 0xFFB38A, 0xFFC59A, 1.2, 0.75],
+    [8, 0x86C2FF, 0xE6F1FF, 0xFFF4E6, 2.1, 1.0],
+    [15.5, 0x86C2FF, 0xE6F1FF, 0xFFF4E6, 2.2, 1.0],
+    [17.6, 0x7A6AD8, 0xFF9E7A, 0xFFB07A, 1.4, 0.8],
+    [18.7, 0x2E2F72, 0x9A6AB8, 0xC9A0FF, 0.6, 0.5],
+    [20, 0x0D1236, 0x262C60, 0x9FB4FF, 0.35, 0.34],
+    [24, 0x0A0F2E, 0x232A5C, 0x9FB4FF, 0.35, 0.32],
+  ];
+  const skyU = { top: { value: new THREE.Color() }, bot: { value: new THREE.Color() } };
+  const skyDome = new THREE.Mesh(new THREE.SphereGeometry(700, 32, 16), new THREE.ShaderMaterial({
+    uniforms: skyU, side: THREE.BackSide, depthWrite: false, fog: false,
+    vertexShader: 'varying vec3 vP; void main(){ vP = normalize(position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }',
+    fragmentShader: 'uniform vec3 top; uniform vec3 bot; varying vec3 vP; void main(){ float h = clamp(vP.y*1.6+0.05,0.0,1.0); gl_FragColor = vec4(mix(bot, top, pow(h,0.8)),1.0); }',
+  }));
+  scene.add(skyDome);
+  // bintang (hanya terlihat malam)
+  const starGeo = new THREE.BufferGeometry(), sp = [];
+  for (let i = 0; i < 600; i++) { const u = Math.random() * Math.PI * 2, v = 0.15 + Math.random() * 0.85; sp.push(Math.cos(u) * 650 * Math.sqrt(1 - v * v), v * 650, Math.sin(u) * 650 * Math.sqrt(1 - v * v)); }
+  starGeo.setAttribute('position', new THREE.Float32BufferAttribute(sp, 3));
+  const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xFFFFFF, size: 1.6, sizeAttenuation: false, transparent: true, opacity: 0, fog: false, depthWrite: false }));
+  scene.add(stars);
+  const night = { v: 0 };
+  let skyHour = null;                                                   // null = jam asli pengunjung
+  function applySky() {
+    const d = new Date(), h = skyHour !== null ? skyHour : d.getHours() + d.getMinutes() / 60;
+    let i = 0; while (i < SKY.length - 2 && SKY[i + 1][0] <= h) i++;
+    const a = SKY[i], b = SKY[i + 1], t = (h - a[0]) / (b[0] - a[0]);
+    const c = (x, y) => new THREE.Color(x).lerp(new THREE.Color(y), t);
+    skyU.top.value.copy(c(a[1], b[1])); skyU.bot.value.copy(c(a[2], b[2]));
+    sun.color.copy(c(a[3], b[3])); sun.intensity = a[4] + (b[4] - a[4]) * t;
+    hemi.intensity = a[5] + (b[5] - a[5]) * t;
+    hemi.color.copy(skyU.top.value).lerp(new THREE.Color(0xffffff), 0.6);
+    const ang = ((h - 6) / 12) * Math.PI;                                  // matahari terbit 06:00, terbenam 18:00
+    const day = h >= 5.5 && h <= 18.5;
+    sun.position.set(Math.cos(ang) * 80 + 20, day ? Math.max(18, Math.sin(ang) * 100) : 90, 55);
+    scene.fog.color.copy(skyU.bot.value); gl.setClearColor(skyU.bot.value, 1);
+    night.v = Math.max(0, Math.min(1, (0.9 - sun.intensity) / 0.55));
+    stars.material.opacity = night.v;
+    root.classList.toggle('gd-night', night.v > 0.5);
+    // malam: lampu gedung & jendela lebih terang
+    [ceilLight, screenGlow].forEach(m => { m.emissiveIntensity = 1.1 + night.v * 1.6; });
+    gl.toneMappingExposure = 1.05 + night.v * 0.15;
+    // cakram matahari/bulan
+    orbMat.color.set(night.v > 0.5 ? 0xEEF1FF : (h < 7 || h > 17 ? 0xFFB070 : 0xFFE27A));
+    halo.material.color.set(night.v > 0.5 ? 0xB9C4FF : 0xFFE9A8);
+    const lbl = h < 5.5 || h >= 19.5 ? ['🌙', 'Malam'] : h < 9 ? ['🌅', 'Pagi'] : h < 16.5 ? ['☀️', 'Siang'] : ['🌇', 'Senja'];
+    skyBtn.innerHTML = '<span aria-hidden="true">' + lbl[0] + '</span> ' + lbl[1] + (skyHour === null ? ' · waktu Anda' : '') + '<small>Klik ' + (night.v > 0.5 ? 'bulan' : 'matahari') + ' untuk ganti</small>';
+  }
+  // matahari/bulan yang bisa diklik
+  const orbMat = new THREE.MeshBasicMaterial({ color: 0xFFE27A, fog: false });
+  const orb = new THREE.Mesh(new THREE.CircleGeometry(16, 40), orbMat);
+  const halo = new THREE.Mesh(new THREE.CircleGeometry(30, 40), new THREE.MeshBasicMaterial({ color: 0xFFE9A8, transparent: true, opacity: 0.25, fog: false, depthWrite: false }));
+  halo.position.z = -0.5; orb.add(halo);
+  orb.position.set(5, 150, -250); scene.add(orb);
+  const CYCLE = [7, 12, 17.9, 22];
+  function nextSky() {
+    const d = new Date(), cur = skyHour !== null ? skyHour : d.getHours() + d.getMinutes() / 60;
+    if (skyHour !== null && skyHour === CYCLE[CYCLE.length - 1]) skyHour = null;      // setelah malam kembali ke jam asli
+    else skyHour = CYCLE.find(x => x > cur + 0.1) ?? CYCLE[0];
+    applySky();
+  }
+  const skyBtn = document.createElement('button');
+  skyBtn.type = 'button'; skyBtn.className = 'gd-skybtn';
+  skyBtn.addEventListener('click', nextSky);
+  root.querySelector('.gd-scene-in')?.appendChild(skyBtn);
+  const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
+  gl.domElement.addEventListener('click', e => {
+    ndc.set((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    if (ray.intersectObject(orb, true).length) nextSky();
+  });
+  gl.domElement.addEventListener('mousemove', e => {
+    ndc.set((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    gl.domElement.style.cursor = ray.intersectObject(orb, true).length ? 'pointer' : '';
+  });
+
+  // ── awan voxel ──
+  const cloudMat = std(0xFFFFFF, { flatShading: true, roughness: 1 });
+  const clouds = [];
+  for (let i = 0; i < 12; i++) {
+    const g = new THREE.Group(), n = 3 + (i % 3);
+    for (let j = 0; j < n; j++) g.add(at(box(8 + (j % 2) * 4, 3 + (j % 2) * 1.5, 6 + (j % 3) * 2, cloudMat, false, false), j * 6 - n * 3, (j % 2) * 1.5, (j % 3) * 2 - 2));
+    g.position.set(-200 + i * 36, 70 + (i * 13) % 45, -120 + ((i * 47) % 220));
+    scene.add(g); clouds.push({ g, speed: 1.5 + (i % 4) * 0.6 });
+  }
+  // ── burung voxel: kawanan terbang melingkar, sayap mengepak ──
+  const birdMat = std(0x3E2A57, { flatShading: true });
+  const birds = [];
+  for (let i = 0; i < 9; i++) {
+    const g = new THREE.Group();
+    g.add(at(box(0.5, 0.4, 1.3, birdMat, false, false), 0, 0, 0));
+    g.add(at(box(0.32, 0.3, 0.3, std(0xF5C04A), false, false), 0, 0.05, -0.75));
+    const wl = new THREE.Group(), wr = new THREE.Group();
+    wl.add(at(box(1.4, 0.08, 0.6, birdMat, false, false), -0.7, 0, 0)); wr.add(at(box(1.4, 0.08, 0.6, birdMat, false, false), 0.7, 0, 0));
+    wl.position.x = -0.25; wr.position.x = 0.25; g.add(wl, wr);
+    g.scale.setScalar(1.6);
+    scene.add(g); birds.push({ g, wl, wr, off: i * 0.55, r: 55 + (i % 3) * 6, y: 62 + (i % 4) * 3, ph: i * 1.3 });
+  }
+  function animateSky(now) {
+    const sec = now / 1000;
+    orb.lookAt(camera.position);
+    clouds.forEach(c => { c.g.position.x += c.speed * 0.016; if (c.g.position.x > 260) c.g.position.x = -260; });
+    cloudMat.color.setRGB(1 - night.v * 0.62, 1 - night.v * 0.6, 1 - night.v * 0.45);
+    birds.forEach(b => {
+      const a = sec * 0.18 + b.off;
+      b.g.position.set(Math.cos(a) * b.r + 10, b.y + Math.sin(sec * 1.3 + b.ph) * 1.5, Math.sin(a) * b.r - 10);
+      b.g.rotation.y = -a;                                                  // menghadap arah terbang
+      const f = Math.sin(sec * 9 + b.ph) * 0.7;
+      b.wl.rotation.z = f; b.wr.rotation.z = -f;
+      b.g.visible = night.v < 0.7;                                          // malam: burung pulang
+    });
+  }
+
   // ── salinan sampul/penutup di layar ──
   const faces = {};
   for (const k in screens) {
@@ -521,6 +639,14 @@ function init() {
     });
     if (coverEl) { coverEl.style.setProperty('margin-top', -ch + 'px', 'important'); coverEl.style.setProperty('min-height', ch + 'px', 'important'); faces[7] && (faces[7].wrap = null, faces[7].shown = null); }
     buildPoses();
+    placeOrb();
+  }
+  function placeOrb() {                                                  // matahari/bulan selalu di kanan atas pandangan pembuka
+    const f = far(), dir = f.look.clone().sub(f.pos).normalize();
+    const right = new THREE.Vector3().crossVectors(dir, up).normalize();
+    const narrow = VW < 900, dist = 420;
+    const vh = 2 * Math.tan(THREE.MathUtils.degToRad(16)) * dist, vw = vh * (VW / VH);
+    orb.position.copy(f.pos).addScaledVector(dir, dist).addScaledVector(right, vw * (narrow ? 0.3 : 0.36)).addScaledVector(up, vh * (narrow ? 0.27 : 0.28));
   }
 
   function setLift(k, lift) { const f = floors[k]; f.g.position.y = base(k) + lift * 44; f.g.rotation.z = lift * 0.05; f.g.visible = lift < 0.985; }
@@ -562,6 +688,7 @@ function init() {
   }
 
   const t0 = performance.now();
+  let skyTick = 0;
   function loop() {
     const cw = document.documentElement.clientWidth || innerWidth;
     if (cw !== VW || innerHeight !== VH) resize();                        // zoom/resize yang tidak memicu event
@@ -569,6 +696,8 @@ function init() {
       const tt = (performance.now() - t0) / 1000;
       beacon.material.emissiveIntensity = 1.2 + Math.sin(tt * 3.3);
       moveCars(performance.now());
+      animateSky(performance.now());
+      if (++skyTick % 600 === 1) applySky();                                    // perbarui langit tiap ~10 detik
       leds.forEach((l, i) => { l.visible = Math.sin(tt * 4 + i * 1.7) > -0.3; });
       gl.render(scene, camera);
       css.render(scene, camera);
