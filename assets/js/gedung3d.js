@@ -302,9 +302,11 @@ function init() {
       const wrap = document.createElement('div'); wrap.id = 'top-face';      // aturan 'main#top ...' ikut berlaku
       const c = coverEl.cloneNode(true);
       c.removeAttribute('style'); c.removeAttribute('data-gd-cover'); c.removeAttribute('id');
-      c.style.marginTop = '0'; c.style.minHeight = VH + 'px';
+      c.style.setProperty('margin-top', '0px', 'important'); c.style.setProperty('min-height', (VH / Z) + 'px', 'important');
       c.querySelectorAll('.reveal').forEach(x => x.classList.add('revealed'));
       c.querySelectorAll('[id]').forEach(x => x.removeAttribute('id'));
+      wrap.style.width = (VW / Z) + 'px'; wrap.style.height = (VH / Z) + 'px';
+      wrap.style.transformOrigin = '0 0'; wrap.style.transform = 'scale(' + Z + ')';   // tata letak selebar halaman (zoom), lalu diperkecil seperti zoom
       wrap.appendChild(c); f.wrap = wrap;
     }
     f.el.replaceChildren(...(which ? [f.wrap] : []));
@@ -315,7 +317,7 @@ function init() {
   const ease = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
   const TAN = Math.tan(THREE.MathUtils.degToRad(16));
   const tq = new THREE.Quaternion(), up = new THREE.Vector3(0, 1, 0);
-  let VW = innerWidth, VH = innerHeight;
+  let VW = innerWidth, VH = innerHeight, Z = 1;
   function screenFrame(k) {                           // pusat & arah hadap layar k saat lantainya belum terangkat
     const s = screens[k], g = floors[k].g, saved = g.position.y;
     g.position.y = base(k); g.updateMatrixWorld(true);
@@ -334,6 +336,10 @@ function init() {
       const fill = { pos: f.c.clone().addScaledVector(f.n, d), look: f.c.clone(), up: f.camUp.clone() };
       const back = Math.max(d * 3.2, f.s.hand ? 1.6 : 7);
       const room = { pos: f.c.clone().addScaledVector(f.n, back).addScaledVector(f.side, back * 0.32).addScaledVector(up, back * 0.28), look: f.c.clone().addScaledVector(up, -0.15 * back * 0.3), up: up.clone() };
+      const lim = { x: W / 2 - 1.2, zMax: D / 2 - 1.2, yMax: base(k) + height(k) - 0.4 };   // kamera tetap di dalam ruangan
+      room.pos.x = Math.max(-lim.x, Math.min(lim.x, room.pos.x));
+      room.pos.z = Math.min(lim.zMax, room.pos.z);
+      room.pos.y = Math.min(lim.yMax, room.pos.y);
       poses[k] = { fill, room };
     }
   }
@@ -354,22 +360,27 @@ function init() {
 
   // ── tinggi adegan & ukuran layar ──
   function resize() {
-    VW = innerWidth; VH = innerHeight;
-    root.style.setProperty('--vhp', VH + 'px');
-    gl.setSize(VW, VH); css.setSize(VW, VH);
+    VW = document.documentElement.clientWidth || innerWidth; VH = innerHeight;
+    Z = parseFloat(getComputedStyle(document.body).zoom) || 1;               // situs memakai zoom .9 di desktop
+    const cw = VW / Z, ch = VH / Z;                                          // ukuran dalam px CSS halaman
+    root.style.setProperty('--vhp', ch + 'px');
+    gl.setSize(VW, VH, false);
+    css.domElement.style.zoom = String(1 / Z);                               // lapisan 3D bekerja di px layar, tanpa zoom halaman
+    css.setSize(VW, VH);
     camera.aspect = VW / VH; camera.updateProjectionMatrix();
     sizeScreens(VW / VH);
     for (const k in faces) {
       const f = faces[k], s = screens[k];
-      f.el.style.width = VW + 'px'; f.el.style.height = VH + 'px';
+      f.el.style.width = VW + 'px'; f.el.style.height = VH + 'px';         // px layar
       f.obj.scale.setScalar(s.w / VW);
+      if (f.wrap) { f.wrap.style.width = cw + 'px'; f.wrap.style.height = ch + 'px'; f.wrap.style.transform = 'scale(' + Z + ')'; }
     }
     scenes.forEach(sc => {
       const to = +sc.dataset.to, from = +(sc.dataset.from || 0);
       const len = 3.2;      // intro, penutup, antar-ruangan (dalam tinggi layar)
-      sc.style.setProperty('--scene-h', (len * VH) + 'px');
+      sc.style.setProperty('--scene-h', (len * ch) + 'px');
     });
-    if (coverEl) { coverEl.style.setProperty('margin-top', -VH + 'px', 'important'); coverEl.style.setProperty('min-height', VH + 'px', 'important'); faces[7] && (faces[7].wrap = null, faces[7].shown = null); }
+    if (coverEl) { coverEl.style.setProperty('margin-top', -ch + 'px', 'important'); coverEl.style.setProperty('min-height', ch + 'px', 'important'); faces[7] && (faces[7].wrap = null, faces[7].shown = null); }
     buildPoses();
   }
 
@@ -413,6 +424,8 @@ function init() {
 
   const t0 = performance.now();
   function loop() {
+    const cw = document.documentElement.clientWidth || innerWidth;
+    if (cw !== VW || innerHeight !== VH) resize();                        // zoom/resize yang tidak memicu event
     if (frame()) {
       const tt = (performance.now() - t0) / 1000;
       beacon.material.emissiveIntensity = 1.2 + Math.sin(tt * 3.3);
@@ -423,6 +436,7 @@ function init() {
     requestAnimationFrame(loop);
   }
   addEventListener('resize', resize);
+  if (window.visualViewport) visualViewport.addEventListener('resize', resize);
   resize();
   loop();
 }
