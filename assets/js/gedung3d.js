@@ -45,10 +45,10 @@ function init() {
   root.appendChild(css.domElement);
 
   const scene = new THREE.Scene();
-  scene.fog = new THREE.Fog(BG, 180, 420);
+  scene.fog = new THREE.Fog(BG, 420, 900);                              // hanya memudarkan cakrawala, bukan kabut
   const pmrem = new THREE.PMREMGenerator(gl);
   scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
-  const camera = new THREE.PerspectiveCamera(32, 1, 0.05, 1000);
+  const camera = new THREE.PerspectiveCamera(32, 1, 0.3, 2500);
 
   // ── cahaya ──
   const hemi = new THREE.HemisphereLight(0xF4F0FF, 0xCFC3FA, 1.0); scene.add(hemi);
@@ -334,7 +334,7 @@ function init() {
     trunk: std(0x8A5A44, { flatShading: true }), leafA: std(0x8CCB4E, { flatShading: true }), leafB: std(0x76B83E, { flatShading: true }),
     wheel: std(0x1E2033), win: std(0x2B2F4A, { roughness: 0.3 }), white: std(0xFFFFFF, { roughness: 0.6 }),
   };
-  const ground = new THREE.Mesh(new THREE.PlaneGeometry(700, 700), V.grass);
+  const ground = new THREE.Mesh(new THREE.PlaneGeometry(1600, 1600), V.grass);
   ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
   // jalur sepanjang sumbu x: [z tengah, lebar, jenis]
   const ROADS = [[D / 2 + 13, 12], [-D / 2 - 15, 12], [D / 2 + 44, 12]];
@@ -392,8 +392,8 @@ function init() {
     const g = new THREE.Group(), body = std(color, { flatShading: true, roughness: 0.6 });
     const L = truck ? 7 : 4.6;
     g.add(at(box(L, 1.1, 2.3, body), 0, 0.95, 0));
-    if (truck) { g.add(at(box(4.6, 2.2, 2.3, V.white), -1.1, 2.6, 0)); g.add(at(box(1.6, 1.2, 2.2, body), 2.4, 2.0, 0)); g.add(at(box(0.1, 0.7, 1.9, V.win), 3.22, 2.1, 0)); }
-    else { g.add(at(box(2.6, 1.0, 2.1, V.white), -0.3, 2.0, 0)); [-1, 1].forEach(sd => g.add(at(box(2.0, 0.6, 0.05, V.win), -0.3, 2.05, sd * 1.06))); g.add(at(box(0.05, 0.6, 1.8, V.win), 1.0, 2.05, 0)); }
+    if (truck) { g.add(at(box(4.6, 2.2, 2.3, V.white), -1.1, 2.6, 0)); g.add(at(box(1.6, 1.2, 2.2, body), 2.4, 2.0, 0)); g.add(at(box(0.06, 0.7, 1.9, V.win), 3.24, 2.1, 0)); }
+    else { g.add(at(box(2.6, 1.0, 2.1, V.white), -0.3, 2.0, 0)); [-1, 1].forEach(sd => g.add(at(box(2.0, 0.6, 0.06, V.win), -0.3, 2.05, sd * 1.1))); g.add(at(box(0.06, 0.6, 1.8, V.win), 1.04, 2.05, 0)); g.add(at(box(0.06, 0.55, 1.8, V.win), -1.64, 2.05, 0)); }
     [-1, 1].forEach(sx => [-1, 1].forEach(sz => g.add(at(box(0.9, 0.9, 0.4, V.wheel), sx * (L / 2 - 1.0), 0.45, sz * 1.2))));
     return g;
   }
@@ -436,7 +436,7 @@ function init() {
     [24, 0x0A0F2E, 0x232A5C, 0x9FB4FF, 0.35, 0.32],
   ];
   const skyU = { top: { value: new THREE.Color() }, bot: { value: new THREE.Color() } };
-  const skyDome = new THREE.Mesh(new THREE.SphereGeometry(700, 32, 16), new THREE.ShaderMaterial({
+  const skyDome = new THREE.Mesh(new THREE.SphereGeometry(950, 32, 16), new THREE.ShaderMaterial({
     uniforms: skyU, side: THREE.BackSide, depthWrite: false, fog: false,
     vertexShader: 'varying vec3 vP; void main(){ vP = normalize(position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }',
     fragmentShader: 'uniform vec3 top; uniform vec3 bot; varying vec3 vP; void main(){ float h = clamp(vP.y*1.6+0.05,0.0,1.0); gl_FragColor = vec4(mix(bot, top, pow(h,0.8)),1.0); }',
@@ -444,7 +444,7 @@ function init() {
   scene.add(skyDome);
   // bintang (hanya terlihat malam)
   const starGeo = new THREE.BufferGeometry(), sp = [];
-  for (let i = 0; i < 600; i++) { const u = Math.random() * Math.PI * 2, v = 0.15 + Math.random() * 0.85; sp.push(Math.cos(u) * 650 * Math.sqrt(1 - v * v), v * 650, Math.sin(u) * 650 * Math.sqrt(1 - v * v)); }
+  for (let i = 0; i < 600; i++) { const u = Math.random() * Math.PI * 2, v = 0.15 + Math.random() * 0.85; sp.push(Math.cos(u) * 900 * Math.sqrt(1 - v * v), v * 900, Math.sin(u) * 900 * Math.sqrt(1 - v * v)); }
   starGeo.setAttribute('position', new THREE.Float32BufferAttribute(sp, 3));
   const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xFFFFFF, size: 1.6, sizeAttenuation: false, transparent: true, opacity: 0, fog: false, depthWrite: false }));
   scene.add(stars);
