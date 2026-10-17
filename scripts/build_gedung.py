@@ -57,6 +57,6 @@ print('index.html + preview-gedung.html: pembuka gedung terpasang')
 BACK = f'<script defer src="/assets/js/gedung-back.js?v={BACK_V}"></script>'
 for name in ['careers', 'services', 'produk', 'portfolio', 'blog', 'about', 'katalog', 'support']:
     f = root / f'{name}.html'
-    t = re.sub(r'<script defer src="/assets/js/gedung-back\.js[^"]*"></script>', '', f.read_text(encoding='utf-8'))
+    t = re.sub(r'<script defer(?:="")? src="/assets/js/gedung-back\.js[^"]*"></script>', '', f.read_text(encoding='utf-8'))
     f.write_text(t.replace('</body>', BACK + '</body>', 1), encoding='utf-8')
 print('8 halaman lantai: gedung-back.js terpasang')
