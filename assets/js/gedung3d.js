@@ -1357,12 +1357,12 @@ function init() {
     if (performance.now() >= lockUntil && gap >= 280) { menu = false; lockUntil = performance.now() + 900; }
     return true;
   }
-  let lastWheel = 0, lastAbs = 0, gestUsed = false;                      // gestUsed: usapan ini sudah memicu perpindahan adegan
+  let lastWheel = 0, gestUsed = false;                                   // gestUsed: usapan ini sudah memicu perpindahan adegan
   addEventListener('wheel', e => {
-    const now = performance.now(), abs = Math.abs(e.deltaY);
-    // usapan baru = ada jeda, atau kecepatan melonjak (momentum selalu melambat), atau scroll tetap tidak melambat >1,6 dtk sejak pindah adegan
-    const fresh = now - lastWheel >= 250 || abs > lastAbs * 1.5 + 4 || (now > lockUntil + 700 && abs >= 12 && abs >= lastAbs);
-    lastWheel = now; lastAbs = abs;
+    const now = performance.now();
+    // usapan baru = ada jeda; sisa momentum trackpad mengalir tanpa jeda (dan berhenti begitu jari menyentuh lagi)
+    const fresh = now - lastWheel >= 120;
+    lastWheel = now;
     if (fresh) gestUsed = false;
     if (block(e)) { gestUsed = true; return; }
     if (settle) { if (gestUsed) { e.preventDefault(); return; } settle = false; }   // stopper: sisa usapan tadi tidak keterusan
@@ -1371,14 +1371,16 @@ function init() {
     if (menu !== was || auto) gestUsed = true;
     if (handled) e.preventDefault();
   }, { passive: false });
-  let ty0 = null;
-  addEventListener('touchstart', e => { ty0 = e.touches[0].clientY; }, { passive: true });
+  let ty0 = null, touchDone = false;
+  addEventListener('touchstart', e => { ty0 = e.touches[0].clientY; touchDone = false; }, { passive: true });
   addEventListener('touchmove', e => {
     if (block(e)) return;
+    if (touchDone) { e.preventDefault(); return; }                        // satu sentuhan = satu perpindahan; sisa geseran jari tidak menggulir halaman
     if (ty0 === null) return;
-    const dy = ty0 - e.touches[0].clientY;
-    if (dy > 8 && goDown()) { e.preventDefault(); ty0 = null; }
-    else if (dy < -8 && goUp()) { e.preventDefault(); ty0 = null; }
+    const dy = ty0 - e.touches[0].clientY, ip = introProgress();
+    if (dy > 8 && goDown()) { e.preventDefault(); touchDone = true; }
+    else if (dy < -8 && goUp()) { e.preventDefault(); touchDone = true; }
+    else if (ip && ip.t <= 0.02 && dy > 0) e.preventDefault();          // di pembuka/menu: geser ke bawah selalu dikendalikan adegan, bukan scroll biasa
   }, { passive: false });
   addEventListener('keydown', e => {
     if (auto && ['ArrowDown', 'PageDown', ' ', 'Spacebar', 'End', 'ArrowUp', 'PageUp', 'Home'].includes(e.key)) { e.preventDefault(); return; }
@@ -1399,6 +1401,7 @@ function init() {
   camera.layers.enable(1);
   resize();
   setTimeout(() => { const v = shotW(); for (const k in LABELS) LABELS[k].load(v); }, 1200);   // tangkapan layar halaman dimuat setelah gedung tampil
+  { const ip = introProgress(); if (ip && ip.t > 0.02) scrollTo({ top: 0, behavior: 'instant' }); }   // posisi scroll yang dipulihkan di tengah pembuka -> mulai dari gedung
   let back = 0; try { back = +sessionStorage.getItem('gdBack') || 0; sessionStorage.removeItem('gdBack'); } catch (e) {}
   if (back >= 1 && back <= N) { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; scrollTo({ top: 0, behavior: 'instant' }); startReturn(back); }
   loop();

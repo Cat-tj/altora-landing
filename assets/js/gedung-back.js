@@ -8,7 +8,7 @@
   var k = MAP[location.pathname.replace(/^\/|\.html$|\/$/g, '')];
   if (!k || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var FONT = 'font:600 .875rem/1.2 "Plus Jakarta Sans",system-ui,sans-serif;';
-  var armed = 0, dir = 0, last = 0, lastAbs = 0, gest = 0, armGest = 0, hint = null, hideT = 0, ty0 = null;
+  var armed = 0, dir = 0, last = 0, gest = 0, armGest = 0, hint = null, hideT = 0, ty0 = null;
   function go() {
     try { sessionStorage.setItem('gdBack', String(k)); } catch (e) {}
     location.href = '/';
@@ -42,10 +42,9 @@
     go();
   }
   addEventListener('wheel', function (e) {
-    var now = performance.now(), abs = Math.abs(e.deltaY);
-    // usapan baru = ada jeda, atau kecepatan melonjak (momentum selalu melambat), atau scroll terus tanpa melambat >1,2 dtk sejak pil muncul
-    if (now - last >= 250 || abs > lastAbs * 1.5 + 4 || (armed && now - armed > 1200 && abs >= 12 && abs >= lastAbs)) gest++;
-    last = now; lastAbs = abs;
+    var now = performance.now();
+    if (now - last >= 120) gest++;                                      // usapan baru = ada jeda (sisa momentum mengalir tanpa jeda)
+    last = now;
     if (e.deltaY < -4) push(-1); else if (e.deltaY > 4) push(1);
   }, { passive: true });
   addEventListener('touchstart', function (e) { ty0 = e.touches[0].clientY; }, { passive: true });
