@@ -1229,7 +1229,7 @@ function init() {
     (function step(now) {
       const k = Math.min(1, (now - t0) / dur);
       scrollTo({ top: from + (to - from) * ez(k), behavior: 'instant' });   // situs memakai scroll-behavior:smooth
-      if (k < 1) requestAnimationFrame(step); else { auto = null; settle = true; if (done) done(); }
+      if (k < 1) requestAnimationFrame(step); else { auto = null; settle = true; lockUntil = performance.now() + 900; if (done) done(); }
     })(t0);
     return true;
   }
@@ -1263,14 +1263,18 @@ function init() {
     if (!ip) return nearIntroEnd() ? playBack() : false;
     if (ip.t > 0.02) return playBack();
     if (!menu) return false;
-    if (performance.now() >= lockUntil && gap >= 280) { menu = false; lockUntil = performance.now() + 600; }
+    if (performance.now() >= lockUntil && gap >= 280) { menu = false; lockUntil = performance.now() + 900; }
     return true;
   }
-  let lastWheel = 0;
+  let lastWheel = 0, lastAbs = 0;
   addEventListener('wheel', e => {
-    const now = performance.now(), gap = now - lastWheel; lastWheel = now;
+    const now = performance.now(), abs = Math.abs(e.deltaY);
+    // usapan baru = ada jeda, atau kecepatan melonjak (momentum selalu melambat), atau scroll tetap tidak melambat >1,6 dtk sejak pindah adegan
+    const fresh = now - lastWheel >= 250 || abs > lastAbs * 1.5 + 4 || (now > lockUntil + 700 && abs >= 12 && abs >= lastAbs);
+    lastWheel = now; lastAbs = abs;
+    const gap = fresh ? 1e9 : 0;
     if (block(e)) return;
-    if (settle) { if (gap < 280) { e.preventDefault(); return; } settle = false; }   // stopper: jangan keterusan
+    if (settle) { if (!fresh) { e.preventDefault(); return; } settle = false; }   // stopper: jangan keterusan
     if ((e.deltaY > 4 && goDown(gap)) || (e.deltaY < -4 && goUp(gap))) e.preventDefault();
   }, { passive: false });
   let ty0 = null;
