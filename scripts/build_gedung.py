@@ -8,7 +8,7 @@ Idempoten: pembuka lama dilepas dulu sebelum dipasang ulang, jadi aman dijalanka
 Jalankan lewat scripts/build_all.sh (setelah build_produk/build_trust yang mengubah index.html)."""
 import pathlib, re
 
-JS_V, CSS_V, BACK_V = 252, 14, 4
+JS_V, CSS_V, BACK_V = 255, 16, 4
 root = pathlib.Path(__file__).resolve().parent.parent
 idx = root / 'index.html'
 s = idx.read_text(encoding='utf-8')
@@ -18,6 +18,11 @@ INTRO = ('<div class="gd-scene" data-to="8"><div class="gd-scene-in"><div class=
          '<p class="gd-title">Kami membangun sistem Anda, <span>lantai demi lantai.</span></p>'
          '<p>Scroll untuk masuk ↓</p><p class="gd-hint">atau klik salah satu lantai gedung untuk langsung ke halamannya</p></div></div></div>')
 CSS = f'<link rel="stylesheet" href="/assets/css/gedung-scenes.css?v={CSS_V}"/>'
+# tanda boot sejak awal: tampilkan latar langit + logo sampai 3D siap (beranda biasa tidak sempat berkedip); batal sendiri bila 3D tidak jalan
+BOOT = ('<script id="gd-boot">(function(){try{if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;'
+        'var g=document.createElement("canvas"),x=g.getContext("webgl2")||g.getContext("webgl");if(!x)return;'
+        'var l=x.getExtension("WEBGL_lose_context");if(l)l.loseContext();'
+        'var d=document.documentElement,h=new Date().getHours();d.classList.add("gd-boot");if(h<5||h>=19)d.classList.add("gd-boot-night");setTimeout(function(){d.classList.remove("gd-boot","gd-boot-night")},8000)}catch(e){}})()</script>')
 JS = ('<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",'
       '"three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>'
       f'<script type="module" src="/assets/js/gedung3d.js?v={JS_V}"></script>')
@@ -28,6 +33,7 @@ def strip(s):
     s = s.replace('<main class="gd2" id="top">', '<main id="top">')
     s = s.replace('<section class="hero" data-gd-cover="">', '<section class="hero">')
     s = re.sub(r'<link rel="stylesheet" href="/assets/css/gedung-scenes\.css[^"]*"/>', '', s)
+    s = re.sub(r'<script id="gd-boot">.*?</script>', '', s, flags=re.S)
     s = re.sub(r'<script type="importmap">.*?</script>', '', s, flags=re.S)
     s = re.sub(r'<script type="module" src="/assets/js/gedung3d\.js[^"]*"></script>', '', s)
     return s
@@ -35,7 +41,7 @@ def strip(s):
 
 def inject(s):
     assert '<main id="top">' in s and '<section class="hero">' in s
-    s = s.replace('</head>', CSS + '</head>', 1)
+    s = s.replace('</head>', CSS + BOOT + '</head>', 1)
     s = s.replace('<main id="top">', '<main class="gd2" id="top">' + INTRO, 1)
     s = s.replace('<section class="hero">', '<section class="hero" data-gd-cover="">', 1)
     return s.replace('</body>', JS + '</body>', 1)

@@ -160,3 +160,12 @@
 .gd-fl-line{height:3px;border-radius:2px;box-shadow:0 0 0 1.5px rgba(255,255,255,.85),0 2px 8px rgba(43,30,110,.25)}
 .gd-fl-dot{width:11px;height:11px;border:2px solid #fff;box-shadow:0 0 0 3px rgba(124,92,232,.3),0 2px 8px rgba(43,30,110,.35)}
 @media (max-width:899px){.gd-fl-line{width:22px}.gd-fl-dot{width:9px;height:9px}}
+
+/* gd-boot: sejak HTML dibuka sampai adegan 3D siap -> latar langit + logo berdenyut, bukan beranda biasa (dipasang skrip kecil di <head>) */
+html.gd-boot .gd2:not(.gd-live) .gd-scene{display:block;position:relative;height:100vh;height:100svh;background:linear-gradient(180deg,#C9C2F2 0%,#E7DDF8 55%,#F6F1FD 100%)}
+html.gd-boot .gd2:not(.gd-live) .gd-scene-in{visibility:hidden}
+html.gd-boot .gd2:not(.gd-live) .gd-scene::after{content:"";position:absolute;left:50%;top:50%;width:72px;height:72px;margin:-36px 0 0 -36px;background:url(/assets/img/altora-logo-icon-v2.svg) center/contain no-repeat;animation:gdBoot 1.4s ease-in-out infinite}
+html.gd-boot .gd2:not(.gd-live) [data-gd-cover]{visibility:hidden}
+@keyframes gdBoot{0%,100%{opacity:.35;transform:scale(.92)}50%{opacity:1;transform:scale(1)}}
+html.gd-boot.gd-boot-night .gd2:not(.gd-live) .gd-scene{background:linear-gradient(180deg,#0A0F2E 0%,#232A5C 100%)}
+html.gd-boot.gd-boot-night .gd2:not(.gd-live) .gd-scene::after{filter:drop-shadow(0 0 14px rgba(216,107,255,.85)) brightness(1.6)}

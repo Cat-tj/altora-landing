@@ -16,6 +16,7 @@ if (root && !reduce && webglOK()) {
 function fail(e) {                                                    // apa pun yang gagal: matikan adegan, beranda biasa tetap tampil
   console.warn('gedung3d dimatikan:', e);
   if (window.__gdStop) window.__gdStop();
+  document.documentElement.classList.remove('gd-boot', 'gd-boot-night');
   root.classList.remove('gd-live', 'gd-3d', 'gd-3d-on', 'gd-m', 'gd-night');
   root.querySelectorAll('.gd-canvas,.gd-css3d,.gd-floormenu,.gd-floortip').forEach(el => el.remove());
 }
@@ -25,7 +26,7 @@ function webglOK() {
 }
 
 function init() {
-  root.classList.add('gd-live', 'gd-3d');
+  root.classList.add('gd-live', 'gd-3d'); document.documentElement.classList.remove('gd-boot', 'gd-boot-night');
   const scenes = [...root.querySelectorAll('.gd-scene')];
   const coverEl = root.querySelector('[data-gd-cover]');              // hero beranda = isi layar proyektor
   const mobile = innerWidth < 900;
@@ -293,9 +294,18 @@ function init() {
   function labelMat(k, poster = false) {                                // isi layar: judul halaman, digambar ulang mengikuti rasio layar pengunjung
     const c = document.createElement('canvas'), tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
     const mat = new THREE.MeshStandardMaterial({ map: tex, emissive: 0xffffff, emissiveMap: tex, emissiveIntensity: poster ? 0.55 : 0.9, roughness: poster ? 0.8 : 0.4 });
-    LABELS[k] = { mat, draw(aspect) {
+    const L = LABELS[k] = { mat, img: null, aspect: 1, draw(aspect) {
+      L.aspect = aspect;
       const w = aspect >= 1 ? 1280 : Math.round(1280 * aspect), h = aspect >= 1 ? Math.round(1280 / aspect) : 1280;
       c.width = w; c.height = h; const x = c.getContext('2d');
+      const vv = VW < 900 ? 'm' : 'd', im = L.img && L.img[vv];          // sama dengan breakpoint situs
+      if (L.img && !im) L.load(vv);                                        // ukuran jendela pindah breakpoint
+      if (im) {                                                          // tangkapan layar asli halamannya, isi penuh dari atas (seperti halaman dibuka)
+        const sc = Math.max(w / im.width, h / im.height);
+        x.fillStyle = '#FBF9FE'; x.fillRect(0, 0, w, h);
+        x.drawImage(im, (w - im.width * sc) / 2, 0, im.width * sc, im.height * sc);
+        tex.needsUpdate = true; return;
+      }
       const g = x.createLinearGradient(0, 0, w, h); g.addColorStop(0, '#FFFFFF'); g.addColorStop(0.6, '#F3EEFF'); g.addColorStop(1, '#E4DAFF'); x.fillStyle = g; x.fillRect(0, 0, w, h);
       const r = x.createRadialGradient(w * 0.85, 0, 0, w * 0.85, 0, Math.max(w, h) * 0.7); r.addColorStop(0, 'rgba(124,92,232,.22)'); r.addColorStop(1, 'rgba(124,92,232,0)'); x.fillStyle = r; x.fillRect(0, 0, w, h);
       const fs = Math.min(w * 0.17, h * 0.22), F = '"Plus Jakarta Sans", system-ui, sans-serif';
@@ -304,6 +314,11 @@ function init() {
       x.fillStyle = '#10224F'; x.font = '800 ' + Math.round(fs) + 'px ' + F; x.fillText(PAGES[k][0], w / 2, h / 2);
       x.fillStyle = '#5A6785'; x.font = '600 ' + Math.round(fs * 0.26) + 'px ' + F; x.fillText(PAGES[k][2], w / 2, h / 2 + fs * 0.85);
       tex.needsUpdate = true;
+    }, load(v) {                                                        // v: 'd' desktop / 'm' mobile (scripts/shot_lantai.sh)
+      if (L.img && L.img[v]) return;
+      const im = new Image(); im.decoding = 'async';
+      im.onload = () => { L.img = L.img || {}; L.img[v] = im; L.draw(L.aspect); };
+      im.src = '/assets/img/lantai/' + PAGES[k][1].slice(1) + '-' + v + '.webp?v=1';
     } };
     return mat;
   }
@@ -1096,7 +1111,7 @@ function init() {
     return true;
   }
   function visitFrame() {
-    const now = performance.now(); if (!visit.t0 || (visit.rev && (visit.f = (visit.f || 0) + 1) < 8)) visit.t0 = now;   // rev: tunggu beberapa frame pertama (kompilasi shader) baru mulai
+    const now = performance.now(); if (!visit.t0 || (visit.rev && ((visit.f = (visit.f || 0) + 1) < 8 || (!(LABELS[visit.k].img && LABELS[visit.k].img[visit.v]) && now - visit.since < 1500)))) visit.t0 = now;   // rev: tunggu beberapa frame pertama (kompilasi shader) baru mulai
     if (!visit.from) visit.from = startPose();
     const raw = clamp((now - visit.t0) / VISIT_MS), t = visit.rev ? 1 - raw : raw;   // rev: dari layar lantai mundur ke menu lantai
     const k = visit.k, rise = TOTAL - base(k) + 70;
@@ -1124,7 +1139,8 @@ function init() {
   function startReturn(k) {                                            // datang dari halaman lantai k: mundur dari layarnya ke menu lantai
     if (k === N) screens[N].surface.material = LABELS[N].mat;
     menu = true; menuP = menuK = 1;
-    visit = { k, t0: 0, from: null, rev: true };
+    const v = VW < 900 ? 'm' : 'd'; if (LABELS[k]) LABELS[k].load(v);   // layar lantai: tangkapan layar halaman asalnya
+    visit = { k, t0: 0, from: null, rev: true, v, since: performance.now() };
     auto = true;
   }
   addEventListener('pageshow', e => { if (e.persisted && visit) { visit = null; auto = null; menu = false; menuP = menuK = 0; screens[N].surface.material = M.white; scrollTo({ top: 0, behavior: 'instant' }); } });
@@ -1302,6 +1318,7 @@ function init() {
   scene.traverse(o => { if (o.isLight) o.layers.enableAll(); });
   camera.layers.enable(1);
   resize();
+  setTimeout(() => { const v = VW < 900 ? 'm' : 'd'; for (const k in LABELS) LABELS[k].load(v); }, 1200);   // tangkapan layar halaman dimuat setelah gedung tampil
   let back = 0; try { back = +sessionStorage.getItem('gdBack') || 0; sessionStorage.removeItem('gdBack'); } catch (e) {}
   if (back >= 1 && back <= N) { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; scrollTo({ top: 0, behavior: 'instant' }); startReturn(back); }
   loop();
