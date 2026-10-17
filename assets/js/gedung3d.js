@@ -411,7 +411,7 @@ function init() {
       if (t < 0.36) blend(far(), above(), seg(t, 0, 0.36));
       else if (t < 0.7) blend(above(), poses[7].room, seg(t, 0.36, 0.7));
       else blend(poses[7].room, poses[7].fill, seg(t, 0.7, 1));
-      want[7] = 'cover';
+      if (t > 0.42) want[7] = 'cover';                                // isi layar HTML tidak bisa tertutup atap: tampilkan setelah atap terangkat
       beam.material.opacity = 0.15 * clamp((t - 0.55) / 0.2);
     }
     for (const k in faces) showFace(+k, want[k] || null);       // hanya berubah bila isinya berganti
