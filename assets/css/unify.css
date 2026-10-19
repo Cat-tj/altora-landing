@@ -1405,3 +1405,8 @@ body > header.nav-wrap + main > section:first-child:not(.hero){margin-top:-80px;
 .ap-shots figure:only-child{max-width:520px}
 .ap-actions .ap-login{background:#fff!important;color:#10224F!important;border:1px solid #E4DEFA!important}
 :is(main#top,#top-face) .ts-stats b,.gc-stats b,.gf-stats b{font-variant-numeric:tabular-nums}
+/* Blog diagrams — 20261019 custom-vs-ready */
+.altora-diagram{margin:2rem 0 2.25rem;padding:1rem;border:1px solid rgba(36,49,58,.10);border-radius:18px;background:#fffaf4}
+.altora-diagram img{display:block;width:100%;height:auto;border-radius:12px}
+.altora-diagram figcaption{margin:.75rem .25rem 0;color:#66727b;font-size:.88rem;line-height:1.5}
+@media (max-width:600px){.altora-diagram{margin:1.5rem 0;padding:.65rem;border-radius:14px}.altora-diagram figcaption{font-size:.82rem}}

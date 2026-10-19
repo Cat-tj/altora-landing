@@ -10,7 +10,8 @@ Format artikel (front matter sederhana, satu kunci per baris):
     image: /assets/img/produk/vision.webp   (opsional, untuk kartu & preview link)
     related: /produk/attendance | Altora Smart Attendance   (opsional, boleh lebih dari satu baris related)
     ---
-    Isi Markdown: ## / ### heading, paragraf, - list, 1. list, **tebal**, *miring*, [teks](url), `kode`, > kutipan
+    Isi Markdown: ## / ### heading, paragraf, - list, 1. list, **tebal**, *miring*, [teks](url), `kode`, > kutipan,
+    ![alt](/assets/img/... "keterangan") di barisnya sendiri untuk diagram/gambar
 
 Jalankan dari root repo:  python3 scripts/build_blog.py && python3 scripts/apply_shell.py
 Artikel yang namanya diawali "_" dianggap draf dan tidak dipublikasikan.
@@ -22,7 +23,7 @@ root = pathlib.Path(__file__).resolve().parent.parent
 SRC = root / 'content/blog'
 OUT = root / 'blog'
 SITE = 'https://altora.id'
-CSS_VER = '20261016i'
+CSS_VER = '20261019-custom'
 BULAN = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember']
 
 e = lambda t: html.escape(t, quote=True)
@@ -96,6 +97,12 @@ def md_to_html(md):
             if level == 2:
                 toc.append((hid, text))
             out.append(f'<h{level} id="{hid}">{inline(text)}</h{level}>')
+            continue
+        fig = re.match(r'!\[([^\]]*)\]\((\S+)(?:\s+"([^"]*)")?\)$', s.strip())
+        if fig:
+            flush()
+            cap = f'<figcaption>{inline(fig.group(3))}</figcaption>' if fig.group(3) else ''
+            out.append(f'<figure class="altora-diagram"><img alt="{e(fig.group(1))}" loading="lazy" src="{e(fig.group(2))}"/>{cap}</figure>')
             continue
         if s.startswith('> '):
             flush(); out.append(f'<blockquote><p>{inline(s[2:])}</p></blockquote>'); continue
