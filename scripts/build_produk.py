@@ -119,11 +119,13 @@ PRODUCTS = [
 
 e = lambda t: html.escape(t, quote=True)
 
-# Foto ilustrasi penggunaan per produk (assets/img/produk/<id>.webp, 800x1000 portrait).
+# Ilustrasi per produk (assets/img/produk/<id>.webp, 800x1000 portrait).
 # Nilai = object-position agar potongan 4:3 tetap fokus ke layar perangkat.
 PHOTO_FOCUS = {
-    'teams': '60% 62%', 'attendance': '75% 35%', 'vision': '60% 62%', 'pass': '60% 58%', 'fms': '55% 62%',
-    'sense': '62% 58%', 'farming': '62% 58%', 'command': '60% 62%', 'pos': '50% 58%', 'erp': '62% 58%', 'private-ai': '50% 50%', 'projek': '50% 45%', 'office': '50% 45%', 'ticket': '50% 40%', 'catalog': '50% 40%', 'word': '50% 45%', 'docs': '50% 45%', 'sheets': '50% 45%', 'meet': '50% 45%',
+    # Ilustrasi dari scripts/build_produk_img.py dan tangkapan layar Ticket/Catalog: fokus ke jendela aplikasi.
+    **{k: '50% 45%' for k in ('teams', 'attendance', 'vision', 'pass', 'fms', 'sense', 'farming', 'command', 'pos', 'erp', 'private-ai',
+                             'projek', 'office', 'word', 'docs', 'sheets', 'meet')},
+    'ticket': '50% 40%', 'catalog': '50% 40%',
 }
 
 def cart_btn(pid, name, meta, img, extra=''):
@@ -272,7 +274,7 @@ def head(title, desc, url, ld, extra_css=''):
             '<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>'
             '<link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/>'
             '<link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/>'
-            f'<link rel="stylesheet" href="/assets/css/unify.css?v=20261017a"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head>'
+            f'<link rel="stylesheet" href="/assets/css/unify.css?v=20261019-katalog2"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head>'
             '<body class="company-page"><header class="company-nav"></header>\n')
 
 # ── /produk: halaman pengetahuan ──
@@ -339,9 +341,9 @@ produk_page = head('Produk Altora | Kenali Aplikasi & Perangkat Kami', 'Kenali p
 def kat_app(k):
     a = APPS[k]
     msg = f'Halo Altora, saya tertarik dengan {a["name"]}.'
-    return (f'<article class="hwi" data-cat="app" id="{k}"><div class="hwi-pic hwi-pic-photo"><img alt="{e(a["name"])}" loading="lazy" src="/assets/img/produk/{k}.webp"/></div>'
+    return (f'<article class="hwi" data-cat="app" id="{k}"><div class="hwi-pic hwi-pic-photo"><img alt="{e(a["name"])}" loading="lazy" src="/assets/img/produk/{k}.webp" style="object-position:50% 52%"/></div>'
             f'<div class="hwi-body"><small>Aplikasi Altora</small><h3>{e(a["name"])}</h3><p>{e(a["tag"])}</p>'
-            '<dl class="hwi-specs">' + ''.join(f'<div><dt>Fitur</dt><dd>{e(t)}</dd></div>' for t, _ in a['feats'][:3]) + '</dl>'
+            '<div class="hwi-list"><b>Fitur utama</b><ul>' + ''.join(f'<li>{e(t)}</li>' for t, _ in a['feats'][:3]) + '</ul></div>'
             f'<div class="pd-actions">{cart_btn(k, a["name"], "Aplikasi Altora", f"/assets/img/produk/{k}.webp")}'
             f'<a class="pd-link" href="/produk/{k}">Detail aplikasi</a></div></div></article>')
 
@@ -349,7 +351,7 @@ def kat_jasa(j):
     jid, name, desc, inc, img, link = j
     return (f'<article class="hwi" data-cat="jasa" id="{jid}"><div class="hwi-pic hwi-pic-photo"><img alt="{e(name)}" loading="lazy" src="{img}"/></div>'
             f'<div class="hwi-body"><small>Jasa</small><h3>{e(name)}</h3><p>{e(desc)}</p>'
-            '<dl class="hwi-specs">' + ''.join(f'<div><dt>Termasuk</dt><dd>{e(x)}</dd></div>' for x in inc) + '</dl>'
+            '<div class="hwi-list"><b>Termasuk</b><ul>' + ''.join(f'<li>{e(x)}</li>' for x in inc) + '</ul></div>'
             f'<div class="pd-actions">{cart_btn(jid, name, "Jasa Altora", img)}<a class="pd-link" href="{link}">Detail jasa</a></div></div></article>')
 
 # Pilihan "Cari apa?": tiap pilihan = kategori barang + id jasa/software yang relevan

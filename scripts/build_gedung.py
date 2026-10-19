@@ -8,7 +8,7 @@ Idempoten: pembuka lama dilepas dulu sebelum dipasang ulang, jadi aman dijalanka
 Jalankan lewat scripts/build_all.sh (setelah build_produk/build_trust yang mengubah index.html)."""
 import pathlib, re
 
-JS_V, CSS_V, BACK_V = 272, 16, 5
+JS_V, CSS_V, BACK_V = 273, 16, 5
 root = pathlib.Path(__file__).resolve().parent.parent
 idx = root / 'index.html'
 s = idx.read_text(encoding='utf-8')

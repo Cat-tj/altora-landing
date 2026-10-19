@@ -1410,3 +1410,12 @@ body > header.nav-wrap + main > section:first-child:not(.hero){margin-top:-80px;
 .altora-diagram img{display:block;width:100%;height:auto;border-radius:12px}
 .altora-diagram figcaption{margin:.75rem .25rem 0;color:#66727b;font-size:.88rem;line-height:1.5}
 @media (max-width:600px){.altora-diagram{margin:1.5rem 0;padding:.65rem;border-radius:14px}.altora-diagram figcaption{font-size:.82rem}}
+/* Kartu katalog aplikasi & jasa: satu label, daftar bertanda centang (tanpa "Fitur" berulang) */
+.hwi-list{margin:0 0 18px;padding-top:12px;border-top:1px solid #F0ECF8}
+.hwi-list b{display:block;margin:0 0 8px;color:#7A8099;font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.hwi-list ul{display:grid;gap:7px;margin:0;padding:0;list-style:none}
+.hwi-list li{position:relative;padding-left:24px;color:#10224F;font-size:.84rem;font-weight:600;line-height:1.4}
+.hwi-list li::before{content:"";position:absolute;left:0;top:1px;width:16px;height:16px;border-radius:999px;background:#F3F0FD url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='m4.5 8.2 2.2 2.2 4.8-4.8' fill='none' stroke='%237C5CE8' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/16px no-repeat}
+/* Ilustrasi aplikasi di katalog: isi kotak gambar dan potong di tengah jendela aplikasi, bukan bagian atasnya */
+.hwi[data-cat="app"] .hwi-pic-photo{position:relative}
+.hwi[data-cat="app"] .hwi-pic-photo>img:first-child{position:absolute;inset:0}

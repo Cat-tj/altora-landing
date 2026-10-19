@@ -325,7 +325,7 @@ function init() {
       if ((L.img && L.img[v]) || PAGES[k][1] === '/') return;             // lantai Beranda: isinya beranda asli (lapisan HTML), tanpa tangkapan layar
       const im = new Image(); im.decoding = 'async';
       im.onload = () => { L.img = L.img || {}; L.img[v] = im; L.draw(L.aspect); };
-      im.src = '/assets/img/lantai/' + PAGES[k][1].slice(1) + '-' + v + '.webp?v=2';
+      im.src = '/assets/img/lantai/' + PAGES[k][1].slice(1) + '-' + v + '.webp?v=3';
     } };
     return mat;
   }

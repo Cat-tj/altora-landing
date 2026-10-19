@@ -20,3 +20,4 @@ python3 scripts/build_trust.py
 python3 scripts/build_gedung.py
 python3 scripts/apply_shell.py
 python3 scripts/apply_seo.py
+python3 scripts/apply_img_ver.py
