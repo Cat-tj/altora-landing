@@ -24,6 +24,8 @@
 - Websites, SEO, data platforms, and system integration
 - Private office suite that runs on the client's own server or cloud: Altora Word (documents), Altora Docs (document storage & sharing), Altora Sheets (spreadsheets), Altora Meet (video meetings), bundled as Altora Office (https://altora.id/produk/office)
 - Altora Projek: project & task management (https://altora.id/produk/projek, app: https://project.altora.id)
+- Altora Ticket: event ticketing website owned by the organizer (manual bank transfer, QR tickets, door check-in) (https://altora.id/produk/ticket, demo: https://ticket.altora.id)
+- Altora Catalog: ready-made online store website with admin (products, variants, stock, cart, shipping & tracking numbers) (https://altora.id/produk/catalog, demo: https://catalog.altora.id)
 
 ## Key pages
 - Services: https://altora.id/services
@@ -38,6 +40,6 @@
 - Klien: Pemkot Samarinda, Pemkab Barito Utara, InJourney Airports, Universitas Mulawarman, Institut Teknologi Kalimantan, Adhi, Alba Aluminium, Labschool, 1Ci Enterprise, MBC Entertainment.
 
 ## Halaman penting
-- Aplikasi: https://altora.id/produk/vision, /produk/teams, /produk/attendance, /produk/fms, /produk/pass, /produk/sense, /produk/farming, /produk/command, /produk/private-ai, /produk/office, /produk/projek, /produk/word, /produk/docs, /produk/sheets, /produk/meet, /produk/pos, /produk/erp
+- Aplikasi: https://altora.id/produk/vision, /produk/teams, /produk/attendance, /produk/fms, /produk/pass, /produk/sense, /produk/farming, /produk/command, /produk/private-ai, /produk/office, /produk/projek, /produk/ticket, /produk/catalog, /produk/word, /produk/docs, /produk/sheets, /produk/meet, /produk/pos, /produk/erp
 - Industri: https://altora.id/industri (pertambangan, pemerintahan, pendidikan, korporasi)
 - Katalog cetak: https://altora.id/katalog · CCTV VIGI: https://altora.id/katalog-cctv-vigi

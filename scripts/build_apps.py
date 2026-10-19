@@ -161,6 +161,34 @@ APPS = {
              ('Apakah bisa dipasang di server kami?', 'Bisa. Altora Projek bisa berjalan di server Altora atau di server milik organisasi Anda.'),
              ('Bagaimana cara mencobanya?', 'Hubungi kami untuk demo, atau masuk lewat project.altora.id bila Anda sudah punya akun.')],
         proof=[]),
+    'ticket': dict(name='Altora Ticket', tag='Website jual tiket acara', status='ready', tone='purple', demo='https://ticket.altora.id',
+        lead='Website penjualan tiket milik penyelenggara acara sendiri: pembeli memesan, mengunggah bukti transfer, lalu menerima tiket QR. Panitia memindai tiket di pintu masuk dari HP.',
+        pains=['Pendaftaran peserta dicatat manual lewat chat dan spreadsheet.', 'Bukti transfer menumpuk dan sulit dicocokkan dengan pesanan.', 'Tiket palsu atau tiket yang dipakai dua kali lolos di pintu masuk.'],
+        feats=[('Halaman acara', 'Jadwal, lokasi, dan jenis tiket tiap acara di website Anda sendiri.'), ('Kuota per jenis tiket', 'Regular, VIP, atau jenis lain dengan kuota yang terjaga otomatis.'),
+               ('Transfer & persetujuan', 'Pembeli mengunggah bukti transfer, admin menyetujui setelah dana masuk.'), ('Tiket QR per peserta', 'Setiap tiket punya kode QR sendiri yang bisa dibuka dari HP.'),
+               ('Check-in di pintu', 'Panitia memindai QR dari HP. Tiket yang sudah dipakai ditolak.'), ('Akun panitia', 'Petugas check-in hanya bisa memindai, tanpa akses ke pengaturan.')],
+        steps=['Siapkan nama usaha, logo, dan rekening penerima', 'Buat acara beserta jenis dan kuota tiket', 'Bagikan tautan website ke calon peserta', 'Setujui pembayaran dan pindai tiket saat acara'],
+        hw=[('/produk/catalog', 'Altora Catalog (toko online)'), ('/mesin-kiosk-samarinda', 'Kios layanan mandiri'), ('/services/website-seo', 'Website & SEO')],
+        shots=[('/assets/img/produk/ticket.webp', 'Tampilan Altora Ticket di desktop dan HP')],
+        who=['Event organizer & komunitas', 'Kampus, sekolah & panitia acara', 'Venue, workshop & seminar'],
+        faq=[('Apakah bisa dicoba sekarang?', 'Bisa. Buka ticket.altora.id untuk melihat versi demo dengan acara contoh. Jangan melakukan transfer di versi demo.'),
+             ('Bagaimana pembayaran diterima?', 'Pembeli mentransfer ke rekening Anda dan mengunggah bukti. Admin menyetujui pesanan setelah dana dicek, lalu tiket QR terbit otomatis.'),
+             ('Apakah websitenya milik kami sendiri?', 'Ya. Setiap penyelenggara mendapat instalasi sendiri dengan nama, logo, rekening, dan data peserta yang terpisah.')],
+        proof=[]),
+    'catalog': dict(name='Altora Catalog', tag='Website toko online siap pakai', status='ready', tone='blue', demo='https://catalog.altora.id',
+        lead='Toko online milik usaha Anda sendiri: katalog produk dengan varian dan stok, keranjang belanja, pembayaran transfer, hingga pengiriman dan nomor resi, lengkap dengan halaman admin.',
+        pains=['Pesanan masuk lewat chat dan mudah terlewat.', 'Stok di catatan tidak sama dengan barang yang tersedia.', 'Pembeli terus bertanya status pesanan dan nomor resi.'],
+        feats=[('Katalog & varian', 'Produk dengan foto, kategori, varian warna atau ukuran, dan stok.'), ('Keranjang belanja', 'Pembeli memesan beberapa produk sekaligus dalam satu pesanan.'),
+               ('Transfer & persetujuan', 'Bukti transfer diunggah pembeli, admin menyetujui setelah dana masuk.'), ('Kirim atau ambil sendiri', 'Atur pengiriman atau ambil di toko sesuai cara usaha Anda.'),
+               ('Status & resi', 'Pesanan diproses, dikirim dengan nomor resi, lalu selesai. Pembeli bisa memantaunya.'), ('Admin & laporan', 'Kelola produk, pesanan, dan unduh laporan pesanan dari satu dashboard.')],
+        steps=['Siapkan nama toko, logo, dan rekening penerima', 'Masukkan produk, varian, dan stok', 'Bagikan tautan toko ke pelanggan', 'Proses pesanan dan kirim dengan nomor resi'],
+        hw=[('/produk/ticket', 'Altora Ticket (jual tiket acara)'), ('/produk/pos', 'Altora POS (kasir toko)'), ('/services/website-seo', 'Website & SEO')],
+        shots=[('/assets/img/produk/catalog.webp', 'Tampilan Altora Catalog di desktop dan HP')],
+        who=['UMKM & toko retail', 'Brand lokal & reseller', 'Koperasi & usaha komunitas'],
+        faq=[('Apakah bisa dicoba sekarang?', 'Bisa. Buka catalog.altora.id untuk melihat versi demo dengan produk contoh. Jangan melakukan transfer di versi demo.'),
+             ('Apakah ini marketplace?', 'Bukan. Altora Catalog adalah website toko milik usaha Anda sendiri, dengan nama, produk, dan data pelanggan Anda.'),
+             ('Bagaimana pesanan dikirim?', 'Admin memilih cara pengiriman toko, termasuk opsi ambil di tempat. Nomor resi diisi saat pesanan dikirim dan langsung terlihat oleh pembeli.')],
+        proof=[]),
     'word': dict(name='Altora Word', tag='Pengolah dokumen privat', status='ready', tone='blue',
         lead='Menulis dan menyunting surat, laporan, dan kontrak di browser, dengan dokumen yang tersimpan di server atau cloud milik organisasi Anda sendiri, bukan di layanan publik.',
         pains=['Dokumen rahasia tersimpan di layanan cloud milik pihak lain.', 'File Word berpindah-pindah lewat email dan chat, versinya membingungkan.', 'Lisensi aplikasi perkantoran per pengguna terus bertambah.'],
@@ -261,6 +289,8 @@ def page(key, a):
     others = ''.join(f'<a class="ap-other" href="/produk/{k}"><img alt="" loading="lazy" src="/assets/img/produk/{k}.webp"/><b>{e(o["name"])}</b><small>{e(o["tag"])}</small></a>'
                      for k, o in APPS.items() if k != key)
     login = (f'<a class="btn btn-white ap-login" href="{a["login"]}" rel="noopener" target="_blank">Masuk ke {e(a["name"])} ↗</a>' if a.get('login') else '')
+    if a.get('demo'):
+        login = f'<a class="btn btn-white ap-login" href="{a["demo"]}" rel="noopener" target="_blank">Coba demo langsung ↗</a>'
     cart = (f'<button class="cart-add" data-cart-id="{key}" data-cart-img="/assets/img/produk/{key}.webp" data-cart-meta="Aplikasi Altora" '
             f'data-cart-name="{e(a["name"])}" type="button"><span aria-hidden="true">+</span><span class="cart-add-label">Tambah ke keranjang</span></button>')
     ld = {'@context': 'https://schema.org', '@graph': [

@@ -33,6 +33,7 @@ GROUPS = [
     ('aman', 'Keamanan & akses', 'CCTV pintar dan akses pintu digital.'),
     ('lapangan', 'Armada, lahan & sensor', 'Pantau kendaraan, lahan, dan sensor dari satu layar.'),
     ('data', 'Data & AI', 'AI dan pemetaan yang berjalan di server Anda sendiri.'),
+    ('jualan', 'Jualan online', 'Website toko dan penjualan tiket milik usaha Anda sendiri.'),
     ('kerja', 'Kerja & kolaborasi privat', 'Dokumen, spreadsheet, dan rapat online di server Anda sendiri.'),
     ('bisnis', 'Toko & operasional bisnis', 'Diterapkan mengikuti proses usaha Anda, bisa mulai dari satu modul.'),
 ]
@@ -50,6 +51,14 @@ PRODUCTS = [
          desc='Word, Sheets, Docs, dan Meet dalam satu paket, berjalan di server atau cloud milik organisasi Anda.',
          feats=['Dokumen, spreadsheet & rapat', 'Satu akun untuk semua', 'Di server Anda sendiri', 'Bisa mulai dari satu divisi'],
          cta='Minta demo Altora Office'),
+    dict(id='ticket', group='jualan', icon='signage', tone='purple', name='Altora Ticket', tagline='Website jual tiket acara',
+         desc='Jual tiket acara dari website sendiri: kuota per jenis tiket, bukti transfer, tiket QR, dan check-in di pintu masuk.',
+         feats=['Halaman acara & kuota tiket', 'Bukti transfer & persetujuan', 'Tiket QR per peserta', 'Check-in dari HP'],
+         cta='Minta demo Altora Ticket'),
+    dict(id='catalog', group='jualan', icon='cart', tone='blue', name='Altora Catalog', tagline='Website toko online siap pakai',
+         desc='Toko online milik usaha sendiri: produk, varian, stok, keranjang, pembayaran transfer, pengiriman, dan nomor resi.',
+         feats=['Katalog, varian & stok', 'Keranjang & transfer', 'Kirim atau ambil sendiri', 'Admin & laporan pesanan'],
+         cta='Minta demo Altora Catalog'),
     dict(id='attendance', group='sdm', icon='face', tone='pink', name='Altora Smart Attendance', tagline='Face recognition dari CCTV',
          desc='Absensi otomatis berbasis AI yang mengenali wajah dari kamera CCTV. Tanpa antre di mesin absensi atau tempel kartu.',
          feats=['Face recognition dari CCTV', 'Check-in otomatis & timestamp', 'Integrasi ke HRIS & akses gedung', 'Audit log kehadiran'],
@@ -114,7 +123,7 @@ e = lambda t: html.escape(t, quote=True)
 # Nilai = object-position agar potongan 4:3 tetap fokus ke layar perangkat.
 PHOTO_FOCUS = {
     'teams': '60% 62%', 'attendance': '75% 35%', 'vision': '60% 62%', 'pass': '60% 58%', 'fms': '55% 62%',
-    'sense': '62% 58%', 'farming': '62% 58%', 'command': '60% 62%', 'pos': '50% 58%', 'erp': '62% 58%', 'private-ai': '50% 50%', 'projek': '50% 45%', 'office': '50% 45%', 'word': '50% 45%', 'docs': '50% 45%', 'sheets': '50% 45%', 'meet': '50% 45%',
+    'sense': '62% 58%', 'farming': '62% 58%', 'command': '60% 62%', 'pos': '50% 58%', 'erp': '62% 58%', 'private-ai': '50% 50%', 'projek': '50% 45%', 'office': '50% 45%', 'ticket': '50% 40%', 'catalog': '50% 40%', 'word': '50% 45%', 'docs': '50% 45%', 'sheets': '50% 45%', 'meet': '50% 45%',
 }
 
 def cart_btn(pid, name, meta, img, extra=''):
@@ -208,6 +217,7 @@ FINDER_NEEDS = {
     'display': ('Display & ruang rapat', [('/interactive-flat-panel-{c}', 'Interactive flat panel', 'Kelas & ruang rapat'), ('/videotron-{c}', 'Videotron indoor/outdoor', 'Aula, lobi, panggung'), ('/katalog#hde-mrs', 'Meeting recording system', 'Rekam rapat')]),
     'data': ('Data, peta & AI', [('/produk/private-ai', 'Altora Private AI & GIS', 'AI on-premise & peta wilayah'), ('/produk/command', 'Altora Command', 'Ruang kendali terpadu'), ('/services/software-custom', 'Software custom', 'Dashboard & integrasi')]),
     'kerja': ('Dokumen, rapat & proyek', [('/produk/office', 'Altora Office', 'Word, Sheets, Docs, Meet'), ('/produk/projek', 'Altora Projek', 'Tugas & progres proyek'), ('/produk/meet', 'Altora Meet', 'Rapat video privat')]),
+    'jualan': ('Jualan online & tiket acara', [('/produk/catalog', 'Altora Catalog', 'Toko online milik sendiri'), ('/produk/ticket', 'Altora Ticket', 'Jual tiket & check-in QR'), ('/produk/pos', 'Altora POS', 'Kasir toko & F&B')]),
     'bisnis': ('Kasir, stok & keuangan', [('/produk/pos', 'Altora POS', 'Kasir retail & F&B'), ('/produk/erp', 'Altora ERP', 'Stok, pembelian, keuangan'), ('/jasa-pembuatan-aplikasi-{c}', 'Aplikasi custom', 'Sesuai proses Anda')]),
     'infra': ('Jaringan, server & IT', [('/it-support-{c}', 'IT support', 'Komputer, jaringan, server'), ('/rak-server-{c}', 'Rak server & data center', 'HaganeRack'), ('/alat-fiber-optik-{c}', 'Fiber optik', 'Splicing & alat ukur')]),
 }
@@ -268,6 +278,7 @@ def head(title, desc, url, ld, extra_css=''):
 # ── /produk: halaman pengetahuan ──
 KN_GROUPS = [('Keamanan & akses', ['vision', 'attendance', 'pass']), ('SDM, proyek & operasional', ['teams', 'projek', 'pos', 'erp']),
              ('Armada, lahan & sensor', ['fms', 'sense', 'farming']), ('Pusat kendali & data', ['command', 'private-ai']),
+             ('Jualan online', ['ticket', 'catalog']),
              ('Kerja & kolaborasi privat', ['office', 'word', 'docs', 'sheets', 'meet'])]
 
 def kn_app(k):
