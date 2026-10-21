@@ -5,7 +5,7 @@ description: Sebelum membuat aplikasi, pahami 7 hal yang menentukan cakupan proy
 date: 2026-10-11
 updated: 2026-10-14
 category: Perencanaan
-image: /assets/img/hardware/lenovo-thinkpad-t14.webp
+image: /assets/img/hardware/lenovo-thinkbook-16.webp
 redirect_from: faktor-biaya-pembuatan-aplikasi
 related: /jasa-pembuatan-aplikasi-indonesia | Jasa pembuatan aplikasi Altora
 related: /services/software-custom | Layanan software custom

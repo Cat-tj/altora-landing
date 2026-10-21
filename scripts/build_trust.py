@@ -64,10 +64,10 @@ def stats_block():
 
 def process_block():
     steps = [('Konsultasi', 'Pahami kebutuhan dan tujuan Anda. Gratis.'), ('Survei & desain', 'Cek lokasi dan rancang solusinya.'),
-             ('Penawaran', 'Proposal dan rencana kerja tertulis.'), ('Eksekusi in-house', 'Instalasi dan development oleh tim kami sendiri.'),
+             ('Penawaran', 'Proposal dan rencana kerja tertulis.'), ('Pengerjaan', 'Pengembangan aplikasi atau pemasangan perangkat oleh tim kami.'),
              ('Training & purnajual', 'Pelatihan tim Anda dan dukungan berkelanjutan.')]
     st = ''.join(f'<li><span>{i}</span><b>{e(t)}</b><p>{e(d)}</p></li>' for i, (t, d) in enumerate(steps, 1))
-    promises = ['Garansi perangkat & jasa sesuai lingkup proyek', 'Lifetime support untuk paket berlangganan',
+    promises = ['Garansi perangkat & jasa sesuai lingkup proyek',
                 'Kode sumber, dokumentasi & SOP diserahkan', 'Mulai dari lingkup kecil, lalu berkembang bertahap', 'Tidak terkunci pada satu merek']
     pr = ''.join(f'<li>{e(p)}</li>' for p in promises)
     return ('<section class="sec how tp-sec" id="alur"><div class="wrap">'

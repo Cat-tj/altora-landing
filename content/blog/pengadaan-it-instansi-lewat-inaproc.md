@@ -4,7 +4,7 @@ seo_title: Pengadaan Perangkat IT Instansi: Persiapan
 description: Panduan menyiapkan pengadaan CCTV, jaringan, komputer, dan aplikasi untuk instansi: spesifikasi, survei, dokumen penyedia, garansi, dan perawatan.
 date: 2026-09-28
 category: Pengadaan
-image: /assets/img/hardware/lenovo-thinkpad-t14.webp
+image: /assets/img/hardware/lenovo-m70q.webp
 related: /services/pengadaan-instalasi-maintenance | Pengadaan, instalasi & maintenance
 related: /industri/pemerintahan | Solusi pemerintahan & layanan publik
 related: /katalog | Katalog perangkat

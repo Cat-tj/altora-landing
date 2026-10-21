@@ -1,0 +1,35 @@
+/* Beranda: perapihan tata letak setelah konten disederhanakan (jasa software + pengadaan hardware).
+   Hanya dimuat di index.html; selector diawali main#top supaya tidak menyentuh halaman lain. */
+
+/* ritme jarak antarbagian: celah kosong besar di bawah hero dipadatkan */
+main#top>section.sec{padding-block:clamp(48px,6vw,88px)}
+main#top>section.sec.industri{padding-top:clamp(36px,5vw,64px)}
+main#top>section.sec.ts-sec{padding-block:clamp(28px,4vw,48px) 0}
+main#top>section.sec.ti-sec,main#top>section.sec.tp-sec{padding-block:clamp(40px,5vw,72px)}
+
+/* angka: 3 kolom rata tengah, bukan 3 dari 6 kolom */
+main#top .ts-stats{grid-template-columns:repeat(3,minmax(0,1fr));max-width:880px;margin-inline:auto;background:#fff;border:1px solid #E9E5F6;box-shadow:0 14px 34px -24px rgba(43,30,110,.25)}
+main#top .ts-stats>div{padding:24px 12px;border-right:1px solid #EFEBFA}
+main#top .ts-stats>div:last-child{border-right:0}
+main#top .ts-stats b{color:#10224F}
+main#top .ts-stats span{color:#5A6785;font-size:.86rem}
+main#top .ts-creds{margin-top:18px}
+
+/* layanan: 6 kartu = 3 x 2, tinggi sama, tombol di dasar */
+@media (min-width:1081px){main#top .hs-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}}
+main#top .hs-card{height:100%}
+main#top .hs-card p{min-height:3.2em}
+
+/* kartu sektor: foto perangkat utuh (tidak terpotong), latar lembut */
+main#top .tin-pic{aspect-ratio:16/9;background:#fff;border-bottom:1px solid #F0ECFA}
+main#top .tin-pic img{object-fit:contain;padding:14px 22px}
+main#top .tin-pic:after{display:none}
+
+/* kartu artikel: gambar utuh */
+main#top .bl-home .bl-card-img{background:#fff;border-bottom:1px solid #F0ECFA}
+main#top .bl-home .bl-card-img img{object-fit:contain;padding:12px 18px}
+
+/* hero: label contoh tampilan */
+main#top .hero .url em{font-style:normal;opacity:.7}
+
+main#top .hero h1{text-wrap:balance}

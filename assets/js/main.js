@@ -35,23 +35,24 @@
   ];
 
   var FAQS = [
-    { icon: 'i-layers', tone: 'purple', q: 'Produk Altora mana yang sudah tersedia?',
-      a: 'Altora Teams untuk HRIS & people operations, Altora Vision untuk AI CCTV & safety analytics, serta Altora Pass untuk smart access saat ini tersedia untuk didiskusikan. Altora POS dan Altora ERP masih berstatus Coming Soon.' },
-    { icon: 'i-puzzle', tone: 'blue', q: 'Jika kebutuhan kami tidak cocok dengan produk yang ada, apakah Altora bisa membangun sistem custom?',
-      a: 'Bisa. Kami juga membuat aplikasi web dan HP, sistem internal, website, dashboard, dan integrasi dengan sistem lain sesuai kebutuhan Anda.' },
+    { icon: 'i-layers', tone: 'purple', q: 'Apa saja yang dikerjakan Altora?',
+      a: 'Dua hal: jasa pembuatan software (aplikasi web dan HP, sistem internal, website) dan pengadaan hardware dari principal resmi, lengkap dengan pemasangan dan perawatannya.' },
+    { icon: 'i-puzzle', tone: 'blue', q: 'Jika kebutuhan kami tidak cocok dengan aplikasi yang ada di pasaran, apakah bisa dibuat khusus?',
+      a: 'Bisa. Kami pelajari alur kerja Anda dulu, lalu membuat aplikasi web atau HP, sistem internal, website, dashboard, dan integrasi dengan sistem lain sesuai kebutuhan.' },
     { icon: 'i-monitor', tone: 'cyan', q: 'Apakah Altora hanya membuat software?',
-      a: 'Tidak. Kami juga mengadakan dan memasang perangkat: server, komputer, CCTV, jaringan, smartlock, sensor, dan GPS tracker.' },
-    { icon: 'i-shield', tone: 'orange', q: 'Apakah Altora dapat menangani sensor keselamatan dan keamanan?',
-      a: 'Bisa. Sensor asap dan api, sensor suhu, CCTV pintar, dan akses pintu bisa dipantau dari satu tampilan, lengkap dengan notifikasi.' },
-    { icon: 'i-trend', tone: 'green', q: 'Apakah tersedia fleet management system?',
-      a: 'Ada. Altora FMS memakai GPS tracker Teltonika untuk memantau posisi, rute, BBM, dan perilaku pengemudi.' },
-    { icon: 'i-sync', tone: 'pink', q: 'Bisakah sistem Altora terhubung dengan aplikasi atau perangkat yang sudah kami gunakan?',
+      a: 'Tidak. Kami juga mengadakan dan memasang perangkat: server, komputer, CCTV, jaringan, smartlock, kios, display, dan GPS tracker.' },
+    { icon: 'i-shield', tone: 'orange', q: 'Perangkat dari merek apa saja yang tersedia?',
+      a: 'Dari principal resmi seperti VIGI, TP-Link, Teltonika, Lenovo, HDe, HaganeRack, dan Fasser, dengan garansi resmi. Kami pilihkan tipe yang paling cocok tanpa mengunci Anda pada satu merek.' },
+    { icon: 'i-trend', tone: 'green', q: 'Apakah bisa untuk pengadaan instansi?',
+      a: 'Bisa. Altora berstatus PKP dan terdaftar sebagai penyedia di Inaproc/LKPP, dengan penawaran, faktur, dan berita acara serah terima.' },
+    { icon: 'i-sync', tone: 'pink', q: 'Bisakah aplikasi yang dibuat terhubung dengan aplikasi atau perangkat yang sudah kami gunakan?',
       a: 'Umumnya bisa. Kami cek dulu aplikasi dan perangkat yang Anda pakai, lalu tentukan cara menghubungkannya.' },
     { icon: 'i-clipboard', tone: 'navy', q: 'Bagaimana proses memulai proyek?',
-      a: 'Hubungi kami lewat WhatsApp atau form konsultasi. Setelah memahami kebutuhan Anda, kami sarankan produk jadi atau aplikasi custom, lalu kirim penawaran.' },
-    { icon: 'i-headset', tone: 'teal', q: 'Bagaimana pendampingan implementasinya?',
-      a: 'Kami dampingi dari konsultasi awal, pemasangan, pelatihan pengguna, sampai dukungan setelah sistem berjalan. Detail kerja sama kita diskusikan lewat chat.' }
+      a: 'Hubungi kami lewat WhatsApp atau form konsultasi. Setelah memahami kebutuhan Anda, kami sarankan solusi yang sesuai, lalu kirim penawaran.' },
+    { icon: 'i-headset', tone: 'teal', q: 'Bagaimana pendampingan setelah selesai?',
+      a: 'Kami dampingi dari konsultasi awal, pemasangan atau pengembangan, pelatihan pengguna, sampai dukungan setelah sistem berjalan. Detail kerja sama kita diskusikan lewat chat.' }
   ];
+
 
   /* ── render: industries ──────────────────────────── */
 
