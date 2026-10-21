@@ -5,10 +5,10 @@ description: Sebelum membuat aplikasi, pahami 7 hal yang menentukan cakupan proy
 date: 2026-10-11
 updated: 2026-10-14
 category: Perencanaan
-image: /assets/img/produk/pos.webp
+image: /assets/img/hardware/lenovo-thinkpad-t14.webp
 redirect_from: faktor-biaya-pembuatan-aplikasi
 related: /jasa-pembuatan-aplikasi-indonesia | Jasa pembuatan aplikasi Altora
-related: /produk | Produk siap pakai Altora
+related: /services/software-custom | Layanan software custom
 related: /contact | Diskusikan kebutuhan Anda
 ---
 Dua aplikasi yang terlihat mirip di permukaan bisa punya cakupan kerja yang sangat berbeda karena kerumitan di baliknya. Karena itu, langkah pertama yang paling berguna adalah memetakan kebutuhan dengan jelas.
@@ -63,4 +63,4 @@ Pekerjaan tidak berhenti di peluncuran. Rencanakan juga:
 
 Cakupan aplikasi ditentukan oleh kerumitan alur kerja, platform, integrasi, perangkat keras, keamanan, dan perawatan setelah berjalan—bukan oleh jumlah halaman. Semakin jelas Anda menggambarkan kondisi saat ini, semakin tepat rencana yang bisa disusun.
 
-Ingin mendiskusikan kebutuhan organisasi Anda? [Chat tim Altora](/contact), atau lihat dulu [produk siap pakai kami](/produk) yang mungkin sudah menjawab sebagian kebutuhan Anda.
+Ingin mendiskusikan kebutuhan organisasi Anda? [Chat tim Altora](/contact), atau lihat dulu [layanan software custom](/services/software-custom).

@@ -3,9 +3,9 @@ title: Kapan Perlu Software Custom, Kapan Cukup Aplikasi Siap Pakai
 description: Panduan memilih software custom atau aplikasi siap pakai berdasarkan alur kerja, kebutuhan integrasi, dan kesiapan operasi bisnis Anda.
 date: 2026-10-19
 category: Panduan memilih vendor
-image: /assets/img/produk/pos.webp
+image: /assets/img/hardware/lenovo-thinkpad-t14.webp
 related: /services/software-custom | Software custom Altora
-related: /produk | Produk siap pakai Altora
+related: /services/software-custom | Layanan software custom
 related: /contact | Diskusikan kebutuhan
 ---
 Saat pekerjaan operasional mulai terasa lambat, banyak bisnis langsung bertanya: apakah harus membuat aplikasi sendiri? Jawabannya tidak selalu. Aplikasi siap pakai dapat menjadi pilihan tepat bila alur kerja Anda umum, dapat mengikuti cara kerja produk tersebut, dan kebutuhan utama bisa dipenuhi tanpa banyak penyesuaian.
@@ -37,7 +37,7 @@ Pilih jalur ini bila sebagian besar jawaban berikut adalah ya:
 - Perubahan kebijakan bisnis dapat ditangani melalui pengaturan, bukan perubahan program.
 - Tim siap mengadopsi cara kerja baru yang lebih seragam.
 
-Untuk kebutuhan operasional umum, Anda dapat melihat kategori [produk Altora](/produk) sebagai titik awal diskusi. Fokusnya tetap sama: pilih alat yang mengurangi pekerjaan berulang, bukan yang menambah layar dan langkah baru.
+Untuk kebutuhan yang umum, kami bantu menilai apakah aplikasi yang sudah ada di pasaran cukup, atau perlu dibuat khusus. Fokusnya tetap sama: pilih alat yang mengurangi pekerjaan berulang, bukan yang menambah layar dan langkah baru.
 
 ## Sinyal bahwa software custom perlu dihitung serius
 

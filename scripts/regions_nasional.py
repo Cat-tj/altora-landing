@@ -1,14 +1,14 @@
 """Kota di luar Kalimantan Timur. Di sini Altora tidak punya kantor atau teknisi, jadi halaman untuk kota-kota ini
 HANYA memuat layanan yang dikerjakan jarak jauh (software house, aplikasi, website). Jangan membuat halaman
 pasang CCTV / jaringan / IT support / jual-pasang perangkat untuk kota di sini, kecuali sudah ada tim di sana.
-proof = proyek nyata di kota/daerah itu (kosongkan bila tidak ada)."""
+"""
 
 # near = kota tetangga untuk tautan internal (harus ada di dict ini)
 NASIONAL = {
     'jakarta': dict(name='Jakarta', seat='DKI Jakarta', near=['tangerang', 'bekasi', 'depok'],
         sectors='kantor pusat perusahaan, BUMN, kementerian dan lembaga, startup, serta ritel',
         needs=[('Kantor pusat dengan cabang di daerah', 'Aplikasi internal yang dipakai kantor pusat dan cabang, termasuk tim lapangan di luar Jawa.'),
-               ('Perusahaan dengan operasi di Kalimantan', 'Sistem armada, absensi lapangan, dan dashboard yang menyatukan data site di daerah dengan kantor Jakarta.'),
+               ('Perusahaan dengan operasi di Kalimantan', 'Aplikasi armada, absensi lapangan, dan dashboard yang menyatukan data site di daerah dengan kantor Jakarta.'),
                ('Instansi & perusahaan', 'Website resmi, portal layanan, dan aplikasi approval tanpa kertas.')]),
     'tangerang': dict(name='Tangerang', seat='Banten', near=['jakarta', 'depok', 'bogor'],
         sectors='kawasan industri dan pergudangan, logistik bandara, perumahan, serta ritel',
@@ -107,7 +107,7 @@ NASIONAL = {
                ('Usaha', 'Website dan aplikasi penjualan.')]),
     'palembang': dict(name='Palembang', seat='Sumatera Selatan', near=['jambi', 'bandar-lampung', 'batam'],
         sectors='batu bara dan migas, perkebunan, perdagangan, dan pemerintahan provinsi',
-        needs=[('Tambang & migas', 'Fleet management, absensi lapangan, dan laporan produksi.'),
+        needs=[('Tambang & migas', 'Aplikasi pelaporan armada, absensi lapangan, dan laporan produksi.'),
                ('Perkebunan', 'Aplikasi laporan kebun dan dashboard.'),
                ('Instansi & usaha', 'Website, portal layanan, dan aplikasi internal.')]),
     'bandar-lampung': dict(name='Bandar Lampung', seat='Lampung', near=['palembang', 'jakarta', 'jambi'],
@@ -117,7 +117,7 @@ NASIONAL = {
                ('Instansi & kampus', 'Website resmi dan aplikasi layanan.')]),
     'banjarmasin': dict(name='Banjarmasin', seat='Kalimantan Selatan', near=['palangka-raya', 'barito-utara', 'pontianak'],
         sectors='batu bara, angkutan sungai dan pelabuhan, perdagangan, dan pemerintahan',
-        needs=[('Tambang & angkutan', 'Fleet management, laporan hauling, dan absensi lapangan.'),
+        needs=[('Tambang & angkutan', 'Aplikasi pelaporan armada, laporan hauling, dan absensi lapangan.'),
                ('Perdagangan', 'Sistem penjualan, stok, dan website.'),
                ('Instansi', 'Website resmi dan aplikasi layanan publik.')]),
     'palangka-raya': dict(name='Palangka Raya', seat='Kalimantan Tengah', near=['barito-utara', 'banjarmasin', 'pontianak'],
@@ -127,8 +127,7 @@ NASIONAL = {
                ('Kampus & sekolah', 'Website institusi dan aplikasi administrasi.')]),
     'barito-utara': dict(name='Barito Utara', seat='Muara Teweh, Kalimantan Tengah', near=['palangka-raya', 'banjarmasin', 'pontianak'],
         sectors='pemerintahan kabupaten, tambang batu bara, perkebunan, dan angkutan sungai',
-        proof=['pompy-batara'],
-        needs=[('Pemerintah kabupaten', 'Portal peta tematik, data terpadu, dan layanan publik digital, seperti POMPY BATARA yang kami kerjakan.'),
+        needs=[('Pemerintah kabupaten', 'Website resmi, aplikasi layanan publik, dan pengadaan perangkat untuk kantor dinas.'),
                ('Tambang & perkebunan', 'Aplikasi laporan lapangan dan pemantauan armada.'),
                ('Sekolah & layanan publik', 'Website resmi dan aplikasi pelaporan.')]),
     'pontianak': dict(name='Pontianak', seat='Kalimantan Barat', near=['palangka-raya', 'banjarmasin', 'batam'],
@@ -148,7 +147,7 @@ NASIONAL = {
                ('Instansi & usaha', 'Website resmi, portal layanan, dan kasir.')]),
     'kendari': dict(name='Kendari', seat='Sulawesi Tenggara', near=['makassar', 'palu', 'ambon'],
         sectors='tambang nikel, kawasan industri smelter, perikanan, dan pemerintahan provinsi',
-        needs=[('Tambang nikel & smelter', 'Fleet management, absensi lapangan, dan pengawasan keselamatan kerja.'),
+        needs=[('Tambang nikel & smelter', 'Aplikasi pelaporan armada, absensi lapangan, dan laporan keselamatan kerja.'),
                ('Kontraktor & vendor', 'Laporan pekerjaan dan aplikasi approval.'),
                ('Instansi', 'Website resmi dan aplikasi layanan.')]),
     'palu': dict(name='Palu', seat='Sulawesi Tengah', near=['makassar', 'kendari', 'manado'],

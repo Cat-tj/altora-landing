@@ -3,11 +3,11 @@ title: Memilih Smartlock untuk Kantor: Jenis, Cara Buka, dan Hal yang Sering Ter
 seo_title: Memilih Smartlock untuk Kantor
 description: Panduan memilih smartlock untuk kantor, kampus, dan gudang: jenis kunci sesuai pintu, metode buka, akses tamu, baterai, dan integrasi absensi.
 date: 2026-10-12
-category: Keamanan & akses
+category: Smartlock & akses
 image: /assets/img/hardware/smartlock.webp
 related: /jual-smartlock-samarinda | Jual & pasang smartlock di Samarinda
 related: /jual-smartlock-balikpapan | Jual & pasang smartlock di Balikpapan
-related: /produk/pass | Altora Pass
+related: /katalog#smartlock | Smartlock di katalog
 ---
 Smartlock menggantikan kunci fisik yang mudah hilang atau digandakan. Untuk kantor, manfaat terbesarnya justru ada pada pengaturan akses dan riwayat keluar-masuk. Berikut hal yang perlu dipertimbangkan.
 

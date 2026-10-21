@@ -3,9 +3,9 @@ title: GPS Tracker untuk Truk dan Alat Berat Tambang: Fitur yang Benar-benar Dib
 seo_title: GPS Tracker Truk Tambang: Fitur Penting
 description: Fitur GPS tracker yang penting untuk truk hauling dan alat berat: data mesin CAN-Bus, sensor BBM, TPMS, kamera, geofence, dan laporan otomatis.
 date: 2026-10-08
-category: Fleet management
+category: GPS & telematika
 image: /assets/img/hardware/telt-fmc650.webp
-related: /produk/fms | Altora FMS
+related: /katalog#cat-gps | GPS tracker Teltonika
 related: /gps-tracker-kendaraan-balikpapan | GPS tracker kendaraan Balikpapan
 related: /industri/pertambangan | Solusi tambang & industri berat
 ---
@@ -39,4 +39,4 @@ Pilih perangkat industrial grade yang tahan getar dan debu, dengan dual-SIM untu
 
 Data hanya berguna jika sampai ke pengambil keputusan. Laporan harian ritase, BBM, dan pelanggaran sebaiknya terkirim otomatis.
 
-Kami membantu memetakan kombinasi perangkat per tipe kendaraan, memasang, dan menyiapkan dashboard Altora FMS.
+Kami membantu memetakan kombinasi perangkat per tipe kendaraan, memasang, dan membantu menyiapkan platform pelacakannya.

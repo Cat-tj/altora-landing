@@ -15,7 +15,7 @@ OFFICES = [
          district='Balikpapan', region='Kalimantan Timur', postal='', hq=False),
 ]
 
-FACTS = dict(founded='2019', founded_city='Samarinda', divisions='3', team='13', projects='50+', partners='6')
+FACTS = dict(partners='6')   # hanya fakta yang dapat diverifikasi; tahun berdiri/jumlah proyek/tim dihapus (pisah dari Sentra)
 
 
 def hq():

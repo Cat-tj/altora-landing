@@ -15,7 +15,7 @@ def section_of(rel):
         return '/'
     if route in ('/katalog', '/katalog-cctv-vigi'):
         return '/katalog'
-    for sec in ('/services', '/produk', '/industri', '/portfolio', '/blog', '/about', '/support', '/careers'):
+    for sec in ('/services', '/industri', '/blog', '/about', '/support', '/careers'):
         if route == sec or route.startswith(sec + '/'):
             return sec
     return None

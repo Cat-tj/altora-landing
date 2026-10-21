@@ -247,7 +247,7 @@ for c, t, lead, img in CATS:
 n_cam = sum(counts[c] for c in ('dome', 'bullet', 'turret', 'pt', 'fisheye'))
 body = f'''<main class="ct-page svd-page vg-page">
 <section class="svd-hero"><div class="ct-wrap">
-<nav aria-label="Breadcrumb" class="vg-crumb"><a href="/">Beranda</a> / <a href="/produk">Produk</a> / <span>CCTV VIGI</span></nav>
+<nav aria-label="Breadcrumb" class="vg-crumb"><a href="/">Beranda</a> / <a href="/katalog">Katalog</a> / <span>CCTV VIGI</span></nav>
 <p class="eyebrow eyebrow-purple">Katalog lengkap · Partner resmi VIGI</p>
 <h1>Katalog CCTV VIGI: {n_cam} kamera, NVR, dan perlengkapannya</h1>
 <p class="ct-lead">Semua model VIGI by TP-Link yang kami sediakan, pasang, dan rawat di Samarinda, Balikpapan, dan Kalimantan Timur. Tidak yakin tipe mana yang cocok? Kirim denah atau foto lokasi, kami bantu hitung kebutuhannya.</p>

@@ -12,7 +12,7 @@ shot() {  # halaman lebar tinggi skala lebar-keluaran [ua]
     ${6:+--user-agent="$6"} --screenshot="$TMP/s.png" "http://localhost:4321/$1.html" 2>/dev/null
   cwebp -quiet -q 72 -resize $5 0 "$TMP/s.png" -o "$OUT/$1-$2.webp"
 }
-for p in careers services produk portfolio blog about katalog support; do
+for p in careers services blog about katalog support; do
   shot $p 390 1000 2 585 "$MOB"
   shot $p 820 1300 1 820
   shot $p 1440 1100 1 1280

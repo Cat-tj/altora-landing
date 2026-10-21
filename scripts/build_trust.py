@@ -8,33 +8,16 @@ from site_data import FACTS
 root = pathlib.Path(__file__).resolve().parent.parent
 e = lambda t: html.escape(str(t), quote=True)
 
-# (nama, file logo di assets/img/clients atau None = wordmark teks, sektor)
-CLIENTS = [
-    ('Pemkot Samarinda', 'samarinda.png', 'Pemerintahan'),
-    ('Pemkab Barito Utara', 'barito.png', 'Pemerintahan'),
-    ('InJourney Airports', 'injourney.png', 'BUMN'),
-    ('Universitas Mulawarman', 'unmul.png', 'Pendidikan'),
-    ('Institut Teknologi Kalimantan', 'itk.png', 'Pendidikan & riset'),
-    ('Adhi', 'adhi.png', 'Konstruksi'),
-    ('Alba Aluminium', None, 'Industri'),
-    ('Labschool', None, 'Pendidikan'),
-    ('1Ci Enterprise', None, 'Korporasi'),
-    ('MBC Entertainment', None, 'Korporasi'),
-]
+# klien: dikosongkan (portofolio & logo klien dihapus saat pisah dari Sentra); isi ulang hanya dengan klien Altora yang sudah setuju dicantumkan
+CLIENTS = []
 
-ACHIEVEMENT = dict(
-    title='Juara 2 Nasional Innovakids 2026',
-    text='Altora menjadi pembimbing siswa SMP Negeri 5 Balikpapan dalam membangun solusi inovasi berbasis AI, hingga meraih Juara 2 tingkat nasional di Innovakids 2026.',
-    tag='Pembimbing · SMP Negeri 5 Balikpapan')
-
-STATS = [(FACTS['founded'], 'berdiri di Samarinda'), (FACTS['projects'], 'proyek selesai'), (FACTS['team'], 'tim inti in-house'),
-         ('3', 'kantor di Kaltim'), ('148+', 'produk resmi di katalog'), (FACTS['partners'], 'principal resmi')]
+STATS = [('3', 'kantor di Kaltim'), ('148+', 'produk resmi di katalog'), (FACTS['partners'], 'principal resmi')]
 
 INDUSTRIES = [
-    ('pertambangan', 'Tambang & industri berat', 'FMS, AI safety, CCTV surya, Starlink'),
-    ('pemerintahan', 'Pemerintahan & layanan publik', 'GIS, kios layanan, CCTV kota, AI on-premise'),
-    ('pendidikan', 'Kampus & sekolah', 'Absensi, website, display, riset AI'),
-    ('korporasi', 'Korporasi & dunia usaha', 'HRIS, ERP, CCTV, smartlock, website'),
+    ('pertambangan', 'Tambang & industri berat', 'Starlink, CCTV tenaga surya, jaringan, dan aplikasi custom'),
+    ('pemerintahan', 'Pemerintahan & layanan publik', 'Website resmi, kios layanan, dan pengadaan perangkat'),
+    ('pendidikan', 'Kampus & sekolah', 'Website, display interaktif, jaringan, dan perangkat'),
+    ('korporasi', 'Korporasi & dunia usaha', 'Aplikasi custom, website, CCTV, dan perangkat kantor'),
 ]
 
 ICO = {
@@ -62,6 +45,8 @@ def logo_tile(name, logo, sector):
 
 
 def logos_block(heading='Dipercaya oleh'):
+    if not CLIENTS:
+        return ''
     tiles = ''.join(logo_tile(*c) for c in CLIENTS)
     return (f'<section aria-label="Klien kami" class="sec tl-sec"><div class="wrap">'
             f'<div class="tl-head"><p class="eyebrow eyebrow-purple">Klien kami</p><h2>{e(heading)}</h2>'
@@ -71,7 +56,7 @@ def logos_block(heading='Dipercaya oleh'):
 
 def stats_block():
     stats = ''.join(f'<div><b>{e(v)}</b><span>{e(k)}</span></div>' for v, k in STATS)
-    creds = ['Badan usaha resmi, berstatus PKP', 'Terdaftar sebagai penyedia di Inaproc / LKPP', 'Kolaborasi riset dengan Institut Teknologi Kalimantan']
+    creds = ['Badan usaha resmi, berstatus PKP', 'Terdaftar sebagai penyedia di Inaproc / LKPP']
     return ('<section aria-label="Angka dan legalitas" class="sec ts-sec"><div class="wrap">'
             f'<div class="ts-stats">{stats}</div>'
             '<ul class="ts-creds">' + ''.join(f'<li>{e(c)}</li>' for c in creds) + '</ul></div></section>')
@@ -83,7 +68,7 @@ def process_block():
              ('Training & purnajual', 'Pelatihan tim Anda dan dukungan berkelanjutan.')]
     st = ''.join(f'<li><span>{i}</span><b>{e(t)}</b><p>{e(d)}</p></li>' for i, (t, d) in enumerate(steps, 1))
     promises = ['Garansi perangkat & jasa sesuai lingkup proyek', 'Lifetime support untuk paket berlangganan',
-                'Kode sumber, dokumentasi & SOP diserahkan', 'Mulai dari satu modul, buktikan lewat pilot', 'Tidak terkunci pada satu merek']
+                'Kode sumber, dokumentasi & SOP diserahkan', 'Mulai dari lingkup kecil, lalu berkembang bertahap', 'Tidak terkunci pada satu merek']
     pr = ''.join(f'<li>{e(p)}</li>' for p in promises)
     return ('<section class="sec how tp-sec" id="alur"><div class="wrap">'
             '<div class="tl-head"><p class="eyebrow eyebrow-purple">Cara kerja</p><h2>Dari survei sampai purnajual, kami kawal</h2>'
@@ -100,7 +85,7 @@ def security_block():
             ('backup', 'Backup otomatis', 'Backup terjadwal dan bisa dipulihkan.'),
             ('lock', 'Enkripsi', 'Koneksi HTTPS, password terenkripsi, akun terkunci setelah salah berulang.'),
             ('code', 'Milik Anda', 'Kode sumber dan dokumentasi diserahkan sesuai kontrak.'),
-            ('ai', 'AI tanpa cloud publik', 'Private AI berjalan di server Anda, termasuk mode air-gapped.')]
+            ]
     h = ''.join(f'<li><span class="tk-ico">{ico(i)}</span><b>{e(t)}</b><small>{e(d)}</small></li>' for i, t, d in host)
     c = ''.join(f'<li><span class="tk-ico">{ico(i)}</span><div><b>{e(t)}</b><p>{e(d)}</p></div></li>' for i, t, d in ctrl)
     return ('<section class="sec tk-sec" id="keamanan"><div class="wrap tk-grid">'
@@ -109,8 +94,8 @@ def security_block():
             f'<ul class="tk-host">{h}</ul></div><ul class="tk-ctrl">{c}</ul></div></section>')
 
 
-IND_IMG = {'pertambangan': '/assets/img/portfolio/fms.jpg', 'pemerintahan': '/assets/img/portfolio/kiosk-samarinda/kiosk-pampang.jpg',
-           'pendidikan': '/assets/img/portfolio/feb-unmul.jpg', 'korporasi': '/assets/img/produk/teams.webp'}
+IND_IMG = {'pertambangan': '/assets/img/hardware/starlink-enterprise.webp', 'pemerintahan': '/assets/img/hardware/kios-k.webp',
+           'pendidikan': '/assets/img/hardware/hde-ifp.webp', 'korporasi': '/assets/img/hardware/lenovo-thinkpad-t14.webp'}
 
 
 def industry_block():

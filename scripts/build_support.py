@@ -32,10 +32,10 @@ PATHS = [
      'Mulai konsultasi', wa('Halo Altora, saya ingin konsultasi sebelum mulai.'), 'sp-purple'),
     ('tool', 'Sudah jadi klien', 'Ada kendala teknis atau pertanyaan pemakaian.', ['Aplikasi atau perangkat bermasalah', 'Perlu teknisi ke lokasi', 'Tambah pengguna atau fitur', 'Perawatan berkala'],
      'Laporkan kendala', '#tiket', 'sp-green'),
-    ('book', 'Dokumentasi', 'Ingin melihat contoh proyek dan cara kerja produk.', ['Halaman tiap produk', 'Contoh proyek nyata', 'Artikel & panduan', 'Katalog barang & jasa'],
-     'Lihat portofolio', '/portfolio', 'sp-blue'),
+    ('book', 'Informasi layanan', 'Ingin melihat layanan dan perangkat yang tersedia.', ['Halaman layanan', 'Katalog perangkat', 'Artikel & panduan', 'Katalog barang & jasa'],
+     'Lihat layanan', '/services', 'sp-blue'),
 ]
-PREP = [('box', 'Produk atau perangkat', 'Aplikasi, fitur, atau perangkat yang bermasalah.'), ('pin', 'Lokasi', 'Kantor atau cabang tempat masalah terjadi.'),
+PREP = [('box', 'Aplikasi atau perangkat', 'Aplikasi, fitur, atau perangkat yang bermasalah.'), ('pin', 'Lokasi', 'Kantor atau cabang tempat masalah terjadi.'),
         ('target', 'Yang diharapkan', 'Apa yang seharusnya terjadi.'), ('image', 'Yang terjadi', 'Ceritakan, sertakan foto atau screenshot bila ada.')]
 FLOW = [('send', 'Kirim pesan', 'Lewat WhatsApp, email, atau form tiket.'), ('search', 'Kami pelajari', 'Tim membaca dan mengecek masalahnya, dari jarak jauh dulu.'),
         ('tool', 'Kami tangani', 'Solusi jarak jauh, atau teknisi datang ke lokasi bila perlu.'), ('check', 'Selesai', 'Anda menerima kabar hasil dan catatannya.')]

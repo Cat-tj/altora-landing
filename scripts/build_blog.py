@@ -7,8 +7,8 @@ Format artikel (front matter sederhana, satu kunci per baris):
     date: 2026-10-11
     updated: 2026-10-11          (opsional)
     category: Panduan
-    image: /assets/img/produk/vision.webp   (opsional, untuk kartu & preview link)
-    related: /produk/attendance | Altora Smart Attendance   (opsional, boleh lebih dari satu baris related)
+    image: /assets/img/vigi/c340i.webp   (opsional, untuk kartu & preview link)
+    related: /katalog | Katalog perangkat   (opsional, boleh lebih dari satu baris related)
     ---
     Isi Markdown: ## / ### heading, paragraf, - list, 1. list, **tebal**, *miring*, [teks](url), `kode`, > kutipan,
     ![alt](/assets/img/... "keterangan") di barisnya sendiri untuk diagram/gambar
@@ -123,7 +123,7 @@ def md_to_html(md):
 
 
 def head(title, desc, canonical, og_type='website', image=None, extra=''):
-    img = SITE + (image or '/assets/img/produk/vision.webp')
+    img = SITE + (image or '/assets/img/vigi/c340i.webp')
     return (f'<!DOCTYPE html>\n<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>'
             f'<title>{e(title)}</title><meta content="{e(desc)}" name="description"/><link href="{SITE}{canonical}" rel="canonical"/>'
             f'<meta content="id_ID" property="og:locale"/><meta content="{og_type}" property="og:type"/><meta content="{e(title)}" property="og:title"/>'
@@ -163,7 +163,7 @@ def build():
         ld = {'@context': 'https://schema.org', '@graph': [
             {'@type': 'BlogPosting', 'headline': p['title'], 'description': p['description'], 'datePublished': p['date'],
              'dateModified': updated, 'inLanguage': 'id-ID', 'mainEntityOfPage': SITE + url,
-             'image': SITE + p.get('image', '/assets/img/produk/vision.webp'),
+             'image': SITE + p.get('image', '/assets/img/vigi/c340i.webp'),
              'author': {'@type': 'Organization', 'name': 'Tim Altora Indonesia', 'url': SITE + '/'},
              'publisher': {'@type': 'Organization', 'name': 'Altora Indonesia', 'logo': {'@type': 'ImageObject', 'url': SITE + '/assets/img/altora-logo-icon-v2.svg'}}},
             {'@type': 'BreadcrumbList', 'itemListElement': [
@@ -208,25 +208,25 @@ def build():
     rest = posts
     if posts:
         f0 = posts[0]; rest = posts[1:]
-        feat = (f'<a class="bl-feature" data-cat="{e(f0["category"])}" href="/blog/{f0["slug"]}"><span class="bl-feature-img"><img alt="" src="{e(f0.get("image", "/assets/img/produk/vision.webp"))}"/></span>'
+        feat = (f'<a class="bl-feature" data-cat="{e(f0["category"])}" href="/blog/{f0["slug"]}"><span class="bl-feature-img"><img alt="" src="{e(f0.get("image", "/assets/img/vigi/c340i.webp"))}"/></span>'
                 f'<span class="bl-feature-body"><small>Terbaru · {e(f0["category"])} · {tanggal(f0["date"])}</small><b>{e(f0["title"])}</b>'
                 f'<span>{e(f0["description"])}</span><em>Baca artikel</em></span></a>')
     topics = ('<section class="bl-topics"><div class="bl-wrap"><h2>Topik yang sering ditanyakan</h2><div class="bl-topic-grid">'
               '<a href="/services/software-custom"><b>Aplikasi custom</b><span>Kapan perlu dibuat khusus</span></a>'
               '<a href="/services/website-seo"><b>Website &amp; SEO</b><span>Supaya ditemukan di Google</span></a>'
-              '<a href="/services/ai-cctv"><b>AI CCTV</b><span>Deteksi APD &amp; absensi wajah</span></a>'
-              '<a href="/services/fleet-management-service"><b>Fleet management</b><span>Pantau armada &amp; BBM</span></a>'
+              '<a href="/katalog-cctv-vigi"><b>CCTV</b><span>Memilih &amp; memasang kamera</span></a>'
+              '<a href="/services/starlink-internet-satelit"><b>Starlink</b><span>Internet untuk site terpencil</span></a>'
               '<a href="/services/pengadaan-instalasi-maintenance"><b>Pengadaan perangkat</b><span>Pasang &amp; rawat</span></a>'
-              '<a href="/produk"><b>Aplikasi siap pakai</b><span>HRIS, CCTV, akses, armada</span></a>'
+              '<a href="/katalog"><b>Katalog perangkat</b><span>CCTV, jaringan, komputer, akses</span></a>'
               '</div></div></section>')
     cta = ('<section class="bl-index-cta"><div class="bl-wrap"><div class="bl-cta"><div><b>Punya pertanyaan yang belum terjawab?</b>'
            '<p>Tanyakan langsung ke tim kami. Diskusi awal gratis.</p></div>'
            f'<a class="btn btn-purple" href="{WA}{quote("Halo Altora, saya punya pertanyaan setelah membaca artikel di website.")}" rel="noopener" target="_blank">Chat WhatsApp</a></div></div></section>')
-    index = (head('Artikel & Panduan Teknologi untuk Bisnis | Altora Indonesia', 'Panduan dari tim Altora Indonesia tentang aplikasi, website, CCTV pintar, dan IoT untuk bisnis dan instansi di Balikpapan, Samarinda, dan Indonesia.',
+    index = (head('Artikel & Panduan Teknologi untuk Bisnis | Altora Indonesia', 'Panduan dari tim Altora Indonesia tentang aplikasi, website, dan pengadaan perangkat untuk bisnis dan instansi di Balikpapan, Samarinda, dan Indonesia.',
                   '/blog', extra=f'<script type="application/ld+json">{json.dumps(index_ld, ensure_ascii=False)}</script>')
              + '<main class="bl-page"><section class="bl-index-head"><div class="bl-wrap">'
              + '<p class="eyebrow eyebrow-purple">Artikel</p><h1>Artikel &amp; panduan</h1>'
-             + '<p class="bl-lead">Penjelasan praktis seputar aplikasi, website, CCTV pintar, dan perangkat. Ditulis untuk pemilik usaha dan pengelola instansi, tanpa istilah teknis yang membingungkan.</p>'
+             + '<p class="bl-lead">Penjelasan praktis seputar aplikasi, website, dan perangkat. Ditulis untuk pemilik usaha dan pengelola instansi, tanpa istilah teknis yang membingungkan.</p>'
              + chips + '</div></section>'
              + f'<section class="bl-list"><div class="bl-wrap">{feat}<div class="bl-grid">' + ''.join(card(p) for p in rest) + '</div></div></section>'
              + topics + cta + '</main>\n' + TAIL.replace('</body>', '<script defer="" src="/assets/js/blog-filter.js?v=20261013"></script></body>'))

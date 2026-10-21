@@ -13,74 +13,60 @@ WA = 'https://wa.me/6285190911170?text='
 e = lambda t: html.escape(t, quote=True)
 
 SERVICES = [
-    ('/services/software-custom', 'Aplikasi & software custom', 'Web app, aplikasi HP, HRIS, approval, dan laporan internal.'),
+    ('/services/software-custom', 'Aplikasi & software custom', 'Web app, aplikasi HP, approval, dan laporan internal.'),
     ('/services/website-seo', 'Website & SEO', 'Company profile, website instansi, dan landing page yang mudah ditemukan.'),
-    ('/services/ai-cctv', 'AI CCTV', 'Deteksi APD, absensi wajah, dan alert area terlarang dari CCTV.'),
-    ('/services/fleet-management-service', 'Fleet management', 'GPS tracker dan dashboard armada untuk logistik dan tambang.'),
-    ('/services/iot-command-center', 'IoT & command center', 'Sensor, smartlock, dan ruang kendali.'),
-    ('/services/pengadaan-instalasi-maintenance', 'Pengadaan & maintenance', 'CCTV, jaringan, komputer, dan perawatan berkala.'),
+    ('/services/pengadaan-instalasi-maintenance', 'Pengadaan hardware', 'CCTV, jaringan, komputer, dan perangkat lain dari principal resmi, dipasang dan dirawat.'),
+    ('/services/starlink-internet-satelit', 'Starlink & internet satelit', 'Internet untuk lokasi tanpa jaringan kabel.'),
 ]
+HERO = '/assets/img/hardware/lenovo-thinkpad-t14.webp'
 
-PF = {
-    'custom-kios-k-pengadaan-hardware': ('Kios layanan kelurahan Samarinda', '/assets/img/portfolio/hardware-field/kiosk-baqa-service.jpg', 'Pengadaan dan pemasangan kios, PC, dan tablet di kantor kelurahan.'),
-    'unmul-website-redesign': ('Redesign website Universitas Mulawarman', '/assets/img/portfolio/feb-unmul.jpg', 'Pembaruan website fakultas dan jurusan.'),
-    'unmul-infrastruktur-cctv-jaringan': ('CCTV & jaringan Universitas Mulawarman', '/assets/img/portfolio/unmul-infrastructure/cable-cctv-installation.png', 'Penarikan kabel, perangkat jaringan, dan CCTV.'),
-    'website-resmi-institusi': ('Website resmi institusi', '/assets/img/portfolio/farmasi.jpg', 'Website publik dengan struktur informasi yang rapi.'),
-    'fleet-management': ('Fleet management armada hauling', '/assets/img/portfolio/fms.jpg', 'Pemantauan posisi dan data kendaraan armada.'),
-    'smart-attendance': ('Absensi wajah dari CCTV', '/assets/img/portfolio/attendance.jpg', 'Check-in otomatis dari kamera di pintu masuk.'),
-    'altora-teams': ('Altora Teams (HRIS)', '/assets/img/portfolio/altora-teams-kpi-analytics.jpg', 'KPI, approval, dan jadwal kerja tim.'),
-    'pompy-batara': ('POMPY BATARA, Barito Utara', '/assets/img/portfolio/pompy-batara-platform-cropped.jpg', 'Portal peta tematik yang meraih Digital Innovation Award 2026.'),
-}
 
 CITIES = [
     dict(slug='software-house-balikpapan', city='Balikpapan', area='Balikpapan',
          title='Software House Balikpapan | Altora Indonesia',
-         desc='Altora Indonesia, software house di Balikpapan: aplikasi custom, website, AI CCTV, fleet management, serta pengadaan dan pemasangan perangkat.',
+         desc='Altora Indonesia, software house di Balikpapan: pembuatan aplikasi dan website custom, serta pengadaan dan pemasangan hardware dari principal resmi.',
          h1='Software house di Balikpapan',
-         lead='Altora Indonesia punya dua kantor cabang di Balikpapan, di Balikpapan Utara dan Pasar Baru. Kami membuat aplikasi, website, dan sistem CCTV pintar, lalu memasang dan merawat perangkatnya, untuk perusahaan, instansi, dan UMKM di Balikpapan.',
+         lead='Altora Indonesia punya dua kantor cabang di Balikpapan, di Balikpapan Utara dan Pasar Baru. Kami membuat aplikasi dan website sesuai kebutuhan Anda, serta mengadakan, memasang, dan merawat perangkat seperti CCTV, jaringan, dan komputer.',
          why=[('Dua cabang di Balikpapan', 'Cabang kami di Jl. Soekarno Hatta, Muara Rapak (Balikpapan Utara) dan di Pasar Baru. Diskusi, survei, dan pelatihan bisa dilakukan langsung di lokasi Anda.'),
-              ('Software dan perangkat satu tim', 'Banyak kebutuhan di Balikpapan melibatkan perangkat: CCTV, GPS tracker, sensor, jaringan. Kami mengerjakan aplikasi dan pemasangannya sekaligus.'),
+              ('Software dan hardware satu pintu', 'Kebutuhan di Balikpapan sering melibatkan aplikasi sekaligus perangkat. Kami membuat aplikasinya dan mengadakan perangkatnya dari principal resmi.'),
               ('Dukungan setelah jalan', 'Saat ada kendala, tim teknis bisa datang ke lokasi, tidak hanya membalas lewat chat.')],
-         needs=[('Perusahaan jasa migas, logistik, dan kontraktor', 'Pemantauan armada, absensi karyawan lapangan, dan pengawasan APD di area kerja.'),
+         needs=[('Perusahaan jasa migas, logistik, dan kontraktor', 'Aplikasi pelaporan dan approval, serta pengadaan perangkat untuk kantor dan lokasi kerja.'),
                 ('Kantor dan instansi', 'Aplikasi persuratan, approval, dan website resmi yang mudah diperbarui.'),
-                ('Toko, kafe, dan usaha jasa', 'Kasir, stok, dan website untuk ditemukan pelanggan di Google.')],
-         proof=['fleet-management', 'smart-attendance', 'altora-teams'],
+                ('Toko, kafe, dan usaha jasa', 'Website untuk ditemukan pelanggan di Google, serta pengadaan perangkat kasir dan jaringan.')],
          faq=[('Di mana kantor Altora di Balikpapan?', 'Ada dua cabang: Jl. Soekarno Hatta, Muara Rapak, Balikpapan Utara, dan Pasar Baru, Balikpapan. Kantor pusat kami di Samarinda. Untuk diskusi, kami juga bisa datang ke kantor Anda.'),
-              ('Apakah melayani pemasangan CCTV dan GPS tracker di Balikpapan?', 'Ya. Kami mengadakan, memasang, dan merawat CCTV, GPS tracker, jaringan, dan perangkat lain, termasuk menghubungkannya ke aplikasi.'),
-              ('Apakah bisa mulai dari aplikasi yang sudah jadi?', 'Bisa. Untuk absensi, CCTV pintar, akses pintu, atau pelacakan armada, Anda bisa memakai aplikasi Altora yang sudah jadi lalu menyesuaikannya.')],
+              ('Apakah melayani pengadaan dan pemasangan perangkat di Balikpapan?', 'Ya. Kami mengadakan, memasang, dan merawat CCTV, jaringan, komputer, dan perangkat lain dari principal resmi.'),
+              ('Bisa dibuatkan aplikasi sesuai proses kerja kami?', 'Bisa. Kami pelajari alur kerja Anda dulu, lalu aplikasi dibuat bertahap dan diuji bersama pengguna.')],
          nearby=[('/software-house-samarinda', 'Software house Samarinda'), ('/software-house-kalimantan-timur', 'Software house Kalimantan Timur'), ('/blog/cara-memilih-software-house-samarinda-balikpapan', 'Cara memilih software house')]),
     dict(slug='software-house-samarinda', city='Samarinda', area='Samarinda',
          title='Software House Samarinda | Altora Indonesia',
-         desc='Software house di Samarinda: aplikasi custom, website instansi, CCTV pintar, dan pengadaan perangkat. Proyek kelurahan dan Universitas Mulawarman.',
+         desc='Software house di Samarinda: pembuatan aplikasi dan website custom, serta pengadaan hardware dari principal resmi untuk instansi, kampus, dan bisnis.',
          h1='Software house di Samarinda',
-         lead='Altora Indonesia berdiri sejak 2019 dan berkantor pusat di Samarinda. Kami mengerjakan aplikasi, website, CCTV, dan perangkat untuk instansi pemerintah, kampus, dan bisnis, di antaranya Pemkot Samarinda dan Universitas Mulawarman.',
-         why=[('Kantor pusat di Samarinda', 'Kantor pusat kami di Perum Graha Indah Blok A13, Air Putih, Samarinda Ulu. Kami sudah memasang kios layanan di kantor kelurahan Samarinda serta mengerjakan website dan jaringan CCTV di Universitas Mulawarman.'),
+         lead='Altora Indonesia berkantor pusat di Samarinda. Kami membuat aplikasi dan website untuk instansi, kampus, dan bisnis, serta mengadakan dan memasang perangkat dari principal resmi.',
+         why=[('Kantor pusat di Samarinda', 'Kantor pusat kami di Perum Graha Indah Blok A13, Air Putih, Samarinda Ulu. Tim bisa datang untuk survei, pemasangan, dan pelatihan di lokasi Anda.'),
               ('Terbiasa dengan pengadaan instansi', 'Penawaran, faktur, berita acara serah terima, dan dokumentasi pekerjaan kami siapkan untuk kebutuhan administrasi.'),
               ('Bisa datang ke lokasi', 'Survei, pemasangan, dan pelatihan dilakukan langsung di kantor Anda di Samarinda.')],
-         needs=[('Kelurahan, kecamatan, dan dinas', 'Kios layanan warga, website resmi, dan aplikasi pelayanan.'),
-                ('Kampus dan sekolah', 'Website fakultas, jaringan, dan CCTV kampus.'),
-                ('Bisnis dan UMKM', 'Aplikasi kasir, absensi, dan website yang muncul di Google.')],
-         proof=['custom-kios-k-pengadaan-hardware', 'unmul-website-redesign', 'unmul-infrastruktur-cctv-jaringan'],
-         faq=[('Proyek apa saja yang sudah dikerjakan di Samarinda?', 'Di antaranya pengadaan dan pemasangan kios layanan, PC, dan tablet di kantor kelurahan, serta website dan infrastruktur CCTV & jaringan di Universitas Mulawarman. Detailnya ada di halaman portofolio.'),
-              ('Apakah bisa untuk pengadaan instansi pemerintah?', 'Bisa. Kami siapkan penawaran, faktur, dan berita acara serah terima. Produk ber-TKDN tersedia sesuai ketersediaan dari principal.'),
-              ('Apakah melayani pembuatan website instansi?', 'Ya. Kami membuat website resmi dan website fakultas yang bisa diperbarui sendiri oleh tim Anda.'),
+         needs=[('Kelurahan, kecamatan, dan dinas', 'Website resmi, aplikasi pelayanan, dan pengadaan perangkat kantor.'),
+                ('Kampus dan sekolah', 'Website, jaringan, dan perangkat untuk ruang kelas dan kantor.'),
+                ('Bisnis dan UMKM', 'Website yang muncul di Google dan aplikasi sesuai proses usaha.')],
+         faq=[('Apakah bisa untuk pengadaan instansi pemerintah?', 'Bisa. Kami siapkan penawaran, faktur, dan berita acara serah terima. Produk ber-TKDN tersedia sesuai ketersediaan dari principal.'),
+              ('Apakah melayani pembuatan website instansi?', 'Ya. Kami membuat website resmi yang bisa diperbarui sendiri oleh tim Anda.'),
+              ('Bisa dibuatkan aplikasi sesuai proses kerja kami?', 'Bisa. Kami pelajari alur kerja Anda dulu, lalu aplikasi dibuat bertahap dan diuji bersama pengguna.'),
               ('Bagaimana memulai?', 'Hubungi kami lewat WhatsApp atau form konsultasi. Diskusi awal gratis, lalu kami jadwalkan survei bila diperlukan.')],
          nearby=[('/software-house-balikpapan', 'Software house Balikpapan'), ('/software-house-kalimantan-timur', 'Software house Kalimantan Timur'), ('/jasa-pembuatan-website-samarinda', 'Jasa pembuatan website Samarinda')]),
     dict(slug='software-house-kalimantan-timur', city='Kalimantan Timur', area='Kalimantan Timur',
          title='Software House Kalimantan Timur | Altora Indonesia',
-         desc='Software house di Kalimantan Timur: aplikasi, website, AI CCTV, fleet management, dan perangkat untuk perusahaan dan instansi di Balikpapan, Samarinda, dan sekitarnya.',
+         desc='Software house di Kalimantan Timur: aplikasi, website, dan pengadaan perangkat dari principal resmi untuk perusahaan dan instansi di Balikpapan, Samarinda, dan sekitarnya.',
          h1='Software house di Kalimantan Timur',
-         lead='Altora Indonesia berkantor pusat di Samarinda sejak 2019, dengan dua cabang di Balikpapan. Kami melayani perusahaan dan instansi di Kalimantan Timur yang butuh aplikasi, website, CCTV pintar, pelacakan armada, internet satelit, atau pengadaan perangkat.',
-         why=[('Paham kebutuhan Kaltim', 'Banyak pekerjaan di Kaltim ada di lapangan: tambang, logistik, perkebunan, dan pelayanan publik. Aplikasi kami dirancang untuk dipakai di kantor maupun di lokasi.'),
-              ('Aplikasi dan perangkat', 'Kami mengerjakan software sekaligus memasang perangkatnya: CCTV, GPS tracker Teltonika, sensor, dan jaringan.'),
+         lead='Altora Indonesia berkantor pusat di Samarinda, dengan dua cabang di Balikpapan. Kami melayani perusahaan dan instansi di Kalimantan Timur yang butuh aplikasi, website, internet satelit, atau pengadaan perangkat.',
+         why=[('Paham kebutuhan Kaltim', 'Banyak pekerjaan di Kaltim ada di lapangan: tambang, logistik, perkebunan, dan pelayanan publik. Aplikasi dirancang untuk dipakai di kantor maupun di lokasi.'),
+              ('Aplikasi dan perangkat', 'Kami membuat software sekaligus mengadakan dan memasang perangkatnya dari principal resmi: CCTV, jaringan, komputer, dan Starlink.'),
               ('Tim lokal', 'Kantor pusat di Samarinda dan dua cabang di Balikpapan. Tim kami bisa datang untuk survei, pemasangan, dan perawatan.')],
-         needs=[('Tambang, kontraktor, dan logistik', 'Fleet management, absensi karyawan lapangan, dan deteksi APD dari CCTV.'),
-                ('Perkebunan dan pertanian', 'Sensor kelembapan tanah dan pemantauan lahan lewat aplikasi.'),
-                ('Pemerintah daerah dan instansi', 'Website resmi, aplikasi pelayanan, kios layanan, dan pengadaan perangkat.')],
-         proof=['fleet-management', 'custom-kios-k-pengadaan-hardware', 'unmul-infrastruktur-cctv-jaringan'],
-         faq=[('Kota mana saja yang dilayani?', 'Kantor pusat kami di Samarinda dan cabang di Balikpapan. Kami juga mengerjakan proyek di luar dua kota itu, misalnya untuk Pemkab Barito Utara. Untuk lokasi lain, hubungi kami untuk dicek.'),
-              ('Apakah bisa untuk lokasi tambang atau perkebunan yang sinyalnya lemah?', 'Bisa. GPS tracker dan sensor dapat menyimpan data sementara lalu mengirimnya saat sinyal tersedia, dan sistem bisa dijalankan di server lokal.'),
-              ('Apakah tersedia GPS tracker untuk alat berat?', 'Ya. Kami memakai GPS tracker Teltonika yang dipilih sesuai jenis kendaraan, termasuk truk dan alat berat.'),
+         needs=[('Tambang, kontraktor, dan logistik', 'Aplikasi pelaporan dan approval, serta pengadaan perangkat dan internet satelit untuk lokasi kerja.'),
+                ('Perkebunan dan pertanian', 'Aplikasi pencatatan lapangan dan konektivitas untuk lokasi tanpa jaringan kabel.'),
+                ('Pemerintah daerah dan instansi', 'Website resmi, aplikasi pelayanan, dan pengadaan perangkat.')],
+         faq=[('Kota mana saja yang dilayani?', 'Kantor pusat kami di Samarinda dan cabang di Balikpapan. Kami juga melayani kabupaten dan kota lain di Kaltim. Untuk lokasi lain, hubungi kami untuk dicek.'),
+              ('Apakah bisa untuk lokasi tambang atau perkebunan yang sinyalnya lemah?', 'Bisa. Kami menyiapkan Starlink dan perangkat tenaga surya, dan aplikasi dapat dirancang agar tetap berjalan saat sinyal lemah.'),
+              ('Apakah mengadakan perangkat dari principal resmi?', 'Ya. Perangkat berasal dari principal resmi seperti VIGI, Teltonika, TP-Link, dan Lenovo, dengan garansi resmi.'),
               ('Bagaimana memulai?', 'Hubungi kami lewat WhatsApp atau form konsultasi. Diskusi awal gratis.')],
          nearby=[('/software-house-balikpapan', 'Software house Balikpapan'), ('/software-house-samarinda', 'Software house Samarinda'), ('/katalog', 'Katalog perangkat')]),
 ]
@@ -94,7 +80,6 @@ def page(c):
     needs = ''.join(f'<li><b>{e(t)}</b><span>{e(d)}</span></li>' for t, d in c['needs'])
     svc_list = SERVICES[:2] if c.get('remote') else SERVICES
     svcs = ''.join(f'<a class="lc-svc" href="{u}"><b>{e(t)}</b><span>{e(d)}</span></a>' for u, t, d in svc_list)
-    proof = ''.join(f'<a class="svd-proof" href="/portfolio/{p}"><span class="svd-proof-img"><img alt="" loading="lazy" src="{PF[p][1]}"/></span><b>{e(PF[p][0])}</b><small>{e(PF[p][2])}</small></a>' for p in c['proof'])
     faq = ''.join(f'<details><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q, a in c['faq'])
     nearby = ''.join(f'<a href="{u}">{e(t)}</a>' for u, t in c['nearby'])
     offices = ''.join(f'<p><b>{e(o["label"])}</b><br/><a href="{e(maps_link(o))}" rel="noopener" target="_blank">{e(one_line(o))}</a></p>' for o in OFFICES)
@@ -112,18 +97,18 @@ def page(c):
             {'@type': 'ListItem', 'position': 2, 'name': c['h1'], 'item': SITE + url}]},
         {'@type': 'FAQPage', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in c['faq']]}]}
     return f'''<!DOCTYPE html>
-<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(c["title"])}</title><meta content="{e(c["desc"])}" name="description"/><link href="{SITE}{url}" rel="canonical"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="{e(c["title"])}" property="og:title"/><meta content="{e(c["desc"])}" property="og:description"/><meta content="{SITE}{url}" property="og:url"/><meta content="{SITE}{PF[c['proof'][0]][1]}" property="og:image"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v={CSS_VER}"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head><body class="company-page"><header></header>
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(c["title"])}</title><meta content="{e(c["desc"])}" name="description"/><link href="{SITE}{url}" rel="canonical"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="{e(c["title"])}" property="og:title"/><meta content="{e(c["desc"])}" property="og:description"/><meta content="{SITE}{url}" property="og:url"/><meta content="{SITE}{HERO}" property="og:image"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v={CSS_VER}"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head><body class="company-page"><header></header>
 <main class="ct-page svd-page lc-page">
 <section class="svd-hero"><div class="ct-wrap svd-hero-grid">
 <div class="svd-hero-copy"><nav aria-label="Breadcrumb" class="bl-crumb"><a href="/">Beranda</a><span>/</span><span>{e(c["h1"])}</span></nav>
 <p class="eyebrow eyebrow-purple">Altora Indonesia · {e(c["city"])}</p><h1>{e(c["h1"])}</h1><p class="ct-lead">{e(c["lead"])}</p>
-<div class="svd-actions"><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Konsultasi gratis</a><a class="svd-link" href="#proyek">Lihat proyek</a></div></div>
-<figure class="svd-hero-pic"><img alt="{e(PF[c['proof'][0]][0])}" src="{PF[c['proof'][0]][1]}" style="object-position:50% 45%"/><span class="svd-chip svd-chip-0">{e(c["city"])}</span><span class="svd-chip svd-chip-1">{"Dikerjakan jarak jauh" if c.get("remote") else "Tim lokal"}</span><span class="svd-chip svd-chip-2">Konsultasi gratis</span></figure>
+<div class="svd-actions"><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Konsultasi gratis</a><a class="svd-link" href="#lihat-juga">Lihat juga</a></div></div>
+<figure class="svd-hero-pic"><img alt="{e(c["h1"])}" src="{HERO}" style="object-position:50% 45%"/><span class="svd-chip svd-chip-0">{e(c["city"])}</span><span class="svd-chip svd-chip-1">{"Dikerjakan jarak jauh" if c.get("remote") else "Tim lokal"}</span><span class="svd-chip svd-chip-2">Konsultasi gratis</span></figure>
 </div></section>
 <section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Kenapa memilih Altora di {e(c["city"])}</h2></div><div class="svd-dos lc-why">{why}</div></div></section>
 <section class="svd-sec svd-pains"><div class="ct-wrap svd-pains-grid"><div class="pd-block-head"><h2>{"Kebutuhan yang umum di " if c.get("remote") else "Kebutuhan yang sering kami kerjakan di "}{e(c["city"])}</h2></div><ul class="lc-needs">{needs}</ul></div></section>
 <section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Layanan software house kami</h2></div><div class="lc-svcs">{svcs}</div></div></section>
-<section class="svd-sec" id="proyek"><div class="ct-wrap"><div class="pd-block-head"><h2>Proyek kami</h2></div><div class="svd-proofs">{proof}</div>
+<section class="svd-sec" id="lihat-juga"><div class="ct-wrap">
 <div class="svd-related"><b>Lihat juga</b>{nearby}</div></div></section>
 <section class="svd-sec"><div class="ct-wrap svd-faq"><div class="pd-block-head"><h2>Pertanyaan umum</h2></div><div>{faq}</div></div></section>
 <section class="svd-sec"><div class="ct-wrap lc-office"><div><h2>Kantor</h2>{offices}<p><a href="tel:+6285190911170">+62 851-9091-1170</a> · <a href="mailto:hello@altora.id">hello@altora.id</a></p></div></div></section>
@@ -141,16 +126,15 @@ def region_entry(k, r):
     near = [n for n in r['near'] if n in AREA_CITIES][:3]
     return dict(slug=f'software-house-{k}', city=r['name'], area=r['name'], office=r['office'],
         title=f'Software House {r["name"]} | Altora Indonesia',
-        desc=f'Software house untuk {r["name"]}: aplikasi custom, website, CCTV pintar, GPS armada, Starlink, dan pengadaan perangkat. Dilayani tim Altora dari {o["city"]}.',
+        desc=f'Software house untuk {r["name"]}: aplikasi custom, website, Starlink, dan pengadaan perangkat dari principal resmi. Dilayani tim Altora dari {o["city"]}.',
         h1=f'Software house untuk {r["name"]}',
-        lead=f'Altora Indonesia melayani {r["name"]} dari {o["label"].lower()}. Kami membuat aplikasi dan website, lalu mengadakan, memasang, dan merawat perangkat seperti CCTV, GPS tracker, jaringan, dan Starlink untuk {r["sectors"]}.',
+        lead=f'Altora Indonesia melayani {r["name"]} dari {o["label"].lower()}. Kami membuat aplikasi dan website, lalu mengadakan, memasang, dan merawat perangkat seperti CCTV, jaringan, dan Starlink untuk {r["sectors"]}.',
         why=[(f'Dilayani dari {o["city"]}', f'Tim kami berangkat dari {o["label"].lower()} untuk survei, pemasangan, dan pelatihan di {r["name"]}. Kendala ringan dibantu jarak jauh lewat WhatsApp.'),
-             ('Software dan perangkat satu tim', 'Aplikasi, CCTV, GPS tracker, jaringan, dan internet dikerjakan tim yang sama, jadi semuanya terhubung.'),
+             ('Software dan hardware satu pintu', 'Aplikasi, CCTV, jaringan, dan internet dikerjakan tim yang sama, jadi semuanya terhubung.'),
              ('Bisa untuk lokasi jauh', 'Untuk site tanpa jaringan kabel, kami siapkan Starlink, perangkat tenaga surya, dan aplikasi yang tetap jalan saat sinyal lemah.')],
         needs=r['needs'],
-        proof=['fleet-management', 'smart-attendance', 'custom-kios-k-pengadaan-hardware'],
         faq=[(f'Apakah Altora melayani {r["name"]}?', f'Ya. {r["name"]} kami layani dari {o["label"].lower()} ({o["city"]}). Jadwal survei dan pemasangan kami sepakati bersama.'),
-             (f'Layanan apa saja yang tersedia di {r["name"]}?', 'Pembuatan aplikasi dan website, CCTV dan AI CCTV, GPS tracker armada, jaringan dan WiFi, Starlink, IT support, serta pengadaan perangkat.'),
+             (f'Layanan apa saja yang tersedia di {r["name"]}?', 'Pembuatan aplikasi dan website, pengadaan CCTV, GPS tracker, jaringan dan WiFi, Starlink, IT support, serta perangkat lain dari principal resmi.'),
              ('Bagaimana dukungan setelah sistem berjalan?', 'Kendala dicek jarak jauh lebih dulu. Bila perlu, teknisi dijadwalkan datang ke lokasi.'),
              ('Apakah bisa untuk pengadaan instansi?', 'Bisa. Altora berstatus PKP dan terdaftar sebagai penyedia di Inaproc/LKPP.')],
         nearby=[(f'/software-house-{n}', f'Software house {AREA_CITIES[n]["name"]}') for n in near] + [(f'/jasa-pasang-cctv-{k}', f'Jasa pasang CCTV {r["name"]}'), (f'/it-support-{k}', f'IT support {r["name"]}'), ('/area-layanan', 'Semua area layanan')])
@@ -160,19 +144,17 @@ def nasional_entry(k, r):
     """'Software house <kota>' di luar Kaltim: hanya layanan jarak jauh, tanpa janji teknisi datang."""
     from build_area import CITIES as AREA_CITIES
     near = [n for n in r['near'] if n in AREA_CITIES][:3]
-    proof = (r.get('proof') or []) + ['altora-teams', 'unmul-website-redesign', 'pompy-batara']
     return dict(slug=f'software-house-{k}', city=r['name'], area=r['name'], office='samarinda', remote=True,
         title=f'Software House {r["name"]} | Aplikasi & Website | Altora',
-        desc=f'Software house untuk klien di {r["name"]}: aplikasi web dan HP, website, dashboard, dan AI, dikerjakan jarak jauh oleh tim Altora Indonesia.',
+        desc=f'Software house untuk klien di {r["name"]}: aplikasi web dan HP, website, dan dashboard, dikerjakan jarak jauh oleh tim Altora Indonesia.',
         h1=f'Software house untuk {r["name"]}',
-        lead=f'Altora Indonesia adalah software house dari Samarinda, Kalimantan Timur. Untuk perusahaan dan instansi di {r["name"]} ({r["seat"]}), kami membuat aplikasi web dan HP, website, dashboard, dan sistem AI, dikerjakan jarak jauh dengan demo rutin sampai serah terima.',
+        lead=f'Altora Indonesia adalah software house dari Samarinda, Kalimantan Timur. Untuk perusahaan dan instansi di {r["name"]} ({r["seat"]}), kami membuat aplikasi web dan HP, website, dan dashboard, dikerjakan jarak jauh dengan demo rutin sampai serah terima.',
         why=[('Proses jarak jauh yang jelas', 'Kebutuhan dibahas lewat video call, progres ditunjukkan di server uji setiap tahap, dan semua keputusan tercatat. Anda tidak perlu menunggu kunjungan untuk melihat hasil.'),
-             ('Paham operasi di lapangan', 'Kami terbiasa membuat aplikasi untuk tambang, logistik, perkebunan, dan instansi daerah: absensi lapangan, armada, laporan pekerjaan, dan data wilayah.'),
+             ('Pendampingan sampai dipakai', 'Pelatihan pengguna dan dukungan setelah aplikasi berjalan, dijadwalkan menyesuaikan zona waktu Anda.'),
              ('Bisa ikut pengadaan instansi', 'Altora berstatus PKP dan terdaftar sebagai penyedia di Inaproc/LKPP, dengan penawaran, faktur, dan berita acara yang lengkap.')],
         needs=r['needs'],
-        proof=[x for x in dict.fromkeys(proof) if x in PF][:3],
         faq=[(f'Apakah Altora punya kantor di {r["name"]}?', f'Tidak. Kantor kami di Samarinda dan Balikpapan, Kalimantan Timur. Proyek aplikasi dan website untuk klien di {r["name"]} kami kerjakan jarak jauh, dan pertemuan langsung bisa dijadwalkan bila diperlukan.'),
-             (f'Layanan apa yang tersedia untuk {r["name"]}?', 'Pembuatan aplikasi web dan HP, website, dashboard, integrasi sistem, dan AI on-premise. Pemasangan perangkat seperti CCTV dan jaringan di luar Kaltim dibahas per proyek.'),
+             (f'Layanan apa yang tersedia untuk {r["name"]}?', 'Pembuatan aplikasi web dan HP, website, dashboard, dan integrasi sistem. Pemasangan perangkat seperti CCTV dan jaringan di luar Kaltim dibahas per proyek.'),
              ('Bagaimana memantau progres kalau tidak bertemu langsung?', 'Ada jadwal demo rutin di server uji, catatan rapat, dan satu kontak yang bertanggung jawab atas proyek Anda.'),
              ('Bagaimana dukungan setelah aplikasi jalan?', 'Pelatihan pengguna dilakukan online, lalu kendala ditangani lewat WhatsApp, tiket support, dan akses jarak jauh sesuai kesepakatan.')],
         nearby=[(f'/software-house-{n}', f'Software house {AREA_CITIES[n]["name"]}') for n in near] + [(f'/jasa-pembuatan-aplikasi-{k}', f'Jasa pembuatan aplikasi {r["name"]}'), (f'/jasa-pembuatan-website-{k}', f'Jasa pembuatan website {r["name"]}'), ('/area-layanan#nasional', 'Kota lain di Indonesia')])

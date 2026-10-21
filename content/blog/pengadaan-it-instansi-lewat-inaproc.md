@@ -4,10 +4,10 @@ seo_title: Pengadaan Perangkat IT Instansi: Persiapan
 description: Panduan menyiapkan pengadaan CCTV, jaringan, komputer, dan aplikasi untuk instansi: spesifikasi, survei, dokumen penyedia, garansi, dan perawatan.
 date: 2026-09-28
 category: Pengadaan
-image: /assets/img/portfolio/hardware-field/kiosk-pampang-install.jpg
+image: /assets/img/hardware/lenovo-thinkpad-t14.webp
 related: /services/pengadaan-instalasi-maintenance | Pengadaan, instalasi & maintenance
 related: /industri/pemerintahan | Solusi pemerintahan & layanan publik
-related: /produk | Produk & katalog Altora
+related: /katalog | Katalog perangkat
 ---
 Pengadaan perangkat IT di instansi sering terkendala spesifikasi yang kurang jelas, barang yang tidak cocok dengan kondisi lapangan, atau perawatan yang terlupakan setelah serah terima.
 

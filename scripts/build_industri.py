@@ -8,65 +8,56 @@ from build_trust import CLIENTS, logo_tile
 
 root = pathlib.Path(__file__).resolve().parent.parent
 e = lambda t: html.escape(str(t), quote=True)
-P = '/assets/img/portfolio/'
-STEPS = [('Survei gratis', 'Petakan kebutuhan dan titik prioritas di lokasi Anda.'), ('Pilot kecil', 'Mulai dari satu modul yang paling mendesak.'),
-         ('Integrasi', 'Sambungkan ke sistem yang sudah berjalan.'), ('Bukti & skala', 'Ukur hasil pilot, lalu perluas bertahap.'),
-         ('Didampingi', 'Dukungan tim lokal, data tetap milik Anda.')]
+STEPS = [('Konsultasi', 'Petakan kebutuhan dan prioritas Anda. Gratis.'), ('Survei', 'Cek lokasi atau alur kerja, lalu susun solusi.'),
+         ('Penawaran', 'Proposal dan rencana kerja tertulis.'), ('Pengerjaan', 'Pengembangan aplikasi atau pemasangan perangkat.'),
+         ('Didampingi', 'Pelatihan pengguna dan dukungan setelah dipakai.')]
+H = '/assets/img/hardware/'
 
 INDUSTRIES = {
-    'pertambangan': dict(name='Tambang & industri berat', h1='Teknologi untuk tambang dan industri berat', tone='ti-pertambangan',
-        title='Solusi Teknologi Tambang & Hauling | FMS, AI Safety | Altora',
-        desc='Fleet management, AI safety (deteksi APD), CCTV tenaga surya, dan Starlink untuk tambang, hauling, dan industri berat di Kalimantan Timur.',
-        lead='Dari pit sampai port: armada terpantau, keselamatan kerja diawasi AI, dan site terpencil tetap terhubung. Dipasang dan dirawat tim kami di Kaltim.',
-        hero=P + 'fms.jpg', sectors={'Tambang', 'Konstruksi', 'Industri'},
-        pains=['BBM dan ritase sulit dikontrol di lapangan.', 'Pelanggaran APD baru ketahuan setelah insiden.', 'Site terpencil tanpa listrik dan internet.', 'Downtime unit karena perawatan terlambat.'],
-        stack=[('/produk/fms', 'Altora FMS', 'Ritase, BBM, CAN-Bus, TPMS, Cost-per-Ton'), ('/produk/vision', 'Altora Vision', 'Deteksi APD dan zona berbahaya'),
-               ('/cctv-tenaga-surya-balikpapan', 'CCTV tenaga surya & 4G', 'Untuk pit, jalan hauling, dan pos jaga'), ('/jual-starlink-balikpapan', 'Starlink Performance', 'Internet untuk site off-grid'),
-               ('/produk/command', 'Altora Command', 'Ruang kendali operasi'), ('/produk/teams', 'Altora Teams', 'Absensi dan payroll operator')],
-        proof=[('/portfolio/fleet-management', 'Fleet management armada hauling', P + 'fms.jpg'), ('/portfolio/ai-safety-vision', 'Deteksi APD dari CCTV', P + 'safety.jpg'),
-               ('/portfolio/optimasi-rute-armada', 'Optimasi rute & armada', P + 'logistik.jpg')],
-        faq=[('Apakah perangkat tahan kondisi tambang?', 'Ya. Kami memakai perangkat industrial grade: Teltonika tahan getar dan debu, kamera IP67, Starlink Performance tahan cuaca ekstrem.'),
-             ('Bisa mulai dari beberapa unit dulu?', 'Bisa. Kami sarankan pilot di beberapa unit atau satu area, lalu perluas setelah hasilnya terukur.')]),
-    'pemerintahan': dict(name='Pemerintahan & layanan publik', h1='Teknologi untuk pemerintahan dan layanan publik', tone='ti-pemerintahan',
-        title='Solusi Digital Pemerintah Daerah | GIS, Kios, CCTV Kota | Altora',
-        desc='GIS dan kebijakan satu peta, kios layanan mandiri, CCTV kota, dan AI on-premise untuk pemerintah daerah. Terdaftar Inaproc/LKPP, siap tender.',
-        lead='Data wilayah dalam satu peta, layanan warga tanpa antre, dan AI yang berjalan di server sendiri. Terdaftar sebagai penyedia Inaproc/LKPP.',
-        hero=P + 'kiosk-samarinda/kiosk-pampang.jpg', sectors={'Pemerintahan', 'BUMN'},
-        pains=['Data antar-dinas tidak seragam.', 'Warga antre untuk layanan administrasi.', 'Data sensitif tidak boleh ke cloud publik.', 'Pengadaan harus lewat jalur resmi.'],
-        stack=[('/produk/private-ai', 'Altora Private AI & GIS', 'Satu peta dan AI on-premise'), ('/mesin-kiosk-samarinda', 'Kios-K layanan mandiri', 'Cetak dokumen tanpa antre'),
-               ('/jual-cctv-samarinda', 'CCTV kota & kantor', 'VIGI dengan analitik AI'), ('/videotron-samarinda', 'Videotron & signage', 'Informasi publik'),
-               ('/services/website-seo', 'Website & portal instansi', 'Layanan publik satu pintu'), ('/produk/command', 'Command center', 'Pemantauan terpusat')],
-        proof=[('/portfolio/portal-one-map', 'Portal One Map Policy, Barito Utara', P + 'barito-dash.jpg'), ('/portfolio/custom-kios-k-pengadaan-hardware', 'Kios-K kelurahan, Kota Samarinda', P + 'hardware-field/kiosk-baqa-service.jpg'),
-               ('/portfolio/dashboard-geospasial-dapodik', 'Dashboard geospasial', P + 'dapodik.jpg')],
-        faq=[('Apakah Altora bisa mengikuti pengadaan pemerintah?', 'Bisa. Kami berstatus PKP dan terdaftar sebagai penyedia di Inaproc/LKPP.'),
-             ('Apakah sistem bisa dipasang di pusat data pemerintah?', 'Bisa. Aplikasi dan AI dapat berjalan di server atau pusat data milik instansi.')]),
-    'pendidikan': dict(name='Kampus & sekolah', h1='Teknologi untuk kampus dan sekolah', tone='ti-pendidikan',
-        title='Smart Campus & Sekolah | Absensi, Website, Display, AI | Altora',
-        desc='Absensi wajah, website kampus, interactive flat panel, CCTV, jaringan, dan pembinaan riset AI untuk kampus dan sekolah di Kalimantan Timur.',
-        lead='Absensi otomatis, website yang mudah diperbarui, ruang kelas interaktif, dan jaringan kampus yang rapi. Kami juga membimbing siswa membangun inovasi AI.',
-        hero=P + 'feb-unmul.jpg', sectors={'Pendidikan', 'Pendidikan & riset'},
-        pains=['Rekap kehadiran mahasiswa dan staf masih manual.', 'Website fakultas sulit diperbarui.', 'Jaringan dan CCTV kampus tidak terdokumentasi.', 'Siswa butuh pembimbing untuk proyek teknologi.'],
-        stack=[('/produk/attendance', 'Absensi wajah', 'Dari CCTV di pintu masuk'), ('/services/website-seo', 'Website kampus & fakultas', 'Dengan CMS'),
-               ('/interactive-flat-panel-balikpapan', 'Interactive flat panel', 'Ruang kelas & rapat'), ('/jasa-instalasi-jaringan-samarinda', 'Jaringan & WiFi kampus', 'LAN, fiber, rak server'),
-               ('/jual-smartlock-samarinda', 'Akses lab & asrama', 'Smartlock dan kartu'), ('/produk/teams', 'HRIS dosen & staf', 'Absensi, cuti, payroll')],
-        proof=[('/portfolio/unmul-website-redesign', 'Website FEB Universitas Mulawarman', P + 'feb-unmul.jpg'), ('/portfolio/unmul-infrastruktur-cctv-jaringan', 'CCTV & jaringan Unmul', P + 'unmul-infrastructure/cable-cctv-installation.png'),
-               ('/portfolio/smart-attendance', 'Absensi wajah dari CCTV', P + 'attendance.jpg')],
-        extra='<p class="ind-note">Kami juga membimbing siswa: tim SMP Negeri 5 Balikpapan yang kami bimbing meraih Juara 2 Nasional Innovakids 2026. <a href="/blog/membimbing-smpn-5-balikpapan-innovakids-2026">Baca ceritanya →</a></p>',
-        faq=[('Apakah Altora bisa membimbing proyek AI siswa atau mahasiswa?', 'Bisa. Kami membimbing siswa SMP Negeri 5 Balikpapan hingga Juara 2 Nasional Innovakids 2026 dan berkolaborasi riset dengan ITK.'),
-             ('Apakah website kampus bisa dikelola admin sendiri?', 'Bisa. Website dilengkapi CMS sehingga admin fakultas bisa memperbarui berita dan informasi.')]),
-    'korporasi': dict(name='Korporasi & dunia usaha', h1='Teknologi untuk korporasi dan dunia usaha', tone='ti-korporasi',
-        title='Solusi Digital Perusahaan | HRIS, ERP, CCTV, Smartlock | Altora',
-        desc='HRIS, ERP, website, CCTV, smartlock, dan IT support untuk perusahaan di Samarinda dan Balikpapan. Satu tim untuk software dan perangkat.',
-        lead='Satu mitra untuk aplikasi, website, CCTV, akses pintu, jaringan, dan IT support. Tidak perlu koordinasi banyak vendor.',
-        hero='/assets/img/produk/teams.webp', sectors={'Korporasi', 'Industri'},
-        pains=['Vendor software dan hardware berbeda-beda.', 'Data karyawan, stok, dan keuangan tidak terhubung.', 'Keamanan kantor dan gudang belum terpantau.', 'Tidak ada tim IT internal.'],
-        stack=[('/produk/teams', 'Altora Teams', 'HRIS, absensi, payroll'), ('/produk/erp', 'Altora ERP', 'Stok, pembelian, keuangan'),
-               ('/produk/pass', 'Altora Pass', 'Akses pintu digital'), ('/jual-cctv-balikpapan', 'CCTV VIGI', 'Kantor, gudang, toko'),
-               ('/it-support-balikpapan', 'IT support', 'Komputer, jaringan, server'), ('/services/website-seo', 'Website & SEO', 'Company profile dan landing page')],
-        proof=[('/portfolio/altora-teams', 'Altora Teams', P + 'altora-teams-kpi-analytics.jpg'), ('/portfolio/hris-mobile-payroll', 'HRIS mobile & payroll', P + 'hris.jpg'),
-               ('/portfolio/smartlock-akses-digital', 'Smartlock & akses digital', P + 'smartlock.jpg')],
+    'pertambangan': dict(name='Tambang & industri berat', h1='Perangkat dan aplikasi untuk tambang dan industri berat', tone='ti-pertambangan',
+        title='Solusi Tambang & Industri Berat | Starlink, CCTV Surya | Altora',
+        desc='Starlink, CCTV tenaga surya, GPS tracker, jaringan, dan aplikasi custom untuk tambang, kontraktor, dan industri berat di Kalimantan Timur.',
+        lead='Lokasi kerja yang jauh dari jaringan butuh internet, kamera, dan pencatatan yang tetap jalan. Kami mengadakan perangkatnya dan membuat aplikasi pelaporan sesuai proses Anda.',
+        hero=H + 'starlink-enterprise.webp', sectors={'Industri'},
+        pains=['Internet tidak stabil di lokasi kerja.', 'Area luas sulit dipantau tanpa kamera.', 'Laporan lapangan masih dikumpulkan manual.', 'Perangkat rusak, sementara teknisi jauh.'],
+        stack=[('/services/starlink-internet-satelit', 'Starlink', 'Internet untuk site terpencil'), ('/katalog-cctv-vigi', 'CCTV VIGI', 'Kamera, NVR, dan paket tenaga surya'),
+               ('/katalog#cat-gps', 'GPS tracker Teltonika', 'Perangkat telematika kendaraan'), ('/services/software-custom', 'Aplikasi pelaporan', 'Dibuat sesuai proses lapangan'),
+               ('/services/instalasi-listrik-jaringan', 'Listrik & jaringan', 'Instalasi rapi dan berlabel'), ('/services/pengadaan-instalasi-maintenance', 'Pengadaan & maintenance', 'Perangkat dan perawatan berkala')],
+        faq=[('Apakah bisa untuk lokasi tanpa listrik dan jaringan?', 'Bisa. Kami menyiapkan Starlink dan CCTV tenaga surya, dan menghitung kebutuhan daya saat survei.'),
+             ('Apakah perangkat bergaransi resmi?', 'Ya. Perangkat berasal dari principal resmi, dengan garansi sesuai ketentuan principal.')]),
+    'pemerintahan': dict(name='Pemerintahan & layanan publik', h1='Website, kios layanan, dan pengadaan perangkat untuk instansi', tone='ti-pemerintahan',
+        title='Solusi untuk Pemerintahan | Website, Kios, Pengadaan | Altora',
+        desc='Website resmi, kios layanan mandiri, dan pengadaan perangkat untuk pemerintah daerah. Terdaftar Inaproc/LKPP, siap tender.',
+        lead='Website resmi yang mudah diperbarui, kios layanan mandiri, dan pengadaan perangkat dengan dokumen administrasi lengkap. Terdaftar sebagai penyedia Inaproc/LKPP.',
+        hero=H + 'kios-k.webp', sectors={'Pemerintahan'},
+        pains=['Website resmi jarang diperbarui.', 'Antrean layanan panjang di loket.', 'Pengadaan butuh dokumen yang lengkap dan rapi.', 'Perangkat kantor tidak seragam dan sulit dirawat.'],
+        stack=[('/services/website-seo', 'Website & portal instansi', 'Dengan CMS yang mudah diisi'), ('/mesin-kiosk-samarinda', 'Kios layanan mandiri', 'Antrean dan cetak dokumen'),
+               ('/services/pengadaan-instalasi-maintenance', 'Pengadaan perangkat', 'Penawaran, faktur, berita acara'), ('/services/software-custom', 'Aplikasi pelayanan', 'Dibuat sesuai alur layanan'),
+               ('/katalog', 'Katalog perangkat', 'Dari principal resmi'), ('/services/smart-display-kios', 'Signage & kios', 'Layar informasi publik')],
+        faq=[('Apakah bisa untuk pengadaan instansi?', 'Bisa. Altora berstatus PKP dan terdaftar di Inaproc/LKPP, dengan penawaran, faktur, dan berita acara serah terima.'),
+             ('Apakah tersedia produk ber-TKDN?', 'Tersedia sesuai ketersediaan dari principal. Kami cek saat menyusun penawaran.')]),
+    'pendidikan': dict(name='Kampus & sekolah', h1='Website, display, dan perangkat untuk kampus dan sekolah', tone='ti-pendidikan',
+        title='Solusi Kampus & Sekolah | Website, Display, Jaringan | Altora',
+        desc='Website kampus, interactive flat panel, jaringan, dan perangkat komputer untuk kampus dan sekolah di Kalimantan Timur.',
+        lead='Website yang mudah dikelola admin, layar interaktif untuk ruang kelas, jaringan yang stabil, dan perangkat komputer dari principal resmi.',
+        hero=H + 'hde-ifp.webp', sectors={'Pendidikan'},
+        pains=['Website fakultas jarang diperbarui.', 'Ruang kelas belum punya layar interaktif.', 'WiFi kampus lambat di jam sibuk.', 'Komputer lab sudah ketinggalan.'],
+        stack=[('/services/website-seo', 'Website kampus & sekolah', 'Dengan CMS'), ('/interactive-flat-panel-samarinda', 'Interactive flat panel', 'Kelas dan ruang rapat'),
+               ('/katalog#cat-laptop', 'Laptop, PC & tablet', 'Lenovo ThinkPad, AIO, tablet'), ('/services/instalasi-listrik-jaringan', 'Jaringan & listrik', 'Instalasi kampus dan gedung'),
+               ('/services/software-custom', 'Aplikasi kampus', 'Sesuai proses akademik'), ('/services/pengadaan-instalasi-maintenance', 'Pengadaan & maintenance', 'Perangkat dan perawatan berkala')],
+        faq=[('Apakah website kampus bisa dikelola admin sendiri?', 'Bisa. Website dilengkapi CMS sehingga admin fakultas bisa memperbarui berita dan informasi.'),
+             ('Apakah bisa pengadaan untuk banyak ruang sekaligus?', 'Bisa. Kami survei dulu, lalu menyusun paket perangkat dan jadwal pemasangan per ruang.')]),
+    'korporasi': dict(name='Korporasi & dunia usaha', h1='Aplikasi, website, dan perangkat untuk perusahaan', tone='ti-korporasi',
+        title='Solusi Digital Perusahaan | Aplikasi, Website, Perangkat | Altora',
+        desc='Aplikasi custom, website, CCTV, jaringan, dan perangkat kantor untuk perusahaan di Samarinda dan Balikpapan. Software dan hardware satu pintu.',
+        lead='Satu mitra untuk aplikasi, website, CCTV, jaringan, dan perangkat kantor. Tidak perlu koordinasi banyak vendor.',
+        hero=H + 'lenovo-thinkpad-t14.webp', sectors={'Korporasi'},
+        pains=['Vendor software dan hardware berbeda-beda.', 'Data antar bagian tidak terhubung.', 'Keamanan kantor dan gudang belum terpantau.', 'Tidak ada tim IT internal.'],
+        stack=[('/services/software-custom', 'Aplikasi custom', 'Approval, laporan, dan sistem internal'), ('/services/website-seo', 'Website & SEO', 'Company profile dan landing page'),
+               ('/katalog-cctv-vigi', 'CCTV VIGI', 'Kantor, gudang, toko'), ('/it-support-balikpapan', 'IT support', 'Komputer, jaringan, server'),
+               ('/katalog#cat-laptop', 'Laptop & PC', 'Perangkat kantor dari Lenovo'), ('/services/pengadaan-instalasi-maintenance', 'Pengadaan & maintenance', 'Perangkat dan perawatan berkala')],
         faq=[('Apakah bisa kontrak IT support bulanan?', 'Bisa. Cakupan dan frekuensi kunjungan disesuaikan jumlah perangkat dan kebutuhan kantor.'),
-             ('Apakah aplikasi bisa disesuaikan dengan proses kami?', 'Bisa. Mulai dari aplikasi jadi, lalu disesuaikan atau dibuat khusus bila prosesnya berbeda.')]),
+             ('Apakah aplikasi bisa disesuaikan dengan proses kami?', 'Bisa. Kami pelajari alur kerja Anda dulu, lalu aplikasi dibuat khusus mengikuti prosesnya.')]),
 }
 
 
@@ -75,7 +66,6 @@ def page(key, d):
     pains = ''.join(f'<li>{e(x)}</li>' for x in d['pains'])
     stack = ''.join(f'<a class="ind-stack-item" href="{u}"><b>{e(t)}</b><small>{e(s)}</small></a>' for u, t, s in d['stack'])
     steps = ''.join(f'<li><span>{i:02d}</span><b>{e(t)}</b><p>{e(x)}</p></li>' for i, (t, x) in enumerate(STEPS, 1))
-    proof = ''.join(f'<a class="svd-proof" href="{u}"><span class="svd-proof-img"><img alt="" loading="lazy" src="{img}"/></span><b>{e(t)}</b><small>Lihat proyek</small></a>' for u, t, img in d['proof'])
     logos = ''.join(logo_tile(*c) for c in CLIENTS if c[2] in d['sectors'])
     faq = ''.join(f'<details><summary>{e(q)}</summary><p>{e(x)}</p></details>' for q, x in d['faq'])
     others = ''.join(f'<a class="ti-card ti-{k}" href="/industri/{k}"><b>{e(o["name"])}</b><small>{e(o["lead"][:80])}…</small></a>' for k, o in INDUSTRIES.items() if k != key)
@@ -96,8 +86,7 @@ def page(key, d):
 <section class="ap-sec"><div class="ct-wrap ap-two"><div><h2>Tantangan yang sering kami temui</h2><ul class="ap-pains">{pains}</ul></div>
 <div>{d.get("extra", "")}{f'<h2>Klien di sektor ini</h2><ul class="tl-grid ind-logos">{logos}</ul>' if logos else ''}</div></div></section>
 <section class="ap-sec" id="solusi"><div class="ct-wrap"><h2>Solusi yang kami rakit</h2><div class="ind-stack">{stack}</div></div></section>
-<section class="ap-sec"><div class="ct-wrap"><h2>Mulai kecil, tumbuh terukur</h2><ol class="tp-steps">{steps}</ol></div></section>
-<section class="ap-sec"><div class="ct-wrap"><h2>Proyek terkait</h2><div class="svd-proofs">{proof}</div></div></section>
+<section class="ap-sec"><div class="ct-wrap"><h2>Cara kami bekerja</h2><ol class="tp-steps">{steps}</ol></div></section>
 <section class="ap-sec"><div class="ct-wrap svd-faq"><h2>Pertanyaan umum</h2><div>{faq}</div></div></section>
 <section class="ap-sec"><div class="ct-wrap"><h2>Industri lainnya</h2><div class="ti-grid ind-others">{others}</div></div></section>
 <section class="pd-cta"><div class="ct-wrap pd-cta-inner"><div><h2>Ceritakan kondisi lapangan Anda</h2><p>Survei dan konsultasi awal gratis.</p></div><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Chat WhatsApp</a></div></section>
@@ -108,10 +97,10 @@ def page(key, d):
 def hub():
     cards = ''.join(f'<a class="ti-card ti-{k}" href="/industri/{k}"><b>{e(d["name"])}</b><small>{e(d["lead"])}</small></a>' for k, d in INDUSTRIES.items())
     body = ('<main class="ct-page ind-page"><section class="ap-hero"><div class="ct-wrap"><nav aria-label="Breadcrumb" class="vg-crumb"><a href="/">Beranda</a> / <span>Industri</span></nav>'
-            '<h1>Solusi per industri</h1><p class="ct-lead">Perangkat, software, dan layanan yang sama, dirakit untuk konteks yang berbeda: tambang, pemerintahan, pendidikan, dan korporasi.</p></div></section>'
+            '<h1>Solusi per industri</h1><p class="ct-lead">Aplikasi, website, dan perangkat dari principal resmi, disesuaikan untuk konteks yang berbeda: tambang, pemerintahan, pendidikan, dan korporasi.</p></div></section>'
             f'<section class="ap-sec"><div class="ct-wrap"><div class="ti-grid ind-hub">{cards}</div></div></section></main>')
     ld = {'@context': 'https://schema.org', '@type': 'CollectionPage', 'name': 'Solusi per industri', 'url': SITE + '/industri'}
-    return shell('Solusi per Industri | Tambang, Pemerintahan, Kampus | Altora', 'Solusi teknologi Altora per industri: tambang & industri berat, pemerintahan, kampus & sekolah, serta korporasi di Kalimantan Timur.',
+    return shell('Solusi per Industri | Tambang, Pemerintahan, Kampus | Altora', 'Aplikasi, website, dan pengadaan perangkat Altora per sektor: tambang & industri berat, pemerintahan, kampus & sekolah, serta korporasi di Kalimantan Timur.',
                  '/industri', SITE + '/assets/img/altora-logo-600.png', ld, body)
 
 
