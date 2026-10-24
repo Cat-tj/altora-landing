@@ -12,11 +12,11 @@ EMAIL = 'hello@altora.id'
 WA = 'https://wa.me/6285190911170?text='
 
 # Contoh isi:
-# dict(id='field-engineer-bpn', title='Field Engineer CCTV & Jaringan', type='Penuh waktu', location='Balikpapan',
+# dict(id='contoh-lowongan', title='Judul lowongan', type='Penuh waktu', location='Samarinda',
 #      employment='FULL_TIME', posted='2026-10-12', until='2026-11-30',
-#      summary='Memasang dan merawat CCTV, jaringan, dan perangkat di lokasi klien.',
-#      duties=['Survei lokasi dan desain titik kamera', 'Pemasangan kabel, fiber, dan rak', 'Konfigurasi NVR, switch, dan access point'],
-#      reqs=['Pengalaman instalasi CCTV atau jaringan', 'Bersedia bekerja di lapangan', 'Memiliki SIM C'])
+#      summary='Ringkasan satu kalimat.',
+#      duties=['Tugas 1', 'Tugas 2'],
+#      reqs=['Syarat 1', 'Syarat 2'])
 OPENINGS = [
     dict(id='frontend-developer', title='Frontend Developer', type='Penuh waktu', location='Samarinda / Balikpapan', tag='Engineering',
          employment='FULL_TIME', posted='2026-10-14', until='2026-12-31',
@@ -26,13 +26,13 @@ OPENINGS = [
     dict(id='mobile-developer', title='Mobile Developer', type='Penuh waktu', location='Samarinda / Balikpapan', tag='Engineering',
          employment='FULL_TIME', posted='2026-10-14', until='2026-12-31',
          summary='Mengembangkan aplikasi Android dan iOS untuk petugas lapangan dan pelanggan klien.',
-         duties=['Membangun fitur aplikasi mobile dari desain sampai rilis', 'Integrasi API, GPS, kamera, dan notifikasi', 'Mode offline dan sinkronisasi data untuk area sinyal lemah', 'Rilis ke Play Store / App Store dan perbaikan bug'],
-         reqs=['Pengalaman dengan Flutter atau React Native', 'Paham state management dan integrasi REST API', 'Pernah merilis aplikasi atau punya project yang bisa dicoba', 'Nilai plus: pengalaman dengan GPS, kamera, atau Bluetooth']),
+         duties=['Membangun fitur aplikasi mobile dari desain sampai rilis', 'Integrasi API dan notifikasi', 'Mode offline dan sinkronisasi data untuk area sinyal lemah', 'Rilis ke Play Store / App Store dan perbaikan bug'],
+         reqs=['Pengalaman dengan Flutter atau React Native', 'Paham state management dan integrasi REST API', 'Pernah merilis aplikasi atau punya project yang bisa dicoba', 'Nilai plus: pengalaman dengan aplikasi lapangan atau mode offline']),
     dict(id='marketing', title='Marketing (B2B & Digital)', type='Penuh waktu', location='Samarinda / Balikpapan', tag='Bisnis',
          employment='FULL_TIME', posted='2026-10-14', until='2026-12-31',
          summary='Memperkenalkan solusi Altora ke perusahaan, instansi, dan kampus di Kalimantan Timur, online maupun tatap muka.',
-         duties=['Menyusun konten website, artikel, dan media sosial', 'Mengelola SEO, iklan digital, dan katalog produk', 'Membuat materi presentasi, proposal, dan katalog', 'Mendampingi tim saat presentasi dan kunjungan ke klien'],
-         reqs=['Pengalaman di marketing B2B, digital marketing, atau penjualan solusi', 'Kemampuan menulis dan presentasi yang baik', 'Tertarik dengan teknologi (software, CCTV, IoT)', 'Nilai plus: paham SEO, Google Ads, atau pengadaan instansi']),
+         duties=['Menyusun konten website, artikel, dan media sosial', 'Mengelola SEO, iklan digital, dan konten layanan', 'Membuat materi presentasi, proposal, dan katalog', 'Mendampingi tim saat presentasi dan kunjungan ke klien'],
+         reqs=['Pengalaman di marketing B2B, digital marketing, atau penjualan solusi', 'Kemampuan menulis dan presentasi yang baik', 'Tertarik dengan teknologi dan software', 'Nilai plus: paham SEO, Google Ads, atau pengadaan instansi']),
 ]
 
 AREAS = [
@@ -40,17 +40,13 @@ AREAS = [
      ['TypeScript / Next.js', 'Flutter untuk aplikasi mobile', 'PostgreSQL & integrasi API']),
     ('UI/UX & product designer', 'Merancang tampilan aplikasi yang mudah dipakai pengguna di kantor maupun di lapangan.',
      ['Riset pengguna & wireframe', 'Desain antarmuka web & mobile', 'Design system']),
-    ('Field engineer CCTV & jaringan', 'Survei lokasi, memasang kamera, kabel, fiber, dan rak, lalu mengonfigurasi perangkat sampai siap dipakai.',
-     ['Instalasi CCTV & NVR', 'Switch, access point, fiber optik', 'Bersedia bekerja di lapangan']),
-    ('IoT & hardware', 'Merakit dan mengintegrasikan sensor, gateway, smartlock, dan kios dengan aplikasi klien.',
-     ['Mikrokontroler & sensor', 'LoRa / 4G gateway', 'Integrasi perangkat ke API']),
     ('Project & implementation', 'Menjembatani klien dan tim: jadwal, koordinasi lapangan, pelatihan pengguna, dan dokumen serah terima.',
      ['Koordinasi proyek', 'Komunikasi dengan klien', 'Dokumentasi & pelatihan']),
 ]
 
 WORK = [
-    ('Proyek sungguhan', 'Aplikasi dan perangkat yang Anda kerjakan langsung dipakai klien.'),
-    ('Software dan perangkat dalam satu tim', 'Developer, field engineer, dan desainer bekerja di proyek yang sama, jadi Anda melihat sistem secara utuh.'),
+    ('Proyek sungguhan', 'Aplikasi dan website yang Anda kerjakan langsung dipakai klien.'),
+    ('Satu tim, satu proyek', 'Developer, desainer, dan penanggung jawab proyek bekerja bersama, jadi Anda melihat sistem secara utuh.'),
     ('Dekat dengan pengguna', 'Tim turun ke lokasi untuk memahami cara kerja pengguna sebelum memutuskan solusi.'),
     ('Dokumentasi jadi kebiasaan', 'Setiap implementasi didokumentasikan supaya mudah dirawat dan dipelajari tim berikutnya.'),
 ]
@@ -120,7 +116,7 @@ page = f'''<!DOCTYPE html>
 <section class="ct-hero"><div class="ct-wrap">
 <p class="eyebrow eyebrow-purple">Karier di Altora · {len(OPENINGS)} posisi dibuka</p>
 <h1>Bangun teknologi yang benar-benar dipakai di lapangan.</h1>
-<p class="ct-lead">Di Altora, software, perangkat, dan jaringan dikerjakan dalam satu tim, di Balikpapan, Samarinda, dan lokasi klien. Kami mencari orang yang suka memahami masalah sebelum menulis kode atau memasang perangkat.</p>
+<p class="ct-lead">Di Altora, aplikasi, website, dan SEO dikerjakan dalam satu tim, di Balikpapan, Samarinda, dan lokasi klien. Kami mencari orang yang suka memahami masalah sebelum menulis kode atau memasang perangkat.</p>
 <nav aria-label="Bagian halaman" class="pd-chips"><a href="#lowongan">Lowongan</a><a href="#bidang">Bidang</a><a href="#proses">Proses</a><a href="#kirim">Kirim profil</a></nav>
 </div></section>
 

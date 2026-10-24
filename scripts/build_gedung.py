@@ -8,7 +8,7 @@ Idempoten: pembuka lama dilepas dulu sebelum dipasang ulang, jadi aman dijalanka
 Jalankan lewat scripts/build_all.sh (setelah build_produk/build_trust yang mengubah index.html)."""
 import pathlib, re
 
-JS_V, CSS_V, BACK_V = 273, 16, 6
+JS_V, CSS_V, BACK_V = 280, 17, 7
 root = pathlib.Path(__file__).resolve().parent.parent
 idx = root / 'index.html'
 s = idx.read_text(encoding='utf-8')
@@ -63,7 +63,7 @@ print('index.html + preview-gedung.html: pembuka gedung terpasang')
 
 # halaman lantai: scroll ke atas di puncak halaman -> kembali ke menu lantai di beranda
 BACK = f'<script defer src="/assets/js/gedung-back.js?v={BACK_V}"></script>'
-for name in ['careers', 'services', 'blog', 'about', 'katalog', 'support']:
+for name in ['careers', 'services', 'blog', 'about', 'aplikasi', 'support']:
     f = root / f'{name}.html'
     t = re.sub(r'<script defer(?:="")? src="/assets/js/gedung-back\.js[^"]*"></script>', '', f.read_text(encoding='utf-8'))
     f.write_text(t.replace('</body>', BACK + '</body>', 1), encoding='utf-8')

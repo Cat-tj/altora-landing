@@ -11,13 +11,13 @@ e = lambda t: html.escape(str(t), quote=True)
 # klien: dikosongkan (portofolio & logo klien dihapus saat pisah dari Sentra); isi ulang hanya dengan klien Altora yang sudah setuju dicantumkan
 CLIENTS = []
 
-STATS = [('3', 'kantor di Kaltim'), ('148+', 'produk resmi di katalog'), (FACTS['partners'], 'principal resmi')]
+STATS = [('3', 'kantor di Kaltim'), ('3', 'aplikasi buatan sendiri'), ('100%', 'dikerjakan satu tim')]
 
 INDUSTRIES = [
-    ('pertambangan', 'Tambang & industri berat', 'Starlink, CCTV tenaga surya, jaringan, dan aplikasi custom'),
-    ('pemerintahan', 'Pemerintahan & layanan publik', 'Website resmi, kios layanan, dan pengadaan perangkat'),
-    ('pendidikan', 'Kampus & sekolah', 'Website, display interaktif, jaringan, dan perangkat'),
-    ('korporasi', 'Korporasi & dunia usaha', 'Aplikasi custom, website, CCTV, dan perangkat kantor'),
+    ('pertambangan', 'Tambang & industri berat', 'Aplikasi pelaporan, approval, dan dashboard'),
+    ('pemerintahan', 'Pemerintahan & layanan publik', 'Website resmi dan aplikasi layanan'),
+    ('pendidikan', 'Kampus & sekolah', 'Website, portal informasi, dan aplikasi administrasi'),
+    ('korporasi', 'Korporasi & dunia usaha', 'Aplikasi custom, website, dan SEO'),
 ]
 
 ICO = {
@@ -63,15 +63,15 @@ def stats_block():
 
 
 def process_block():
-    steps = [('Konsultasi', 'Pahami kebutuhan dan tujuan Anda. Gratis.'), ('Survei & desain', 'Cek lokasi dan rancang solusinya.'),
-             ('Penawaran', 'Proposal dan rencana kerja tertulis.'), ('Pengerjaan', 'Pengembangan aplikasi atau pemasangan perangkat oleh tim kami.'),
-             ('Training & purnajual', 'Pelatihan tim Anda dan dukungan berkelanjutan.')]
+    steps = [('Konsultasi', 'Pahami kebutuhan dan tujuan Anda. Gratis.'), ('Analisis & desain', 'Pelajari alur kerja dan rancang solusinya.'),
+             ('Penawaran', 'Proposal dan rencana kerja tertulis.'), ('Pengerjaan', 'Pengembangan bertahap, dengan demo berkala untuk Anda.'),
+             ('Pelatihan & dukungan', 'Pelatihan tim Anda dan dukungan setelah dipakai.')]
     st = ''.join(f'<li><span>{i}</span><b>{e(t)}</b><p>{e(d)}</p></li>' for i, (t, d) in enumerate(steps, 1))
-    promises = ['Garansi perangkat & jasa sesuai lingkup proyek',
-                'Kode sumber, dokumentasi & SOP diserahkan', 'Mulai dari lingkup kecil, lalu berkembang bertahap', 'Tidak terkunci pada satu merek']
+    promises = ['Lingkup, jadwal, dan tanggung jawab tertulis',
+                'Kode sumber, dokumentasi & SOP diserahkan', 'Mulai dari lingkup kecil, lalu berkembang bertahap', 'Teknologi umum, tidak terkunci pada satu vendor']
     pr = ''.join(f'<li>{e(p)}</li>' for p in promises)
     return ('<section class="sec how tp-sec" id="alur"><div class="wrap">'
-            '<div class="tl-head"><p class="eyebrow eyebrow-purple">Cara kerja</p><h2>Dari survei sampai purnajual, kami kawal</h2>'
+            '<div class="tl-head"><p class="eyebrow eyebrow-purple">Cara kerja</p><h2>Dari analisis sampai dukungan, kami kawal</h2>'
             '<p>Setiap proyek berjalan lewat alur yang sama dan terdokumentasi, supaya Anda tahu apa yang dikerjakan, kapan, dan siapa penanggung jawabnya.</p></div>'
             f'<ol class="tp-steps">{st}</ol><ul class="tp-promise">{pr}</ul></div></section>')
 
@@ -94,8 +94,8 @@ def security_block():
             f'<ul class="tk-host">{h}</ul></div><ul class="tk-ctrl">{c}</ul></div></section>')
 
 
-IND_IMG = {'pertambangan': '/assets/img/hardware/starlink-enterprise.webp', 'pemerintahan': '/assets/img/hardware/kios-k.webp',
-           'pendidikan': '/assets/img/hardware/hde-ifp.webp', 'korporasi': '/assets/img/hardware/lenovo-thinkpad-t14.webp'}
+IND_IMG = {'pertambangan': '/assets/img/person-problem.webp', 'pemerintahan': '/assets/img/person-support.webp',
+           'pendidikan': '/assets/img/person-faq.webp', 'korporasi': '/assets/img/person-flow.webp'}
 
 
 def industry_block():
@@ -106,9 +106,8 @@ def industry_block():
             f'<div class="tin-grid">{cards}</div></div></section>')
 
 
-PICKS = [('cctv', 'CCTV', '/jual-cctv-{c}'), ('software', 'Software house', '/software-house-{c}'), ('pengadaan', 'Pengadaan', '/katalog#v-pengadaan'),
-         ('jaringan', 'Jaringan & WiFi', '/jasa-instalasi-jaringan-{c}'), ('website', 'Website', '/jasa-pembuatan-website-{c}'), ('starlink', 'Starlink', '/jual-starlink-{c}'),
-         ('gps', 'GPS tracker', '/gps-tracker-kendaraan-{c}'), ('itsupport', 'IT support', '/it-support-{c}')]
+PICKS = [('aplikasi', 'Aplikasi custom', '/jasa-pembuatan-aplikasi-{c}'), ('software', 'Software house', '/software-house-{c}'),
+         ('website', 'Website', '/jasa-pembuatan-website-{c}'), ('seo', 'SEO', '/jasa-seo-{c}'), ('altora', 'Aplikasi Altora', '/aplikasi')]
 
 
 def picks_block():

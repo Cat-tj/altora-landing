@@ -7,8 +7,8 @@ Format artikel (front matter sederhana, satu kunci per baris):
     date: 2026-10-11
     updated: 2026-10-11          (opsional)
     category: Panduan
-    image: /assets/img/vigi/c340i.webp   (opsional, untuk kartu & preview link)
-    related: /katalog | Katalog perangkat   (opsional, boleh lebih dari satu baris related)
+    image: /assets/img/altora-logo-600.png   (opsional, untuk kartu & preview link)
+    related: /services/software-custom | Layanan software custom   (opsional, boleh lebih dari satu baris related)
     ---
     Isi Markdown: ## / ### heading, paragraf, - list, 1. list, **tebal**, *miring*, [teks](url), `kode`, > kutipan,
     ![alt](/assets/img/... "keterangan") di barisnya sendiri untuk diagram/gambar
@@ -123,7 +123,7 @@ def md_to_html(md):
 
 
 def head(title, desc, canonical, og_type='website', image=None, extra=''):
-    img = SITE + (image or '/assets/img/vigi/c340i.webp')
+    img = SITE + (image or '/assets/img/altora-logo-600.png')
     return (f'<!DOCTYPE html>\n<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>'
             f'<title>{e(title)}</title><meta content="{e(desc)}" name="description"/><link href="{SITE}{canonical}" rel="canonical"/>'
             f'<meta content="id_ID" property="og:locale"/><meta content="{og_type}" property="og:type"/><meta content="{e(title)}" property="og:title"/>'
@@ -163,7 +163,7 @@ def build():
         ld = {'@context': 'https://schema.org', '@graph': [
             {'@type': 'BlogPosting', 'headline': p['title'], 'description': p['description'], 'datePublished': p['date'],
              'dateModified': updated, 'inLanguage': 'id-ID', 'mainEntityOfPage': SITE + url,
-             'image': SITE + p.get('image', '/assets/img/vigi/c340i.webp'),
+             'image': SITE + p.get('image', '/assets/img/altora-logo-600.png'),
              'author': {'@type': 'Organization', 'name': 'Tim Altora Indonesia', 'url': SITE + '/'},
              'publisher': {'@type': 'Organization', 'name': 'Altora Indonesia', 'logo': {'@type': 'ImageObject', 'url': SITE + '/assets/img/altora-logo-icon-v2.svg'}}},
             {'@type': 'BreadcrumbList', 'itemListElement': [
@@ -208,16 +208,14 @@ def build():
     rest = posts
     if posts:
         f0 = posts[0]; rest = posts[1:]
-        feat = (f'<a class="bl-feature" data-cat="{e(f0["category"])}" href="/blog/{f0["slug"]}"><span class="bl-feature-img"><img alt="" src="{e(f0.get("image", "/assets/img/vigi/c340i.webp"))}"/></span>'
+        feat = (f'<a class="bl-feature" data-cat="{e(f0["category"])}" href="/blog/{f0["slug"]}"><span class="bl-feature-img"><img alt="" src="{e(f0.get("image", "/assets/img/altora-logo-600.png"))}"/></span>'
                 f'<span class="bl-feature-body"><small>Terbaru · {e(f0["category"])} · {tanggal(f0["date"])}</small><b>{e(f0["title"])}</b>'
                 f'<span>{e(f0["description"])}</span><em>Baca artikel</em></span></a>')
     topics = ('<section class="bl-topics"><div class="bl-wrap"><h2>Topik yang sering ditanyakan</h2><div class="bl-topic-grid">'
               '<a href="/services/software-custom"><b>Aplikasi custom</b><span>Kapan perlu dibuat khusus</span></a>'
-              '<a href="/services/website-seo"><b>Website &amp; SEO</b><span>Supaya ditemukan di Google</span></a>'
-              '<a href="/katalog-cctv-vigi"><b>CCTV</b><span>Memilih &amp; memasang kamera</span></a>'
-              '<a href="/services/starlink-internet-satelit"><b>Starlink</b><span>Internet untuk site terpencil</span></a>'
-              '<a href="/services/pengadaan-instalasi-maintenance"><b>Pengadaan perangkat</b><span>Pasang &amp; rawat</span></a>'
-              '<a href="/katalog"><b>Katalog perangkat</b><span>CCTV, jaringan, komputer, akses</span></a>'
+              '<a href="/services/website-seo"><b>Website</b><span>Company profile dan website instansi</span></a>'
+              '<a href="/services/seo"><b>SEO</b><span>Supaya ditemukan di Google</span></a>'
+              '<a href="/aplikasi"><b>Aplikasi Altora</b><span>Projek, Office, Raphael CC</span></a>'
               '</div></div></section>')
     cta = ('<section class="bl-index-cta"><div class="bl-wrap"><div class="bl-cta"><div><b>Punya pertanyaan yang belum terjawab?</b>'
            '<p>Tanyakan langsung ke tim kami. Diskusi awal gratis.</p></div>'

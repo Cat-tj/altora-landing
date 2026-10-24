@@ -4,8 +4,8 @@
    - di ujung bawah halaman (selesai melihat-lihat): sama, dengan scroll ke bawah
    - tombol "Kembali ke gedung" di kiri bawah setelah halaman di-scroll */
 (function () {
-  var MAP = { careers: 6, services: 5, blog: 4, about: 3, katalog: 2, support: 1 };
-  var k = MAP[location.pathname.replace(/^\/|\.html$|\/$/g, '')];
+  var MAP = { careers: 6, services: 5, blog: 4, about: 3, aplikasi: 2, support: 1 };
+  var k = MAP[location.pathname.replace(/^\/|\.html$|\/$/g, '').split('/')[0]];
   if (!k || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var FONT = 'font:600 .875rem/1.2 "Plus Jakarta Sans",system-ui,sans-serif;';
   var armed = 0, dir = 0, last = 0, gest = 0, armGest = 0, hint = null, hideT = 0, ty0 = null;

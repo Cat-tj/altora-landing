@@ -28,27 +28,27 @@ ico = lambda n: f'<svg aria-hidden="true" viewBox="0 0 24 24">{ICO[n]}</svg>'
 wa = lambda m: WA + quote(m)
 
 PATHS = [
-    ('chat', 'Sebelum mulai', 'Sedang mempertimbangkan bekerja sama dengan Altora.', ['Pertanyaan produk & layanan', 'Diskusi kebutuhan', 'Integrasi dengan sistem lama', 'Penawaran & survei'],
+    ('chat', 'Sebelum mulai', 'Sedang mempertimbangkan bekerja sama dengan Altora.', ['Pertanyaan layanan', 'Diskusi kebutuhan', 'Integrasi dengan sistem lama', 'Penawaran'],
      'Mulai konsultasi', wa('Halo Altora, saya ingin konsultasi sebelum mulai.'), 'sp-purple'),
-    ('tool', 'Sudah jadi klien', 'Ada kendala teknis atau pertanyaan pemakaian.', ['Aplikasi atau perangkat bermasalah', 'Perlu teknisi ke lokasi', 'Tambah pengguna atau fitur', 'Perawatan berkala'],
+    ('tool', 'Sudah jadi klien', 'Ada kendala teknis atau pertanyaan pemakaian.', ['Aplikasi atau website bermasalah', 'Perlu bantuan ke lokasi', 'Tambah pengguna atau fitur', 'Perawatan berkala'],
      'Laporkan kendala', '#tiket', 'sp-green'),
-    ('book', 'Informasi layanan', 'Ingin melihat layanan dan perangkat yang tersedia.', ['Halaman layanan', 'Katalog perangkat', 'Artikel & panduan', 'Katalog barang & jasa'],
+    ('book', 'Informasi layanan', 'Ingin melihat layanan dan aplikasi kami.', ['Halaman layanan', 'Aplikasi buatan Altora', 'Artikel & panduan', 'Area layanan'],
      'Lihat layanan', '/services', 'sp-blue'),
 ]
-PREP = [('box', 'Aplikasi atau perangkat', 'Aplikasi, fitur, atau perangkat yang bermasalah.'), ('pin', 'Lokasi', 'Kantor atau cabang tempat masalah terjadi.'),
+PREP = [('box', 'Aplikasi atau website', 'Aplikasi, fitur, atau halaman yang bermasalah.'), ('pin', 'Lokasi', 'Kantor atau cabang tempat masalah terjadi.'),
         ('target', 'Yang diharapkan', 'Apa yang seharusnya terjadi.'), ('image', 'Yang terjadi', 'Ceritakan, sertakan foto atau screenshot bila ada.')]
 FLOW = [('send', 'Kirim pesan', 'Lewat WhatsApp, email, atau form tiket.'), ('search', 'Kami pelajari', 'Tim membaca dan mengecek masalahnya, dari jarak jauh dulu.'),
-        ('tool', 'Kami tangani', 'Solusi jarak jauh, atau teknisi datang ke lokasi bila perlu.'), ('check', 'Selesai', 'Anda menerima kabar hasil dan catatannya.')]
-FAQ = [('Apakah bisa dibantu dari jarak jauh?', 'Bisa. Sebagian besar kendala aplikasi dan pengaturan perangkat kami cek dulu dari jarak jauh. Kalau perlu, teknisi datang ke lokasi.'),
+        ('tool', 'Kami tangani', 'Solusi jarak jauh, atau tim datang ke lokasi bila perlu.'), ('check', 'Selesai', 'Anda menerima kabar hasil dan catatannya.')]
+FAQ = [('Apakah bisa dibantu dari jarak jauh?', 'Bisa. Sebagian besar kendala aplikasi dan website kami cek dulu dari jarak jauh. Kalau perlu, tim datang ke lokasi.'),
        ('Apakah melayani lokasi di luar Samarinda dan Balikpapan?', 'Bisa, sesuai kesepakatan. Kami melayani area Kalimantan Timur dan sekitarnya.'),
-       ('Bagaimana dengan garansi perangkat?', 'Perangkat dari principal resmi memiliki garansi pabrikan. Kami bantu proses klaimnya, dan garansi jasa mengikuti lingkup proyek.'),
-       ('Apakah ada kontrak perawatan bulanan?', 'Ada. Frekuensi kunjungan dan cakupan disesuaikan dengan jumlah perangkat dan kebutuhan Anda.')]
+       ('Bagaimana dengan garansi?', 'Garansi pekerjaan mengikuti lingkup dan kesepakatan proyek, dan dicantumkan dalam dokumen kerja sama.'),
+       ('Apakah ada kontrak perawatan bulanan?', 'Ada. Cakupan dan frekuensi dukungan disesuaikan dengan kebutuhan Anda.')]
 
 FORM = '''<form class="inquiry-form ct-form sp-form" data-ticket-form="" novalidate="">
 <input name="notes" type="hidden" value="[SUPPORT] Laporan kendala dari halaman /support"/>
 <div class="form-row"><label>Nama *<input autocomplete="name" maxlength="100" minlength="2" name="name" placeholder="Nama Anda" required=""/></label><label>Email *<input autocomplete="email" maxlength="254" name="email" placeholder="nama@email.com" required="" type="email"/></label></div>
 <div class="form-row"><label>Nomor WhatsApp *<input autocomplete="tel" inputmode="tel" maxlength="32" minlength="8" name="whatsapp" placeholder="Contoh: 0812…" required=""/></label><label>Lokasi / cabang *<input maxlength="100" minlength="2" name="city" placeholder="Contoh: Balikpapan Utara" required=""/></label></div>
-<div class="form-row"><label>Instansi / perusahaan<input autocomplete="organization" maxlength="120" name="organization" placeholder="Opsional"/></label><label>Jenis kendala *<select name="service" required=""><option disabled="" selected="" value="">Pilih jenis</option><option value="software">Aplikasi / sistem</option><option value="website">Website</option><option value="ai-vision">CCTV / AI Vision</option><option value="iot">GPS, sensor & IoT</option><option value="hardware">Perangkat, jaringan & listrik</option><option value="integration">Integrasi data</option><option value="other">Lainnya</option></select></label></div>
+<div class="form-row"><label>Instansi / perusahaan<input autocomplete="organization" maxlength="120" name="organization" placeholder="Opsional"/></label><label>Jenis kendala *<select name="service" required=""><option disabled="" selected="" value="">Pilih jenis</option><option value="software">Aplikasi / sistem</option><option value="website">Website</option><option value="seo">SEO</option><option value="integration">Integrasi data</option><option value="other">Lainnya</option></select></label></div>
 <label>Ceritakan kendalanya *<textarea aria-describedby="needs-hint needs-counter" maxlength="1800" minlength="15" name="needs" placeholder="Contoh: kamera CCTV di gudang belakang tidak tampil di aplikasi sejak pagi." required="" rows="4"></textarea><span class="field-hint" id="needs-hint">Minimal 15 karakter. Foto atau screenshot bisa dikirim lewat WhatsApp setelah tiket dibuat.</span><span aria-live="polite" class="field-counter" data-needs-counter="" id="needs-counter"></span></label>
 <div class="form-row"><label>Seberapa mendesak?<input maxlength="120" name="timeline" placeholder="Contoh: operasional terganggu / bisa minggu ini"/></label><div></div></div>
 <div aria-live="polite" class="form-result" data-ticket-result=""></div>
@@ -68,14 +68,14 @@ def build():
     body = f'''<main class="ct-page sp-page">
 <section class="sp-hero"><div class="ct-wrap sp-hero-grid">
 <div><p class="eyebrow eyebrow-purple">Support</p><h1>Butuh bantuan? Kami bantu sampai selesai.</h1>
-<p class="ct-lead">Pertanyaan sebelum mulai, kendala saat aplikasi atau perangkat sudah dipakai, sampai perawatan berkala. Dicek jarak jauh dulu, teknisi datang bila perlu.</p>
+<p class="ct-lead">Pertanyaan sebelum mulai, kendala saat aplikasi atau website sudah dipakai, sampai perawatan berkala. Dicek jarak jauh dulu, teknisi datang bila perlu.</p>
 <div class="sp-channels">
 <a class="sp-ch sp-ch-wa" href="{wa("Halo Altora, saya butuh bantuan support.")}" rel="noopener" target="_blank"><span>{ico("wa")}</span><div><b>WhatsApp</b><small>{e(PHONE_DISPLAY)}</small></div></a>
 <a class="sp-ch" href="mailto:{EMAIL}"><span>{ico("mail")}</span><div><b>Email</b><small>{e(EMAIL)}</small></div></a>
 <a class="sp-ch" href="#tiket"><span>{ico("ticket")}</span><div><b>Kirim tiket</b><small>Dapat nomor tiket</small></div></a></div></div>
 <div class="sp-visual" aria-hidden="true">
 <div class="sp-phone"><div class="sp-phone-head"><span class="sp-av">A</span><div><b>Altora Support</b><small>online</small></div></div>
-<div class="sp-msgs"><p class="sp-in">Halo, kamera CCTV di gudang belakang tidak tampil di aplikasi sejak pagi.</p>
+<div class="sp-msgs"><p class="sp-in">Halo, laporan harian di aplikasi tidak bisa dibuka sejak pagi.</p>
 <p class="sp-out">Siap. Tiket <b>ALT-1014</b> sudah dibuat. Kami cek koneksinya dari jarak jauh dulu ya.</p>
 <p class="sp-out">Ternyata switch PoE-nya mati. Teknisi kami ke lokasi jam 13.00.</p>
 <p class="sp-in">Sudah tampil lagi, terima kasih!</p>
@@ -96,7 +96,7 @@ def build():
     ld = {'@context': 'https://schema.org', '@graph': [
         {'@type': 'ContactPage', 'name': 'Support Altora Indonesia', 'url': SITE + '/support'},
         {'@type': 'FAQPage', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in FAQ]}]}
-    page = shell('Support Altora Indonesia | Bantuan Teknis & Tiket', 'Bantuan teknis Altora: laporkan kendala aplikasi, CCTV, GPS, jaringan, atau perangkat lewat WhatsApp, email, atau tiket. Teknisi lokal di Samarinda dan Balikpapan.',
+    page = shell('Support Altora Indonesia | Bantuan Teknis & Tiket', 'Bantuan teknis Altora: laporkan kendala aplikasi atau website lewat WhatsApp, email, atau tiket. Tim di Samarinda dan Balikpapan.',
                  '/support', SITE + '/assets/img/altora-logo-600.png', ld, body)
     return page.replace('</body>', '<script defer="" src="/assets/js/ticket-form.js?v=20261010-inline"></script></body>')
 

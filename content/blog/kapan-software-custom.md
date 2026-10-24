@@ -3,7 +3,7 @@ title: Kapan Perlu Software Custom, Kapan Cukup Aplikasi Siap Pakai
 description: Panduan memilih software custom atau aplikasi siap pakai berdasarkan alur kerja, kebutuhan integrasi, dan kesiapan operasi bisnis Anda.
 date: 2026-10-19
 category: Panduan memilih vendor
-image: /assets/img/hardware/lenovo-thinkpad-x1.webp
+image: /assets/img/person-flow.webp
 related: /services/software-custom | Software custom Altora
 related: /services/software-custom | Layanan software custom
 related: /contact | Diskusikan kebutuhan

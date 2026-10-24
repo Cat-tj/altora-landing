@@ -1,6 +1,6 @@
 """Kota di luar Kalimantan Timur. Di sini Altora tidak punya kantor atau teknisi, jadi halaman untuk kota-kota ini
 HANYA memuat layanan yang dikerjakan jarak jauh (software house, aplikasi, website). Jangan membuat halaman
-pasang CCTV / jaringan / IT support / jual-pasang perangkat untuk kota di sini, kecuali sudah ada tim di sana.
+jasa yang butuh teknisi di lokasi untuk kota di sini, kecuali sudah ada tim di sana.
 """
 
 # near = kota tetangga untuk tautan internal (harus ada di dict ini)
@@ -127,7 +127,7 @@ NASIONAL = {
                ('Kampus & sekolah', 'Website institusi dan aplikasi administrasi.')]),
     'barito-utara': dict(name='Barito Utara', seat='Muara Teweh, Kalimantan Tengah', near=['palangka-raya', 'banjarmasin', 'pontianak'],
         sectors='pemerintahan kabupaten, tambang batu bara, perkebunan, dan angkutan sungai',
-        needs=[('Pemerintah kabupaten', 'Website resmi, aplikasi layanan publik, dan pengadaan perangkat untuk kantor dinas.'),
+        needs=[('Pemerintah kabupaten', 'Website resmi dan aplikasi layanan publik untuk kantor dinas.'),
                ('Tambang & perkebunan', 'Aplikasi laporan lapangan dan pemantauan armada.'),
                ('Sekolah & layanan publik', 'Website resmi dan aplikasi pelaporan.')]),
     'pontianak': dict(name='Pontianak', seat='Kalimantan Barat', near=['palangka-raya', 'banjarmasin', 'batam'],

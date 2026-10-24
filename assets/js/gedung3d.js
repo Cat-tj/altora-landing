@@ -292,7 +292,7 @@ function init() {
   const PAGES = {
     7: ['Beranda', '/', 'Kenalan dengan Altora'], 6: ['Karier', '/careers', 'Gabung tim Altora'], 5: ['Layanan', '/services', 'Software & hardware'],
     4: ['Artikel', '/blog', 'Panduan & wawasan'], 3: ['Tentang', '/about', 'Kenali Altora'],
-    2: ['Katalog', '/katalog', 'Perangkat resmi'], 1: ['Support', '/support', 'Bantuan teknis'],
+    2: ['Aplikasi', '/aplikasi', 'Buatan Altora'], 1: ['Support', '/support', 'Bantuan teknis'],
   };
   const LABELS = {};
   const SHOTS = [390, 820, 1440, 1920];                                  // lebar tangkapan layar yang tersedia; pilih yang paling dekat dengan lebar layar
@@ -413,14 +413,14 @@ function init() {
     [[-10.8, -7], [10.8, -7], [-10.8, 7.3], [10.8, 7.3]].forEach(([x, z]) => plantAt(x, z));
     let screen = null;                                                   // layar yang dituju kamera saat lantai ini diklik
 
-    if (k === 3 || k === 4) {                                            // Tentang / Artikel: kantor terbuka yang padat
+    if (k === 2 || k === 3 || k === 4) {                                 // Aplikasi / Tentang / Artikel: kantor terbuka yang padat
       let i = k * 5;
       for (const z of [6.2, 3.4, 0.6, -2.4]) for (let x = -9.6; x <= 9.6; x += 2.4) { if (z === -2.4 && Math.abs(x) < 3) continue; station(x, z, i, (i + k) % 5 !== 0); i++; }
       [-10.6, -8.6].forEach(x => S(lite(1.6, 1.9, 0.6, V2.cab), x, 0.95, -7.3));        // lemari arsip
       S(lite(1.0, 1.2, 0.7, M.white), 9.4, 0.6, -7.2); S(lite(0.8, 0.12, 0.5, M.dark), 9.4, 1.25, -7.2);  // printer
       S(lite(0.06, 1.6, 3.2, V2.board), -11.6, 2.2, 0);                                    // papan tulis dinding samping
       walk(2, -6, -4.6, 'x', -10, 10, 1.2); walk(5, 4, -5.2, 'x', -10, 10, 0.9); walk(7, 11, 2, 'z', -5, 7, 1.0);
-      if (k === 3) screen = { kind: 'wide', hBase: 2.3, maxW: 4.4, bottom: 1.5, z: BACK, bezelPad: 0.14 };
+      if (k === 3 || k === 2) screen = { kind: 'wide', hBase: 2.3, maxW: 4.4, bottom: 1.5, z: BACK, bezelPad: 0.14 };
       else {                                                              // Artikel: poster besar + papan pengumuman berisi kertas
         screen = { kind: 'wide', hBase: 2.8, maxW: 4.2, bottom: 1.3, z: BACK, bezelPad: 0.12, poster: true };
         [-1, 1].forEach(sd => {
@@ -457,19 +457,6 @@ function init() {
         for (let r = 0; r < 4; r++) { const led = at(lite(0.05, 0.08, 0.08, r % 2 ? M.led : M.ledP), sd * 10.43, 0.6 + r * 0.4, z - 0.5 + r * 0.3); room.add(led); leds.push(led); }
       } });
       walk(3, -4, 3.6, 'x', -9, 9, 1.0); walk(6, 5, 5.5, 'x', -9, 9, 1.3);
-    } else if (k === 2) {                                                // Katalog: toko, pembeli bertransaksi di kasir
-      screen = { kind: 'wide', hBase: 0.46, maxW: 0.8, bottom: 1.2, z: 0.3, x: 0, bezelPad: 0.05, rx: -0.12 };
-      S(lite(4.4, 1.05, 0.9, V2.kiosk), 0, 0.53, 0); S(lite(4.5, 0.06, 1.0, deskTop), 0, 1.08, 0);   // meja kasir
-      S(lite(0.14, 0.12, 0.1, M.dark), 0, 1.16, 0.3);
-      S(lite(0.3, 0.06, 0.22, M.dark), 1.1, 1.14, -0.1); S(lite(0.5, 0.4, 0.4, V2.prod[3]), -1.4, 1.31, -0.2);   // EDC, barang belanja
-      S(mini(0, false), -0.9, 0, 1.0, Math.PI);                                                              // kasir
-      const buyer = person({ shirt: 0xF26B3A, pants: 0x2A2F5E, arms: 'reach', v: 1 }); buyer.scale.setScalar(1.05); S(buyer, 0.6, 0, -1.0, Math.PI);   // pembeli menyerahkan kartu
-      [[1.2, -2.3], [1.6, -3.4], [2.0, -4.5]].forEach(([x, z], j) => S(mini(j + 4, false), x, 0, z, Math.PI));    // antre
-      for (const z of [-6.8, -4.6]) for (let x = -10; x <= -3; x += 3.5) { S(lite(3.0, 2.0, 0.8, V2.shelf), x, 1.0, z); for (let r = 0; r < 3; r++) for (let c = 0; c < 5; c++) S(lite(0.42, 0.42, 0.5, V2.prod[(r * 3 + c + x) & 7]), x - 1.1 + c * 0.55, 0.45 + r * 0.65, z); }
-      for (const z of [-6.8, -4.6]) for (let x = 5; x <= 10; x += 3.5) { S(lite(3.0, 2.0, 0.8, V2.shelf), x, 1.0, z); for (let r = 0; r < 3; r++) for (let c = 0; c < 5; c++) S(lite(0.42, 0.42, 0.5, V2.prod[(r + c * 2 + x) & 7]), x - 1.1 + c * 0.55, 0.45 + r * 0.65, z); }
-      for (const z of [3.5, 6.2]) for (const x of [-8, -4, 4, 8]) { S(lite(2.6, 1.0, 1.0, V2.shelf), x, 0.5, z); for (let c = 0; c < 4; c++) S(lite(0.4, 0.35, 0.4, V2.prod[(c + x + z) & 7]), x - 0.9 + c * 0.6, 1.18, z); }
-      [[-6, 1.8, 3], [6.5, 1.5, 5], [-2.5, 5, 7], [9.5, -2, 2]].forEach(([x, z, i]) => S(mini(i, false), x, 0, z, i));
-      walk(6, -6, -2.6, 'x', -10, -2, 0.8); walk(2, 6, 4.9, 'x', 2, 10, 0.9);
     } else {                                                             // Support: lobi dengan kiosk layanan & resepsionis
       screen = { kind: 'wide', hBase: 0.62, maxW: 0.8, bottom: 1.15, z: -4.3, x: 0, bezelPad: 0.06, rx: -0.28 };
       S(lite(1.0, 0.1, 0.8, V2.kiosk), 0, 0.05, -4.45); S(lite(0.5, 1.05, 0.4, V2.kiosk), 0, 0.6, -4.55); S(lite(1.0, 0.95, 0.25, V2.kiosk), 0, 1.45, -4.5);

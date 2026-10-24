@@ -1,0 +1,25 @@
+/* Halaman /aplikasi: bingkai screenshot, kartu, dan fitur. Hanya dipakai di halaman aplikasi & beranda. */
+.ap2-hero{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,4vw,56px);align-items:center}
+.ap2-hero-copy .ct-lead{max-width:34rem}
+.ap2-shot{margin:0;border-radius:16px;overflow:hidden;background:#fff;border:1px solid #E4DEFA;box-shadow:0 30px 70px -34px rgba(43,30,110,.45),0 8px 20px -12px rgba(43,30,110,.18)}
+.ap2-bar{display:flex;gap:6px;align-items:center;padding:10px 14px;background:#F6F3FF;border-bottom:1px solid #EAE5FA}
+.ap2-bar i{width:9px;height:9px;border-radius:50%;background:#D5CCF5;display:block}
+.ap2-bar i:nth-child(1){background:#FF8A80}.ap2-bar i:nth-child(2){background:#FFD27A}.ap2-bar i:nth-child(3){background:#7BD9A0}
+.ap2-shot img{display:block;width:100%;height:auto}
+.ap2-feats{display:grid;gap:clamp(28px,4vw,56px)}
+.ap2-feat{display:grid;grid-template-columns:minmax(0,.55fr) minmax(0,1.45fr);gap:clamp(18px,3vw,40px);align-items:center}
+.ap2-feat:nth-child(even){grid-template-columns:minmax(0,1.45fr) minmax(0,.55fr)}
+.ap2-feat:nth-child(even) .ap2-feat-txt{order:2}
+.ap2-feat-txt h3{margin:0;font-size:clamp(1.25rem,1rem + 1vw,1.7rem);font-weight:800;letter-spacing:-.02em;color:#10224F}
+.ap2-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.ap2-card{display:flex;flex-direction:column;border:1px solid #E9E5F6;border-radius:24px;background:#fff;overflow:hidden;box-shadow:0 14px 34px -24px rgba(43,30,110,.25)}
+.ap2-card-pic{display:block;padding:20px 20px 0;background:linear-gradient(160deg,#F6F2FF,#EAE3FF)}
+.ap2-card-pic .ap2-shot{border-bottom-left-radius:0;border-bottom-right-radius:0;border-bottom:0;box-shadow:none}
+.ap2-card-body{padding:24px;display:flex;flex-direction:column;gap:10px}
+.ap2-card-body h2{margin:0;font-size:1.5rem;font-weight:800;letter-spacing:-.02em}
+.ap2-card-body h2 a{color:#10224F;text-decoration:none}
+.ap2-card-body p{margin:0;color:#5A6785;line-height:1.6}
+.ab-apps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:24px 0 0;padding:0;list-style:none}
+.ab-apps a{display:block;height:100%;padding:18px 20px;border:1px solid #E9E5F6;border-radius:18px;background:#fff;text-decoration:none;color:#10224F}
+.ab-apps b{display:block;font-weight:800;margin-bottom:4px}.ab-apps span{color:#5A6785;font-size:.9rem;line-height:1.5}
+@media (max-width:900px){.ap2-hero,.ap2-feat,.ap2-feat:nth-child(even){grid-template-columns:1fr}.ap2-feat:nth-child(even) .ap2-feat-txt{order:0}.ap2-cards{grid-template-columns:1fr}.ab-apps{grid-template-columns:1fr}}

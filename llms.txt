@@ -1,6 +1,6 @@
 # Altora Indonesia
 
-> Altora Indonesia (brand: Altora) is an Indonesian company headquartered in Samarinda, East Kalimantan, with branch offices in Balikpapan (Balikpapan Utara and Pasar Baru). It builds custom software and websites, and procures, installs, and maintains hardware from official principals for businesses, institutions, campuses, and government agencies.
+> Altora Indonesia (brand: Altora) is an Indonesian software company headquartered in Samarinda, East Kalimantan, with branch offices in Balikpapan (Balikpapan Utara and Pasar Baru). It builds custom software, websites, and SEO for businesses, campuses, and government agencies, and develops its own applications.
 
 ## Identity
 - Legal/brand name: Altora Indonesia
@@ -10,21 +10,22 @@
 - Rebrand information: https://altora.id/algora
 - Head office: Perum Graha Indah Blok A13, Air Putih, Samarinda Ulu, Samarinda
 - Branches: Jl. Soekarno Hatta, Muara Rapak, Balikpapan Utara; Pasar Baru, Balikpapan
-- Official partners (principals): TP-Link | VIGI, Teltonika, Lenovo, HDe, HaganeRack, Fasser (Starlink kits procured and installed by Altora, not a partnership)
 - Registered supplier on Inaproc/LKPP (Indonesian government procurement)
 - Contact: hello@altora.id, WhatsApp +62 851-9091-1170 (https://wa.me/6285190911170)
 
 ## What Altora does
-- Custom software: web apps, mobile apps, and internal systems built around the client's own workflow
-- Websites and SEO for companies, campuses, and government institutions
-- Hardware procurement from official principals, with installation and maintenance: CCTV (VIGI), networking (TP-Link), GPS trackers (Teltonika), laptops/PCs/servers (Lenovo), displays and kiosks (HDe), server racks (HaganeRack), fiber tools (Fasser)
-- Starlink satellite internet kits, procured and installed
-- Electrical and network installation, IT support, signage and kiosks
+- Custom software: web apps, mobile apps, internal systems, dashboards, and integrations built around the client's workflow
+- Websites for companies, campuses, and government institutions, with a CMS the client can edit
+- SEO: technical audit, on-page optimization, local SEO, and reporting
+- Remote delivery across Indonesia, with on-site discussion and training in Kalimantan Timur
+
+## Applications built by Altora
+- Altora Office: internal work platform with project and task boards (Altora Projek), operations, HRIS, and marketing modules, plus an AI assistant for daily reports (https://altora.id/aplikasi/office)
+- Raphael Control Center: monitoring for servers, websites, cron jobs, and AI agents, with a project workspace and WhatsApp alerts (https://altora.id/aplikasi/raphael)
 
 ## Key pages
 - Services: https://altora.id/services
-- Hardware catalog: https://altora.id/katalog
-- CCTV VIGI catalog: https://altora.id/katalog-cctv-vigi
+- Applications: https://altora.id/aplikasi
 - Articles: https://altora.id/blog
 - About: https://altora.id/about
 - Contact: https://altora.id/contact
