@@ -36,13 +36,13 @@
 
   var FAQS = [
     { icon: 'i-layers', tone: 'purple', q: 'Apa saja yang dikerjakan Altora?',
-      a: 'Dua hal: jasa pembuatan software (aplikasi web dan HP, sistem internal, website) dan pengadaan hardware dari principal resmi, lengkap dengan pemasangan dan perawatannya.' },
+      a: 'Tiga hal: aplikasi custom (web, HP, sistem internal), website dan SEO, serta aplikasi buatan sendiri seperti Altora Office dan Raphael Control Center.' },
     { icon: 'i-puzzle', tone: 'blue', q: 'Jika kebutuhan kami tidak cocok dengan aplikasi yang ada di pasaran, apakah bisa dibuat khusus?',
       a: 'Bisa. Kami pelajari alur kerja Anda dulu, lalu membuat aplikasi web atau HP, sistem internal, website, dashboard, dan integrasi dengan sistem lain sesuai kebutuhan.' },
-    { icon: 'i-monitor', tone: 'cyan', q: 'Apakah Altora hanya membuat software?',
-      a: 'Tidak. Kami juga mengadakan dan memasang perangkat: server, komputer, CCTV, jaringan, smartlock, kios, display, dan GPS tracker.' },
-    { icon: 'i-shield', tone: 'orange', q: 'Perangkat dari merek apa saja yang tersedia?',
-      a: 'Dari principal resmi seperti VIGI, TP-Link, Teltonika, Lenovo, HDe, HaganeRack, dan Fasser, dengan garansi resmi. Kami pilihkan tipe yang paling cocok tanpa mengunci Anda pada satu merek.' },
+    { icon: 'i-monitor', tone: 'cyan', q: 'Apakah Altora menjual hardware?',
+      a: 'Tidak. Fokus kami software: aplikasi custom, website, SEO, dan aplikasi buatan sendiri. Kami bisa mengintegrasikan aplikasi dengan perangkat yang sudah Anda punya.' },
+    { icon: 'i-shield', tone: 'orange', q: 'Apakah ada aplikasi yang siap dipakai?',
+      a: 'Ada. Altora Office untuk proyek, tim, dan operasional kantor, serta Raphael Control Center untuk memantau server, website, dan proyek. Keduanya bisa didemokan dan disesuaikan.' },
     { icon: 'i-trend', tone: 'green', q: 'Apakah bisa untuk pengadaan instansi?',
       a: 'Bisa. Altora berstatus PKP dan terdaftar sebagai penyedia di Inaproc/LKPP, dengan penawaran, faktur, dan berita acara serah terima.' },
     { icon: 'i-sync', tone: 'pink', q: 'Bisakah aplikasi yang dibuat terhubung dengan aplikasi atau perangkat yang sudah kami gunakan?',

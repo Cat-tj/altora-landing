@@ -290,7 +290,7 @@ function init() {
 
   // ── isi tiap lantai sesuai halamannya; perabot statis digabung per material agar ringan ──
   const PAGES = {
-    7: ['Beranda', '/', 'Kenalan dengan Altora'], 6: ['Karier', '/careers', 'Gabung tim Altora'], 5: ['Layanan', '/services', 'Software & hardware'],
+    7: ['Beranda', '/', 'Kenalan dengan Altora'], 6: ['Karier', '/careers', 'Gabung tim Altora'], 5: ['Layanan', '/services', 'Software, website & SEO'],
     4: ['Artikel', '/blog', 'Panduan & wawasan'], 3: ['Tentang', '/about', 'Kenali Altora'],
     2: ['Aplikasi', '/aplikasi', 'Buatan Altora'], 1: ['Support', '/support', 'Bantuan teknis'],
   };

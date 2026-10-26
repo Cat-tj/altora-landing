@@ -1,21 +1,13 @@
-/* Beranda: judul hero mengikuti link kampanye (?layanan=cctv&kota=balikpapan, atau utm_term dari iklan),
+/* Beranda: judul hero mengikuti link kampanye (?layanan=software&kota=balikpapan, atau utm_term dari iklan),
    plus pilihan cepat "Saya mencari" yang mengikuti kota pilihan. Tanpa parameter, judul bawaan tidak berubah. */
 (function () {
   'use strict';
   var CITY = { balikpapan: 'Balikpapan', samarinda: 'Samarinda', kaltim: 'Kalimantan Timur' };
   var SVC = {
-    cctv: { t: 'Pengadaan & pasang CCTV', g: 'di {C}.', l: 'Kamera VIGI, NVR, dan CCTV pintar dengan AI. Kami survei, pasang, dan rawat oleh tim lokal.', h: '/jual-cctv-{c}', b: 'Lihat CCTV di {C}' },
     software: { t: 'Software house', g: 'di {C}.', l: 'Aplikasi web, aplikasi HP, HRIS, ERP, dan sistem internal yang dibuat mengikuti proses Anda.', h: '/software-house-{c}', b: 'Software house {C}' },
-    pengadaan: { t: 'Pengadaan perangkat IT', g: 'untuk instansi di {C}.', l: 'Laptop, PC, server, CCTV, dan jaringan resmi bergaransi. PKP dan terdaftar di Inaproc/LKPP.', h: '/katalog#v-pengadaan', b: 'Lihat katalog pengadaan' },
-    jaringan: { t: 'Instalasi jaringan & WiFi', g: 'di {C}.', l: 'LAN, WiFi kantor, fiber optik, rak server, dan wireless bridge antar gedung.', h: '/jasa-instalasi-jaringan-{c}', b: 'Jaringan & WiFi {C}' },
-    website: { t: 'Jasa pembuatan website', g: 'di {C}.', l: 'Company profile, website instansi, dan landing page yang cepat dan mudah ditemukan di Google.', h: '/jasa-pembuatan-website-{c}', b: 'Website {C}' },
-    starlink: { t: 'Jual & pasang Starlink', g: 'di {C}.', l: 'Kit Starlink, instalasi, Wi-Fi merata, dan tenaga surya untuk lokasi tanpa PLN.', h: '/jual-starlink-{c}', b: 'Starlink {C}' },
-    gps: { t: 'GPS tracker kendaraan', g: 'di {C}.', l: 'Pantau armada, BBM, dan data mesin dengan perangkat Teltonika dan Altora FMS.', h: '/gps-tracker-kendaraan-{c}', b: 'GPS tracker {C}' },
-    itsupport: { t: 'IT support', g: 'di {C}.', l: 'Komputer, jaringan, server, dan CCTV kantor, dibantu lewat WhatsApp atau teknisi datang.', h: '/it-support-{c}', b: 'IT support {C}' },
-    smartlock: { t: 'Jual & pasang smartlock', g: 'di {C}.', l: 'Kunci pintu digital untuk rumah, kantor, dan kampus, dikelola dari satu aplikasi.', h: '/jual-smartlock-{c}', b: 'Smartlock {C}' }
+    website: { t: 'Jasa pembuatan website', g: 'di {C}.', l: 'Company profile, website instansi, dan landing page yang cepat dan mudah ditemukan di Google.', h: '/jasa-pembuatan-website-{c}', b: 'Website {C}' }
   };
-  var WORDS = { cctv: 'cctv', kamera: 'cctv', software: 'software', aplikasi: 'software', 'software house': 'software', pengadaan: 'pengadaan', laptop: 'pengadaan', server: 'pengadaan',
-    jaringan: 'jaringan', wifi: 'jaringan', fiber: 'jaringan', website: 'website', web: 'website', starlink: 'starlink', gps: 'gps', armada: 'gps', 'it support': 'itsupport', smartlock: 'smartlock' };
+  var WORDS = { software: 'software', aplikasi: 'software', 'software house': 'software', website: 'website', web: 'website' };
   var q = new URLSearchParams(location.search);
   function norm(s) { return (s || '').toLowerCase().replace(/\+/g, ' '); }
   function detect(text, dict) { text = norm(text); for (var k in dict) if (text.indexOf(k) > -1) return dict[k]; return null; }
