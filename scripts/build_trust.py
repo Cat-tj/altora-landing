@@ -11,7 +11,7 @@ e = lambda t: html.escape(str(t), quote=True)
 # klien: dikosongkan (portofolio & logo klien dihapus saat pisah dari Sentra); isi ulang hanya dengan klien Altora yang sudah setuju dicantumkan
 CLIENTS = []
 
-STATS = [('3', 'kantor di Kaltim'), ('6', 'aplikasi kami kembangkan'), ('100%', 'dikerjakan satu tim')]
+STATS = [('3', 'kantor di Kaltim'), ('20+', 'aplikasi yang kami kembangkan'), ('9', 'layanan software dan digital')]
 
 INDUSTRIES = [
     ('pertambangan', 'Tambang & industri berat', 'Aplikasi pelaporan, approval, dan dashboard'),

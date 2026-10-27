@@ -23,3 +23,25 @@
 .ab-apps a{display:block;height:100%;padding:18px 20px;border:1px solid #E9E5F6;border-radius:18px;background:#fff;text-decoration:none;color:#10224F}
 .ab-apps b{display:block;font-weight:800;margin-bottom:4px}.ab-apps span{color:#5A6785;font-size:.9rem;line-height:1.5}
 @media (max-width:900px){.ap2-hero,.ap2-feat,.ap2-feat:nth-child(even){grid-template-columns:1fr}.ap2-feat:nth-child(even) .ap2-feat-txt{order:0}.ap2-cards{grid-template-columns:1fr}.ab-apps{grid-template-columns:1fr}}
+
+/* Halaman Tentang: kolase aplikasi, layanan, dan kartu aplikasi */
+.ab-stats-sec .ts-stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+.ab-stats-sec .ts-stats>div{text-align:center}
+.ab-collage{position:relative;aspect-ratio:1.18/1;min-width:0}
+.ab-collage .ap2-shot{position:absolute;margin:0}
+.ab-c1{left:0;top:0;width:82%}.ab-c2{right:0;top:34%;width:62%;z-index:2}.ab-c3{left:6%;bottom:0;width:50%;z-index:3}
+.ab-head{max-width:46rem;margin-bottom:28px}
+.ab-svcs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.ab-svc{display:flex;flex-direction:column;gap:6px;padding:20px;border:1px solid #E9E5F6;border-radius:18px;background:#fff;color:#10224F;text-decoration:none;transition:transform .2s,box-shadow .2s}
+.ab-svc:hover{transform:translateY(-3px);box-shadow:0 18px 34px -24px rgba(43,30,110,.35)}
+.ab-svc i{font-style:normal;font-weight:800;font-size:.8rem;color:#7C5CE8;letter-spacing:.06em}
+.ab-svc b{font-size:1.1rem;font-weight:800}.ab-svc span{color:#5A6785;font-size:.92rem;line-height:1.5}
+.ab-appgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.ab-app{display:flex;flex-direction:column;gap:4px;padding:12px 12px 18px;border:1px solid #E9E5F6;border-radius:20px;background:#fff;color:#10224F;text-decoration:none;transition:transform .2s,box-shadow .2s}
+.ab-app:hover{transform:translateY(-3px);box-shadow:0 18px 34px -24px rgba(43,30,110,.35)}
+.ab-app-pic{display:block;aspect-ratio:16/10;overflow:hidden;border-radius:12px;background:#F6F3FF;margin-bottom:10px}
+.ab-app-pic img{width:100%;height:100%;object-fit:cover;object-position:left top;display:block}
+.ab-app b{font-size:1.05rem;font-weight:800;padding:0 6px}.ab-app>span:last-child{color:#5A6785;font-size:.9rem;padding:0 6px}
+.ab-more{margin-top:22px}
+@media (max-width:900px){.ab-svcs,.ab-appgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.ab-collage{aspect-ratio:1.1/1;margin-top:8px}}
+@media (max-width:560px){.ab-svcs,.ab-appgrid{grid-template-columns:1fr}.ab-stats-sec .ts-stats{grid-template-columns:1fr}}
