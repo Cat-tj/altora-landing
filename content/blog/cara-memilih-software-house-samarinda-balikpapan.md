@@ -4,7 +4,7 @@ seo_title: Cara Memilih Software House di Samarinda dan Balikpapan
 description: Checklist praktis memilih software house di Samarinda dan Balikpapan: cara mereka memahami masalah, kepemilikan source code, dan dukungan setelah sistem berjalan.
 date: 2026-10-11
 category: Panduan memilih vendor
-image: /assets/img/apps/raphael-portfolio.webp
+image: /assets/img/blog/cover/cara-memilih-software-house-samarinda-balikpapan.webp
 related: /software-house-samarinda | Software house di Samarinda
 related: /services/software-custom | Layanan software custom Altora
 related: /contact | Konsultasi kebutuhan

@@ -4,7 +4,7 @@ seo_title: Membimbing SMPN 5 Balikpapan ke Juara 2 Innovakids 2026
 description: Cerita Altora membimbing tim SMP Negeri 5 Balikpapan membangun sistem barang hilang berbasis AI untuk sekolah, hingga Juara 2 Nasional Innovakids 2026.
 date: 2026-10-14
 category: Cerita Altora
-image: /assets/img/apps/office-project.webp
+image: /assets/img/blog/cover/membimbing-smpn-5-balikpapan-innovakids-2026.webp
 related: /industri/pendidikan | Solusi untuk kampus & sekolah
 related: /services/software-custom | Layanan aplikasi & software custom
 related: /about | Tentang Altora

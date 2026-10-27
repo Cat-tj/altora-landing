@@ -46,7 +46,7 @@ def build():
 <h1>Jasa pembuatan software, website, dan SEO untuk bisnis dan instansi.</h1>
 <p class="ct-lead">Altora Indonesia berkantor pusat di Samarinda, dengan dua cabang di Balikpapan. Kami membuat aplikasi custom dan website sesuai kebutuhan Anda, lalu membantu agar mudah ditemukan di Google. Kami juga membangun dan memakai sendiri aplikasi seperti Altora Projek, Altora Office, dan Raphael Control Center.</p>
 <div class="ab-actions"><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Diskusi dengan tim kami</a><a class="pd-link" href="/aplikasi">Lihat aplikasi kami →</a></div></div>
-<div class="ab-mosaic"><img alt="Staf Altora" class="ab-m1" src="{MOSAIC[0]}"/><img alt="Alur kerja" class="ab-m2" src="{MOSAIC[1]}"/><img alt="Analitik" class="ab-m3" src="{MOSAIC[2]}"/></div>
+<div class="ab-mosaic" style="display:block"><img alt="Altora Office: papan proyek Kanban, aplikasi buatan Altora" src="{MOSAIC[0]}" style="object-position:left top"/></div>
 </div></section>
 <section class="ab-sec ab-stats-sec"><div class="ct-wrap"><div class="ts-stats">{stats}</div></div></section>
 <section class="ab-sec"><div class="ct-wrap ab-split">
