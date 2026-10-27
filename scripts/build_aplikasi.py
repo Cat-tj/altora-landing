@@ -27,6 +27,23 @@ APPS = {
         faq=[('Apakah Altora Office bisa dipasang di server kami sendiri?', 'Bisa. Aplikasi berjalan di server atau cloud pilihan Anda, sehingga data tetap di infrastruktur Anda.'),
              ('Apakah modulnya bisa dipilih?', 'Bisa. Proyek & tugas bisa dipakai sendiri, lalu HRIS atau operasional ditambahkan bertahap.'),
              ('Apakah bisa disesuaikan dengan proses kami?', 'Bisa. Kami menyesuaikan alur, peran, dan laporan sesuai cara kerja organisasi Anda.')]),
+    'teams': dict(
+        name='Altora Teams', tag='HRIS dan kinerja tim', icon='/assets/img/altora-logo-icon-v2.svg',
+        h1='Altora Teams: kinerja, cuti, dan jadwal kerja tim di satu tempat.',
+        lead='HRIS untuk tim yang bertumbuh: pantau KPI dan hasil kerja tiap orang, kelola cuti dan persetujuan, serta lihat jadwal proyek dan tugas dalam satu kalender. Dibuat dan dipakai sendiri oleh tim Altora.',
+        short='Kelola KPI, cuti, kalender kerja, dan persetujuan tim dari satu aplikasi.',
+        shots=[('teams-overview', 'Dasbor eksekutif Altora Teams: KPI aktif, staf, departemen, dan pengajuan terbaru', 'Dasbor eksekutif'),
+               ('teams-calendar', 'Kalender kerja bulanan dengan jadwal proyek dan tugas serta filter proyek, orang, dan departemen', 'Kalender kerja'),
+               ('teams-kpis', 'Daftar KPI per departemen dengan bobot, target, jadwal, dan penanggung jawab', 'KPI dan bobot')],
+        modules=[('Dasbor eksekutif', 'Ringkasan KPI aktif, staf, departemen, dan pengajuan yang menunggu tinjauan.'),
+                 ('KPI & review', 'KPI per departemen dengan target, bobot, jadwal, dan penanggung jawab, lengkap dengan persetujuan hasil kerja.'),
+                 ('Cuti & persetujuan', 'Pengajuan cuti, saldo, dan persetujuan atasan dalam satu alur.'),
+                 ('Kalender kerja', 'Jadwal proyek dan tugas bulanan atau mingguan, bisa disaring per proyek, orang, dan departemen.'),
+                 ('Tim & departemen', 'Data anggota, peran, dan struktur departemen.'),
+                 ('Analitik & laporan', 'Pencapaian KPI dan rekap entri, bisa diekspor ke Excel atau PDF.')],
+        faq=[('Apakah Altora Teams bisa dipasang di server kami sendiri?', 'Bisa. Aplikasi berjalan di server atau cloud pilihan Anda, sehingga data tetap di infrastruktur Anda.'),
+             ('Apakah KPI dan alur persetujuannya bisa disesuaikan?', 'Bisa. Kami menyesuaikan jenis KPI, bobot, peran, dan alur persetujuan dengan cara kerja organisasi Anda.'),
+             ('Apakah bisa dipakai bersama Altora Office?', 'Bisa. Keduanya saling melengkapi: Office untuk proyek dan operasional, Teams untuk kinerja dan cuti tim.')]),
     'raphael': dict(
         name='Raphael Control Center', tag='Pusat kendali infrastruktur & proyek', icon='/assets/img/altora-logo-icon-v2.svg',
         h1='Raphael Control Center: satu layar untuk server, website, dan proyek Anda.',
@@ -96,7 +113,7 @@ def hub():
 <section class="svd-sec"><div class="ct-wrap pd-block-head"><h2>Butuh yang berbeda?</h2><p>Kami membuat aplikasi custom yang mengikuti proses kerja Anda, lengkap dengan website dan SEO.</p>
 <div class="svd-actions"><a class="btn btn-purple" href="/services/software-custom">Lihat layanan software custom</a><a class="svd-link" href="/contact">Konsultasi gratis</a></div></div></section>
 </main>'''
-    return shell('Aplikasi Buatan Altora | Altora Office & Raphael Control Center', 'Aplikasi yang dibangun dan dipakai sendiri oleh Altora: Altora Office untuk proyek, HRIS, dan operasional, serta Raphael Control Center untuk server, website, dan proyek.',
+    return shell('Aplikasi Buatan Altora | Altora Office, Teams & Raphael Control Center', 'Aplikasi yang dibangun dan dipakai sendiri oleh Altora: Altora Office untuk proyek dan operasional, Altora Teams untuk KPI dan cuti tim, serta Raphael Control Center untuk server, website, dan proyek.',
                  '/aplikasi', SITE + IMG + 'office-board.webp', ld, body)
 
 

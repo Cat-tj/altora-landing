@@ -11,7 +11,7 @@
 .ap2-feat:nth-child(even){grid-template-columns:minmax(0,1.45fr) minmax(0,.55fr)}
 .ap2-feat:nth-child(even) .ap2-feat-txt{order:2}
 .ap2-feat-txt h3{margin:0;font-size:clamp(1.25rem,1rem + 1vw,1.7rem);font-weight:800;letter-spacing:-.02em;color:#10224F}
-.ap2-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.ap2-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:24px}
 .ap2-card{display:flex;flex-direction:column;border:1px solid #E9E5F6;border-radius:24px;background:#fff;overflow:hidden;box-shadow:0 14px 34px -24px rgba(43,30,110,.25)}
 .ap2-card-pic{display:block;padding:20px 20px 0;background:linear-gradient(160deg,#F6F2FF,#EAE3FF)}
 .ap2-card-pic .ap2-shot{border-bottom-left-radius:0;border-bottom-right-radius:0;border-bottom:0;box-shadow:none}
