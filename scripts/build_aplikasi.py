@@ -11,6 +11,24 @@ e = lambda t: html.escape(t, quote=True)
 IMG = '/assets/img/apps/'
 
 APPS = {
+    'fieldops': dict(
+        name='Altora FieldOps', tag='Operasional lapangan tambang dan migas', icon='/assets/img/altora-logo-icon-v2.svg',
+        h1='Altora FieldOps: operasional lapangan tambang dan migas dalam satu sistem.',
+        lead='Platform untuk mengelola site dan sumur, keselamatan kerja (HSE), aset berat, kru lapangan, legalitas, dan anggaran, dengan peringatan otomatis saat izin, sertifikat, atau perawatan jatuh tempo.',
+        short='Kelola site, HSE dan izin kerja, aset berat, kru, dan anggaran lapangan tambang dan migas.',
+        shots=[('fieldops-overview', 'Overview lapangan: hari tanpa LTI, izin kerja aktif, serapan anggaran, HSE, legalitas, kru, dan aset', 'Overview lapangan'),
+               ('fieldops-hse', 'HSE dan K3LL: daftar Permit to Work dengan alur persetujuan', 'HSE dan izin kerja'),
+               ('fieldops-wells', 'Daftar sumur dan site dengan kesiapan pre-spud', 'Sumur dan site'),
+               ('fieldops-assets', 'Registri aset berat dengan sertifikat dan jam operasi', 'Aset berat')],
+        modules=[('Sumur & site', 'Daftar sumur, wellpad, site tambang, dan basecamp sebagai pusat biaya, izin kerja, dan penugasan kru.'),
+                 ('HSE / K3LL', 'Permit to Work dengan alur persetujuan, JSA, insiden, CAPA, toolbox meeting, dan limbah B3.'),
+                 ('Aset berat', 'Registri rig dan alat berat, sertifikat, perawatan berbasis jam operasi, kalibrasi, dan mutasi antar site.'),
+                 ('Kru lapangan', 'Matriks sertifikasi, medical check-up, roster, dan penugasan yang otomatis memeriksa kelayakan kru.'),
+                 ('Legalitas & pre-spud', 'Pelacakan izin dan checklist kesiapan sebelum pengeboran, dengan peringatan masa berlaku.'),
+                 ('AFE, akuntansi & pajak', 'Anggaran per sumur, jurnal, dan dokumen pajak dalam satu tempat.')],
+        faq=[('Apakah cocok untuk tambang, bukan hanya migas?', 'Cocok. Modulnya mencakup site tambang dan basecamp, izin kerja, HSE, aset berat, dan kru, yang dipakai di kedua sektor.'),
+             ('Apakah bisa mengikuti prosedur perusahaan kami?', 'Bisa. Alur persetujuan, jenis izin kerja, dan checklist disesuaikan dengan prosedur dan standar internal Anda.'),
+             ('Apakah bisa dipasang di server kami sendiri?', 'Bisa. Aplikasi berjalan di server atau cloud pilihan Anda, sehingga data tetap di infrastruktur Anda.')]),
     'office': dict(
         name='Altora Office', tag='Platform kerja internal', icon='/assets/img/altora-logo-icon-v2.svg',
         h1='Altora Office: proyek, tim, dan operasional kantor di satu tempat.',
@@ -183,7 +201,6 @@ def update_home():
     f = root / 'index.html'
     s = f.read_text(encoding='utf-8')
     s2 = re.sub(r'<div class="ap2-cards">.*?</div></div></section><!-- apps:end -->', lambda m: home_cards(), s, count=1, flags=re.S)
-    s2 = re.sub(r'(Tiga|Empat|Lima|Enam|Dua) aplikasi yang kami kembangkan', {1: 'Satu', 2: 'Dua', 3: 'Tiga', 4: 'Empat', 5: 'Lima', 6: 'Enam'}[len(APPS)] + ' aplikasi yang kami kembangkan', s2, count=1)
     f.write_text(s2, encoding='utf-8')
 
 
