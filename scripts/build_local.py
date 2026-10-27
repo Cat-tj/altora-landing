@@ -17,7 +17,7 @@ SERVICES = [
     ('/services/website-seo', 'Website', 'Company profile, website instansi, dan landing page yang cepat dan mudah diperbarui.'),
     ('/services/seo', 'SEO', 'Audit, perbaikan on-page, dan SEO lokal supaya mudah ditemukan di Google.'),
 ]
-HERO = '/assets/img/person-hero.webp'
+HERO = '/assets/img/apps/office-board.webp'
 
 
 CITIES = [

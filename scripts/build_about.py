@@ -19,7 +19,7 @@ VALUES = [('Jelas', 'Lingkup, jadwal, dan tanggung jawab ditulis sejak awal.'), 
 STEPS = [('Konsultasi', 'Memahami kebutuhan dan tujuan Anda. Gratis.'), ('Analisis & rancangan', 'Pelajari alur kerja, lalu susun solusi.'),
          ('Penawaran', 'Proposal dan rencana kerja tertulis.'), ('Pengerjaan', 'Pengembangan bertahap dengan demo berkala.'),
          ('Serah terima & dukungan', 'Pelatihan pengguna dan dukungan setelah dipakai.')]
-MOSAIC = ['/assets/img/person-hero.webp', '/assets/img/person-flow.webp', '/assets/img/person-stats.webp']
+MOSAIC = ['/assets/img/apps/office-board.webp', '/assets/img/apps/office-project.webp', '/assets/img/apps/raphael-board.webp']
 APPS = [('Altora Projek', 'Manajemen proyek dan tugas tim'), ('Altora Office', 'Operasional kantor: proyek, SDM, dan logistik'), ('Raphael Control Center', 'Pusat kendali server, website, dan agen AI')]
 ICO = {
     'brief': '<rect height="13" rx="2" width="18" x="3" y="7"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18"/>',

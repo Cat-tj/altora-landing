@@ -11,7 +11,7 @@ e = lambda t: html.escape(str(t), quote=True)
 # klien: dikosongkan (portofolio & logo klien dihapus saat pisah dari Sentra); isi ulang hanya dengan klien Altora yang sudah setuju dicantumkan
 CLIENTS = []
 
-STATS = [('3', 'kantor di Kaltim'), ('3', 'aplikasi buatan sendiri'), ('100%', 'dikerjakan satu tim')]
+STATS = [('3', 'kantor di Kaltim'), ('2', 'aplikasi buatan sendiri'), ('100%', 'dikerjakan satu tim')]
 
 INDUSTRIES = [
     ('pertambangan', 'Tambang & industri berat', 'Aplikasi pelaporan, approval, dan dashboard'),
@@ -94,8 +94,8 @@ def security_block():
             f'<ul class="tk-host">{h}</ul></div><ul class="tk-ctrl">{c}</ul></div></section>')
 
 
-IND_IMG = {'pertambangan': '/assets/img/person-problem.webp', 'pemerintahan': '/assets/img/person-support.webp',
-           'pendidikan': '/assets/img/person-faq.webp', 'korporasi': '/assets/img/person-flow.webp'}
+IND_IMG = {'pertambangan': '/assets/img/apps/office-board.webp', 'pemerintahan': '/assets/img/apps/raphael-portfolio.webp',
+           'pendidikan': '/assets/img/apps/office-project.webp', 'korporasi': '/assets/img/apps/office-project.webp'}
 
 
 def industry_block():

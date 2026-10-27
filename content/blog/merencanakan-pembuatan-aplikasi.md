@@ -5,7 +5,7 @@ description: Sebelum membuat aplikasi, pahami 7 hal yang menentukan cakupan proy
 date: 2026-10-11
 updated: 2026-10-14
 category: Perencanaan
-image: /assets/img/person-problem.webp
+image: /assets/img/apps/office-board.webp
 redirect_from: faktor-biaya-pembuatan-aplikasi
 related: /jasa-pembuatan-aplikasi-indonesia | Jasa pembuatan aplikasi Altora
 related: /services/software-custom | Layanan software custom
