@@ -19,8 +19,8 @@ VALUES = [('Jelas', 'Lingkup, jadwal, dan tanggung jawab ditulis sejak awal.'), 
 STEPS = [('Konsultasi', 'Memahami kebutuhan dan tujuan Anda. Gratis.'), ('Analisis & rancangan', 'Pelajari alur kerja, lalu susun solusi.'),
          ('Penawaran', 'Proposal dan rencana kerja tertulis.'), ('Pengerjaan', 'Pengembangan bertahap dengan demo berkala.'),
          ('Serah terima & dukungan', 'Pelatihan pengguna dan dukungan setelah dipakai.')]
-MOSAIC = ['/assets/img/apps/office-board.webp', '/assets/img/apps/office-project.webp', '/assets/img/apps/raphael-board.webp']
-APPS = [('Altora Office', 'Proyek, tugas, dan operasional kantor'), ('Altora Teams', 'KPI, cuti, dan kalender kerja tim'), ('Raphael Control Center', 'Pusat kendali server, website, dan agen AI')]
+MOSAIC = ['/assets/img/apps/office-board.webp', '/assets/img/apps/office-project.webp', '/assets/img/apps/control-center-board.webp']
+APPS = [('Altora Office', 'Proyek, tugas, dan operasional kantor'), ('Altora Teams', 'KPI, cuti, dan kalender kerja tim'), ('Altora Control Center', 'Pusat kendali server, website, dan agen AI')]
 ICO = {
     'brief': '<rect height="13" rx="2" width="18" x="3" y="7"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18"/>',
     'chip': '<rect height="12" rx="2" width="12" x="6" y="6"/><path d="M9.5 9.5h5v5h-5zM9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/>',
@@ -44,7 +44,7 @@ def build():
 <section class="ab-hero"><div class="ct-wrap ab-hero-grid">
 <div class="ab-hero-copy"><p class="eyebrow eyebrow-purple">Tentang Altora</p>
 <h1>Jasa pembuatan software, website, dan SEO untuk bisnis dan instansi.</h1>
-<p class="ct-lead">Altora Indonesia berkantor pusat di Samarinda, dengan dua cabang di Balikpapan. Kami membuat aplikasi custom dan website sesuai kebutuhan Anda, lalu membantu agar mudah ditemukan di Google. Kami juga membangun dan memakai sendiri aplikasi seperti Altora Office, Altora Teams, dan Raphael Control Center.</p>
+<p class="ct-lead">Altora Indonesia berkantor pusat di Samarinda, dengan dua cabang di Balikpapan. Kami membuat aplikasi custom dan website sesuai kebutuhan Anda, lalu membantu agar mudah ditemukan di Google. Kami juga membangun dan memakai sendiri aplikasi seperti Altora Office, Altora Teams, dan Altora Control Center.</p>
 <div class="ab-actions"><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Diskusi dengan tim kami</a><a class="pd-link" href="/aplikasi">Lihat aplikasi kami →</a></div></div>
 <div class="ab-mosaic" style="display:block"><img alt="Altora Office: papan proyek Kanban, aplikasi buatan Altora" src="{MOSAIC[0]}" style="object-position:left top"/></div>
 </div></section>

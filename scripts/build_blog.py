@@ -215,7 +215,7 @@ def build():
               '<a href="/services/software-custom"><b>Aplikasi custom</b><span>Kapan perlu dibuat khusus</span></a>'
               '<a href="/services/website-seo"><b>Website</b><span>Company profile dan website instansi</span></a>'
               '<a href="/services/seo"><b>SEO</b><span>Supaya ditemukan di Google</span></a>'
-              '<a href="/aplikasi"><b>Aplikasi Altora</b><span>Projek, Office, Raphael CC</span></a>'
+              '<a href="/aplikasi"><b>Aplikasi Altora</b><span>Office, Teams, Word, Sheets, Slides</span></a>'
               '</div></div></section>')
     cta = ('<section class="bl-index-cta"><div class="bl-wrap"><div class="bl-cta"><div><b>Punya pertanyaan yang belum terjawab?</b>'
            '<p>Tanyakan langsung ke tim kami. Diskusi awal gratis.</p></div>'

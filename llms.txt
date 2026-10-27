@@ -22,7 +22,7 @@
 ## Applications built by Altora
 - Altora Office: internal work platform with project and task boards (Altora Projek), operations, HRIS, and marketing modules, plus an AI assistant for daily reports (https://altora.id/aplikasi/office)
 - Altora Teams: HRIS dan kinerja tim, meliputi KPI dan review, cuti dan persetujuan, serta kalender kerja (https://altora.id/aplikasi/teams)
-- Raphael Control Center: monitoring for servers, websites, cron jobs, and AI agents, with a project workspace and WhatsApp alerts (https://altora.id/aplikasi/raphael)
+- Altora Control Center: monitoring for servers, websites, cron jobs, and AI agents, with a project workspace and WhatsApp alerts (https://altora.id/aplikasi/control-center)
 
 ## Key pages
 - Services: https://altora.id/services
