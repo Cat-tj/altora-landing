@@ -8,7 +8,7 @@ Idempoten: pembuka lama dilepas dulu sebelum dipasang ulang, jadi aman dijalanka
 Jalankan lewat scripts/build_all.sh (setelah build_produk/build_trust yang mengubah index.html)."""
 import pathlib, re
 
-JS_V, CSS_V, BACK_V = 280, 17, 7
+JS_V, CSS_V, BACK_V = 281, 17, 7
 root = pathlib.Path(__file__).resolve().parent.parent
 idx = root / 'index.html'
 s = idx.read_text(encoding='utf-8')
@@ -18,16 +18,28 @@ INTRO = ('<div class="gd-scene" data-to="9"><div class="gd-scene-in"><div class=
          '<p class="gd-title">Kami membangun sistem Anda, <span>lantai demi lantai.</span></p>'
          '<p>Scroll untuk masuk ↓</p><p class="gd-hint">atau klik salah satu lantai gedung untuk langsung ke halamannya</p></div></div></div>')
 CSS = f'<link rel="stylesheet" href="/assets/css/gedung-scenes.css?v={CSS_V}"/>'
+# Perangkat ringan langsung dapat beranda biasa (3D tidak diunduh sama sekali): hemat data / jaringan 2G-3G, RAM < 4 GB atau
+# CPU < 4 inti, HP dengan RAM < 8 GB atau CPU < 8 inti (atau RAM tak terbaca, misalnya iPhone), GPU lemah. ?3d=1 memaksa 3D,
+# ?3d=0 mematikannya. Bila 3D tetap tersendat saat berjalan, gedung3d.js mematikannya dan menyimpan 'gd-lite'.
+LITE = ('var q=location.search,n=navigator,c=n.connection||{},m=n.deviceMemory,p=n.hardwareConcurrency||0,f=/[?&]3d=1/.test(q),lite=/[?&]3d=0/.test(q);'
+        'try{if(localStorage.getItem("gd-lite")==="1")lite=true}catch(e){}'
+        'if(c.saveData||/2g|3g/.test(c.effectiveType||""))lite=true;if((m&&m<4)||(p&&p<4))lite=true;'
+        'if(matchMedia("(pointer:coarse)").matches&&Math.min(screen.width,screen.height)<768&&(!m||m<8||p<8))lite=true;')
+GPU = ('var di=x.getExtension("WEBGL_debug_renderer_info"),gr=di?String(x.getParameter(di.UNMASKED_RENDERER_WEBGL)):"";'
+       r'if(x.getParameter(x.MAX_TEXTURE_SIZE)<4096||/SwiftShader|llvmpipe|Mali-(4|T)|Adreno \(TM\) [345]\d\d|PowerVR/i.test(gr))lite=true;'
+       'if(f)lite=false;if(lite){document.documentElement.classList.add("gd-lite");return}')
 # tanda boot sejak awal: tampilkan latar langit + logo sampai 3D siap (beranda biasa tidak sempat berkedip); batal sendiri bila 3D tidak jalan
-BOOT = ('<script id="gd-boot">(function(){try{if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;'
-        'var g=document.createElement("canvas"),x=g.getContext("webgl2")||g.getContext("webgl");if(!x)return;'
+BOOT = ('<script id="gd-boot">(function(){try{if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;' + LITE +
+        'var g=document.createElement("canvas"),x=g.getContext("webgl2")||g.getContext("webgl");if(!x)return;' + GPU +
         'var l=x.getExtension("WEBGL_lose_context");if(l)l.loseContext();'
         'var d=document.documentElement,h=new Date().getHours();d.classList.add("gd-boot");if(h<5||h>=19)d.classList.add("gd-boot-night");'
         'var b=function(e){if(d.classList.contains("gd-boot"))e.preventDefault()};'  # selama loading scroll ditahan (tidak terlanjur ke konten)
         'addEventListener("wheel",b,{passive:false});addEventListener("touchmove",b,{passive:false});setTimeout(function(){d.classList.remove("gd-boot","gd-boot-night")},8000)}catch(e){}})()</script>')
 JS = ('<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",'
       '"three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>'
-      f'<script type="module" src="/assets/js/gedung3d.js?v={JS_V}"></script>')
+      # modul 3D (dan Three.js ±1,3 MB) hanya diunduh bila boot di atas menyalakan gd-boot
+      '<script id="gd-load">if(document.documentElement.classList.contains("gd-boot")){var s=document.createElement("script");'
+      f's.type="module";s.src="/assets/js/gedung3d.js?v={JS_V}";document.body.appendChild(s)}}</script>')
 
 
 def strip(s):
@@ -38,6 +50,7 @@ def strip(s):
     s = re.sub(r'<script id="gd-boot">.*?</script>', '', s, flags=re.S)
     s = re.sub(r'<script type="importmap">.*?</script>', '', s, flags=re.S)
     s = re.sub(r'<script type="module" src="/assets/js/gedung3d\.js[^"]*"></script>', '', s)
+    s = re.sub(r'<script id="gd-load">.*?</script>', '', s, flags=re.S)
     return s
 
 
@@ -49,7 +62,10 @@ def inject(s):
     return s.replace('</body>', JS + '</body>', 1)
 
 
-home = inject(strip(s))
+plain = strip(s)
+home = inject(plain)
+# /beranda: isi beranda yang sama tanpa gedung 3D, untuk tautan langsung dan perangkat ringan (canonical tetap ke /)
+(root / 'beranda.html').write_text(plain, encoding='utf-8')
 idx.write_text(home, encoding='utf-8')
 
 # preview: sama dengan beranda, tapi noindex tanpa canonical/JSON-LD

@@ -1239,12 +1239,30 @@ function init() {
   let skyTick = 0;
   let stopped = false;
   window.__gdStop = () => { stopped = true; };
-  let lastDraw = 0, busyUntil = 0, lastRaf = 0, frameMs = 16;
+  let lastDraw = 0, busyUntil = 0, lastRaf = 0, frameMs = 16, perfFrom = 0, perfDone = false, perfWin = 0, perfN = 0, perfLast = 0;
   ['scroll', 'wheel', 'touchmove'].forEach(ev => addEventListener(ev, () => { busyUntil = performance.now() + 500; }, { passive: true }));
   function loop(now = performance.now()) {
     if (stopped) return;
     if (lastRaf) frameMs = frameMs * 0.9 + Math.min(500, now - lastRaf) * 0.1;   // rata-rata waktu frame (untuk deteksi usapan)
     lastRaf = now;
+    // penjaga performa: selama 15 detik pertama setelah siap, diukur per jendela 3 detik; bila ada jendela di bawah 22 fps,
+    // adegan dimatikan (beranda biasa tampil) dan diingat untuk kunjungan berikutnya. Jeda > 1 dtk (tab disembunyikan) mengulang jendela.
+    if (ready && !perfDone) {
+      if (!perfFrom) { perfFrom = now + 1500; perfWin = 0; }
+      else if (now > perfFrom) {
+        if (!perfWin || now - perfLast > 1000) { perfWin = now; perfN = 0; }
+        perfN++; perfLast = now;
+        if (now - perfWin >= 3000) {
+          const fps = perfN * 1000 / (now - perfWin);
+          if (fps < 22 && !/[?&]3d=1/.test(location.search)) {
+            try { localStorage.setItem('gd-lite', '1'); } catch (e) {}
+            fail(new Error('fps rendah (' + Math.round(fps) + ' fps)')); return;
+          }
+          perfWin = now; perfN = 0;
+          if (now > perfFrom + 13500) perfDone = true;
+        }
+      }
+    }
     // HP: saat diam cukup 30 fps (mobil/awan tetap mulus, GPU & baterai separuh); saat scroll/animasi tetap penuh
     const idle = mobile && !auto && !visit && now > busyUntil && (menuP === 0 || menuP === 1);
     if (!idle || now - lastDraw > 30) { lastDraw = now; try { step(); } catch (e) { fail(e); return; } }
