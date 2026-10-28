@@ -2,6 +2,7 @@
 Jalankan dari root repo:  python3 scripts/build_services.py && python3 scripts/apply_shell.py"""
 import html, json, pathlib
 from urllib.parse import quote
+from site_data import ORG_ID, org
 
 root = pathlib.Path(__file__).resolve().parent.parent
 CSS_VER = '20261016i'
@@ -78,7 +79,7 @@ SERVICES = [
               ('chart', 'Analitik & konversi', 'Mengukur dari mana pengunjung datang dan tombol apa yang mereka klik.'),
               ('shield', 'Domain, SSL & keamanan', 'Website aman diakses dan dirawat secara berkala.')],
          steps=['Audit website & kata kunci', 'Struktur halaman & konten', 'Desain & pengembangan', 'Optimasi SEO & kecepatan', 'Peluncuran & pemantauan'],
-         related=[('/jasa-pembuatan-website-samarinda', 'Jasa pembuatan website Samarinda'), ('/jasa-pembuatan-website-indonesia', 'Jasa pembuatan website Indonesia'), ('/blog', 'Artikel & panduan')],
+         related=[('/jasa-pembuatan-website-samarinda', 'Jasa pembuatan website Samarinda'), ('/jasa-pembuatan-website-balikpapan', 'Jasa pembuatan website Balikpapan'), ('/blog', 'Artikel & panduan')],
          faq=[('Apakah website lama bisa diperbaiki?', 'Bisa. Kami mulai dari audit website yang ada, lalu memutuskan apakah cukup diperbaiki atau perlu dibangun ulang.'),
               ('Bisakah kami mengisi konten sendiri?', 'Bisa. Website dapat dilengkapi CMS sehingga tim Anda dapat memperbarui berita, layanan, dan galeri.'),
               ('Kapan hasil SEO terlihat?', 'SEO bergantung pada persaingan kata kunci dan konsistensi konten, sehingga hasilnya bertahap. Kami memantau dan melaporkan perkembangannya.')]),
@@ -169,9 +170,9 @@ def build(sv):
         scope = '<nav aria-label="Cakupan" class="svd-scope">' + ''.join(f'<a href="{u}">{e(t)}</a>' for u, t in sv['scope']) + '</nav>'
     faq = ''.join(f'<details><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q, a in sv['faq'])
     msg = f'Halo Altora, saya ingin konsultasi layanan {sv["name"]}.'
-    ld = {'@context': 'https://schema.org', '@graph': [
-        {'@type': 'Service', 'name': sv['name'], 'description': sv['lead'], 'url': 'https://altora.id' + url,
-         'provider': {'@type': 'Organization', 'name': 'Altora Indonesia', 'url': 'https://altora.id/'},
+    ld = {'@context': 'https://schema.org', '@graph': [org(),
+        {'@type': 'Service', '@id': 'https://altora.id' + url + '#layanan', 'name': sv['name'], 'description': sv['lead'], 'url': 'https://altora.id' + url,
+         'provider': {'@id': ORG_ID},
          'areaServed': ['Balikpapan', 'Samarinda', 'Kalimantan Timur', 'Indonesia']},
         {'@type': 'FAQPage', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in sv['faq']]}]}
     title = f'{sv["name"]} | Layanan Altora Indonesia'

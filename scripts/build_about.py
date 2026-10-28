@@ -4,7 +4,7 @@ from urllib.parse import quote
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from build_area import shell, SITE, WA
 from build_trust import STATS
-from site_data import OFFICES, one_line, maps_link
+from site_data import OFFICES, one_line, maps_link, org, office_node
 
 root = pathlib.Path(__file__).resolve().parent.parent
 e = lambda t: html.escape(str(t), quote=True)
@@ -72,8 +72,7 @@ def build():
 <section class="pd-cta"><div class="ct-wrap pd-cta-inner"><div><h2>Siap mulai? Ceritakan kebutuhan Anda.</h2><p>Konsultasi gratis, tanpa kewajiban lanjut.</p></div><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Konsultasi gratis</a></div></section>
 </main>'''
     ld = {'@context': 'https://schema.org', '@type': 'AboutPage', 'name': 'Tentang Altora Indonesia', 'url': SITE + '/about',
-          'mainEntity': {'@type': 'Organization', 'name': 'Altora Indonesia', 'url': SITE + '/',
-                         'logo': SITE + '/assets/img/altora-logo-600.png'}}
+          'mainEntity': dict(org(), department=[office_node(o) for o in OFFICES])}
     return shell('Tentang Altora Indonesia | Samarinda & Balikpapan',
                  'Altora Indonesia di Samarinda dan Balikpapan: jasa pembuatan software custom, website, dan SEO.',
                  '/about', SITE + COLLAGE[0], ld, body)

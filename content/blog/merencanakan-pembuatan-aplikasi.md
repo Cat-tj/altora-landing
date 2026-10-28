@@ -7,7 +7,7 @@ updated: 2026-10-14
 category: Perencanaan
 image: /assets/img/blog/cover/merencanakan-pembuatan-aplikasi.webp
 redirect_from: faktor-biaya-pembuatan-aplikasi
-related: /jasa-pembuatan-aplikasi-indonesia | Jasa pembuatan aplikasi Altora
+related: /services/software-custom | Jasa pembuatan aplikasi Altora
 related: /services/software-custom | Layanan software custom
 related: /contact | Diskusikan kebutuhan Anda
 ---

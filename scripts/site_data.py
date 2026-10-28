@@ -17,6 +17,14 @@ OFFICES = [
 
 FACTS = dict(partners='6')   # hanya fakta yang dapat diverifikasi; tahun berdiri/jumlah proyek/tim dihapus (pisah dari Sentra)
 
+# Profil resmi Altora di luar situs (schema.org sameAs). Ini yang membuat Google & mesin AI yakin "Altora Indonesia"
+# di altora.id adalah entitas yang sama dengan profil-profil ini, bukan Altora/Alterra lain. Isi HANYA URL milik Altora
+# yang sudah aktif, misalnya Google Business Profile (link "Bagikan" di Maps), LinkedIn Company, Instagram, Clutch, Inaproc.
+# Setelah diubah: python3 scripts/apply_schema.py (atau build_all.sh).
+SAME_AS = []
+
+ORG_ID = SITE + '/#organization'
+LOGO = SITE + '/assets/img/altora-logo-600.png'
 
 def hq():
     return next(o for o in OFFICES if o['hq'])
@@ -38,3 +46,22 @@ def postal_address(o):
 def maps_link(o):
     from urllib.parse import quote
     return 'https://www.google.com/maps/search/?api=1&query=' + quote(f"Altora Indonesia {one_line(o)}, {o['region']}")
+
+
+def org():
+    """Simpul Organization yang sama di setiap halaman. @id-nya sama dengan beranda, jadi Google menggabungkannya
+    jadi satu entitas, bukan ratusan bisnis 'Altora Indonesia' yang berbeda."""
+    n = {'@type': 'Organization', '@id': ORG_ID, 'name': 'Altora Indonesia', 'alternateName': ['Altora', 'Algora Teknologi Indonesia'],
+         'url': SITE + '/', 'logo': {'@type': 'ImageObject', 'url': LOGO, 'width': 600, 'height': 600},
+         'email': EMAIL, 'telephone': PHONE}
+    if SAME_AS:
+        n['sameAs'] = list(SAME_AS)
+    return n
+
+
+def office_node(o):
+    """Kantor fisik sebagai ProfessionalService (LocalBusiness). Hanya untuk kantor yang benar-benar ada di OFFICES."""
+    n = {'@type': 'ProfessionalService', '@id': f"{SITE}/#kantor-{o['key']}", 'name': f"Altora Indonesia – {o['label']}",
+         'image': LOGO, 'url': SITE + '/', 'telephone': PHONE, 'email': EMAIL, 'address': postal_address(o),
+         'hasMap': maps_link(o), 'parentOrganization': {'@id': ORG_ID}}
+    return n

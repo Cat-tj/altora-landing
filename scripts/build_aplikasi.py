@@ -5,6 +5,7 @@ import html, json, pathlib, sys
 from urllib.parse import quote
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from build_area import shell, update_sitemap, SITE, WA
+from site_data import ORG_ID, org
 
 root = pathlib.Path(__file__).resolve().parent.parent
 e = lambda t: html.escape(t, quote=True)
@@ -148,10 +149,10 @@ def detail(k, a):
     shots_sec = ('<section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Tampilan aplikasi</h2><p>Screenshot dari aplikasi yang berjalan, dengan data contoh.</p></div><div class="ap2-feats">' + shots + '</div></div></section>') if shots else ''
     mods = ''.join(f'<article class="svd-do"><h3>{e(t)}</h3><p>{e(d)}</p></article>' for t, d in a['modules'])
     faq = ''.join(f'<details><summary>{e(q)}</summary><p>{e(x)}</p></details>' for q, x in a['faq'])
-    ld = {'@context': 'https://schema.org', '@graph': [
+    ld = {'@context': 'https://schema.org', '@graph': [org(),
         {'@type': 'SoftwareApplication', 'name': a['name'], 'description': a['short'], 'url': SITE + url, 'applicationCategory': 'BusinessApplication',
          'operatingSystem': a.get('os') or ('Web' + (', macOS' if k == 'control-center' else '')), 'image': SITE + IMG + a['shots'][0][0] + '.webp',
-         'publisher': {'@type': 'Organization', 'name': 'Altora Indonesia', 'url': SITE + '/'}},
+         'publisher': {'@id': ORG_ID}},
         {'@type': 'BreadcrumbList', 'itemListElement': [{'@type': 'ListItem', 'position': 1, 'name': 'Beranda', 'item': SITE + '/'},
             {'@type': 'ListItem', 'position': 2, 'name': 'Aplikasi', 'item': SITE + '/aplikasi'}, {'@type': 'ListItem', 'position': 3, 'name': a['name'], 'item': SITE + url}]},
         {'@type': 'FAQPage', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': x}} for q, x in a['faq']]}]}

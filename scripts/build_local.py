@@ -4,7 +4,7 @@ Isi setiap kota harus berbeda dan hanya memakai fakta yang bisa dipertanggungjaw
 import html, json, pathlib, sys
 from urllib.parse import quote
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from site_data import OFFICES, postal_address, one_line, maps_link
+from site_data import OFFICES, ORG_ID, one_line, maps_link, org, office_node
 
 root = pathlib.Path(__file__).resolve().parent.parent
 CSS_VER = '20261016i'
@@ -82,14 +82,15 @@ def page(c):
     nearby = ''.join(f'<a href="{u}">{e(t)}</a>' for u, t in c['nearby'])
     offices = ''.join(f'<p><b>{e(o["label"])}</b><br/><a href="{e(maps_link(o))}" rel="noopener" target="_blank">{e(one_line(o))}</a></p>' for o in OFFICES)
     msg = f'Halo Altora, saya dari {c["city"]} dan ingin konsultasi kebutuhan software.'
-    ld = {'@context': 'https://schema.org', '@graph': [
-        {'@type': 'ProfessionalService', '@id': SITE + url + '#bisnis', 'name': 'Altora Indonesia', 'alternateName': ['Altora', 'Algora Teknologi Indonesia'],
-         'description': c['desc'], 'url': SITE + url, 'telephone': '+6285190911170', 'email': 'hello@altora.id',
-         'image': SITE + '/assets/img/altora-logo-600.png', 'logo': SITE + '/assets/img/altora-logo-600.png',
-         'address': postal_address(next(o for o in OFFICES if o['key'] == c['office'])) if c.get('office') else postal_address(next(o for o in OFFICES if (o['city'] == c['city']) or (c['city'] == 'Kalimantan Timur' and o['hq']))),
+    # Satu entitas Altora (org) yang menyediakan layanan untuk kota ini; simpul kantor hanya untuk kota yang punya kantor.
+    local_offices = [o for o in OFFICES if not c.get('remote') and o['city'] == c['city']]
+    ld = {'@context': 'https://schema.org', '@graph': [org()] + [office_node(o) for o in local_offices] + [
+        {'@type': 'Service', '@id': SITE + url + '#layanan', 'name': c['h1'], 'serviceType': 'Software house',
+         'description': c['desc'], 'url': SITE + url,
+         'provider': {'@id': f"{SITE}/#kantor-{local_offices[0]['key']}" if local_offices else ORG_ID},
          'areaServed': {'@type': 'City' if c['area'] != 'Kalimantan Timur' else 'AdministrativeArea', 'name': c['area']},
-         'parentOrganization': {'@id': SITE + '/#organization'},
-         'makesOffer': [{'@type': 'Offer', 'itemOffered': {'@type': 'Service', 'name': t}} for _, t, _ in (SERVICES[:2] if c.get('remote') else SERVICES)]},
+         'hasOfferCatalog': {'@type': 'OfferCatalog', 'name': 'Layanan software house',
+                             'itemListElement': [{'@type': 'Offer', 'itemOffered': {'@type': 'Service', 'name': t, 'url': SITE + u}} for u, t, _ in (SERVICES[:2] if c.get('remote') else SERVICES)]}},
         {'@type': 'BreadcrumbList', 'itemListElement': [
             {'@type': 'ListItem', 'position': 1, 'name': 'Beranda', 'item': SITE + '/'},
             {'@type': 'ListItem', 'position': 2, 'name': c['h1'], 'item': SITE + url}]},

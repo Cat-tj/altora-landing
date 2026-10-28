@@ -5,7 +5,7 @@ Jangan menambah kota tanpa fakta lokal yang nyata (risiko 'doorway pages')."""
 import html, json, pathlib, re, sys
 from urllib.parse import quote
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from site_data import OFFICES, postal_address
+from site_data import OFFICES, ORG_ID, org, office_node
 from regions import REGIONS
 from regions_nasional import NASIONAL
 
@@ -140,12 +140,11 @@ def page(skey, ckey):
              f'<a href="{s["main"]}">{e(s["main_label"])}</a><a href="/software-house-{ckey}">Software house {e(c["name"])}</a>' + same_city)
     msg = f'Halo Altora, saya di {c["name"]} dan butuh {s["short"].lower()}.'
     clients_p = '' if c.get('needs') else f'<p>Klien kami di {e(c["name"])} antara lain {e(c["sectors"])}.</p>'
-    ld = {'@context': 'https://schema.org', '@graph': [
-        {'@type': 'Service', 'name': h1, 'description': desc, 'url': SITE + url, 'serviceType': s['short'],
+    local_offices = [] if is_nasional(ckey) else [o for o in OFFICES if o['city'] == c['name']]
+    ld = {'@context': 'https://schema.org', '@graph': [org()] + [office_node(o) for o in local_offices] + [
+        {'@type': 'Service', '@id': SITE + url + '#layanan', 'name': h1, 'description': desc, 'url': SITE + url, 'serviceType': s['short'],
          'areaServed': {'@type': 'City', 'name': c['name']},
-         'provider': {'@type': 'ProfessionalService', 'name': 'Altora Indonesia', 'alternateName': ['Altora', 'Algora Teknologi Indonesia'],
-                      'url': SITE + '/', 'telephone': '+6285190911170', 'image': SITE + '/assets/img/altora-logo-600.png',
-                      'address': postal_address(office_of(c))}},
+         'provider': {'@id': f"{SITE}/#kantor-{local_offices[0]['key']}" if local_offices else ORG_ID}},
         {'@type': 'BreadcrumbList', 'itemListElement': [
             {'@type': 'ListItem', 'position': 1, 'name': 'Beranda', 'item': SITE + '/'},
             {'@type': 'ListItem', 'position': 2, 'name': 'Area layanan', 'item': SITE + '/area-layanan'},

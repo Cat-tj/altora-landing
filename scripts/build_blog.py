@@ -18,6 +18,7 @@ Artikel yang namanya diawali "_" dianggap draf dan tidak dipublikasikan.
 """
 import datetime, html, json, pathlib, re
 from urllib.parse import quote
+from site_data import ORG_ID, org
 
 root = pathlib.Path(__file__).resolve().parent.parent
 SRC = root / 'content/blog'
@@ -160,12 +161,12 @@ def build():
         minutes = max(1, round(words / 200))
         url = f'/blog/{p["slug"]}'
         updated = p.get('updated', p['date'])
-        ld = {'@context': 'https://schema.org', '@graph': [
+        ld = {'@context': 'https://schema.org', '@graph': [org(),
             {'@type': 'BlogPosting', 'headline': p['title'], 'description': p['description'], 'datePublished': p['date'],
              'dateModified': updated, 'inLanguage': 'id-ID', 'mainEntityOfPage': SITE + url,
              'image': SITE + p.get('image', '/assets/img/altora-logo-600.png'),
              'author': {'@type': 'Organization', 'name': 'Tim Altora Indonesia', 'url': SITE + '/'},
-             'publisher': {'@type': 'Organization', 'name': 'Altora Indonesia', 'logo': {'@type': 'ImageObject', 'url': SITE + '/assets/img/altora-logo-icon-v2.svg'}}},
+             'publisher': {'@id': ORG_ID}},
             {'@type': 'BreadcrumbList', 'itemListElement': [
                 {'@type': 'ListItem', 'position': 1, 'name': 'Beranda', 'item': SITE + '/'},
                 {'@type': 'ListItem', 'position': 2, 'name': 'Artikel', 'item': SITE + '/blog'},
