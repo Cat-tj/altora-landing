@@ -55,3 +55,6 @@
 .svc2-body strong{margin-top:6px;font-size:.88rem;color:#5B3FC4}
 @media (max-width:980px){.svc2-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.svc2-head{flex-direction:column;align-items:start}}
 @media (max-width:600px){.svc2-grid{grid-template-columns:1fr}}
+/* model seluruh badan: kepala di kanan atas, jadi chip atas digeser ke kiri agar tidak menutupi wajah */
+.pg-full .pg-chip-2{left:6%;top:0}
+@media (max-width:560px){.pg-full .pg-chip-2{left:0;top:0}}
