@@ -1,0 +1,38 @@
+/* Gerak halus halaman utama (scripts/apply_motion.py). Semua efek hanya jalan bila <html> punya kelas m-on, yang dipasang
+   skrip gerbang di <head> untuk perangkat non-LITE tanpa prefers-reduced-motion. Hanya transform/opacity/scale. */
+
+/* 1. Bento aplikasi di beranda: kartu 1 dan 6 melebar dua kolom (gambar di kiri, teks di kanan), tidak ada kartu yatim */
+@media (min-width:901px){
+  .ap2-home .ap2-cards{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .ap2-home .ap2-card:nth-child(1),.ap2-home .ap2-card:nth-child(6){grid-column:span 2;flex-direction:row}
+  .ap2-home .ap2-card:nth-child(1) .ap2-card-pic,.ap2-home .ap2-card:nth-child(6) .ap2-card-pic{flex:0 0 60%;display:flex;align-items:center;padding:28px}
+  .ap2-home .ap2-card:nth-child(1) .ap2-shot,.ap2-home .ap2-card:nth-child(6) .ap2-shot{width:100%;border:1px solid #E4DEFA;border-radius:14px;box-shadow:0 24px 50px -30px rgba(43,30,110,.45)}
+  .ap2-home .ap2-card:nth-child(1) .ap2-card-body,.ap2-home .ap2-card:nth-child(6) .ap2-card-body{justify-content:center;padding:32px}
+  .ap2-home .ap2-card:nth-child(1) .ap2-card-body h3,.ap2-home .ap2-card:nth-child(6) .ap2-card-body h3{min-height:0}
+}
+/* screenshot "mendarat" saat kartu muncul: mulai sedikit membesar lalu kembali normal */
+html.m-on .ap2-home .ap2-shot{overflow:hidden}
+html.m-on .ap2-home .ap2-shot img{transform:scale(1.08);transform-origin:0 0;transition:transform 1.6s cubic-bezier(.22,1,.36,1) .15s}
+html.m-on .ap2-home .ap2-card.revealed .ap2-shot img{transform:none}
+
+/* 2. Judul hero sedikit mengecil dan memudar saat halaman discroll (CSS scroll-driven, tanpa JS). Pakai scroll(root),
+   bukan view(): hero ber-overflow:hidden sehingga view() akan mengikuti hero yang tidak pernah bergulir */
+@supports (animation-timeline:scroll()){
+  html.m-on :is(#heroTitle,.pg-copy h1){transform-origin:0 100%;animation:m-h1 linear both;animation-timeline:scroll(root block);animation-range:60px 460px}
+}
+@keyframes m-h1{to{scale:.9;opacity:.3}}
+
+/* 3. Hover kartu layanan dan aplikasi (hanya mouse): cahaya ungu mengikuti kursor, screenshot bergeser berlawanan arah */
+@media (hover:hover) and (pointer:fine){
+  html.m-on :is(.svc2-card,.ap2-card){position:relative}
+  html.m-on :is(.svc2-card,.ap2-card)::after{content:"";position:absolute;inset:0;z-index:2;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .35s;
+    background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(124,92,232,.13),transparent 45%)}
+  html.m-on :is(.svc2-card,.ap2-card):hover::after{opacity:1}
+  html.m-on .svc2-pic img{transition:transform .5s cubic-bezier(.22,1,.36,1)}
+  html.m-on .svc2-card:hover .svc2-pic img,html.m-on .ap2-home .ap2-card.revealed:hover .ap2-shot img{transition-duration:.5s;transition-delay:0s;
+    transform:scale(1.07) translate(calc(var(--px,0) * -1.6%),calc(var(--py,0) * -1.6%))}
+  html.m-on .ap2-card{transition:transform .25s,box-shadow .25s}
+  html.m-on .ap2-card.revealed:hover{transform:translateY(-4px);box-shadow:0 22px 40px -26px rgba(43,30,110,.45)}
+  html.m-on .svc2-body strong{transition:transform .3s cubic-bezier(.22,1,.36,1)}
+  html.m-on .svc2-card:hover .svc2-body strong{transform:translateX(6px)}
+}

@@ -58,3 +58,11 @@
 /* model seluruh badan: kepala di kanan atas, jadi chip atas digeser ke kiri agar tidak menutupi wajah */
 .pg-full .pg-chip-2{left:6%;top:0}
 @media (max-width:560px){.pg-full .pg-chip-2{left:0;top:0}}
+/* Layanan di HP: model agak ke kanan & kecil; chip bawah naik ke atas jendela (kiri) karena pojok bawah
+   tertutup tablet/lengan, dan tetap di atas balon "?" serta di kiri rambut */
+@media (max-width:560px){
+  .pg-m-faq .pg-person{right:-7%;height:64%}
+  .pg-m-faq .pg-chip-1{left:0;top:27%;bottom:auto;max-width:168px;padding:7px 10px;gap:8px}
+  .pg-m-faq .pg-chip-1 .pg-ci{width:28px;height:28px}
+}
+@media (max-width:380px){.pg-m-faq .pg-person{height:56%}.pg-m-faq .pg-chip-1{top:22%}}

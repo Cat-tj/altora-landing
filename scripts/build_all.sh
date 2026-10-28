@@ -18,6 +18,7 @@ python3 scripts/build_gedung.py
 python3 scripts/purge_removed.py services.html algora.html 404.html jasa-pembuatan-software-samarinda.html
 python3 scripts/apply_shell.py
 python3 scripts/apply_stage.py
+python3 scripts/apply_motion.py
 python3 scripts/apply_seo.py
 python3 scripts/apply_schema.py
 python3 scripts/purge_removed.py --images

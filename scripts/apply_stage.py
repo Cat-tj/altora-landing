@@ -6,7 +6,7 @@ import pathlib
 from bs4 import BeautifulSoup
 
 root = pathlib.Path(__file__).resolve().parent.parent
-CSS = '<link href="/assets/css/stage.css?v=3" rel="stylesheet"/>'
+CSS = '<link href="/assets/css/stage.css?v=4" rel="stylesheet"/>'
 ICO = {
     'grid': '<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>',
     'chat': '<path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z"/>',
