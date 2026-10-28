@@ -1,0 +1,10 @@
+/* Foto model di hero halaman utama (dipasang scripts/apply_models.py) */
+.hm-contact,.hm-services,.hm-text,.hm-support,.hm-detail{position:absolute;z-index:3;width:auto;pointer-events:none;filter:drop-shadow(0 24px 30px rgba(43,30,110,.25))}
+.services-hero-grid,.bl-index-head .bl-wrap,.ct-hero>.ct-wrap,.sp-hero-grid,.svd-hero-grid,.ap2-hero:not(.ap2-hero-hub){position:relative}
+.hm-services{right:-1%;bottom:-4%;height:86%}
+.hm-text{right:clamp(0px,2vw,40px);bottom:0;height:clamp(240px,26vw,390px)}
+.hm-contact{right:clamp(0px,2vw,40px);top:8px;height:clamp(240px,24vw,340px)}
+.hm-support{right:-1%;bottom:-2%;height:92%}
+.hm-detail{right:-2%;bottom:-6%;height:64%}
+@media (max-width:1100px){.hm-text,.hm-contact{display:none}.hm-services,.hm-support{height:64%}}
+@media (max-width:760px){.hm-services,.hm-support,.hm-detail{display:none}}
