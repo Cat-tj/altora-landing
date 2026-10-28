@@ -177,12 +177,13 @@ def hub():
     ld = {'@context': 'https://schema.org', '@type': 'CollectionPage', 'name': 'Aplikasi buatan Altora', 'url': SITE + '/aplikasi',
           'hasPart': [{'@type': 'SoftwareApplication', 'name': a['name'], 'url': SITE + f'/aplikasi/{k}'} for k, a in APPS.items()]}
     body = f'''<main class="ct-page svd-page ap2-page">
-<section class="svd-hero"><div class="ct-wrap"><p class="eyebrow eyebrow-purple">Aplikasi buatan Altora</p>
+<section class="svd-hero"><div class="ct-wrap ap2-hero ap2-hero-hub"><div class="ap2-hero-copy"><p class="eyebrow eyebrow-purple">Aplikasi buatan Altora</p>
 <h1>Aplikasi yang kami kembangkan dan pakai sendiri.</h1>
-<p class="ct-lead">Selain mengerjakan aplikasi untuk klien, kami mengembangkan dan memakai aplikasi sendiri setiap hari. Hasilnya bisa dipakai juga oleh organisasi Anda, atau menjadi dasar aplikasi custom yang disesuaikan dengan proses Anda.</p></div></section>
+<p class="ct-lead">Selain mengerjakan aplikasi untuk klien, kami mengembangkan dan memakai aplikasi sendiri setiap hari. Hasilnya bisa dipakai juga oleh organisasi Anda, atau menjadi dasar aplikasi custom yang disesuaikan dengan proses Anda.</p></div>
+<div class="ab-collage ab-collage-hub"><figure class="ap2-shot ab-c1"><div class="ap2-bar"><i></i><i></i><i></i></div><img alt="" src="{IMG}fieldops-overview.webp"/></figure><figure class="ap2-shot ab-c2"><div class="ap2-bar"><i></i><i></i><i></i></div><img alt="" src="{IMG}office-board.webp"/></figure><figure class="ap2-shot ab-c3"><div class="ap2-bar"><i></i><i></i><i></i></div><img alt="" src="{IMG}teams-overview.webp"/></figure><img alt="Staf Altora memperkenalkan aplikasi" class="ab-person" src="/assets/img/person-flow.webp"/></div></div></section>
 <section class="svd-sec"><div class="ct-wrap ap2-cards">{cards}</div></section>
-<section class="svd-sec"><div class="ct-wrap pd-block-head"><h2>Butuh yang berbeda?</h2><p>Kami membuat aplikasi custom yang mengikuti proses kerja Anda, lengkap dengan website dan SEO.</p>
-<div class="svd-actions"><a class="btn btn-purple" href="/services/software-custom">Lihat layanan software custom</a><a class="svd-link" href="/contact">Konsultasi gratis</a></div></div></section>
+<section class="svd-sec ap2-more"><div class="ct-wrap"><div class="ap2-more-panel"><div class="ap2-more-copy"><h2>Butuh yang berbeda?</h2><p>Kami membuat aplikasi custom yang mengikuti proses kerja Anda, lengkap dengan website dan SEO.</p>
+<div class="svd-actions"><a class="btn btn-purple" href="/services/software-custom">Lihat layanan software custom</a><a class="svd-link" href="/contact">Konsultasi gratis</a></div></div><img alt="" class="ap2-more-person" loading="lazy" src="/assets/img/person-cta.webp"/></div></div></section>
 </main>'''
     return shell('Aplikasi Buatan Altora | Altora Office, Teams & Altora Control Center', 'Aplikasi yang dibangun dan dipakai sendiri oleh Altora: Altora Office untuk proyek dan operasional, Altora Teams untuk KPI dan cuti tim, serta Altora Control Center untuk server, website, dan proyek.',
                  '/aplikasi', SITE + IMG + 'office-board.webp', ld, body)
