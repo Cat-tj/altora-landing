@@ -1,5 +1,5 @@
 """Ilustrasi tampilan untuk layanan Website dan SEO (1600x1000 webp): assets/img/services/{website,seo}.webp. Butuh Chrome dan cwebp."""
-import pathlib, subprocess, tempfile
+import pathlib, subprocess, sys, tempfile
 root = pathlib.Path(__file__).resolve().parent.parent
 CH = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 CSS = '''<meta charset="utf-8"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet"><style>
@@ -45,9 +45,23 @@ TRACK = CSS + """<div class="win" style="height:780px"><div class="bar"><i></i><
 <svg viewBox="0 0 900 724" width="100%" height="100%"><g stroke="#fff" stroke-width="16" fill="none"><path d="M0 560C200 520 300 360 520 340S760 200 900 120"/><path d="M180 724C220 560 360 480 380 300S330 120 350 0"/><path d="M0 220C260 240 500 260 900 420"/></g><path d="M120 640C260 600 340 440 520 380S720 250 820 170" fill="none" stroke="#7C5CE8" stroke-width="8" stroke-dasharray="2 14" stroke-linecap="round"/><circle cx="520" cy="380" r="22" fill="#7C5CE8"/><circle cx="520" cy="380" r="9" fill="#fff"/><circle cx="360" cy="300" r="16" fill="#12A374"/><circle cx="740" cy="230" r="16" fill="#F59E0B"/></svg></div>
 <div style="padding:30px;display:grid;gap:14px;align-content:start"><b style="font-size:24px">Armada aktif</b><div class="card" style="padding:18px"><b style="margin:0;font-size:19px">B 1234 XY</b><p>Bergerak, 42 km/j</p></div><div class="card" style="padding:18px"><b style="margin:0;font-size:19px">KT 5678 AB</b><p>Berhenti, 12 menit</p></div><div class="card" style="padding:18px"><b style="margin:0;font-size:19px">KT 9012 CD</b><p>Bergerak, 31 km/j</p></div></div></div></div>"""
 
-for name, h in (('website', WEB), ('seo', SEO), ('mobile', MOBILE), ('ai', AI), ('private-ai', PRIVATE), ('iot', IOT), ('tracking', TRACK)):
+CCTV = CSS + """<div class="win" style="height:780px"><div class="bar"><i></i><i></i><i></i><div class="url">Pantau CCTV (contoh tampilan)</div></div><div style="padding:30px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+""" + ''.join(f'<div style="height:200px;border-radius:14px;background:linear-gradient(135deg,{a},{b});position:relative"><span style="position:absolute;left:12px;top:10px;color:#fff;font-weight:700;font-size:16px">● {t}</span><span style="position:absolute;right:12px;bottom:10px;color:#fff;font-size:14px;opacity:.85">REC</span></div>' for a,b,t in [('#3B4A6B','#24304A','Gerbang'),('#4E5B7A','#2B3654','Parkiran'),('#5B4A7A','#352B54','Gudang'),('#3E5A66','#22363F','Lobi'),('#58507A','#302A4D','Area kasir'),('#45607A','#273A4E','Pagar belakang')]) + """
+</div><div style="padding:0 30px;display:flex;gap:16px"><div class="card" style="flex:1;padding:18px"><b style="margin:0;font-size:19px">6 kamera aktif</b><p>NVR merekam 24 jam</p></div><div class="card" style="flex:1;padding:18px"><b style="margin:0;font-size:19px">Pantau dari HP</b><p>Rekaman langsung &amp; ulang</p></div></div></div>"""
+HOME = CSS + """<div style="display:flex;gap:60px;align-items:center"><div style="width:380px;height:760px;border-radius:54px;background:#fff;border:10px solid #10224F;box-shadow:0 40px 90px -40px rgba(43,30,110,.5);padding:34px 24px">
+<div style="font-weight:800;font-size:28px">Rumah</div><div class="mut" style="font-size:16px;margin:4px 0 20px">Semua perangkat (contoh)</div>
+""" + ''.join(f'<div class="card" style="padding:16px 18px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center"><span><b style="margin:0;font-size:18px">{t}</b><span class="mut" style="font-size:14px">{d}</span></span><span style="width:46px;height:26px;border-radius:13px;background:{c}"></span></div>' for t,d,c in [('Pintu depan','Terkunci','#7C5CE8'),('Lampu teras','Menyala','#7C5CE8'),('AC kamar','24°C','#7C5CE8'),('Sensor gerak','Siaga','#7C5CE8'),('Kamera ruang tamu','Merekam','#D9D0F5')]) + """
+</div><div style="width:720px"><div style="font-weight:700;color:#5B3FC4;font-size:22px;margin-bottom:18px">● Smart home</div><div style="font-size:68px;line-height:1.05;font-weight:800;letter-spacing:-.03em">Kunci, lampu, AC, dan kamera dalam satu aplikasi.</div></div></div>"""
+ITS = CSS + """<div class="win" style="height:780px"><div class="bar"><i></i><i></i><i></i><div class="url">Tiket IT support (contoh tampilan)</div></div><div class="p" style="padding-top:40px"><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px">
+<div class="card"><div class="mut" style="font-weight:700">Tiket bulan ini</div><div style="font-size:54px;font-weight:800;color:#5B3FC4">18</div></div><div class="card"><div class="mut" style="font-weight:700">Selesai jarak jauh</div><div style="font-size:54px;font-weight:800;color:#5B3FC4">12</div></div><div class="card"><div class="mut" style="font-weight:700">Kunjungan berikutnya</div><div style="font-size:42px;font-weight:800;color:#5B3FC4">Senin</div></div></div>
+<div class="card" style="margin-top:22px;padding:8px 26px">""" + ''.join(f'<div style="display:flex;justify-content:space-between;padding:16px 0;border-bottom:1px solid #E9E5F6;font-size:19px;font-weight:600"><span>{t}</span><span style="color:{c}">{s}</span></div>' for t,s,c in [('Printer lantai 2 tidak terdeteksi','Selesai','#12A374'),('WiFi ruang rapat lemah','Dijadwalkan','#F59E0B'),('Laptop baru staf keuangan','Dikerjakan','#7C5CE8'),('Backup server mingguan','Berhasil','#12A374')]) + """</div></div></div>"""
+
+ONLY = set(sys.argv[1:])   # opsional: hanya render nama tertentu
+for name, h in (('website', WEB), ('seo', SEO), ('mobile', MOBILE), ('ai', AI), ('private-ai', PRIVATE), ('iot', IOT), ('tracking', TRACK), ('cctv', CCTV), ('smart-home', HOME), ('it-support', ITS)):
+    if ONLY and name not in ONLY:
+        continue
     with tempfile.TemporaryDirectory() as d:
         f = pathlib.Path(d, 'c.html'); f.write_text(h, encoding='utf-8'); png = pathlib.Path(d, 'c.png')
-        subprocess.run([CH, '--headless=new', f'--user-data-dir={d}/u', '--hide-scrollbars', '--virtual-time-budget=5000', '--window-size=1600,1000', f'--screenshot={png}', f.as_uri()], check=True, capture_output=True)
+        subprocess.run([CH, '--headless=new', f'--user-data-dir={d}/u', '--hide-scrollbars', '--virtual-time-budget=5000', '--window-size=1600,1000', f'--screenshot={png}', f.as_uri()], check=True, capture_output=True, timeout=90)
         subprocess.run(['cwebp', '-quiet', '-q', '82', str(png), '-o', str(root / 'assets/img/services' / f'{name}.webp')], check=True)
     print('img', name)

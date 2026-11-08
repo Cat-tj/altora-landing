@@ -18,7 +18,7 @@
 /services/private-ai-gis    /services    301
 /services/smart-display-kios    /services    301
 /katalog    /services    301
-/katalog-cctv-vigi    /services    301
+/katalog-cctv-vigi    /services/cctv    301
 
 # Halaman hub lama -> halaman setara
 /samarinda    /software-house-samarinda    301
@@ -34,17 +34,14 @@
 /portfolio/*    /services    301
 /produk/*    /aplikasi    301
 /katalog/*    /services    301
-/katalog-cctv-vigi/*    /services    301
-/jual-*    /services    301
+/katalog-cctv-vigi/*    /services/cctv    301
+/jual-starlink-*    /services    301
 /mesin-kiosk-*    /services    301
 /rak-server-*    /services    301
 /interactive-flat-panel-*    /services    301
 /alat-fiber-optik-*    /services    301
-/cctv-tenaga-surya-*    /services    301
 /videotron-*    /services    301
 /gps-tracker-kendaraan-*    /services    301
-/jasa-pasang-cctv-*    /services    301
-/it-support-*    /services    301
 /jasa-instalasi-jaringan-*    /services    301
 /services/pengadaan-*    /services    301
 /services/instalasi-*    /services    301

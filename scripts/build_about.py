@@ -27,7 +27,8 @@ APPS = [('fieldops', 'Altora FieldOps', 'Operasional lapangan tambang dan migas'
 SERVICES = [('software-custom', 'Software custom', 'Aplikasi dan sistem internal mengikuti proses Anda.'), ('web-custom', 'Web custom', 'Portal, dashboard, dan aplikasi web dari nol.'),
             ('mobile-app-custom', 'Aplikasi mobile', 'Android dan iOS untuk tim lapangan dan pelanggan.'), ('ai-custom', 'AI custom', 'Asisten, otomasi dokumen, analisis data, visi komputer.'),
             ('private-ai', 'AI lokal', 'Model AI di server Anda, data tidak keluar.'), ('iot-custom', 'IoT custom', 'Sensor dan perangkat terhubung ke aplikasi.'),
-            ('tracking', 'Tracking', 'Pelacakan kendaraan, armada, dan aset.'), ('website-seo', 'Website', 'Company profile dan website instansi.'), ('seo', 'SEO', 'Audit, on-page, dan SEO lokal.')]
+            ('tracking', 'Tracking', 'Pelacakan kendaraan, armada, dan aset.'), ('website-seo', 'Website', 'Company profile dan website instansi.'), ('seo', 'SEO', 'Audit, on-page, dan SEO lokal.'),
+            ('cctv', 'Pasang CCTV', 'Kamera, NVR, tenaga surya, dan 4G.'), ('smart-lock', 'Smart lock', 'Kunci pintu digital dan akses tamu.'), ('smart-home', 'Smart home', 'Kunci, lampu, AC, dan kamera dalam satu aplikasi.')] + [('it-support', 'IT support bulanan', 'Komputer, jaringan, server, dan backup.')]
 ICO = {
     'brief': '<rect height="13" rx="2" width="18" x="3" y="7"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18"/>',
     'chip': '<rect height="12" rx="2" width="12" x="6" y="6"/><path d="M9.5 9.5h5v5h-5zM9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/>',
@@ -58,7 +59,7 @@ def build():
 <div class="ab-collage">{collage}</div>
 </div></section>
 <section class="ab-sec ab-stats-sec"><div class="ct-wrap"><div class="ts-stats">{stats}</div></div></section>
-<section class="ab-sec"><div class="ct-wrap"><div class="ab-head"><p class="eyebrow eyebrow-purple">Yang kami kerjakan</p><h2>Dari ide sampai aplikasi yang dipakai</h2><p class="ab-p">Sembilan layanan software dan digital, bisa diambil satu per satu atau digabung dalam satu proyek.</p></div>
+<section class="ab-sec"><div class="ct-wrap"><div class="ab-head"><p class="eyebrow eyebrow-purple">Yang kami kerjakan</p><h2>Dari ide sampai aplikasi yang dipakai</h2><p class="ab-p">Layanan software, perangkat, dan dukungan IT, bisa diambil satu per satu atau digabung dalam satu proyek.</p></div>
 <div class="ab-svcs">{svcs}</div></div></section>
 <section class="ab-sec ab-dark"><div class="ct-wrap ab-vm">
 <div class="ab-vision"><p class="eyebrow">Cara kerja</p><ol class="ab-mission">{''.join(f'<li>{e(t)}: {e(d)}</li>' for t, d in STEPS)}</ol></div>
