@@ -45,8 +45,12 @@ def is_nasional(ckey):
     return CITIES[ckey].get('scope') == 'nasional'
 
 
+# layanan perangkat (CCTV, IT support) hanya di Samarinda
+HW_ONLY = {'cctv': ('samarinda',), 'itsupport': ('samarinda',)}
+
+
 def services_for(ckey):
-    return [k for k in SERVICES if not is_nasional(ckey) or k in REMOTE_SERVICES]
+    return [k for k in SERVICES if (not is_nasional(ckey) or k in REMOTE_SERVICES) and (k not in HW_ONLY or ckey in HW_ONLY[k])]
 
 
 def office_of(c):
@@ -168,7 +172,7 @@ def page(skey, ckey):
     faq = ''.join(f'<details><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q, a in faq_items)
     near = near_of(ckey)
     same_city = ''.join(f'<a href="/{fmt(SERVICES[k]["slug"], dict(CITIES[ckey], key=ckey))}">{e(SERVICES[k]["short"])} {e(c["name"])}</a>' for k in services_for(ckey) if k != skey)
-    links = (''.join(f'<a href="/{fmt(s["slug"], dict(CITIES[k], key=k))}">{e(s["short"])} {e(CITIES[k]["name"])}</a>' for k in near) +
+    links = (''.join(f'<a href="/{fmt(s["slug"], dict(CITIES[k], key=k))}">{e(s["short"])} {e(CITIES[k]["name"])}</a>' for k in near if skey in services_for(k)) +
              f'<a href="{s["main"]}">{e(s["main_label"])}</a><a href="/software-house-{ckey}">Software house {e(c["name"])}</a>' + same_city)
     msg = f'Halo Altora, saya di {c["name"]} dan butuh {s["short"].lower()}.'
     clients_p = '' if c.get('needs') else f'<p>Klien kami di {e(c["name"])} antara lain {e(c["sectors"])}.</p>'

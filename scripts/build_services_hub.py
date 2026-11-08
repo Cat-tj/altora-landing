@@ -15,14 +15,14 @@ CARDS = [
     ('tracking', 'Tracking', 'Armada & aset', 'Pelacakan kendaraan dan aset: posisi, riwayat perjalanan, geofence, dan laporan.', '/assets/img/services/tracking.webp'),
     ('website-seo', 'Website', 'Company profile & instansi', 'Company profile, website instansi, dan landing page yang cepat dan mudah diperbarui.', '/assets/img/services/website.webp'),
     ('seo', 'SEO', 'Mudah ditemukan', 'Audit, perbaikan on-page, dan SEO lokal agar website ditemukan di Google.', '/assets/img/services/seo.webp'),
-    ('cctv', 'Pasang CCTV', 'Kantor, gudang & proyek', 'Survei titik, kamera dan NVR resmi, pantau dari HP, sampai CCTV tenaga surya dan 4G.', '/assets/img/services/cctv.webp'),
-    ('smart-lock', 'Smart lock', 'Kunci pintu digital', 'Kunci pintu dengan aplikasi, PIN, kartu, atau sidik jari, lengkap dengan akses tamu.', '/assets/img/hardware/smartlock.webp'),
-    ('smart-home', 'Smart home', 'Rumah & kantor terhubung', 'Kunci, lampu, AC, sensor, dan kamera dalam satu aplikasi, dengan otomasi.', '/assets/img/services/smart-home.webp'),
-    ('it-support', 'IT support bulanan', 'Kontrak bulanan', 'Komputer, jaringan, server, backup, dan akun karyawan, dengan kunjungan berkala.', '/assets/img/services/it-support.webp'),
+    ('cctv', 'Pasang CCTV', 'Samarinda', 'Survei titik, kamera dan NVR resmi, pantau dari HP, sampai CCTV tenaga surya dan 4G.', '/assets/img/services/cctv.webp'),
+    ('smart-lock', 'Smart lock', 'Samarinda', 'Kunci pintu dengan aplikasi, PIN, kartu, atau sidik jari, lengkap dengan akses tamu.', '/assets/img/hardware/smartlock.webp'),
+    ('smart-home', 'Smart home', 'Samarinda', 'Kunci, lampu, AC, sensor, dan kamera dalam satu aplikasi, dengan otomasi.', '/assets/img/services/smart-home.webp'),
+    ('it-support', 'IT support bulanan', 'Samarinda', 'Komputer, jaringan, server, backup, dan akun karyawan, dengan kunjungan berkala.', '/assets/img/services/it-support.webp'),
 ]
 HERO = '''<section class="svh-hero"><div class="ct-wrap svh-wrap"><div class="pg-copy">
 <p class="eyebrow eyebrow-purple">Layanan</p><h1>Software, AI, CCTV, dan IT support untuk bisnis dan instansi.</h1>
-<p class="ct-lead">Ceritakan masalahnya, kami bantu pilih solusinya: aplikasi web dan mobile, AI, IoT dan tracking, website dan SEO, CCTV dan smart lock, sampai IT support bulanan.</p>
+<p class="ct-lead">Ceritakan masalahnya, kami bantu pilih solusinya: aplikasi web dan mobile, AI, IoT dan tracking, website dan SEO, CCTV, smart lock, dan IT support bulanan untuk Samarinda.</p>
 <div class="svd-actions"><a class="btn btn-purple" href="/contact">Konsultasi gratis</a><a class="svd-link" href="#layanan">Lihat layanan ↓</a></div>
 </div></div></section>'''
 

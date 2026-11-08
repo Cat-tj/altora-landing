@@ -17,7 +17,7 @@
 - Custom software: web apps, mobile apps, internal systems, dashboards, and integrations built around the client's workflow
 - Websites for companies, campuses, and government institutions, with a CMS the client can edit
 - SEO: technical audit, on-page optimization, local SEO, and reporting
-- Hardware and IT services in Kalimantan Timur: CCTV installation (including solar and 4G CCTV, official VIGI devices), smart locks, smart home, and monthly IT support contracts for companies (https://altora.id/services/cctv, /services/smart-lock, /services/smart-home, /services/it-support)
+- Hardware and IT services in Samarinda only: CCTV installation (including solar and 4G CCTV, official VIGI devices), smart locks, smart home, and monthly IT support contracts for companies (https://altora.id/services/cctv, /services/smart-lock, /services/smart-home, /services/it-support)
 - Remote delivery across Indonesia, with on-site discussion and training in Kalimantan Timur
 
 ## Applications built by Altora

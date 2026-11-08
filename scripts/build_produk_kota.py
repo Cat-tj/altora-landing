@@ -144,7 +144,7 @@ def page(pkey, ckey):
     same_city = ''.join(f'<a href="/{fmt(PRODUCTS[k]["slug"], c)}">{e(PRODUCTS[k]["short"])} {e(c["name"])}</a>' for k in products_for(ckey) if k != pkey)
     local_links = (f'<a href="/software-house-{ckey}">Software house {e(c["name"])}</a><a href="/jasa-pembuatan-aplikasi-{ckey}">Jasa pembuatan aplikasi {e(c["name"])}</a>' if nas else
                    f'<a href="/jasa-pasang-cctv-{ckey}">Jasa pasang CCTV {e(c["name"])}</a><a href="/it-support-{ckey}">IT support {e(c["name"])}</a>')
-    links = (''.join(f'<a href="/{fmt(p["slug"], dict(ALL_CITIES[k], key=k))}">{e(p["short"])} {e(ALL_CITIES[k]["name"])}</a>' for k in near) +
+    links = (''.join(f'<a href="/{fmt(p["slug"], dict(ALL_CITIES[k], key=k))}">{e(p["short"])} {e(ALL_CITIES[k]["name"])}</a>' for k in near if pkey in products_for(k)) +
              f'<a href="{p["main"]}">{e(p["main_label"])}</a>' + local_links + same_city)
     msg = f'Halo Altora, saya di {c["name"]} dan butuh {p.get("noun", p["short"].lower())}.'
     office = office_of(c)
@@ -179,23 +179,15 @@ def page(pkey, ckey):
 
 
 def products_for(ckey):
-    return [k for k in PRODUCTS if k in NAT_NAME] if ALL_CITIES[ckey].get('scope') == 'nasional' else list(PRODUCTS)
+    # perangkat dijual & dipasang hanya di Samarinda
+    return list(PRODUCTS) if ckey == 'samarinda' else []
 
 
 def hub_section(built):
-    rows = ''
-    for ckey, cdat in CITIES.items():
-        links = ''.join(f'<a class="lc-svc" href="{u}"><b>{e(h)}</b></a>' for (ck, u, h) in built if ck == ckey)
-        rows += f'<div class="pk-hubcity"><h3>{e(cdat["name"])}</h3><div class="lc-svcs">{links}</div></div>'
-    nat = ''
-    for ckey, cdat in NAT_CITIES.items():
-        links = ''.join(f'<a href="{u}">{e(h)}</a>' for (ck, u, h) in built if ck == ckey)
-        nat += f'<div class="pk-hubcity"><h3>{e(cdat["name"])}</h3><div class="svd-related">{links}</div></div>'
-    return ('<!-- produk-kota:start --><section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Jual &amp; pasang produk per kota</h2>'
-            '<p>Pengadaan, instalasi, dan perawatan perangkat di seluruh Kalimantan Timur.</p></div>' + rows + '</div></section>'
-            '<section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Jual &amp; kirim ke kota lain di Indonesia</h2>'
-            '<p>Produk resmi dikirim ke lokasi Anda, dengan panduan pengaturan jarak jauh. Pemasangan di lokasi dibahas per proyek.</p></div>' + nat + '</div></section><!-- produk-kota:end -->')
-
+    links = ''.join(f'<a class="lc-svc" href="{u}"><b>{e(h)}</b></a>' for (ck, u, h) in built)
+    return ('<!-- produk-kota:start --><section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Perangkat di Samarinda</h2>'
+            '<p>Penjualan, pemasangan, dan perawatan CCTV dan smart lock untuk Samarinda dan sekitarnya.</p></div>'
+            f'<div class="lc-svcs">{links}</div></div></section><!-- produk-kota:end -->')
 
 if __name__ == '__main__':
     built = []
