@@ -29,6 +29,12 @@
 ## Key pages
 - Services: https://altora.id/services
 - Applications: https://altora.id/aplikasi
+- Store and distributor app (Indonesian): https://altora.id/aplikasi-toko
+- Mining and oil & gas field operations app: https://altora.id/aplikasi-pertambangan
+- Project management and office operations app: https://altora.id/aplikasi-manajemen-proyek
+- HRIS, KPI and leave app: https://altora.id/aplikasi-hris
+- Server and website monitoring app: https://altora.id/aplikasi-monitoring-server
+- Office suite (documents, spreadsheets, presentations): https://altora.id/aplikasi-perkantoran
 - Articles: https://altora.id/blog
 - About: https://altora.id/about
 - Contact: https://altora.id/contact

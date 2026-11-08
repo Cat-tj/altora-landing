@@ -11,7 +11,7 @@ python3 scripts/build_local.py
 python3 scripts/build_area.py
 python3 scripts/build_industri.py
 python3 scripts/build_aplikasi.py
-python3 scripts/build_store_seo.py
+python3 scripts/build_app_seo.py
 python3 scripts/build_about.py
 python3 scripts/build_support.py
 python3 scripts/build_trust.py

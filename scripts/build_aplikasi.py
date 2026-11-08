@@ -158,6 +158,12 @@ APPS = {
              ('Apakah bisa disesuaikan?', 'Bisa. Server, website, dan peringatan yang dipantau diatur lewat konfigurasi, dan kami bisa membantu menyiapkannya.')]),
 }
 
+# halaman SEO per kebutuhan bisnis (scripts/build_app_seo.py)
+SEO = {'store': ('/aplikasi-toko', 'Aplikasi toko & distributor'), 'fieldops': ('/aplikasi-pertambangan', 'Aplikasi pertambangan & migas'),
+       'office': ('/aplikasi-manajemen-proyek', 'Aplikasi manajemen proyek'), 'teams': ('/aplikasi-hris', 'Aplikasi HRIS & KPI'),
+       'control-center': ('/aplikasi-monitoring-server', 'Aplikasi monitoring server'), 'word': ('/aplikasi-perkantoran', 'Aplikasi perkantoran'),
+       'sheets': ('/aplikasi-perkantoran', 'Aplikasi perkantoran'), 'slides': ('/aplikasi-perkantoran', 'Aplikasi perkantoran')}
+
 
 def demo_link(name):
     return WA + quote(f'Halo Altora, saya ingin minta demo {name}.')
@@ -186,7 +192,7 @@ def detail(k, a):
 <section class="svd-hero"><div class="ct-wrap ap2-hero">
 <div class="ap2-hero-copy"><nav aria-label="Breadcrumb" class="bl-crumb"><a href="/aplikasi">Aplikasi</a><span>/</span><span>{e(a["name"])}</span></nav>
 <p class="eyebrow eyebrow-purple">{e(a["tag"])}</p><h1>{e(a["h1"])}</h1><p class="ct-lead">{e(a["lead"])}</p>{basis}
-<div class="svd-actions"><a class="btn btn-purple" href="{demo_link(a["name"])}" rel="noopener" target="_blank">Minta demo</a><a class="svd-link" href="#fitur">Lihat fitur</a></div></div>
+<div class="svd-actions"><a class="btn btn-purple" href="{demo_link(a["name"])}" rel="noopener" target="_blank">Minta demo</a><a class="svd-link" href="{SEO[k][0] if k in SEO else "#fitur"}">{SEO[k][1] + " →" if k in SEO else "Lihat fitur"}</a></div></div>
 {pic(a["shots"][0][0], a["shots"][0][1], True)}
 </div></section>
 <section class="svd-sec" id="fitur"><div class="ct-wrap"><div class="pd-block-head"><h2>Yang bisa dikerjakan</h2></div><div class="svd-dos">{mods}</div></div></section>
