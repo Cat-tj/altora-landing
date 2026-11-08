@@ -21,5 +21,6 @@ block = '# perangkat-kota:start (scripts/hw_redirects.py)\n' + '\n'.join(lines) 
 p = root / '_redirects'
 s = p.read_text(encoding='utf-8')
 s = re.sub(r'# perangkat-kota:start.*?# perangkat-kota:end\n', '', s, flags=re.S)
-p.write_text(s.rstrip('\n') + '\n' + block, encoding='utf-8')
+# ditaruh paling atas: aturan statis sebelum aturan wildcard
+p.write_text(block + s.lstrip('\n'), encoding='utf-8')
 print(f'alihan perangkat kota: {len(lines)} URL, {removed} file dihapus')
