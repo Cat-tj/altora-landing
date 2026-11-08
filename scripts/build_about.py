@@ -23,7 +23,7 @@ COLLAGE = ['/assets/img/apps/office-board.webp', '/assets/img/apps/teams-overvie
 MOSAIC = ['/assets/img/apps/office-board.webp', '/assets/img/apps/office-project.webp', '/assets/img/apps/control-center-board.webp']
 APPS = [('fieldops', 'Altora FieldOps', 'Operasional lapangan tambang dan migas', 'fieldops-overview'), ('office', 'Altora Office', 'Proyek, tugas, dan operasional kantor', 'office-board'), ('teams', 'Altora Teams', 'KPI, cuti, dan kalender kerja tim', 'teams-overview'),
         ('control-center', 'Altora Control Center', 'Pusat kendali server, website, dan proyek', 'control-center-board'), ('word', 'Altora Word', 'Pengolah kata dengan format .docx', 'word-main'),
-        ('sheets', 'Altora Sheets', 'Lembar kerja dengan rumus dan grafik', 'sheets-main')]
+        ('store', 'Altora Store', 'Stok, PO, nota, dan laporan toko', 'store-penjualan')]
 SERVICES = [('software-custom', 'Software custom', 'Aplikasi dan sistem internal mengikuti proses Anda.'), ('web-custom', 'Web custom', 'Portal, dashboard, dan aplikasi web dari nol.'),
             ('mobile-app-custom', 'Aplikasi mobile', 'Android dan iOS untuk tim lapangan dan pelanggan.'), ('ai-custom', 'AI custom', 'Asisten, otomasi dokumen, analisis data, visi komputer.'),
             ('private-ai', 'AI lokal', 'Model AI di server Anda, data tidak keluar.'), ('iot-custom', 'IoT custom', 'Sensor dan perangkat terhubung ke aplikasi.'),

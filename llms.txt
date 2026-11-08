@@ -20,6 +20,8 @@
 - Remote delivery across Indonesia, with on-site discussion and training in Kalimantan Timur
 
 ## Applications built by Altora
+- Altora Store: web-based store management for retail and wholesale shops (spare parts, building materials, distributors): FIFO stock per batch, purchases and supplier debt, cash or credit sales with the buyer's PO number, quotations that convert to sales, invoice and delivery note (surat jalan) PDFs, stock counts from a phone, and 15 reports (https://altora.id/aplikasi/store, overview in Indonesian: https://altora.id/aplikasi-toko)
+- Altora FieldOps: field operations for mining and oil & gas: wells and sites, HSE and permit to work, heavy assets, field crew, legal readiness, AFE and accounting (https://altora.id/aplikasi/fieldops)
 - Altora Office: internal work platform with project and task boards (Altora Projek), operations, HRIS, and marketing modules, plus an AI assistant for daily reports (https://altora.id/aplikasi/office)
 - Altora Teams: HRIS dan kinerja tim, meliputi KPI dan review, cuti dan persetujuan, serta kalender kerja (https://altora.id/aplikasi/teams)
 - Altora Control Center: monitoring for servers, websites, cron jobs, and AI agents, with a project workspace and WhatsApp alerts (https://altora.id/aplikasi/control-center)

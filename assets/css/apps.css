@@ -64,3 +64,8 @@
 .ap2-more-copy p{margin:0 0 24px;color:#5A6785;line-height:1.6}
 .ap2-more-person{display:block;height:clamp(260px,26vw,360px);width:auto;align-self:end}
 @media (max-width:900px){.ap2-more-panel{grid-template-columns:1fr}.ap2-more-person{justify-self:center;height:260px}.ab-collage .ab-person{height:96%}}
+/* halaman aplikasi toko: alur dan daftar "cocok untuk" */
+.st-flow li span{display:block;margin-top:4px;color:#5A6785;font-size:.9rem;font-weight:500;line-height:1.5}
+.ap2-fitlist{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px;margin:0;padding:0;list-style:none}
+.ap2-fitlist li{padding:16px 18px 16px 44px;position:relative;border:1px solid #E9E5F6;border-radius:16px;background:#fff;font-weight:700;color:#10224F}
+.ap2-fitlist li:before{content:"";position:absolute;left:18px;top:50%;width:12px;height:12px;margin-top:-6px;border-radius:50%;background:#7C5CE8;box-shadow:0 0 0 4px #F3F0FD}

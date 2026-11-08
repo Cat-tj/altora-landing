@@ -41,7 +41,7 @@ for cls in ('services-intro', 'services-catalogue', 'svc2-sec'):
         s.decompose()
 main.find('section', class_='svh-hero').insert_after(BeautifulSoup(catalogue(), 'html.parser'))
 txt = str(soup)
-txt = txt.replace('Altora Office, Teams, dan Control Center, lengkap dengan screenshot.', 'FieldOps, Office, Teams, Word, Sheets, Slides, dan Control Center.')
+txt = txt.replace('Altora Office, Teams, dan Control Center, lengkap dengan screenshot.', 'FieldOps, Store, Office, Teams, Word, Sheets, Slides, dan Control Center.')
 txt = txt.replace('<li>Aplikasi custom</li><li>Website</li><li>SEO</li><li>Dashboard dan laporan</li>', '<li>Aplikasi web &amp; mobile</li><li>AI custom &amp; AI lokal</li><li>IoT &amp; tracking</li><li>Website &amp; SEO</li>')
 p.write_text(txt, encoding='utf-8')
 print('services.html: hub layanan dibangun')

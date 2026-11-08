@@ -3,7 +3,7 @@ Jalankan: python3 scripts/check_links.py [--sumber]   (keluar kode 1 bila ada ta
 import glob, os, re, sys, collections
 root = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 os.chdir(root)
-files = [f for f in glob.glob('**/*.html', recursive=True) if not f.startswith(('design/', 'partials/', 'preview'))]
+files = [f for f in glob.glob('**/*.html', recursive=True) if not f.startswith(('design/', 'partials/', 'preview', 'dist/'))]
 def exists(p):
     p = p.split('#')[0].split('?')[0]
     if p in ('', '/'): return True

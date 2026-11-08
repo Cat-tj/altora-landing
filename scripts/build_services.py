@@ -61,7 +61,7 @@ SERVICES = [
               ('plug', 'Integrasi sistem', 'Terhubung dengan aplikasi akuntansi, perangkat, atau API yang sudah ada.'),
               ('shield', 'Keamanan & log aktivitas', 'Jejak perubahan tercatat dan data tersimpan dengan aman.')],
          steps=['Pemetaan alur kerja', 'Rancangan layar & data', 'Pengembangan bertahap', 'Uji coba bersama pengguna', 'Peluncuran & pendampingan'],
-         related=[('/jasa-pembuatan-aplikasi-samarinda', 'Jasa pembuatan aplikasi Samarinda'), ('/services/website-seo', 'Website & SEO'), ('/blog/merencanakan-pembuatan-aplikasi', 'Artikel: merencanakan pembuatan aplikasi')],
+         related=[('/jasa-pembuatan-aplikasi-samarinda', 'Jasa pembuatan aplikasi Samarinda'), ('/aplikasi-toko', 'Aplikasi toko: stok, PO, dan nota'), ('/blog/merencanakan-pembuatan-aplikasi', 'Artikel: merencanakan pembuatan aplikasi')],
          faq=[('Apakah harus dibuat dari nol?', 'Tidak selalu. Bila ada aplikasi di pasaran yang sudah cocok, kami bantu menilainya dulu; yang dibuat khusus hanya bagian yang benar-benar unik di proses Anda.'),
               ('Bisa dipakai di HP?', 'Bisa. Sistem dapat dibuat sebagai aplikasi web yang nyaman di HP, aplikasi mobile, atau keduanya sesuai kebutuhan lapangan.'),
               ('Siapa pemilik data dan aksesnya?', 'Kepemilikan data, akses server, dan source code dibahas dan dicantumkan dengan jelas sejak awal kerja sama.')]),
