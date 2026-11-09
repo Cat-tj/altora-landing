@@ -107,7 +107,8 @@ def industry_block():
 
 
 PICKS = [('aplikasi', 'Aplikasi custom', '/jasa-pembuatan-aplikasi-{c}'), ('software', 'Software house', '/software-house-{c}'),
-         ('website', 'Website', '/jasa-pembuatan-website-{c}'), ('seo', 'SEO', '/jasa-seo-{c}'), ('altora', 'Aplikasi Altora', '/aplikasi')]
+         ('website', 'Website', '/jasa-pembuatan-website-{c}'), ('seo', 'SEO', '/jasa-seo-{c}'), ('cctv', 'CCTV', '/services/cctv'),
+         ('itsupport', 'IT support', '/services/it-support'), ('altora', 'Aplikasi Altora', '/aplikasi')]
 
 
 def picks_block():
