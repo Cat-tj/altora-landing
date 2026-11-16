@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <title>Matriks Komparasi Barcode 1D vs QR Code 2D</title>
+  <desc>Tabel visual perbandingan fitur, keunggulan teknis, dan kelemahan operasional antara barcode 1D dan QR code 2D di kasir dan gudang.</desc>
+  <defs>
+    <style>
+      .bg { fill: #F8FAFC; }
+      .title-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 19px; font-weight: 700; fill: #172B4D; }
+      .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #6B778C; }
+      .th-bg { fill: #EBECF0; }
+      .th-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; font-weight: 700; fill: #172B4D; }
+      .td-bg-alt { fill: #FFFFFF; }
+      .td-bg { fill: #F4F5F7; }
+      .param-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; font-weight: 700; fill: #172B4D; }
+      .cell-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; fill: #42526E; }
+      .cell-bold { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 12px; font-weight: 600; fill: #172B4D; }
+      .badge-win-1d { fill: #E6FCFF; stroke: #46B6E9; rx: 4; }
+      .badge-win-2d { fill: #EAE6FF; stroke: #7C5CE8; rx: 4; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" class="bg" rx="16"/>
+
+  <!-- Header -->
+  <text x="40" y="44" class="title-text">Matriks Karakteristik: Barcode 1D vs QR Code 2D</text>
+  <text x="40" y="66" class="subtitle">Evaluasi dimensi teknis untuk menentukan kesesuaian alat kerja di meja kasir dan lantai gudang</text>
+
+  <!-- Table Container -->
+  <g transform="translate(40, 85)">
+    <!-- Header Row -->
+    <rect x="0" y="0" width="720" height="38" rx="8" class="th-bg"/>
+    <text x="20" y="24" class="th-text">Parameter Operasional</text>
+    <text x="230" y="24" class="th-text">Barcode Linear (1D)</text>
+    <text x="480" y="24" class="th-text">QR Code Matriks (2D)</text>
+
+    <!-- Row 1: Tipe & Kapasitas Data -->
+    <rect x="0" y="42" width="720" height="48" class="td-bg-alt" rx="4"/>
+    <text x="20" y="64" class="param-text">Kapasitas Data</text>
+    <text x="20" y="80" class="cell-text">Volume &amp; jenis info</text>
+    <text x="230" y="64" class="cell-bold">20–25 karakter numerik/teks</text>
+    <text x="230" y="80" class="cell-text">Hanya nomor identitas (SKU/EAN)</text>
+    <text x="480" y="64" class="cell-bold">Hingga ribuan karakter</text>
+    <text x="480" y="80" class="cell-text">Teks panjang, batch/lot, URL, serial</text>
+
+    <!-- Row 2: Kecepatan Kasir -->
+    <rect x="0" y="94" width="720" height="48" class="td-bg" rx="4"/>
+    <text x="20" y="116" class="param-text">Kecepatan Checkout</text>
+    <text x="20" y="132" class="cell-text">Siklus scan di kasir POS</text>
+    <text x="230" y="116" class="cell-bold">Sangat Cepat &amp; Instan</text>
+    <text x="230" y="132" class="cell-text">Laser membaca garis dalam milidetik</text>
+    <text x="480" y="116" class="cell-bold">Sangat Baik (Butuh Imager)</text>
+    <text x="480" y="132" class="cell-text">Sensor kamera memproses sudut 360°</text>
+
+    <!-- Row 3: Ketahanan Rusak / Kotor -->
+    <rect x="0" y="146" width="720" height="48" class="td-bg-alt" rx="4"/>
+    <text x="20" y="168" class="param-text">Ketahanan Fisik</text>
+    <text x="20" y="184" class="cell-text">Toleransi kotor/sobek di gudang</text>
+    <text x="230" y="168" class="cell-bold">Rendah</text>
+    <text x="230" y="184" class="cell-text">Jika satu garis tergores, gagal terbaca</text>
+    <text x="480" y="168" class="cell-bold">Tinggi (Error Correction)</text>
+    <text x="480" y="184" class="cell-text">Tetap terbaca meski rusak 7%–30%</text>
+
+    <!-- Row 4: Perangkat Pemindai -->
+    <rect x="0" y="198" width="720" height="48" class="td-bg" rx="4"/>
+    <text x="20" y="220" class="param-text">Perangkat Pemindai</text>
+    <text x="20" y="236" class="cell-text">Hardware scanner</text>
+    <text x="230" y="220" class="cell-bold">Laser Scanner 1D Hemat</text>
+    <text x="230" y="236" class="cell-text">Pistol scan kabel/wireless terjangkau</text>
+    <text x="480" y="220" class="cell-bold">Kamera HP / 2D Imager</text>
+    <text x="480" y="236" class="cell-text">Bisa pakai smartphone Android staf</text>
+
+    <!-- Row 5: Ketergantungan Jaringan -->
+    <rect x="0" y="250" width="720" height="48" class="td-bg-alt" rx="4"/>
+    <text x="20" y="272" class="param-text">Kemandirian Data</text>
+    <text x="20" y="288" class="cell-text">Kebutuhan database pusat</text>
+    <text x="230" y="272" class="cell-bold">Wajib Koneksi Database</text>
+    <text x="230" y="288" class="cell-text">Label tidak bermakna tanpa server POS</text>
+    <text x="480" y="272" class="cell-bold">Bisa Mandiri (Self-Contained)</text>
+    <text x="480" y="288" class="cell-text">Info lot &amp; spesifikasi tersimpan di label</text>
+
+    <!-- Row 6: Ukuran Cetak -->
+    <rect x="0" y="302" width="720" height="44" class="td-bg" rx="4"/>
+    <text x="20" y="322" class="param-text">Ukuran Stiker Label</text>
+    <text x="20" y="338" class="cell-text">Dimensi kemasan fisik</text>
+    <text x="230" y="322" class="cell-bold">Memanjang horizontal</text>
+    <text x="230" y="338" class="cell-text">Butuh bidang cetak cukup lebar</text>
+    <text x="480" y="322" class="cell-bold">Kompak persegi 2 dimensi</text>
+    <text x="480" y="338" class="cell-text">Dapat dicetak kecil pada barang mungil</text>
+  </g>
+</svg>

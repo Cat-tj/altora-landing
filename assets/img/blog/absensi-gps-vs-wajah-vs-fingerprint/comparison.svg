@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" height="100%">
+  <title>Matriks Perbandingan Fitur Kehadiran</title>
+  <desc>Tabel perbandingan mendalam aspek akurasi, biaya, dan kemudahan operasional antara GPS, Wajah, dan Fingerprint.</desc>
+  <rect width="800" height="400" fill="#F8FAFC"/>
+  <rect x="50" y="40" width="700" height="320" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+  <text x="90" y="80" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="bold" fill="#172B4D">Ringkasan Evaluasi Teknologi Absensi</text>
+  
+  <!-- Headers -->
+  <rect x="90" y="110" width="700" height="40" fill="#F1F5F9"/>
+  <text x="120" y="135" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#172B4D">Kriteria</text>
+  <text x="300" y="135" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#172B4D">Absensi GPS</text>
+  <text x="470" y="135" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#172B4D">Pengenalan Wajah</text>
+  <text x="640" y="135" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="bold" fill="#172B4D">Fingerprint</text>
+
+  <!-- Row 1 -->
+  <text x="120" y="180" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#334155" font-weight="bold">Mobilitas</text>
+  <text x="300" y="180" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#0369A1">Sangat Tinggi</text>
+  <text x="470" y="180" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#5B21B6">Sedang (Tablet)</text>
+  <text x="640" y="180" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#64748B">Rendah (Tetap)</text>
+  <line x1="90" y1="205" x2="710" y2="205" stroke="#E2E8F0" stroke-width="1"/>
+
+  <!-- Row 2 -->
+  <text x="120" y="235" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#334155" font-weight="bold">Higienis</text>
+  <text x="300" y="235" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#0369A1">Milik Sendiri (HP)</text>
+  <text x="470" y="235" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#5B21B6">Tanpa Sentuh</text>
+  <text x="640" y="235" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#DC2626">Kontak Fisik</text>
+  <line x1="90" y1="260" x2="710" y2="260" stroke="#E2E8F0" stroke-width="1"/>
+
+  <!-- Row 3 -->
+  <text x="120" y="290" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#334155" font-weight="bold">Biaya Perangkat</text>
+  <text x="300" y="290" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#0369A1">Rendah (BYOD)</text>
+  <text x="470" y="290" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#5B21B6">Menengah-Tinggi</text>
+  <text x="640" y="290" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#10B981">Rendah</text>
+  <line x1="90" y1="315" x2="710" y2="315" stroke="#E2E8F0" stroke-width="1"/>
+
+  <!-- Row 4 -->
+  <text x="120" y="345" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" fill="#334155" font-weight="bold">Kendala Utama</text>
+  <text x="300" y="345" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" fill="#64748B">Sinyal GPS / Fake GPS</text>
+  <text x="470" y="345" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" fill="#64748B">Cahaya / Masker</text>
+  <text x="640" y="345" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" fill="#64748B">Debu &amp; Keausan Jari</text>
+</svg>

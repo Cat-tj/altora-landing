@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="100%" height="100%">
+  <title>Perbandingan Barcode Linear dan QR Code Matriks 2D</title>
+  <desc>Ilustrasi perbandingan struktur teknologi Barcode 1D linear dengan QR Code 2D matriks serta karakteristik operasional masing-masing untuk kasir dan gudang.</desc>
+  <defs>
+    <style>
+      .bg { fill: #F8FAFC; }
+      .card-1d { fill: #FFFFFF; stroke: #E2E8F0; stroke-width: 2; rx: 16; }
+      .card-2d { fill: #FFFFFF; stroke: #E2E8F0; stroke-width: 2; rx: 16; }
+      .title-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 20px; font-weight: 700; fill: #172B4D; }
+      .subtitle { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #6B778C; }
+      .badge-1d { fill: #E6FCFF; stroke: #46B6E9; stroke-width: 1.5; rx: 6; }
+      .badge-1d-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; font-weight: 700; fill: #008DA6; }
+      .badge-2d { fill: #EAE6FF; stroke: #7C5CE8; stroke-width: 1.5; rx: 6; }
+      .badge-2d-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 11px; font-weight: 700; fill: #5243AA; }
+      .heading { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 16px; font-weight: 700; fill: #172B4D; }
+      .body-text { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 13px; fill: #42526E; }
+      .highlight { font-weight: 600; fill: #172B4D; }
+      .divider { stroke: #DFE1E6; stroke-width: 1; stroke-dasharray: 4 4; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" class="bg" rx="16"/>
+
+  <!-- Header -->
+  <text x="40" y="46" class="title-text">Perbandingan Barcode Linear (1D) vs QR Code (2D)</text>
+  <text x="40" y="68" class="subtitle">Memahami perbedaan struktur, kapasitas simpan, dan efisiensi pemindaian untuk operasional retail &amp; logistik</text>
+
+  <!-- Card 1: Barcode 1D -->
+  <rect x="40" y="95" width="345" height="295" class="card-1d"/>
+  <rect x="60" y="115" width="80" height="24" class="badge-1d"/>
+  <text x="73" y="131" class="badge-1d-text">1D LINEAR</text>
+  <text x="60" y="165" class="heading">Barcode 1D (Garis Vertikal)</text>
+
+  <!-- Barcode Visual Illustration -->
+  <g transform="translate(60, 180)">
+    <rect x="0" y="0" width="305" height="60" fill="#F4F5F7" rx="8"/>
+    <!-- Simulated Barcode Bars -->
+    <rect x="25" y="10" width="4" height="40" fill="#172B4D"/>
+    <rect x="33" y="10" width="2" height="40" fill="#172B4D"/>
+    <rect x="40" y="10" width="6" height="40" fill="#172B4D"/>
+    <rect x="52" y="10" width="3" height="40" fill="#172B4D"/>
+    <rect x="60" y="10" width="8" height="40" fill="#172B4D"/>
+    <rect x="73" y="10" width="2" height="40" fill="#172B4D"/>
+    <rect x="80" y="10" width="5" height="40" fill="#172B4D"/>
+    <rect x="92" y="10" width="3" height="40" fill="#172B4D"/>
+    <rect x="102" y="10" width="7" height="40" fill="#172B4D"/>
+    <rect x="115" y="10" width="2" height="40" fill="#172B4D"/>
+    <rect x="123" y="10" width="4" height="40" fill="#172B4D"/>
+    <rect x="133" y="10" width="6" height="40" fill="#172B4D"/>
+    <rect x="145" y="10" width="3" height="40" fill="#172B4D"/>
+    <rect x="155" y="10" width="8" height="40" fill="#172B4D"/>
+    <rect x="168" y="10" width="2" height="40" fill="#172B4D"/>
+    <rect x="176" y="10" width="5" height="40" fill="#172B4D"/>
+    <rect x="188" y="10" width="4" height="40" fill="#172B4D"/>
+    <rect x="198" y="10" width="6" height="40" fill="#172B4D"/>
+    <rect x="210" y="10" width="3" height="40" fill="#172B4D"/>
+    <rect x="220" y="10" width="7" height="40" fill="#172B4D"/>
+    <rect x="233" y="10" width="2" height="40" fill="#172B4D"/>
+    <rect x="242" y="10" width="5" height="40" fill="#172B4D"/>
+    <rect x="254" y="10" width="3" height="40" fill="#172B4D"/>
+    <rect x="264" y="10" width="6" height="40" fill="#172B4D"/>
+    <rect x="276" y="10" width="4" height="40" fill="#172B4D"/>
+  </g>
+
+  <!-- 1D Features -->
+  <text x="60" y="265" class="body-text">• <tspan class="highlight">Prinsip:</tspan> Pola ketebalan garis &amp; spasi searah</text>
+  <text x="60" y="290" class="body-text">• <tspan class="highlight">Kapasitas:</tspan> Singkat (hanya kode kunci ID / SKU)</text>
+  <text x="60" y="315" class="body-text">• <tspan class="highlight">Pemindai:</tspan> Scanner laser 1D cepat &amp; murah</text>
+  <text x="60" y="340" class="body-text">• <tspan class="highlight">Kelemahan:</tspan> Rusak di tengah langsung gagal baca</text>
+  <text x="60" y="365" class="body-text">• <tspan class="highlight">Area Ideal:</tspan> Kasir retail, checkout cepat, label pabrik</text>
+
+  <!-- Card 2: QR Code 2D -->
+  <rect x="415" y="95" width="345" height="295" class="card-2d"/>
+  <rect x="435" y="115" width="70" height="24" class="badge-2d"/>
+  <text x="447" y="131" class="badge-2d-text">2D MATRIX</text>
+  <text x="435" y="165" class="heading">QR Code (Matriks Titik Kotak)</text>
+
+  <!-- QR Code Visual Illustration -->
+  <g transform="translate(435, 180)">
+    <rect x="0" y="0" width="305" height="60" fill="#F4F5F7" rx="8"/>
+    <!-- Position Detection Patterns (Corners) -->
+    <!-- Top-Left -->
+    <rect x="125" y="10" width="18" height="18" fill="#172B4D"/>
+    <rect x="128" y="13" width="12" height="12" fill="#F4F5F7"/>
+    <rect x="131" y="16" width="6" height="6" fill="#7C5CE8"/>
+    <!-- Top-Right -->
+    <rect x="165" y="10" width="18" height="18" fill="#172B4D"/>
+    <rect x="168" y="13" width="12" height="12" fill="#F4F5F7"/>
+    <rect x="171" y="16" width="6" height="6" fill="#7C5CE8"/>
+    <!-- Bottom-Left -->
+    <rect x="125" y="32" width="18" height="18" fill="#172B4D"/>
+    <rect x="128" y="35" width="12" height="12" fill="#F4F5F7"/>
+    <rect x="131" y="38" width="6" height="6" fill="#7C5CE8"/>
+    <!-- Random Dot Pattern Matrix -->
+    <rect x="150" y="14" width="4" height="4" fill="#172B4D"/>
+    <rect x="156" y="20" width="4" height="4" fill="#172B4D"/>
+    <rect x="150" y="28" width="4" height="4" fill="#7C5CE8"/>
+    <rect x="156" y="36" width="4" height="4" fill="#172B4D"/>
+    <rect x="166" y="34" width="4" height="4" fill="#172B4D"/>
+    <rect x="174" y="34" width="4" height="4" fill="#7C5CE8"/>
+    <rect x="170" y="42" width="4" height="4" fill="#172B4D"/>
+    <rect x="178" y="44" width="4" height="4" fill="#172B4D"/>
+  </g>
+
+  <!-- 2D Features -->
+  <text x="435" y="265" class="body-text">• <tspan class="highlight">Prinsip:</tspan> Matriks 2 arah (horizontal &amp; vertikal)</text>
+  <text x="435" y="290" class="body-text">• <tspan class="highlight">Kapasitas:</tspan> Ribuan karakter (batch, expired, URL)</text>
+  <text x="435" y="315" class="body-text">• <tspan class="highlight">Fitur Kunci:</tspan> Error correction hingga 30% kotor</text>
+  <text x="435" y="340" class="body-text">• <tspan class="highlight">Pemindai:</tspan> Kamera HP / imager 2D (360 derajat)</text>
+  <text x="435" y="365" class="body-text">• <tspan class="highlight">Area Ideal:</tspan> Palet gudang, pelacakan lot, aset mesin</text>
+</svg>

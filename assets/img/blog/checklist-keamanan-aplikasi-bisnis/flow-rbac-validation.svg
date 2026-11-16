@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 420" role="img">
+  <title>Alur Validasi Hak Akses dan RBAC pada Aplikasi Bisnis</title>
+  <desc>Diagram alur verifikasi permintaan pengguna dari antarmuka web/mobile, validasi token sesi, pengecekan otorisasi peran (RBAC) di sisi server, hingga eksekusi basis data yang aman.</desc>
+  <rect width="1000" height="420" fill="#FAF7F2"/>
+  <g font-family="system-ui, -apple-system, sans-serif">
+    <text x="500" y="45" text-anchor="middle" font-size="22" font-weight="bold" fill="#172B4D">Alur Validasi Hak Akses Berlapis (Bukan Cuma di Tampilan)</text>
+    <text x="500" y="75" text-anchor="middle" font-size="13" fill="#5E6C84">Setiap aksi pengguna harus diperiksa ulang di server sebelum data dieksekusi</text>
+
+    <!-- Node 1: Request Pengguna -->
+    <g transform="translate(50, 140)">
+      <rect width="180" height="150" rx="10" fill="#FFFFFF" stroke="#46B6E9" stroke-width="2"/>
+      <rect x="0" y="0" width="180" height="35" rx="10" fill="#E4F2FA"/>
+      <text x="90" y="24" text-anchor="middle" font-size="13" font-weight="bold" fill="#172B4D">1. Aksi Pengguna</text>
+      <text x="90" y="70" text-anchor="middle" font-size="12" fill="#172B4D">Staf mengklik menu</text>
+      <text x="90" y="90" text-anchor="middle" font-size="12" fill="#172B4D">atau kirim data form</text>
+      <rect x="25" y="110" width="130" height="25" rx="4" fill="#EDE9FB"/>
+      <text x="90" y="127" text-anchor="middle" font-size="11" font-weight="bold" fill="#7C5CE8">Kirim Token / Sesi</text>
+    </g>
+
+    <!-- Arrow 1 -> 2 -->
+    <path d="M230 215 L280 215" stroke="#7C5CE8" stroke-width="3" fill="none"/>
+    <polygon points="280,210 290,215 280,220" fill="#7C5CE8"/>
+
+    <!-- Node 2: Server API & Auth -->
+    <g transform="translate(290, 140)">
+      <rect width="190" height="150" rx="10" fill="#FFFFFF" stroke="#7C5CE8" stroke-width="2"/>
+      <rect x="0" y="0" width="190" height="35" rx="10" fill="#EDE9FB"/>
+      <text x="95" y="24" text-anchor="middle" font-size="13" font-weight="bold" fill="#172B4D">2. Verifikasi Server</text>
+      <text x="95" y="65" text-anchor="middle" font-size="12" fill="#172B4D">Apakah sesi valid?</text>
+      <text x="95" y="85" text-anchor="middle" font-size="12" fill="#172B4D">Siapa pemilik token?</text>
+      <!-- Sub-branch reject -->
+      <path d="M95 100 L95 125" stroke="#DE350B" stroke-width="2" stroke-dasharray="3 3"/>
+      <text x="95" y="137" text-anchor="middle" font-size="10" fill="#DE350B">Jika palsu: Tolak (401)</text>
+    </g>
+
+    <!-- Arrow 2 -> 3 -->
+    <path d="M480 215 L530 215" stroke="#7C5CE8" stroke-width="3" fill="none"/>
+    <polygon points="530,210 540,215 530,220" fill="#7C5CE8"/>
+
+    <!-- Node 3: RBAC & Permission Gate -->
+    <g transform="translate(540, 140)">
+      <rect width="190" height="150" rx="10" fill="#FFFFFF" stroke="#E8A25A" stroke-width="2"/>
+      <rect x="0" y="0" width="190" height="35" rx="10" fill="#FAF1DE"/>
+      <text x="95" y="24" text-anchor="middle" font-size="13" font-weight="bold" fill="#172B4D">3. Izin Peran (RBAC)</text>
+      <text x="95" y="65" text-anchor="middle" font-size="12" fill="#172B4D">Boleh akses modul ini?</text>
+      <text x="95" y="85" text-anchor="middle" font-size="12" fill="#172B4D">Milik cabang/tenant mana?</text>
+      <text x="95" y="137" text-anchor="middle" font-size="10" fill="#DE350B">Tanpa wewenang: 403</text>
+    </g>
+
+    <!-- Arrow 3 -> 4 -->
+    <path d="M730 215 L780 215" stroke="#36B37E" stroke-width="3" fill="none"/>
+    <polygon points="780,210 790,215 780,220" fill="#36B37E"/>
+
+    <!-- Node 4: Database Execution & Log -->
+    <g transform="translate(790, 140)">
+      <rect width="170" height="150" rx="10" fill="#FFFFFF" stroke="#36B37E" stroke-width="2"/>
+      <rect x="0" y="0" width="170" height="35" rx="10" fill="#EBF6EE"/>
+      <text x="85" y="24" text-anchor="middle" font-size="13" font-weight="bold" fill="#172B4D">4. Eksekusi &amp; Log</text>
+      <text x="85" y="65" text-anchor="middle" font-size="12" fill="#172B4D">Ambil / ubah data</text>
+      <text x="85" y="85" text-anchor="middle" font-size="12" fill="#172B4D">Database terisolasi</text>
+      <rect x="20" y="105" width="130" height="30" rx="4" fill="#E4F2FA"/>
+      <text x="85" y="125" text-anchor="middle" font-size="11" font-weight="bold" fill="#172B4D">Tulis Audit Log</text>
+    </g>
+
+    <!-- Bottom summary box -->
+    <g transform="translate(50, 325)">
+      <rect width="910" height="55" rx="8" fill="#EDE9FB" stroke="#7C5CE8" stroke-width="1"/>
+      <text x="455" y="25" text-anchor="middle" font-size="12" font-weight="bold" fill="#172B4D">Prinsip Utama Keamanan:</text>
+      <text x="455" y="44" text-anchor="middle" font-size="12" fill="#5E6C84">Jangan hanya menyembunyikan tombol di layar HP/web; server API wajib selalu memeriksa hak akses setiap kali data diminta.</text>
+    </g>
+  </g>
+</svg>

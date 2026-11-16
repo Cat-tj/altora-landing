@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" width="100%" height="100%">
+  <title>Perbandingan Operasional Fleet Management</title>
+  <desc>Perbandingan antara pencatatan manual vs pemantauan terpusat fleet management.</desc>
+  <rect width="1200" height="500" fill="#F8FAFC"/>
+  <text x="600" y="60" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="bold" fill="#172B4D" text-anchor="middle">Perbandingan Pengelolaan Armada</text>
+  
+  <rect x="80" y="120" width="500" height="330" rx="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5"/>
+  <text x="120" y="175" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="bold" fill="#EF4444">Cara Konvensional / Manual</text>
+  <text x="120" y="220" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" fill="#475569">✕ Pelaporan posisi unit terlambat berjam-jam</text>
+  <text x="120" y="270" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" fill="#475569">✕ Konsumsi BBM boros tanpa deteksi kebocoran</text>
+  <text x="120" y="320" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" fill="#475569">✕ Perawatan mesin sering terlambat (breakdown)</text>
+  <text x="120" y="370" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" fill="#475569">✕ Risiko tinggi penyimpangan rute &amp; muatan</text>
+
+  <rect x="620" y="120" width="500" height="330" rx="12" fill="#172B4D"/>
+  <text x="660" y="175" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="bold" fill="#34D399">Fleet Management Altora</text>
+  <text x="660" y="220" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" fill="#CBD5E1">✓ Visibilitas posisi &amp; status unit real-time</text>
+  <text x="660" y="270" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" fill="#CBD5E1">✓ Kontrol ketat konsumsi BBM &amp; idling engine</text>
+  <text x="660" y="320" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" fill="#CBD5E1">✓ Pengingat otomatis preventive maintenance</text>
+  <text x="660" y="370" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="15" fill="#CBD5E1">✓ Penyimpanan data aman saat area blank spot</text>
+</svg>

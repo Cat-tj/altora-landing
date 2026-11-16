@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <title>Alur Kerja Pemantauan Kelembapan Tanah</title>
+  <desc>Diagram alur operasional dari pembacaan sensor lapangan hingga tindakan pemupukan atau penyiraman.</desc>
+  <rect width="800" height="450" fill="#F8F9FA" rx="12" />
+  <rect x="40" y="40" width="720" height="370" fill="#FFFFFF" rx="8" stroke="#E2E8F0" stroke-width="2" />
+  <text x="80" y="90" font-family="system-ui, sans-serif" font-size="24" font-weight="bold" fill="#172B4D">Alur Kerja Sistem Sensor Tanah</text>
+  <text x="80" y="120" font-family="system-ui, sans-serif" font-size="14" fill="#4A5568">Proses dari pengambilan sampel fisik di kebun hingga keputusan agronomi.</text>
+  <!-- Step 1 -->
+  <rect x="80" y="180" width="180" height="160" rx="6" fill="#FFFFFF" stroke="#CBD5E0" stroke-width="1.5" />
+  <circle cx="170" cy="220" r="20" fill="#F0EDFF" />
+  <text x="170" y="226" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#7C5CE8" text-anchor="middle">1</text>
+  <text x="170" y="270" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#172B4D" text-anchor="middle">Pengukuran Sensor</text>
+  <text x="170" y="295" font-family="system-ui, sans-serif" font-size="12" fill="#4A5568" text-anchor="middle">Probe tertanam di akar</text>
+  <!-- Step 2 -->
+  <rect x="310" y="180" width="180" height="160" rx="6" fill="#FFFFFF" stroke="#CBD5E0" stroke-width="1.5" />
+  <circle cx="400" cy="220" r="20" fill="#E6F6FD" />
+  <text x="400" y="226" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#0284C7" text-anchor="middle">2</text>
+  <text x="400" y="270" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#172B4D" text-anchor="middle">Analisis Data</text>
+  <text x="400" y="295" font-family="system-ui, sans-serif" font-size="12" fill="#4A5568" text-anchor="middle">Ambang batas kekeringan</text>
+  <!-- Step 3 -->
+  <rect x="540" y="180" width="180" height="160" rx="6" fill="#FFFFFF" stroke="#CBD5E0" stroke-width="1.5" />
+  <circle cx="630" cy="220" r="20" fill="#F0EDFF" />
+  <text x="630" y="226" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#7C5CE8" text-anchor="middle">3</text>
+  <text x="630" y="270" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" fill="#172B4D" text-anchor="middle">Tindakan Lapangan</text>
+  <text x="630" y="295" font-family="system-ui, sans-serif" font-size="12" fill="#4A5568" text-anchor="middle">Irigasi &amp; Pemupukan</text>
+</svg>

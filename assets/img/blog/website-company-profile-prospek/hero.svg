@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <title>Website Company Profile Prospek Hero</title>
+  <desc>Ilustrasi struktur website company profile yang menghasilkan prospek bisnis secara profesional.</desc>
+  <rect width="800" height="450" fill="#F8FAFC" rx="12"/>
+  <rect x="40" y="40" width="720" height="370" fill="#FFFFFF" rx="8" stroke="#E2E8F0" stroke-width="1"/>
+  <rect x="70" y="80" width="300" height="40" fill="#7C5CE8" rx="6"/>
+  <text x="90" y="105" fill="#FFFFFF" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="600">Company Profile Berbasis Prospek</text>
+  <text x="70" y="150" fill="#172B4D" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="22" font-weight="700">Ubah Pengunjung Website Menjadi Klien Nyata</text>
+  <text x="70" y="180" fill="#4A5568" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14">Struktur navigasi jelas, layanan transparan, dan akses kontak yang mudah.</text>
+  <rect x="70" y="220" width="200" height="130" fill="#F1F5F9" rx="6"/>
+  <text x="90" y="250" fill="#172B4D" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="600">1. Hero &amp; Value</text>
+  <text x="90" y="275" fill="#4A5568" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12">Solusi instan &amp; CTA</text>
+  <rect x="290" y="220" width="200" height="130" fill="#F1F5F9" rx="6"/>
+  <text x="310" y="250" fill="#172B4D" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="600">2. Layanan Spesifik</text>
+  <text x="310" y="275" fill="#4A5568" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12">Tanpa istilah rumit</text>
+  <rect x="510" y="220" width="200" height="130" fill="#F1F5F9" rx="6"/>
+  <text x="530" y="250" fill="#172B4D" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="14" font-weight="600">3. Portofolio Nyata</text>
+  <text x="530" y="275" fill="#4A5568" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12">Bukti kerja &amp; kredibilitas</text>
+</svg>
