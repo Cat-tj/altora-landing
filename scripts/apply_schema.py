@@ -76,7 +76,8 @@ for f in sorted(root.rglob('*.html')):
         continue
     s = f.read_text(encoding='utf-8'); orig = s
     if rel in built:
-        s = re.sub(r'<script type="application/ld\+json" ' + MARK + r'>.*?</script>', '', s, flags=re.S)
+        # bs4 (build_services_hub) bisa menukar urutan atribut, jadi cocokkan kedua urutan agar idempoten
+        s = re.sub(r'<script (?:type="application/ld\+json" ' + MARK + '|' + MARK + r' type="application/ld\+json")>.*?</script>', '', s, flags=re.S)
         block = f'<script type="application/ld+json" {MARK}>' + json.dumps({'@context': 'https://schema.org', '@graph': built[rel]}, ensure_ascii=False) + '</script>'
         s = s.replace('</head>', block + '</head>', 1)
         counts['blok'] += 1

@@ -2,7 +2,7 @@
 Penawaran ini untuk proyek infrastruktur perusahaan di Kalimantan Timur (Starlink, CCTV berbasis AI, jaringan & IoT).
 Layanan perangkat kecil (CCTV rumahan, smart lock, smart home, IT support bulanan) tetap hanya Samarinda, lihat hw_redirects.py.
 Tanpa harga, tanpa nama klien, tanpa angka karangan. Jalankan sebelum apply_shell.py (lihat build_all.sh).
-Blok beranda disisipkan di antara penanda <!-- infra:start --> ... <!-- infra:end -->."""
+Teks portofolio: ubah PORTFOLIO_MODE. Blok beranda disisipkan di antara penanda <!-- infra:start --> ... <!-- infra:end -->."""
 import html, json, pathlib, re, sys
 from urllib.parse import quote
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
@@ -51,13 +51,31 @@ AREAS = [
      ['Kabel Cat6', 'PoE & Mikrotik', 'VLAN', 'Sensor ruang server']),
 ]
 
-# Contoh pekerjaan: hanya jenis pekerjaan dari konten lama; nama klien tidak dicantumkan.
-WORKS = [
-    ('i-store', 'Restoran & F&B', 'Kasir POS, CCTV multi-sudut, manage switch 24-port, access point untuk pelanggan, dan walkie talkie untuk dapur.'),
-    ('i-building', 'Pemerintahan', 'Rancangan hardware anjungan layanan mandiri (Kios-K) layar sentuh untuk pengurusan surat kependudukan di kelurahan.'),
-    ('i-pin', 'Logistik & maritim', 'GPS tracker untuk armada logistik tambang di Kaltim dan integrasi komunikasi radio marine VHF.'),
-    ('i-bell', 'Gudang & ruang server', 'Pemantau suhu, kelembapan, kebocoran, dan asap dengan notifikasi WhatsApp dan dashboard terpusat.'),
+# Sakelar teks portofolio (satu baris): 'kemampuan' = contoh kebutuhan yang bisa kami tangani (default, tanpa klaim proyek),
+# 'proyek' = pekerjaan yang benar-benar sudah dikerjakan (pakai hanya setelah pemilik mengonfirmasi).
+PORTFOLIO_MODE = 'kemampuan'
+PORTO_TEXT = {
+    'kemampuan': dict(
+        eyebrow='Contoh kebutuhan', h2='Contoh kebutuhan yang kami tangani', home_p='Beberapa jenis kebutuhan infrastruktur dan hardware yang bisa kami kerjakan. Detailnya bisa dibahas lewat WhatsApp.',
+        page_h2='Contoh kebutuhan yang kami tangani', page_note=''),
+    'proyek': dict(
+        eyebrow='Contoh pekerjaan', h2='Perangkat dan jaringan yang pernah kami kerjakan', home_p='Beberapa jenis pekerjaan infrastruktur dan hardware. Nama klien tidak kami cantumkan; detailnya bisa dibahas lewat WhatsApp.',
+        page_h2='Contoh pekerjaan', page_note='Nama klien tidak kami cantumkan. Detail pekerjaan bisa dibahas lewat WhatsApp.'),
+}
+PT = PORTO_TEXT[PORTFOLIO_MODE]
+# (ikon, judul, teks mode 'proyek', teks mode 'kemampuan'); hanya jenis pekerjaan dari konten lama, tanpa nama klien.
+_WORKS = [
+    ('i-store', 'Restoran & F&B', 'Kasir POS, CCTV multi-sudut, manage switch 24-port, access point untuk pelanggan, dan walkie talkie untuk dapur.',
+     'Kasir POS, CCTV multi-sudut, manage switch 24-port, access point untuk pelanggan, dan walkie talkie untuk dapur.'),
+    ('i-building', 'Pemerintahan', 'Rancangan hardware anjungan layanan mandiri (Kios-K) layar sentuh untuk pengurusan surat kependudukan di kelurahan.',
+     'Anjungan layanan mandiri (Kios-K) layar sentuh untuk pengurusan surat kependudukan di kelurahan, yang dapat kami rancang.'),
+    ('i-pin', 'Logistik & maritim', 'GPS tracker untuk armada logistik tambang di Kaltim dan integrasi komunikasi radio marine VHF.',
+     'GPS tracker untuk armada logistik tambang di Kaltim dan integrasi komunikasi radio marine VHF.'),
+    ('i-bell', 'Gudang & ruang server', 'Pemantau suhu, kelembapan, kebocoran, dan asap dengan notifikasi WhatsApp dan dashboard terpusat.',
+     'Pemantau suhu, kelembapan, kebocoran, dan asap dengan notifikasi WhatsApp dan dashboard terpusat.'),
 ]
+_i = 2 if PORTFOLIO_MODE == 'proyek' else 3
+WORKS = [(w[0], w[1], w[_i]) for w in _WORKS]
 
 
 def home_blocks():
@@ -74,9 +92,9 @@ def home_blocks():
     works = ''.join(
         f'<div class="hs-card reveal" data-d="{i}"><span class="hs-ic"><svg class="ico"><use href="#{ic}"></use></svg></span><h3>{e(t)}</h3><p>{e(p)}</p></div>'
         for i, (ic, t, p) in enumerate(WORKS))
-    porto = ('<section class="sec ti-sec" id="portofolio"><div class="wrap"><div class="tl-head"><p class="eyebrow eyebrow-purple">Contoh pekerjaan</p>'
-             '<h2>Perangkat dan jaringan yang pernah kami kerjakan</h2>'
-             '<p>Beberapa jenis pekerjaan infrastruktur dan hardware. Nama klien tidak kami cantumkan; detailnya bisa dibahas lewat WhatsApp.</p></div>'
+    porto = ('<section class="sec ti-sec" id="portofolio"><div class="wrap"><div class="tl-head"><p class="eyebrow eyebrow-purple">' + e(PT['eyebrow']) + '</p>'
+             '<h2>' + e(PT['h2']) + '</h2>'
+             '<p>' + e(PT['home_p']) + '</p></div>'
              f'<div class="hs-grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">{works}</div></div></section>')
     return f'<!-- infra:start -->{infra}{porto}<!-- infra:end -->'
 
@@ -118,7 +136,7 @@ STEPS = ['Survei lokasi & kebutuhan', 'Rancangan & penawaran', 'Pemasangan & kon
 FAQ = [
     ('Kota apa saja yang dilayani untuk infrastruktur dan hardware?', 'Kalimantan Timur: Balikpapan, Samarinda, IKN, Kutai, dan sekitarnya. Kantor pusat kami di Samarinda dan dua cabang di Balikpapan, sehingga tim bisa datang ke lokasi untuk survei dan pemasangan.'),
     ('Apakah pasang CCTV rumahan, smart lock, dan IT support bulanan juga melayani Balikpapan?', 'Belum. Layanan perangkat kecil itu saat ini hanya untuk Samarinda. Halaman ini untuk proyek infrastruktur perusahaan di Kalimantan Timur, seperti site terpencil, CCTV berbasis AI, dan jaringan multi-cabang.'),
-    ('Apakah Altora mitra resmi Starlink?', 'Tidak. Altora bukan mitra resmi Starlink. Kami membantu survei lokasi, pemasangan, grounding, dan integrasi ke jaringan Anda. Soal terminal dan langganan, kami bahas saat konsultasi.'),
+    ('Apakah Altora mitra resmi Starlink?', 'Tidak. Altora bukan mitra resmi Starlink. Kami membantu survei lokasi, pemasangan, grounding, dan integrasi ke jaringan Anda. Soal terminal dan langganan, kami bahas saat konsultasi. Starlink adalah merek dagang SpaceX.'),
     ('Apa yang bisa dikenali oleh CCTV AI?', 'Contohnya pelanggaran APD (helm, rompi, sepatu safety), orang yang masuk area perimeter, dan jumlah orang. Jenis deteksi yang cocok kami tentukan saat survei, karena hasilnya dipengaruhi sudut kamera dan pencahayaan.'),
     ('Merek kamera apa yang dipakai?', 'Kami memasang kamera IP seperti Hikvision, HiLook, dan Dahua, dan bisa menyesuaikan dengan perangkat yang sudah Anda punya.'),
     ('Bagaimana perawatannya?', 'Perawatan berkala bisa disepakati dalam kontrak SLA. Isi dan jadwalnya kami bahas bersama setelah survei.'),
@@ -148,6 +166,7 @@ def page():
             {'@type': 'ListItem', 'position': 3, 'name': 'Infrastruktur dan hardware Kalimantan Timur', 'item': SITE + URL}]},
         {'@type': 'FAQPage', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in FAQ]}]}
     wa = WA + quote(MSG)
+    note = f'<p class="ct-lead" style="margin-top:14px">{e(PT["page_note"])}</p>' if PT['page_note'] else ''
     return f'''<!DOCTYPE html>
 <html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(TITLE)}</title><meta content="{e(DESC)}" name="description"/><link href="{SITE}{URL}" rel="canonical"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="{e(TITLE)}" property="og:title"/><meta content="{e(DESC)}" property="og:description"/><meta content="{SITE}{URL}" property="og:url"/><meta content="{SITE}{HERO}" property="og:image"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v={CSS_VER}"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head><body class="company-page"><header></header>
 <main class="ct-page svd-page lc-page">
@@ -160,7 +179,7 @@ def page():
 <section class="svd-sec svd-pains"><div class="ct-wrap svd-pains-grid"><div class="pd-block-head"><h2>Masalah yang sering kami temui</h2></div><ul>{pains}</ul></div></section>
 <section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Yang kami kerjakan</h2></div><div class="svd-dos">{dos}</div></div></section>
 <section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Alur kerja</h2></div><ol class="svd-steps">{steps}</ol></div></section>
-<section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Contoh pekerjaan</h2></div><div class="svd-dos" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">{works}</div><p class="ct-lead" style="margin-top:14px">Nama klien tidak kami cantumkan. Detail pekerjaan bisa dibahas lewat WhatsApp.</p></div></section>
+<section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>{e(PT["page_h2"])}</h2></div><div class="svd-dos" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">{works}</div>{note}</div></section>
 <section class="svd-sec"><div class="ct-wrap lc-office"><div><h2>Cakupan wilayah</h2><p>Infrastruktur dan hardware untuk perusahaan dan instansi di Kalimantan Timur: Balikpapan, Samarinda, IKN, Kutai, dan sekitarnya.</p><p>Pasang CCTV untuk rumah dan toko, smart lock, smart home, dan IT support bulanan saat ini hanya melayani Samarinda. Lihat <a href="/services/cctv">Pasang CCTV</a> dan <a href="/it-support-samarinda">IT support Samarinda</a>.</p>{offices}</div></div></section>
 <section class="svd-sec" id="lihat-juga"><div class="ct-wrap">
 <div class="svd-related"><b>Lihat juga</b>{related}</div></div></section>
@@ -176,5 +195,9 @@ if __name__ == '__main__':
     (root / f'{SLUG}.html').write_text(page(), encoding='utf-8')
     from build_area import update_sitemap
     update_sitemap([URL])
+    sm = root / 'sitemap.xml'
+    t = sm.read_text(encoding='utf-8')
+    t = re.sub(r'(<loc>' + re.escape(SITE + URL) + r'</loc><lastmod>)[^<]*', r'\g<1>2026-11-18', t)
+    sm.write_text(t, encoding='utf-8')
     inject_home()
     print('halaman:', URL)

@@ -11,7 +11,7 @@ CARDS = [
     ('mobile-app-custom', 'Aplikasi mobile custom', 'Android & iOS', 'Aplikasi Android dan iOS untuk tim lapangan, pelanggan, atau mitra.', '/assets/img/services/mobile.webp'),
     ('ai-custom', 'AI custom', 'Asisten & otomasi', 'Asisten AI, otomasi dokumen, analisis data, dan visi komputer untuk proses bisnis.', '/assets/img/services/ai.webp'),
     ('private-ai', 'AI lokal', 'Di server sendiri', 'Model AI yang berjalan di server Anda, tanpa data keluar jaringan.', '/assets/img/services/private-ai.webp'),
-    ('iot-custom', 'IoT custom', 'Sensor & perangkat', 'Dasbor, peringatan, dan integrasi untuk sensor dan perangkat lapangan.', '/assets/img/services/cctv.webp'),
+    ('iot-custom', 'IoT custom', 'Sensor & perangkat', 'Dasbor, peringatan, dan integrasi untuk sensor dan perangkat lapangan.', '/assets/img/services/iot.webp'),
     ('tracking', 'Tracking', 'Armada & aset', 'Pelacakan kendaraan dan aset: posisi, riwayat perjalanan, geofence, dan laporan.', '/assets/img/services/tracking.webp'),
     ('website-seo', 'Website', 'Company profile & instansi', 'Company profile, website instansi, dan landing page yang cepat dan mudah diperbarui.', '/assets/img/services/website.webp'),
     ('seo', 'SEO', 'Mudah ditemukan', 'Audit, perbaikan on-page, dan SEO lokal agar website ditemukan di Google.', '/assets/img/services/seo.webp'),
