@@ -37,7 +37,9 @@
 - HRIS, KPI and leave app: https://altora.id/aplikasi-hris
 - Server and website monitoring app: https://altora.id/aplikasi-monitoring-server
 - Office suite (documents, spreadsheets, presentations): https://altora.id/aplikasi-perkantoran
+- Portfolio of delivered projects (CCTV AI, IoT, fleet management, face-recognition attendance, GIS portal, HRIS, websites): https://altora.id/portofolio
 - Articles: https://altora.id/blog
+- ERP for maritime and barge logistics in Kalimantan Timur (article): https://altora.id/blog/integrasi-erp-logistik-maritim-kaltim
 - About: https://altora.id/about
 - Contact: https://altora.id/contact
 - Support: https://altora.id/support

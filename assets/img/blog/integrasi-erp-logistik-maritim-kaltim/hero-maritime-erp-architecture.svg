@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="auto" style="background:#FAF8F5;border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;">
+  <defs>
+    <linearGradient id="pastelPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E8E0F7"/>
+      <stop offset="100%" stop-color="#D7CAFA"/>
+    </linearGradient>
+    <linearGradient id="pastelBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E1F0FA"/>
+      <stop offset="100%" stop-color="#CDE7F9"/>
+    </linearGradient>
+    <linearGradient id="pastelGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E2F7EB"/>
+      <stop offset="100%" stop-color="#CCF2DC"/>
+    </linearGradient>
+    <linearGradient id="accentCore" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7C5CE8"/>
+      <stop offset="100%" stop-color="#6442D8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Title & Header -->
+  <text x="40" y="44" font-size="20" font-weight="800" fill="#172B4D">Arsitektur Terpadu ERP Logistik Maritim Altora</text>
+  <text x="40" y="68" font-size="13" font-weight="500" fill="#6B778C">Integrasi Armada Tongkang, Jetty Operasional, &amp; Finansial Terpusat (Kaltim)</text>
+
+  <!-- 3 Major Layers -->
+  <!-- Layer 1: Operasional Sungai & Laut -->
+  <g transform="translate(40, 95)">
+    <rect width="215" height="280" rx="10" fill="url(#pastelBlue)" stroke="#B3D9F2" stroke-width="1.5"/>
+    <rect x="15" y="15" width="185" height="34" rx="6" fill="#FFFFFF"/>
+    <text x="107" y="37" font-size="13" font-weight="700" fill="#0C4A6E" text-anchor="middle">ARMADA &amp; JETTY</text>
+    
+    <rect x="15" y="60" width="185" height="58" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <text x="25" y="80" font-size="12" font-weight="700" fill="#1E293B">AIS &amp; GPS Telemetri</text>
+    <text x="25" y="97" font-size="10" font-weight="500" fill="#64748B">Posisi kapal, speed log, &amp;</text>
+    <text x="25" y="109" font-size="10" font-weight="500" fill="#64748B">geo-fencing Sungai Mahakam</text>
+
+    <rect x="15" y="128" width="185" height="58" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <text x="25" y="148" font-size="12" font-weight="700" fill="#1E293B">Bunker &amp; Flowmeter</text>
+    <text x="25" y="165" font-size="10" font-weight="500" fill="#64748B">Monitoring solar HSD mesin</text>
+    <text x="25" y="177" font-size="10" font-weight="500" fill="#64748B">&amp; tangki induk real-time</text>
+
+    <rect x="15" y="196" width="185" height="66" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <text x="25" y="216" font-size="12" font-weight="700" fill="#1E293B">Draft Survey &amp; Tally</text>
+    <text x="25" y="231" font-size="10" font-weight="500" fill="#64748B">Validasi muatan tongkang &amp;</text>
+    <text x="25" y="243" font-size="10" font-weight="500" fill="#64748B">surat jalan terminal jetty</text>
+  </g>
+
+  <!-- Connection Line 1 to 2 -->
+  <path d="M 260 235 L 285 235" stroke="#7C5CE8" stroke-width="2.5" stroke-dasharray="4,4"/>
+  <polygon points="285,231 292,235 285,239" fill="#7C5CE8"/>
+
+  <!-- Layer 2: Core ERP Engine -->
+  <g transform="translate(295, 95)">
+    <rect width="215" height="280" rx="10" fill="url(#pastelPurple)" stroke="#C7B4F5" stroke-width="1.5"/>
+    <rect x="15" y="15" width="185" height="34" rx="6" fill="#FFFFFF"/>
+    <text x="107" y="37" font-size="13" font-weight="700" fill="#43229E" text-anchor="middle">ALTORA CORE ERP</text>
+
+    <rect x="15" y="60" width="185" height="58" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <text x="25" y="80" font-size="12" font-weight="700" fill="#1E293B">Voyage Management</text>
+    <text x="25" y="97" font-size="10" font-weight="500" fill="#64748B">Perhitungan laytime, demurrage,</text>
+    <text x="25" y="109" font-size="10" font-weight="500" fill="#64748B">&amp; dispatch terverifikasi</text>
+
+    <rect x="15" y="128" width="185" height="58" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <text x="25" y="148" font-size="12" font-weight="700" fill="#1E293B">Perawatan PMS &amp; Dock</text>
+    <text x="25" y="165" font-size="10" font-weight="500" fill="#64748B">Siklus sertifikat kapal,</text>
+    <text x="25" y="177" font-size="10" font-weight="500" fill="#64748B">jam kerja mesin, &amp; sparepart</text>
+
+    <rect x="15" y="196" width="185" height="66" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <text x="25" y="216" font-size="12" font-weight="700" fill="#1E293B">Logistik &amp; Procurement</text>
+    <text x="25" y="231" font-size="10" font-weight="500" fill="#64748B">PO otomatis pelumas, tali</text>
+    <text x="25" y="243" font-size="10" font-weight="500" fill="#64748B">towing, suku cadang mesin</text>
+  </g>
+
+  <!-- Connection Line 2 to 3 -->
+  <path d="M 515 235 L 540 235" stroke="#7C5CE8" stroke-width="2.5" stroke-dasharray="4,4"/>
+  <polygon points="540,231 547,235 540,239" fill="#7C5CE8"/>
+
+  <!-- Layer 3: Executive & Financial Output -->
+  <g transform="translate(550, 95)">
+    <rect width="210" height="280" rx="10" fill="url(#pastelGreen)" stroke="#B3E9C9" stroke-width="1.5"/>
+    <rect x="15" y="15" width="180" height="34" rx="6" fill="#FFFFFF"/>
+    <text x="105" y="37" font-size="13" font-weight="700" fill="#065F46" text-anchor="middle">FINANSIAL &amp; KENDALI</text>
+
+    <rect x="15" y="60" width="180" height="58" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <text x="25" y="80" font-size="12" font-weight="700" fill="#1E293B">Billing &amp; Invoice PO</text>
+    <text x="25" y="97" font-size="10" font-weight="500" fill="#64748B">Kalkulasi freight rate otomatis</text>
+    <text x="25" y="109" font-size="10" font-weight="500" fill="#64748B">berbasis realisasi tonase</text>
+
+    <rect x="15" y="128" width="180" height="58" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <text x="25" y="148" font-size="12" font-weight="700" fill="#1E293B">HPP per Voyage Trip</text>
+    <text x="25" y="165" font-size="10" font-weight="500" fill="#64748B">Laba-rugi presisi: konsumsi</text>
+    <text x="25" y="177" font-size="10" font-weight="500" fill="#64748B">solar, crew, agency, &amp; labuh</text>
+
+    <rect x="15" y="196" width="180" height="66" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
+    <text x="25" y="216" font-size="12" font-weight="700" fill="#1E293B">Executive Dashboard</text>
+    <text x="25" y="231" font-size="10" font-weight="500" fill="#64748B">Command center satu layar</text>
+    <text x="25" y="243" font-size="10" font-weight="500" fill="#64748B">di Balikpapan / Samarinda</text>
+  </g>
+
+  <!-- Bottom Badge -->
+  <rect x="40" y="395" width="720" height="32" rx="6" fill="#ECE4F7"/>
+  <text x="400" y="416" font-size="11" font-weight="600" fill="#5E3CC4" text-anchor="middle">✓ Standar Keamanan Zero Trust &amp; NIST SP 800-207 | Sinkronisasi Offline-First Jaringan Satelit LEO</text>
+</svg>

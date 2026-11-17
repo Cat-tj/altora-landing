@@ -6,6 +6,7 @@ Format artikel (front matter sederhana, satu kunci per baris):
     description: Ringkasan 120-160 karakter untuk Google
     date: 2026-10-11
     updated: 2026-10-11          (opsional)
+    order: 1                     (opsional; lebih besar = lebih atas bila tanggal sama)
     category: Panduan
     image: /assets/img/altora-logo-600.png   (opsional, untuk kartu & preview link)
     related: /services/software-custom | Layanan software custom   (opsional, boleh lebih dari satu baris related)
@@ -144,7 +145,7 @@ WA = 'https://wa.me/6285190911170?text='
 
 def build():
     posts = [parse(p) for p in sorted(SRC.glob('*.md')) if not p.name.startswith('_')]
-    posts.sort(key=lambda p: p['date'], reverse=True)
+    posts.sort(key=lambda p: (p['date'], int(p.get('order', 0))), reverse=True)  # 'order' (opsional) mengurutkan artikel yang tanggalnya sama
     OUT.mkdir(exist_ok=True)
     # redirect_from: slug lama -> halaman pengalih (noindex, canonical ke slug baru)
     redirects = {p['redirect_from']: p['slug'] for p in posts if p.get('redirect_from')}
