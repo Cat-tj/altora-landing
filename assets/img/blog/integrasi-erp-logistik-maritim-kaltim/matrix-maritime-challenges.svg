@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="100%" height="auto" style="background:#FAF8F5;border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;">
+  <text x="40" y="44" font-size="20" font-weight="800" fill="#172B4D">Matriks Tantangan Logistik Tongkang Kaltim vs Solusi ERP Altora</text>
+  <text x="40" y="68" font-size="13" font-weight="500" fill="#6B778C">Komparasi Praktik Manual Konvensional dengan Sistem Digital Terintegrasi</text>
+
+  <!-- Table Header -->
+  <rect x="40" y="95" width="220" height="40" rx="6" fill="#F1F5F9"/>
+  <text x="55" y="120" font-size="12" font-weight="700" fill="#475569">ASPEK OPERASIONAL</text>
+
+  <rect x="270" y="95" width="240" height="40" rx="6" fill="#FEE2E2"/>
+  <text x="285" y="120" font-size="12" font-weight="700" fill="#991B1B">SISTEM MANUAL / SPREADSHEET</text>
+
+  <rect x="520" y="95" width="240" height="40" rx="6" fill="#DCFCE7"/>
+  <text x="535" y="120" font-size="12" font-weight="700" fill="#166534">INTEGRASI ERP ALTORA</text>
+
+  <!-- Row 1: Bunker BBM -->
+  <rect x="40" y="145" width="220" height="55" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="55" y="168" font-size="12" font-weight="700" fill="#1E293B">Bunker Solar HSD</text>
+  <text x="55" y="186" font-size="10" font-weight="500" fill="#64748B">Pengendalian bahan bakar kapal</text>
+
+  <rect x="270" y="145" width="240" height="55" rx="6" fill="#FFF5F5" stroke="#FECACA"/>
+  <text x="285" y="168" font-size="11" font-weight="500" fill="#B91C1C">Sounding manual &amp; nota kertas.</text>
+  <text x="285" y="186" font-size="10" font-weight="500" fill="#7F1D1D">Rentan selisih volume &amp; manipulasi.</text>
+
+  <rect x="520" y="145" width="240" height="55" rx="6" fill="#F0FDF4" stroke="#BBF7D0"/>
+  <text x="535" y="168" font-size="11" font-weight="600" fill="#15803D">Digital Flowmeter + Telemetri.</text>
+  <text x="535" y="186" font-size="10" font-weight="500" fill="#166534">Konsumsi real-time dicatat per voyage.</text>
+
+  <!-- Row 2: Laytime & Demurrage -->
+  <rect x="40" y="210" width="220" height="55" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="55" y="233" font-size="12" font-weight="700" fill="#1E293B">Laytime &amp; Demurrage</text>
+  <text x="55" y="251" font-size="10" font-weight="500" fill="#64748B">Waktu labuh &amp; bongkar muat</text>
+
+  <rect x="270" y="210" width="240" height="55" rx="6" fill="#FFF5F5" stroke="#FECACA"/>
+  <text x="285" y="233" font-size="11" font-weight="500" fill="#B91C1C">Pencatatan jam tiba via WhatsApp.</text>
+  <text x="285" y="251" font-size="10" font-weight="500" fill="#7F1D1D">Klaim denda demurrage sering sengketa.</text>
+
+  <rect x="520" y="210" width="240" height="55" rx="6" fill="#F0FDF4" stroke="#BBF7D0"/>
+  <text x="535" y="233" font-size="11" font-weight="600" fill="#15803D">Geo-fencing Otomatis &amp; Timestamp.</text>
+  <text x="535" y="251" font-size="10" font-weight="500" fill="#166534">Bukti digital valid tak terbantahkan.</text>
+
+  <!-- Row 3: Maintenance & PMS -->
+  <rect x="40" y="275" width="220" height="55" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="55" y="298" font-size="12" font-weight="700" fill="#1E293B">Sertifikat &amp; Docking</text>
+  <text x="55" y="316" font-size="10" font-weight="500" fill="#64748B">Kelaiklautan BKI &amp; perbaikan</text>
+
+  <rect x="270" y="275" width="240" height="55" rx="6" fill="#FFF5F5" stroke="#FECACA"/>
+  <text x="285" y="298" font-size="11" font-weight="500" fill="#B91C1C">File Excel lepas di PC admin.</text>
+  <text x="285" y="316" font-size="10" font-weight="500" fill="#7F1D1D">Sering telat perpanjang; kapal tertahan.</text>
+
+  <rect x="520" y="275" width="240" height="55" rx="6" fill="#F0FDF4" stroke="#BBF7D0"/>
+  <text x="535" y="298" font-size="11" font-weight="600" fill="#15803D">Notifikasi H-60 Kadaluarsa &amp; PMS.</text>
+  <text x="535" y="316" font-size="10" font-weight="500" fill="#166534">Penjadwalan docking &amp; sparepart teratur.</text>
+
+  <!-- Row 4: Perhitungan HPP -->
+  <rect x="40" y="340" width="220" height="55" rx="6" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="55" y="363" font-size="12" font-weight="700" fill="#1E293B">Laba-Rugi Voyage</text>
+  <text x="55" y="381" font-size="10" font-weight="500" fill="#64748B">Biaya aktual vs pendapatan trip</text>
+
+  <rect x="270" y="340" width="240" height="55" rx="6" fill="#FFF5F5" stroke="#FECACA"/>
+  <text x="285" y="363" font-size="11" font-weight="500" fill="#B91C1C">Rekap baru selesai 30 hari kemudian.</text>
+  <text x="285" y="381" font-size="10" font-weight="500" fill="#7F1D1D">Manajemen terlambat mitigasi kebocoran.</text>
+
+  <rect x="520" y="340" width="240" height="55" rx="6" fill="#F0FDF4" stroke="#BBF7D0"/>
+  <text x="535" y="363" font-size="11" font-weight="600" fill="#15803D">Live Gross Margin per Kapal &amp; Trip.</text>
+  <text x="535" y="381" font-size="10" font-weight="500" fill="#166534">Keputusan sewa atau muatan langsung tepat.</text>
+</svg>
