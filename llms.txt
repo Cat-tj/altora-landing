@@ -17,7 +17,8 @@
 - Custom software: web apps, mobile apps, internal systems, dashboards, and integrations built around the client's workflow
 - Websites for companies, campuses, and government institutions, with a CMS the client can edit
 - SEO: technical audit, on-page optimization, local SEO, and reporting
-- Hardware and IT services in Samarinda only: CCTV installation (including solar and 4G CCTV, official VIGI devices), smart locks, smart home, and monthly IT support contracts for companies (https://altora.id/services/cctv, /services/smart-lock, /services/smart-home, /services/it-support)
+- Infrastructure and hardware projects for companies across Kalimantan Timur (Balikpapan, Samarinda, IKN, Kutai, and surroundings): Starlink satellite internet for remote sites, AI-enabled CCTV (PPE/K3 violation detection, perimeter intrusion, people counting), structured cabling, network, and IoT sensors (https://altora.id/infrastruktur-hardware-kaltim). Altora is not an official Starlink partner.
+- Small-device services in Samarinda only: CCTV installation (including solar and 4G CCTV, official VIGI devices), smart locks, smart home, and monthly IT support contracts for companies (https://altora.id/services/cctv, /services/smart-lock, /services/smart-home, /services/it-support)
 - Remote delivery across Indonesia, with on-site discussion and training in Kalimantan Timur
 
 ## Applications built by Altora
@@ -40,4 +41,5 @@
 - About: https://altora.id/about
 - Contact: https://altora.id/contact
 - Support: https://altora.id/support
+- Infrastructure and hardware, Kalimantan Timur: https://altora.id/infrastruktur-hardware-kaltim
 - Service areas: https://altora.id/area-layanan

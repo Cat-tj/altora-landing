@@ -19,7 +19,7 @@ ICO = {
 # berkas: (selektor section, selektor kontainer, selektor visual lama yang diganti, model, tipe foto, screenshot, chip)
 PAGES = {
     'services.html': ('section.svh-hero', 'div.svh-wrap', None, 'faq', 'bust', '/assets/img/apps/office-board.webp',
-                      [('grid', '13 layanan', 'Software, CCTV, smart home &amp; IT'), ('check', 'Konsultasi gratis', 'Tanpa kewajiban lanjut')]),
+                      [('grid', '14 layanan', 'Software, CCTV, smart home &amp; IT'), ('check', 'Konsultasi gratis', 'Tanpa kewajiban lanjut')]),
     'aplikasi.html': ('section.svd-hero', 'div.ap2-hero-hub', 'div.ab-collage', 'flow', 'full', '/assets/img/apps/fieldops-overview.webp',
                       [('grid', '20+ aplikasi', 'Dikembangkan tim Altora'), ('chat', 'Bisa didemokan', 'Minta demo lewat WhatsApp')]),
     'about.html': ('section.ab-hero', 'div.ab-hero-grid', 'div.ab-collage', 'cta', 'full', '/assets/img/apps/teams-overview.webp',

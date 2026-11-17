@@ -11,24 +11,25 @@ CARDS = [
     ('mobile-app-custom', 'Aplikasi mobile custom', 'Android & iOS', 'Aplikasi Android dan iOS untuk tim lapangan, pelanggan, atau mitra.', '/assets/img/services/mobile.webp'),
     ('ai-custom', 'AI custom', 'Asisten & otomasi', 'Asisten AI, otomasi dokumen, analisis data, dan visi komputer untuk proses bisnis.', '/assets/img/services/ai.webp'),
     ('private-ai', 'AI lokal', 'Di server sendiri', 'Model AI yang berjalan di server Anda, tanpa data keluar jaringan.', '/assets/img/services/private-ai.webp'),
-    ('iot-custom', 'IoT custom', 'Sensor & perangkat', 'Dasbor, peringatan, dan integrasi untuk sensor dan perangkat lapangan.', '/assets/img/services/iot.webp'),
+    ('iot-custom', 'IoT custom', 'Sensor & perangkat', 'Dasbor, peringatan, dan integrasi untuk sensor dan perangkat lapangan.', '/assets/img/services/cctv.webp'),
     ('tracking', 'Tracking', 'Armada & aset', 'Pelacakan kendaraan dan aset: posisi, riwayat perjalanan, geofence, dan laporan.', '/assets/img/services/tracking.webp'),
     ('website-seo', 'Website', 'Company profile & instansi', 'Company profile, website instansi, dan landing page yang cepat dan mudah diperbarui.', '/assets/img/services/website.webp'),
     ('seo', 'SEO', 'Mudah ditemukan', 'Audit, perbaikan on-page, dan SEO lokal agar website ditemukan di Google.', '/assets/img/services/seo.webp'),
     ('cctv', 'Pasang CCTV', 'Samarinda', 'Survei titik, kamera dan NVR resmi, pantau dari HP, sampai CCTV tenaga surya dan 4G.', '/assets/img/services/cctv.webp'),
     ('smart-lock', 'Smart lock', 'Samarinda', 'Kunci pintu dengan aplikasi, PIN, kartu, atau sidik jari, lengkap dengan akses tamu.', '/assets/img/hardware/smartlock.webp'),
     ('smart-home', 'Smart home', 'Samarinda', 'Kunci, lampu, AC, sensor, dan kamera dalam satu aplikasi, dengan otomasi.', '/assets/img/services/smart-home.webp'),
+    ('infrastruktur-hardware-kaltim', 'Infrastruktur & hardware', 'Kalimantan Timur', 'Starlink untuk lokasi terpencil, CCTV dengan AI, serta jaringan dan sensor untuk perusahaan di Kaltim.', '/assets/img/services/cctv.webp'),
     ('it-support', 'IT support bulanan', 'Samarinda', 'Komputer, jaringan, server, backup, dan akun karyawan, dengan kunjungan berkala.', '/assets/img/services/it-support.webp'),
 ]
 HERO = '''<section class="svh-hero"><div class="ct-wrap svh-wrap"><div class="pg-copy">
 <p class="eyebrow eyebrow-purple">Layanan</p><h1>Software, AI, CCTV, dan IT support untuk bisnis dan instansi.</h1>
-<p class="ct-lead">Ceritakan masalahnya, kami bantu pilih solusinya: aplikasi web dan mobile, AI, IoT dan tracking, website dan SEO, CCTV, smart lock, dan IT support bulanan untuk Samarinda.</p>
+<p class="ct-lead">Ceritakan masalahnya, kami bantu pilih solusinya: aplikasi web dan mobile, AI, IoT dan tracking, website dan SEO, infrastruktur dan hardware untuk Kalimantan Timur, serta CCTV, smart lock, dan IT support bulanan untuk Samarinda.</p>
 <div class="svd-actions"><a class="btn btn-purple" href="/contact">Konsultasi gratis</a><a class="svd-link" href="#layanan">Lihat layanan ↓</a></div>
 </div></div></section>'''
 
 
 def catalogue():
-    cards = ''.join(f'''<a class="svc2-card" href="/services/{slug}"><span class="svc2-pic"><img alt="{e(name)}" loading="lazy" src="{img}"/></span>
+    cards = ''.join(f'''<a class="svc2-card" href="{'/' + slug if slug.startswith('infrastruktur') else '/services/' + slug}"><span class="svc2-pic"><img alt="{e(name)}" loading="lazy" src="{img}"/></span>
 <span class="svc2-body"><span class="svc2-top"><i>{n:02d}</i><em>{e(tag)}</em></span><b>{e(name)}</b><span class="svc2-desc">{e(desc)}</span><strong>Pelajari layanan →</strong></span></a>'''
                     for n, (slug, name, tag, desc, img) in enumerate(CARDS, 1))
     return f'''<section class="svc2-sec" id="layanan"><div class="ct-wrap"><div class="svc2-head"><div><p class="eyebrow eyebrow-purple">Pilih layanan</p><h2>Software, perangkat, dan dukungan IT</h2></div>

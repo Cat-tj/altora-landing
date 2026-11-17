@@ -66,7 +66,7 @@ CITIES = [
          faq=[('Kota mana saja yang dilayani?', 'Kantor pusat kami di Samarinda dan cabang di Balikpapan. Kami juga melayani kabupaten dan kota lain di Kaltim, serta seluruh Indonesia secara jarak jauh.'),
               ('Apakah aplikasinya bisa dipakai di lokasi yang sinyalnya lemah?', 'Bisa. Aplikasi dapat dirancang menyimpan data sementara lalu mengirimnya saat sinyal tersedia.'),
               ('Bagaimana memulai?', 'Hubungi kami lewat WhatsApp atau form konsultasi. Diskusi awal gratis.')],
-         nearby=[('/software-house-balikpapan', 'Software house Balikpapan'), ('/software-house-samarinda', 'Software house Samarinda'), ('/services', 'Layanan kami')]),
+         nearby=[('/software-house-balikpapan', 'Software house Balikpapan'), ('/software-house-samarinda', 'Software house Samarinda'), ('/infrastruktur-hardware-kaltim', 'Infrastruktur & hardware Kaltim'), ('/services', 'Layanan kami')]),
 ]
 
 
