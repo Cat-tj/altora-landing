@@ -1,0 +1,39 @@
+/* Portofolio: kartu proyek, penanda kelompok, dan daftar klien. Token mengikuti DESIGN.md (satu aksen ungu). */
+.pf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px;margin-top:22px}
+.pf-card{display:flex;flex-direction:column;overflow:hidden;border:1px solid #E9E5F6;border-radius:18px;background:#fff;color:#10224F;text-decoration:none;box-shadow:0 14px 34px -24px rgba(43,30,110,.25);transition:border-color .2s,box-shadow .2s,transform .2s;scroll-margin-top:96px}
+a.pf-card:hover{border-color:#CFC3F7;box-shadow:0 18px 40px -24px rgba(43,30,110,.35);transform:translateY(-2px)}
+.pf-card:target{border-color:#7C5CE8;box-shadow:0 0 0 3px #F3F0FD,0 18px 40px -24px rgba(43,30,110,.35)}
+.pf-media{display:block;aspect-ratio:16/10;overflow:hidden;background:#F3F0FD;border-bottom:1px solid #E9E5F6}
+.pf-media img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center}
+.pf-media-ico{display:flex;align-items:center;justify-content:center;background:linear-gradient(140deg,#F3F0FD,#FFFFFF 60%,#EEE6FF)}
+.pf-ico{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:12px;background:#F3F0FD;color:#5B3FC4}
+.pf-ico svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.pf-ico-lg{width:64px;height:64px;border-radius:20px;background:#fff;box-shadow:0 14px 34px -24px rgba(43,30,110,.35)}
+.pf-ico-lg svg{width:30px;height:30px}
+.pf-body{display:flex;flex-direction:column;flex:1;padding:18px 20px 20px}
+.pf-body small{color:#5A6785;font-size:.78rem;font-weight:700;letter-spacing:.01em}
+.pf-body h3{margin:6px 0 6px;color:#10224F;font-size:1.04rem;font-weight:800;letter-spacing:-.01em;line-height:1.3}
+.pf-body p{margin:0;color:#5A6785;font-size:.88rem;line-height:1.6}
+.pf-tags{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 0;padding:0;list-style:none}
+.pf-tags li{padding:4px 10px;border-radius:999px;background:#F7F5FD;color:#41466A;font-size:.74rem;font-weight:600}
+.pf-link,.pf-more{margin-top:auto;padding-top:14px;color:#5B3FC4;font-size:.86rem;font-weight:700;font-style:normal;text-decoration:none}
+.pf-link:hover,.pf-more:hover{color:#3E2A97}
+.pf-compact{padding:20px;gap:12px}
+.pf-compact .pf-body{padding:0}
+.pf-compact .pf-body p{font-size:.85rem}
+.pf-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.pf-nav{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 0;padding:0;list-style:none}
+.pf-nav a{display:inline-flex;gap:8px;align-items:center;padding:8px 14px;border:1px solid #E4DEFA;border-radius:999px;background:#fff;color:#10224F;font-size:.86rem;font-weight:700;text-decoration:none}
+.pf-nav a:hover{border-color:#7C5CE8;color:#5B3FC4}
+.pf-nav span{color:#5A6785;font-weight:600;font-variant-numeric:tabular-nums}
+.pf-group{scroll-margin-top:96px}
+.pf-group-head{max-width:680px}
+.pf-group-head h2{margin:0 0 6px;color:#10224F;font-size:clamp(1.35rem,1.1rem + .9vw,1.8rem);font-weight:800;letter-spacing:-.02em}
+.pf-group-head p{margin:0;color:#5A6785;font-size:.95rem;line-height:1.6}
+.pf-clients{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0;padding:0;list-style:none}
+.pf-clients li{padding:8px 14px;border:1px solid #E9E5F6;border-radius:999px;background:#fff;color:#10224F;font-size:.88rem;font-weight:600}
+.pf-note{margin:16px 0 0;color:#5A6785;font-size:.88rem;line-height:1.6;max-width:62ch}
+.pf-grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:900px){.pf-grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.pf-grid,.pf-grid-3{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.pf-card{transition:none}a.pf-card:hover{transform:none}}
