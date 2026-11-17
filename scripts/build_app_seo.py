@@ -7,7 +7,7 @@ import html, pathlib, sys
 from urllib.parse import quote
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from build_area import shell, update_sitemap, SITE, WA
-from build_aplikasi import APPS, pic
+from build_aplikasi import APPS, pic, cta_buttons, wa_alt
 
 root = pathlib.Path(__file__).resolve().parent.parent
 e = lambda t: html.escape(t, quote=True)
@@ -19,20 +19,20 @@ PAGES = {
         desc='Aplikasi toko dan distributor: stok FIFO, nomor PO pembeli, penawaran jadi nota, invoice dan surat jalan PDF, piutang, utang, dan laporan laba.',
         eyebrow='Altora Store · aplikasi toko & distributor',
         h1='Aplikasi toko dan distributor untuk stok, PO pembeli, invoice, dan surat jalan.',
-        lead='Ganti catatan manual dan Excel dengan satu sistem: stok per batch dengan FIFO, penawaran yang jadi nota, nomor PO pembeli di setiap invoice, surat jalan, piutang dan utang dengan jatuh tempo, sampai laporan laba. Dibuka dari komputer kasir maupun HP.',
+        lead='Ganti catatan manual dan Excel dengan satu sistem: stok dengan barcode, penawaran yang jadi nota, nomor PO pembeli di setiap invoice, surat jalan, piutang dan utang dengan jatuh tempo, sampai laporan laba dan pajak. Dibuka dari komputer kasir maupun HP, dan bisa dicoba gratis lewat demo pribadi.',
         pains=[('Stok di Excel tidak cocok dengan gudang', 'Barang tercatat ada padahal sudah habis, atau sebaliknya, karena barang masuk dan keluar tidak dicatat di satu tempat.'),
                ('PO pembeli tercecer', 'Nomor PO dari pembeli proyek atau instansi ada di chat dan kertas, sehingga sulit dicocokkan saat menagih.'),
                ('Nota, surat jalan, dan invoice diketik ulang', 'Data yang sama ditulis berkali-kali di dokumen berbeda, dan salah ketik baru ketahuan saat barang sampai.'),
                ('Piutang dan utang lewat jatuh tempo', 'Tidak ada pengingat tagihan yang mendekati atau lewat jatuh tempo, jadi arus kas sulit ditebak.')],
         flow_title='Alur dari penawaran sampai lunas', flow_sub='Satu data mengalir ke semua dokumen, tanpa ketik ulang.',
-        flow=[('Penawaran harga', 'Kirim surat penawaran PDF ke calon pembeli.'), ('PO pembeli', 'Nomor PO dan lokasi proyek dicatat di nota, bisa diisi belakangan.'),
+        flow=[('Penawaran harga', 'Kirim surat penawaran PDF ke calon pembeli.'), ('PO pembeli', 'Nomor PO pembeli dicatat di penjualan dan tampil di invoice.'),
               ('Nota & surat jalan', 'Penawaran dijadikan penjualan; stok berkurang otomatis dengan FIFO, surat jalan dicetak.'),
-              ('Invoice & tagihan', 'Invoice, tanda terima invoice bulanan, dan surat tagihan dari nota yang belum lunas.'),
-              ('Lunas & laporan', 'Pembayaran tercatat; laba, piutang, dan stok terbaru langsung terlihat di laporan.')],
+              ('Invoice & tagihan', 'Invoice PDF, surat tagihan, dan kwitansi dari penjualan yang belum lunas.'),
+              ('Lunas & laporan', 'Pembayaran tercatat; omzet, laba, piutang, dan stok terbaru terlihat di laporan.')],
         fit_sub='Bisnis yang menjual barang dengan kode atau nomor part, tunai maupun tempo.',
         fit=['Distributor dan grosir', 'Toko spare part dan bearing', 'Toko bangunan dan material', 'Toko alat teknik dan kebutuhan industri', 'Toko yang melayani proyek, perusahaan, atau instansi dengan PO'],
         faq=[('Apa itu aplikasi toko Altora Store?', 'Altora Store adalah sistem toko dan distributor berbasis web untuk mencatat stok, pembelian, penjualan, penawaran, nomor PO pembeli, invoice, surat jalan, dan laporan dalam satu aplikasi.'),
-             ('Apakah cocok untuk distributor dengan banyak pembeli tempo?', 'Cocok. Setiap pembeli punya riwayat, rekap bulanan, dan umur piutang; nota yang mendekati atau lewat jatuh tempo dipisahkan di beranda.')],
+             ('Apakah cocok untuk distributor dengan banyak pembeli tempo?', 'Cocok. Piutang dicatat per pembeli dengan jatuh tempo dan nomor PO, lengkap dengan surat tagihan dan kwitansi.')],
         cta='Lihat aplikasi toko ini langsung', link='Untuk toko & distributor'),
     'fieldops': dict(
         url='/aplikasi-pertambangan', apps=['fieldops'], crumb='Aplikasi pertambangan & migas', sub='Field operations, HSE and asset management',
@@ -147,6 +147,8 @@ def build(key, p):
     faq = [qa for qa in faq if not (qa[0] in seen or seen.add(qa[0]))]
     name = ', '.join(a['name'] for a in apps)
     demo = WA + quote(f'Halo Altora, saya ingin minta demo {name}.')
+    prim = cta_buttons(apps[0]) if len(apps) == 1 else f'<a class="btn btn-purple" href="{demo}" rel="noopener" target="_blank">Minta demo</a>'
+    wa = wa_alt(apps[0]) if len(apps) == 1 else ''
     pains = ''.join(f'<li><b>{e(t)}</b><span>{e(d)}</span></li>' for t, d in p['pains'])
     flow = ''.join(f'<li><b>{e(t)}</b><span>{e(d)}</span></li>' for t, d in p['flow'])
     modh = ''.join(f'<article class="svd-do"><h3>{e(t)}</h3><p>{e(d)}</p></article>' for t, d in mods)
@@ -169,7 +171,7 @@ def build(key, p):
 <section class="svd-hero"><div class="ct-wrap ap2-hero">
 <div class="ap2-hero-copy"><nav aria-label="Breadcrumb" class="bl-crumb"><a href="/aplikasi">Aplikasi</a><span>/</span><span>{e(p["crumb"])}</span></nav>
 <p class="eyebrow eyebrow-purple">{e(p["eyebrow"])}</p><h1>{e(p["h1"])}</h1><p class="ct-lead">{e(p["lead"])}</p>{basis}
-<div class="svd-actions"><a class="btn btn-purple" href="{demo}" rel="noopener" target="_blank">Minta demo</a>{details}</div></div>
+<div class="svd-actions">{prim}{details}</div></div>
 {pic(shots[0][0], shots[0][1], True)}
 </div></section>
 <section class="svd-sec svd-pains"><div class="ct-wrap svd-pains-grid"><div class="pd-block-head"><h2>Masalah yang sering kami temui</h2><p>Tanda organisasi Anda butuh sistem yang lebih rapi.</p></div><ul>{pains}</ul></div></section>
@@ -178,7 +180,7 @@ def build(key, p):
 <section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Cocok untuk</h2><p>{e(p["fit_sub"])}</p></div><ul class="ap2-fitlist">{fit}</ul></div></section>
 {f'<section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Tampilan aplikasi</h2><p>Screenshot dari aplikasi yang berjalan, dengan data contoh.</p></div><div class="ap2-feats">{gal}</div></div></section>' if gal else ''}
 <section class="svd-sec"><div class="ct-wrap svd-faq"><div class="pd-block-head"><h2>Pertanyaan umum</h2></div><div>{faqh}</div></div></section>
-<section class="pd-cta"><div class="ct-wrap pd-cta-inner"><div><h2>{e(p["cta"])}</h2><p>Kami tunjukkan lewat demo singkat dan bahas penyesuaiannya untuk organisasi Anda.</p></div><a class="btn btn-purple" href="{demo}" rel="noopener" target="_blank">Minta demo</a></div></section>
+<section class="pd-cta"><div class="ct-wrap pd-cta-inner"><div><h2>{e(p["cta"])}</h2><p>Kami tunjukkan lewat demo singkat dan bahas penyesuaiannya untuk organisasi Anda.</p></div><div class="svd-actions">{prim}{wa}</div></div></section>
 </main>'''
     return shell(p['title'], p['desc'], url, SITE + '/assets/img/apps/' + shots[0][0] + '.webp', ld, body)
 

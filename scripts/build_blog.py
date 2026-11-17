@@ -99,6 +99,8 @@ def md_to_html(md):
                 toc.append((hid, text))
             out.append(f'<h{level} id="{hid}">{inline(text)}</h{level}>')
             continue
+        if s.strip().startswith('<!--') and s.strip().endswith('-->'):  # komentar satu baris diteruskan apa adanya (penanda tempat gambar)
+            flush(); out.append(s.strip()); continue
         fig = re.match(r'!\[([^\]]*)\]\((\S+)(?:\s+"([^"]*)")?\)$', s.strip())
         if fig:
             flush()

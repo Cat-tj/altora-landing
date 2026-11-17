@@ -11,6 +11,7 @@ ICON = {
  'find': '<circle cx="68" cy="68" r="40"/><path d="M98 98l36 36"/><path d="M52 68l12 12 22-26"/>',
 }
 COVERS = {
+ 'altora-store-aplikasi-toko-suku-cadang': ('Cerita Altora', 'Altora Store: aplikasi toko suku cadang dan industri', 'doc'),
  'sistem-po-toko': ('Perencanaan', 'Sistem PO toko: dari penawaran sampai lunas', 'doc'),
  'kapan-software-custom': ('Panduan memilih vendor', 'Kapan perlu software custom, kapan cukup aplikasi siap pakai', 'fork'),
  'cara-memilih-software-house-samarinda-balikpapan': ('Panduan memilih vendor', '8 pertanyaan sebelum memilih software house', 'check'),

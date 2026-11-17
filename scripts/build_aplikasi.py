@@ -33,29 +33,32 @@ APPS = {
     'store': dict(
         name='Altora Store', tag='Sistem toko: stok, PO, nota, dan laporan', icon='/assets/img/altora-logo-icon-v2.svg',
         h1='Altora Store: stok, PO, nota, dan surat jalan toko dalam satu sistem.',
-        lead='Sistem toko berbasis web untuk menggantikan catatan manual dan Excel: stok per batch dengan FIFO, pembelian dan utang ke pemasok, penjualan tunai atau tempo dengan nomor PO pembeli, penawaran harga, invoice dan surat jalan PDF, sampai laporan laba. Bisa dibuka dari komputer kasir maupun HP.',
-        short='Stok FIFO, pembelian, penjualan dengan nomor PO, penawaran, invoice, surat jalan, dan laporan toko.',
+        lead='Sistem toko berbasis web untuk menggantikan catatan manual dan Excel: stok dengan barcode atau QR, kasir dengan scan kamera HP, penawaran yang jadi penjualan, piutang pembeli dengan jatuh tempo, invoice dan surat jalan PDF, sampai laporan omzet, laba, dan pajak. Bisa dicoba gratis lewat demo pribadi tanpa daftar.',
+        demo_url='https://store.altora.id/coba-demo', site_url='https://store.altora.id',
+        short='Stok dengan barcode, kasir scan kamera, penawaran, piutang, invoice, surat jalan, dan laporan pajak toko. Bisa dicoba lewat demo gratis.',
         basis='Dibangun pertama untuk toko spare part bearing, dan bisa disesuaikan untuk toko bangunan, sparepart, alat teknik, grosir, atau distributor.',
         os='Web (komputer, tablet, dan HP)',
         shots=[('store-penjualan', 'Daftar penjualan: nota, pembeli, status lunas, sisa tagihan, serta invoice dan surat jalan', 'Penjualan dan nota'),
                ('store-stok', 'Stok per nomor part dan merek, dengan penanda stok menipis dan habis', 'Stok per barang'),
                ('store-penawaran', 'Penawaran harga yang bisa langsung dijadikan penjualan', 'Penawaran harga'),
                ('store-pembelian', 'Pembelian dan utang ke pemasok dengan jatuh tempo', 'Pembelian dan utang')],
-        modules=[('Stok per batch (FIFO)', 'Stok per nomor part, merek, dan batch, dengan satuan pcs, set, roll, atau meter. Stok tidak bisa minus, harga pokok mengikuti batch yang benar-benar terjual.'),
-                 ('Penjualan, PO, dan nota', 'Tunai atau tempo, diskon, uang muka, PPN, retur, dan nomor PO serta lokasi proyek pembeli di setiap nota.'),
-                 ('Penawaran harga', 'Surat penawaran PDF yang bisa langsung dijadikan penjualan tanpa ketik ulang.'),
-                 ('Invoice, surat jalan, dan tagihan', 'Invoice, surat jalan, tanda terima invoice bulanan, dan surat tagihan dengan kop dan nomor otomatis.'),
-                 ('Pembelian dan utang', 'Ongkos kirim dibagi ke harga pokok, foto faktur pemasok, dan pengingat utang yang mendekati atau lewat jatuh tempo.'),
-                 ('Piutang dan pembeli', 'Umur piutang, nota lewat jatuh tempo, riwayat dan rekap bulanan per pembeli.'),
-                 ('Stok opname dari HP', 'Hitung stok dengan ketik atau scan di HP; selisih dan nilainya tercatat dan masuk ke laba bersih.'),
-                 ('Laporan & ekspor', '15 laporan harian sampai tahunan, termasuk jejak barang dari pemasok sampai pembeli, diekspor ke Excel atau PDF.'),
-                 ('Hak akses pemilik & kasir', 'Kasir tidak melihat pemasok, harga pokok, dan laba; pembatalan dan ubah harga bisa butuh persetujuan pemilik.')],
-        faq=[('Apakah Altora Store bisa mencatat nomor PO dari pembeli?', 'Bisa. Nomor PO dan lokasi proyek pembeli dicatat di nota, tampil di invoice, dan bisa diisi belakangan bila PO datang setelah barang dikirim.'),
-             ('Apakah cocok untuk toko selain spare part bearing?', 'Cocok untuk toko yang menjual barang dengan nomor part atau kode, seperti toko bangunan, sparepart, alat teknik, grosir, dan distributor. Kami menyesuaikan satuan, laporan, dan dokumen dengan toko Anda.'),
-             ('Apakah bisa dipakai dari HP?', 'Bisa. Aplikasi berbasis web, jadi bisa dibuka dari komputer kasir, tablet, maupun HP, termasuk untuk stok opname dengan scan.'),
-             ('Bagaimana dengan data stok lama di Excel?', 'Stok awal bisa diimpor dari file Excel atau CSV dengan pratinjau sebelum disimpan.'),
-             ('Apakah menghitung PPN?', 'Bisa. PPN dapat dinyalakan atau dimatikan per penjualan, dan ada perkiraan pajak tahunan serta jarak ke batas PKP sebagai bantuan perhitungan.'),
-             ('Di mana data toko disimpan?', 'Di server pilihan Anda, dengan cadangan harian otomatis dan unduhan cadangan lengkap untuk pemilik.')]),
+        modules=[('Stok dan barang dengan barcode/QR', 'Stok per nomor part, merek, dan batch, lengkap dengan barcode atau QR per barang. Stok tidak bisa minus, harga pokok mengikuti batch yang benar-benar terjual (FIFO).'),
+                 ('Kasir dan scan kamera', 'Penjualan tunai atau tempo di kasir; barcode di-scan dengan kamera HP Android, tanpa alat scanner tambahan. Info pembayaran QRIS bisa dicantumkan.'),
+                 ('Penawaran jadi penjualan', 'Surat penawaran PDF yang bisa langsung dijadikan penjualan tanpa ketik ulang.'),
+                 ('Pembelian dan utang pemasok', 'Catat pembelian dari pemasok dan utang yang harus dibayar, lengkap dengan jatuh tempo.'),
+                 ('Piutang pembeli', 'Piutang dengan jatuh tempo, nomor PO pembeli, surat tagihan, dan kwitansi, supaya tagihan tidak tercecer.'),
+                 ('Retur, biaya, dan stok opname', 'Retur penjualan dan pembelian, pencatatan biaya, dan stok opname untuk mencocokkan stok di sistem dengan barang di rak.'),
+                 ('Dokumen PDF', 'Invoice atau nota, surat jalan, penawaran, dan surat dengan kop toko, dicetak dari data yang sama.'),
+                 ('Laporan dan pajak', 'Laporan omzet dan laba, PPN 11%, serta PPh final 0,5% untuk UMKM dengan pemantauan batas PKP. Perhitungannya membantu, bukan pengganti konsultan pajak.'),
+                 ('Impor Excel dan persetujuan pemilik', 'Stok awal bisa diimpor dari Excel. Diskon di atas batas tertentu butuh persetujuan pemilik; ada peran pemilik dan kasir serta audit log.'),
+                 ('Profil perusahaan dan katalog', 'Opsional: halaman profil perusahaan dan katalog produk publik untuk toko Anda.')],
+        faq=[('Bisakah saya mencoba dulu sebelum memakai?', 'Bisa. Tombol Coba demo di store.altora.id membuat toko demo pribadi dengan data contoh yang realistis. Tanpa daftar, data hanya untuk Anda, dan dihapus saat keluar atau setelah 30 menit tidak aktif.'),
+             ('Apakah Altora Store bisa mencatat nomor PO dari pembeli?', 'Bisa. Nomor PO dicatat di penjualan dan piutang, tampil di invoice, dan membantu mencocokkan tagihan dengan PO pembeli.'),
+             ('Apakah cocok untuk toko selain spare part bearing?', 'Cocok untuk toko yang menjual barang dengan nomor part atau kode, seperti toko bangunan, sparepart, alat teknik, grosir, dan distributor. Kami menyesuaikan tampilan dan dokumen dengan toko Anda.'),
+             ('Apakah bisa dipakai dari HP?', 'Bisa. Aplikasi berbasis web, jadi bisa dibuka dari komputer kasir, tablet, maupun HP. Di HP Android, kamera bisa dipakai untuk scan barcode di kasir.'),
+             ('Bagaimana dengan data stok lama di Excel?', 'Stok awal bisa diimpor dari file Excel.'),
+             ('Apakah menghitung pajak?', 'Laporan mencakup PPN 11% dan PPh final 0,5% untuk UMKM, serta pemantauan batas PKP. Ini bantuan perhitungan; keputusan perpajakan tetap bersama konsultan pajak Anda.'),
+             ('Di mana data toko disimpan?', 'Setiap bisnis mendapat instance sendiri di subdomain store-namabisnis.altora.id dengan logo dan warna sendiri. Data tersimpan permanen dan terpisah dari bisnis lain, dengan cadangan harian.')]),
     'office': dict(
         name='Altora Office', tag='Platform kerja internal', icon='/assets/img/altora-logo-icon-v2.svg',
         h1='Altora Office: proyek, tim, dan operasional kantor di satu tempat.',
@@ -169,6 +172,18 @@ def demo_link(name):
     return WA + quote(f'Halo Altora, saya ingin minta demo {name}.')
 
 
+def cta_buttons(a):
+    """Tombol utama + sekunder. Aplikasi dengan demo_url: Coba demo (ungu) + link ke situs produk; lainnya: Minta demo via WhatsApp."""
+    if a.get('demo_url'):
+        return (f'<a class="btn btn-purple" href="{a["demo_url"]}" rel="noopener" target="_blank">Coba demo</a>'
+                f'<a class="svd-link" href="{a["site_url"]}" rel="noopener" target="_blank">Kunjungi store.altora.id</a>')
+    return f'<a class="btn btn-purple" href="{demo_link(a["name"])}" rel="noopener" target="_blank">Minta demo</a>'
+
+
+def wa_alt(a):
+    return f'<a class="svd-link" href="{demo_link(a["name"])}" rel="noopener" target="_blank">Tanya lewat WhatsApp</a>' if a.get('demo_url') else ''
+
+
 def pic(sid, alt, big=False):
     return (f'<figure class="ap2-shot{" ap2-shot-big" if big else ""}"><div class="ap2-bar"><i></i><i></i><i></i></div>'
             f'<img alt="{e(alt)}" decoding="async" loading="{"eager" if big else "lazy"}" src="{IMG}{sid}.webp"/></figure>')
@@ -192,13 +207,13 @@ def detail(k, a):
 <section class="svd-hero"><div class="ct-wrap ap2-hero">
 <div class="ap2-hero-copy"><nav aria-label="Breadcrumb" class="bl-crumb"><a href="/aplikasi">Aplikasi</a><span>/</span><span>{e(a["name"])}</span></nav>
 <p class="eyebrow eyebrow-purple">{e(a["tag"])}</p><h1>{e(a["h1"])}</h1><p class="ct-lead">{e(a["lead"])}</p>{basis}
-<div class="svd-actions"><a class="btn btn-purple" href="{demo_link(a["name"])}" rel="noopener" target="_blank">Minta demo</a><a class="svd-link" href="{SEO[k][0] if k in SEO else "#fitur"}">{SEO[k][1] + " →" if k in SEO else "Lihat fitur"}</a></div></div>
+<div class="svd-actions">{cta_buttons(a)}<a class="svd-link" href="{SEO[k][0] if k in SEO else "#fitur"}">{SEO[k][1] + " →" if k in SEO else "Lihat fitur"}</a></div></div>
 {pic(a["shots"][0][0], a["shots"][0][1], True)}
 </div></section>
 <section class="svd-sec" id="fitur"><div class="ct-wrap"><div class="pd-block-head"><h2>Yang bisa dikerjakan</h2></div><div class="svd-dos">{mods}</div></div></section>
 {shots_sec}
 <section class="svd-sec"><div class="ct-wrap svd-faq"><div class="pd-block-head"><h2>Pertanyaan umum</h2></div><div>{faq}</div></div></section>
-<section class="pd-cta"><div class="ct-wrap pd-cta-inner"><div><h2>Ingin melihat {e(a["name"])} langsung?</h2><p>Kami tunjukkan lewat demo singkat dan bahas penyesuaiannya untuk Anda.</p></div><a class="btn btn-purple" href="{demo_link(a["name"])}" rel="noopener" target="_blank">Minta demo</a></div></section>
+<section class="pd-cta"><div class="ct-wrap pd-cta-inner"><div><h2>Ingin melihat {e(a["name"])} langsung?</h2><p>Kami tunjukkan lewat demo singkat dan bahas penyesuaiannya untuk Anda.</p></div><div class="svd-actions">{cta_buttons(a)}{wa_alt(a)}</div></div></section>
 </main>'''
     return url, shell(f'{a["name"]} | Aplikasi Buatan Altora', a['short'] + ' Aplikasi buatan Altora Indonesia.', url, SITE + IMG + a['shots'][0][0] + '.webp', ld, body)
 
@@ -206,7 +221,7 @@ def detail(k, a):
 def hub():
     cards = ''.join(f'''<article class="ap2-card"><a class="ap2-card-pic" href="/aplikasi/{k}">{pic(a["shots"][0][0], a["shots"][0][1])}</a>
 <div class="ap2-card-body"><p class="eyebrow eyebrow-purple">{e(a["tag"])}</p><h2><a href="/aplikasi/{k}">{e(a["name"])}</a></h2><p>{e(a["short"])}</p>
-<div class="svd-actions"><a class="btn btn-purple" href="/aplikasi/{k}">Lihat detail</a><a class="svd-link" href="{demo_link(a["name"])}" rel="noopener" target="_blank">Minta demo</a></div></div></article>''' for k, a in APPS.items())
+<div class="svd-actions"><a class="btn btn-purple" href="/aplikasi/{k}">Lihat detail</a><a class="svd-link" href="{a.get("demo_url") or demo_link(a["name"])}" rel="noopener" target="_blank">{"Coba demo" if a.get("demo_url") else "Minta demo"}</a></div></div></article>''' for k, a in APPS.items())
     ld = {'@context': 'https://schema.org', '@type': 'CollectionPage', 'name': 'Aplikasi buatan Altora', 'url': SITE + '/aplikasi',
           'hasPart': [{'@type': 'SoftwareApplication', 'name': a['name'], 'url': SITE + f'/aplikasi/{k}'} for k, a in APPS.items()]}
     body = f'''<main class="ct-page svd-page ap2-page">
@@ -226,7 +241,7 @@ def home_cards():
     out = []
     for i, (k, a) in enumerate(APPS.items()):
         sid, alt, _ = a['shots'][0]
-        out.append(f'''<article class="ap2-card reveal"{f' data-d="{i % 3}"' if i % 3 else ''}><a class="ap2-card-pic" href="/aplikasi/{k}"><figure class="ap2-shot"><div class="ap2-bar"><i></i><i></i><i></i></div><img alt="{e(alt)}" decoding="async" loading="lazy" src="{IMG}{sid}.webp"/></figure></a><div class="ap2-card-body"><p class="eyebrow eyebrow-purple">{e(a["tag"])}</p><h3><a href="/aplikasi/{k}">{e(a["name"])}</a></h3><p>{e(a["short"])}</p><div class="svd-actions"><a class="btn btn-purple" href="/aplikasi/{k}">Lihat detail</a><a class="svd-link" href="{demo_link(a["name"])}" rel="noopener" target="_blank">Minta demo</a></div></div></article>''')
+        out.append(f'''<article class="ap2-card reveal"{f' data-d="{i % 3}"' if i % 3 else ''}><a class="ap2-card-pic" href="/aplikasi/{k}"><figure class="ap2-shot"><div class="ap2-bar"><i></i><i></i><i></i></div><img alt="{e(alt)}" decoding="async" loading="lazy" src="{IMG}{sid}.webp"/></figure></a><div class="ap2-card-body"><p class="eyebrow eyebrow-purple">{e(a["tag"])}</p><h3><a href="/aplikasi/{k}">{e(a["name"])}</a></h3><p>{e(a["short"])}</p><div class="svd-actions"><a class="btn btn-purple" href="/aplikasi/{k}">Lihat detail</a><a class="svd-link" href="{a.get("demo_url") or demo_link(a["name"])}" rel="noopener" target="_blank">{"Coba demo" if a.get("demo_url") else "Minta demo"}</a></div></div></article>''')
     return '<div class="ap2-cards">\n' + '\n'.join(out) + '\n</div></div></section><!-- apps:end -->'
 
 
