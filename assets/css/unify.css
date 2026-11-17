@@ -66,33 +66,7 @@ main{overflow-x:clip}
   color:var(--cta-solid)!important;background:rgba(124,92,232,.08)!important;box-shadow:inset 0 0 0 1px rgba(124,92,232,.26)!important;
 }
 
-/* ── Footer standar (partials/footer.html): gradient ungu cerah <-> putih yang bergerak ── */
 @keyframes sf-flow{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-.site-footer{--sf-ink:#14183D;--sf-text:#2A2F5E;--sf-accent:#5B3FC4;position:relative;isolation:isolate;overflow:hidden;margin-top:0;padding:76px 0 30px;color:var(--sf-text);
-  border-radius:32px 32px 0 0;font-family:"Plus Jakarta Sans",system-ui,sans-serif;
-  background:linear-gradient(115deg,#A98BFF 0%,#D6C8FF 22%,#FFFFFF 45%,#EEE6FF 62%,#BBA2FF 82%,#A98BFF 100%);
-  background-size:300% 300%;animation:sf-flow 16s ease-in-out infinite}
-.site-footer:before{content:'';position:absolute;z-index:-1;inset:12px clamp(12px,2vw,28px) 0;border:1px solid rgba(255,255,255,.9);border-bottom:0;border-radius:24px 24px 0 0;pointer-events:none}
-@media (prefers-reduced-motion:reduce){.site-footer{animation:none;background-position:30% 50%}}
-.sf-wrap{width:min(1200px,calc(100% - 40px));margin-inline:auto}
-.sf-grid{display:grid;grid-template-columns:minmax(0,1.5fr) repeat(3,minmax(0,.9fr)) minmax(0,1.25fr);gap:clamp(24px,3vw,44px)}
-.sf-logo{display:inline-flex;align-items:center;gap:10px;color:var(--sf-ink);font-weight:800;font-size:1.35rem;letter-spacing:.02em;text-decoration:none}
-.sf-brand p{margin:18px 0 22px;max-width:36ch;color:var(--sf-text);font-size:.88rem;line-height:1.7}
-.sf-wa{display:inline-flex;align-items:center;gap:9px;padding:11px 18px;border-radius:999px;background:#5B3FC4;color:#fff;font-weight:700;font-size:.86rem;text-decoration:none;box-shadow:0 12px 26px -14px rgba(60,35,150,.8);transition:transform .2s,background .2s}
-.sf-wa:hover{transform:translateY(-2px);background:#4A30AE}
-.sf-wa svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linejoin:round}
-.sf-col{display:flex;flex-direction:column;gap:11px}
-.sf-col h4{margin:0 0 6px;color:var(--sf-ink);font-size:.92rem;font-weight:800}
-.sf-col a,.sf-col p{margin:0;color:var(--sf-text);font-size:.86rem;font-weight:500;line-height:1.55;text-decoration:none;width:fit-content;transition:color .2s}
-.sf-col a:hover{color:var(--sf-accent)}
-.sf-contact a,.sf-contact p{display:flex;gap:10px;align-items:flex-start}
-.sf-contact svg{flex:none;width:17px;height:17px;margin-top:2px;fill:none;stroke:var(--sf-accent);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.sf-base{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:56px;padding-top:22px;border-top:1px solid rgba(42,47,94,.16);color:var(--sf-text);font-size:.8rem}
-.sf-legal{display:flex;gap:20px}
-.sf-legal a{color:var(--sf-text);text-decoration:none}
-.sf-legal a:hover{color:var(--sf-accent)}
-@media (max-width:980px){.sf-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.sf-brand{grid-column:1/-1}.sf-contact{grid-column:span 3}}
-@media (max-width:620px){.site-footer{padding-top:56px;border-radius:24px 24px 0 0}.site-footer:before{inset:8px 8px 0;border-radius:18px 18px 0 0}.sf-grid{grid-template-columns:1fr 1fr;gap:32px 20px}.sf-contact{grid-column:1/-1}.sf-base{margin-top:40px}}
 
 /* Top bar: tombol & tampilan sama persis di beranda dan halaman lain */
 .universal-shell .nav-links{gap:4px}
@@ -387,7 +361,6 @@ main .btn-lg{min-height:52px}
 
 /* 6. Aksesibilitas: fokus keyboard terlihat, gerak dikurangi bila diminta */
 :where(a,button,input,select,textarea,summary,[tabindex]):focus-visible{outline:3px solid #7C5CE8!important;outline-offset:3px!important;border-radius:10px}
-.site-footer :where(a):focus-visible{outline-color:#3E2A97!important}
 ::selection{background:#E4DBFF;color:#10224F}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
@@ -427,55 +400,6 @@ html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
   .portfolio-grid-home>.portfolio-card{flex:0 0 78%;scroll-snap-align:start}
 }
 
-/* ── Footer v2: brand + WA di atas, 4 kolom link lega, baris dasar aman dari tombol WA melayang ── */
-.sf-top{display:flex!important;align-items:flex-end;justify-content:space-between;gap:24px 40px;flex-wrap:wrap;padding-bottom:32px;border-bottom:1px solid rgba(42,47,94,.14)}
-.sf-top .sf-brand p{margin:14px 0 0;max-width:52ch}
-.sf-top .sf-wa{flex:none}
-.sf-grid{grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,1.35fr)!important;gap:32px 40px!important;padding-top:34px}
-.sf-col a,.sf-col p{width:auto!important}
-.sf-contact a,.sf-contact p{max-width:34ch}
-.sf-base{margin-top:44px!important}
-.sf-base .sf-legal{margin-right:76px}
-@media (max-width:980px){
-  .sf-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
-  .sf-grid .sf-brand,.sf-grid .sf-contact{grid-column:auto!important}
-}
-@media (max-width:620px){
-  .sf-top{align-items:flex-start;flex-direction:column}
-  .sf-grid{grid-template-columns:1fr 1fr!important;gap:28px 18px!important}
-  .sf-grid .sf-contact{grid-column:1/-1!important}
-  .sf-base{flex-direction:column;gap:10px}
-  .sf-base .sf-legal{margin-right:0}
-  body:has(a.wa) .sf-base{padding-bottom:64px}
-  .sf-grid nav[aria-label="Perusahaan"]{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;column-gap:18px}
-  .sf-grid nav[aria-label="Perusahaan"] h4{grid-column:1/-1}
-}
-
-/* Footer: tanpa garis/kotak putih dekoratif di dalamnya */
-.site-footer:before{content:none!important;display:none!important}
-/* Footer: sudut atas lurus — lengkungan memperlihatkan latar putih halaman di pojok */
-.site-footer{border-radius:0!important}
-
-/* Footer ramping */
-.site-footer{padding:36px 0 18px!important}
-.sf-top{align-items:center!important;padding-bottom:18px!important;gap:12px 28px!important}
-.sf-top .sf-brand{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-.sf-logo{font-size:1.15rem!important}
-.sf-logo img{width:28px;height:auto}
-.sf-top .sf-brand p{margin:0!important;max-width:60ch;font-size:.82rem!important;line-height:1.5!important}
-.sf-wa{padding:9px 16px!important;font-size:.82rem!important}
-.sf-grid{padding-top:20px!important;gap:18px 32px!important}
-.sf-col{gap:6px!important}
-.sf-col h4{margin:0 0 2px!important;font-size:.84rem!important}
-.sf-col a,.sf-col p{font-size:.8rem!important;line-height:1.45!important}
-.sf-contact svg{width:15px!important;height:15px!important;margin-top:1px!important}
-.sf-base{margin-top:22px!important;padding-top:12px!important;font-size:.76rem!important;align-items:center}
-@media (max-width:620px){
-  .site-footer{padding-top:28px!important}
-  .sf-top .sf-brand{gap:10px}
-  .sf-grid{gap:18px 16px!important}
-  .sf-col{gap:5px!important}
-}
 
 /* ── Halaman Karier ── */
 .cr-sec{padding:clamp(40px,5vw,64px) 0 0;scroll-margin-top:90px}
@@ -720,14 +644,8 @@ html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 .lc-office h2{margin:0 0 8px;color:#10224F;font-size:1.2rem!important}
 .lc-office p{margin:0 0 6px;color:#3D4462;line-height:1.6}
 .lc-office a{color:#5B3FC4;font-weight:700}
-.sf-areas{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center}
-.sf-areas a{color:var(--sf-text);text-decoration:none}.sf-areas a:hover{color:var(--sf-accent)}
 @media (max-width:980px){.lc-why,.lc-svcs{grid-template-columns:1fr 1fr}}
 @media (max-width:600px){.lc-why,.lc-svcs{grid-template-columns:1fr}}
-/* Footer: daftar kantor */
-.sf-office{display:flex!important;gap:10px;align-items:flex-start;max-width:36ch!important}
-.sf-office span{display:block}
-.sf-office b{display:block;color:var(--sf-ink);font-size:.8rem;font-weight:800}
 
 /* Halaman Tentang */
 .ab-stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:30px 0 0;padding:0;list-style:none;max-width:900px}

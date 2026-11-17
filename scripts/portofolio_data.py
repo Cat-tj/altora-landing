@@ -119,24 +119,16 @@ INFRA_SLUGS = ['rm-payakumbuah', 'kios-mandiri-kelurahan', 'fleet-radio-kapal', 
                'smartlock-farmasi-unmul', 'iot-monitoring-lahan-sawit']
 
 
-def card(p, mode='full'):
-    """mode: 'full' = kartu dengan media di halaman /portofolio (id jangkar, tautan luar opsional);
-    'link' = kartu dengan media yang menaut ke /portofolio#slug (beranda); 'compact' = tanpa media, menaut ke /portofolio#slug."""
-    if p.get('img') and mode != 'compact':
-        media = f'<span class="pf-media"><img alt="" decoding="async" loading="lazy" src="{IMG}{e(p["img"])}"/></span>'
-    elif mode == 'compact':
-        media = f'<span class="pf-ico">{icon(p["icon"])}</span>'
+def card(p, mode='link'):
+    """Kartu proyek bergaya Sentra: media 16:10, kecil (klien · tahun), judul, ringkasan, tag. Seluruh kartu menaut ke /portofolio/<slug>.
+    mode 'full' = dipakai di /portofolio (data-kind untuk filter, id jangkar lama, animasi muncul); lainnya = beranda dan halaman lain."""
+    if p.get('img'):
+        media = f'<span class="pf-thumb"><img alt="" decoding="async" height="500" loading="lazy" src="{IMG}{e(p["img"])}" width="800"/></span>'
     else:
-        media = f'<span class="pf-media pf-media-ico"><span class="pf-ico pf-ico-lg">{icon(p["icon"])}</span></span>'
+        media = f'<span class="pf-thumb pf-thumb-ico"><span class="pf-ico">{icon(p["icon"])}</span></span>'
     meta = e(p['client']) + (f' · {e(p["year"])}' if p['year'] else '')
-    tags = ''.join(f'<li>{e(t)}</li>' for t in p['tags'])
-    body = f'<div class="pf-body"><small>{meta}</small><h3>{e(p["title"])}</h3><p>{e(p["desc"])}</p><ul class="pf-tags">{tags}</ul>'
-    cls = 'pf-card' + (' pf-compact' if mode == 'compact' else '')
-    if mode == 'full':
-        links = ''
-        if p.get('link'):
-            u, t = p['link']
-            ext = u.startswith('http')
-            links = f'<a class="pf-link" href="{e(u)}"' + (' rel="noopener" target="_blank"' if ext else '') + f'>{e(t)} →</a>'
-        return f'<article class="{cls}" id="{p["slug"]}">{media}{body}{links}</div></article>'
-    return f'<a class="{cls}" href="/portofolio#{p["slug"]}">{media}{body}<em class="pf-more">Lihat proyek →</em></div></a>'
+    tags = ''.join(f'<span class="pf-tag">{e(t)}</span>' for t in p['tags'])
+    body = f'<span class="pf-body"><small>{meta}</small><h3>{e(p["title"])}</h3><p>{e(p["desc"])}</p><span class="pf-tags">{tags}</span></span>'
+    extra = f' data-kind="{p["group"]}" id="{p["slug"]}"' if mode == 'full' else ''
+    cls = 'pf-card pf-rv' if mode == 'full' else 'pf-card'
+    return f'<a class="{cls}"{extra} href="/portofolio/{p["slug"]}">{media}{body}</a>'
