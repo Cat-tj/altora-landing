@@ -1,0 +1,5 @@
+# Header Cloudflare Pages. HTML memakai bawaan Pages (max-age=0, must-revalidate = divalidasi ulang tiap kunjungan,
+# sama dengan "no-cache" di Caddy). Aset boleh disimpan browser 4 jam; CSS/JS sudah memakai ?v= sebagai cache-bust.
+/assets/*
+  Cache-Control: public, max-age=14400
+  X-Content-Type-Options: nosniff

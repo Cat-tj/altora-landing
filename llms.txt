@@ -1,0 +1,43 @@
+# Altora Indonesia
+
+> Altora Indonesia (brand: Altora) is an Indonesian software company headquartered in Samarinda, East Kalimantan, with branch offices in Balikpapan (Balikpapan Utara and Pasar Baru). It builds custom software, websites, and SEO for businesses, campuses, and government agencies, and develops its own applications.
+
+## Identity
+- Legal/brand name: Altora Indonesia
+- Short name: Altora
+- Former identity: Algora Teknologi Indonesia (Algora)
+- Official website: https://altora.id/
+- Rebrand information: https://altora.id/algora
+- Head office: Perum Graha Indah Blok A13, Air Putih, Samarinda Ulu, Samarinda
+- Branches: Jl. Soekarno Hatta, Muara Rapak, Balikpapan Utara; Pasar Baru, Balikpapan
+- Registered supplier on Inaproc/LKPP (Indonesian government procurement)
+- Contact: hello@altora.id, WhatsApp +62 851-9091-1170 (https://wa.me/6285190911170)
+
+## What Altora does
+- Custom software: web apps, mobile apps, internal systems, dashboards, and integrations built around the client's workflow
+- Websites for companies, campuses, and government institutions, with a CMS the client can edit
+- SEO: technical audit, on-page optimization, local SEO, and reporting
+- Hardware and IT services in Samarinda only: CCTV installation (including solar and 4G CCTV, official VIGI devices), smart locks, smart home, and monthly IT support contracts for companies (https://altora.id/services/cctv, /services/smart-lock, /services/smart-home, /services/it-support)
+- Remote delivery across Indonesia, with on-site discussion and training in Kalimantan Timur
+
+## Applications built by Altora
+- Altora Store: web-based store management for retail and wholesale shops (spare parts, building materials, distributors): FIFO stock per batch, purchases and supplier debt, cash or credit sales with the buyer's PO number, quotations that convert to sales, invoice and delivery note (surat jalan) PDFs, stock counts from a phone, and 15 reports (https://altora.id/aplikasi/store, overview in Indonesian: https://altora.id/aplikasi-toko)
+- Altora FieldOps: field operations for mining and oil & gas: wells and sites, HSE and permit to work, heavy assets, field crew, legal readiness, AFE and accounting (https://altora.id/aplikasi/fieldops)
+- Altora Office: internal work platform with project and task boards (Altora Projek), operations, HRIS, and marketing modules, plus an AI assistant for daily reports (https://altora.id/aplikasi/office)
+- Altora Teams: HRIS dan kinerja tim, meliputi KPI dan review, cuti dan persetujuan, serta kalender kerja (https://altora.id/aplikasi/teams)
+- Altora Control Center: monitoring for servers, websites, cron jobs, and AI agents, with a project workspace and WhatsApp alerts (https://altora.id/aplikasi/control-center)
+
+## Key pages
+- Services: https://altora.id/services
+- Applications: https://altora.id/aplikasi
+- Store and distributor app (Indonesian): https://altora.id/aplikasi-toko
+- Mining and oil & gas field operations app: https://altora.id/aplikasi-pertambangan
+- Project management and office operations app: https://altora.id/aplikasi-manajemen-proyek
+- HRIS, KPI and leave app: https://altora.id/aplikasi-hris
+- Server and website monitoring app: https://altora.id/aplikasi-monitoring-server
+- Office suite (documents, spreadsheets, presentations): https://altora.id/aplikasi-perkantoran
+- Articles: https://altora.id/blog
+- About: https://altora.id/about
+- Contact: https://altora.id/contact
+- Support: https://altora.id/support
+- Service areas: https://altora.id/area-layanan

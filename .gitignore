@@ -1,3 +1,12 @@
 .DS_Store
 *.log
 node_modules/
+*.tmp
+.claude/
+dist/
+.wrangler/
+
+# Folder internal (data prospek, strategi outreach, konfigurasi server) - jangan di-commit
+leads/
+outreach/
+ops/

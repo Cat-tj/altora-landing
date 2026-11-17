@@ -13,46 +13,46 @@
   var MODULES = window.ALTORA_MODULES || [];
 
   var STEPS = [
-    { n: 1, icon: 'i-cart', hex: '#12A374', bg: '#DCF0E7', title: 'Transaksi di Kasir', text: 'Kasir mencatat penjualan dengan cepat dan mudah.' },
-    { n: 2, icon: 'i-box', hex: '#7C5CE8', bg: '#EAE2FB', title: 'Stok Otomatis Berkurang', text: 'Stok diupdate otomatis sesuai transaksi yang terjadi.' },
-    { n: 3, icon: 'i-file', hex: '#3B82F6', bg: '#E1EBFD', title: 'Data & Laba Terhitung', text: 'Sistem menghitung omzet, laba, dan biaya secara otomatis.' },
-    { n: 4, icon: 'i-pie', hex: '#F59E0B', bg: '#FCEBD2', title: 'Laporan Real-time', text: 'Laporan penjualan, stok, dan keuangan selalu up-to-date.' },
-    { n: 5, icon: 'i-bell', hex: '#EC5B9E', bg: '#FBE0EC', title: 'Notifikasi & Peringatan', text: 'Dapatkan alert stok menipis, utang jatuh tempo, dan lainnya.' }
+    { n: 1, icon: 'i-clipboard', hex: '#12A374', bg: '#DCF0E7', title: 'Pahami Operasi', text: 'Kami memetakan proses, hambatan, dan konteks kerja sebelum menentukan teknologi.' },
+    { n: 2, icon: 'i-layers', hex: '#7C5CE8', bg: '#EAE2FB', title: 'Tentukan Pendekatan', text: 'Kami memilih produk, integrasi, atau sistem custom yang paling relevan.' },
+    { n: 3, icon: 'i-spark', hex: '#3B82F6', bg: '#E1EBFD', title: 'Implementasi & Dampingi', text: 'Kami membangun, mengintegrasikan, menguji, lalu membantu tim menjalankannya.' },
+    { n: 4, icon: 'i-graph', hex: '#F59E0B', bg: '#FCEBD2', title: 'Optimalkan Bersama', text: 'Kami membaca temuan implementasi untuk menentukan penyempurnaan berikutnya.' }
   ];
 
   var PLANS = [
-    { name: 'Starter', icon: 'i-leaf', tone: 'green', tick: '#12A374',
-      desc: 'Cocok untuk bisnis kecil yang baru memulai.',
-      feats: ['Kasir POS', 'Stok & Inventori', 'Laporan Penjualan', 'Multi User'] },
-    { name: 'Pro', icon: 'i-crown', tone: 'purple', tick: '#7C5CE8', popular: true,
-      desc: 'Untuk bisnis yang sudah berkembang.',
-      feats: ['Semua di Starter', 'Purchase Order', 'Laporan Lanjutan', 'Manajemen Promo', 'Akses Multi Cabang'] },
-    { name: 'Business', icon: 'i-brief', tone: 'blue', tick: '#3B82F6',
-      desc: 'Untuk bisnis skala besar dan multi-outlet.',
-      feats: ['Semua di Pro', 'Manajemen Gudang', 'Laporan Keuangan', 'Approval & Hak Akses', 'Integrasi API'] },
-    { name: 'Enterprise', icon: 'i-building', tone: 'pink', tick: '#EC5B9E',
-      desc: 'Solusi khusus untuk kebutuhan enterprise Anda.',
-      feats: ['Semua di Business', 'Kustomisasi Sistem', 'Dedicated Support', 'SLA & Security Tingkat Tinggi', 'On-Premise (Opsional)'] }
+    { name: 'Leads ada, tapi tidak jadi percakapan', icon: 'i-monitor', tone: 'green', tick: '#12A374',
+      desc: 'Orang sudah melihat bisnis Anda, tetapi pesan dan jalur konversinya belum meyakinkan.',
+      feats: ['Positioning yang mudah dipahami', 'Website/landing page yang fokus', 'Alur kontak yang jelas', 'Tracking konversi'] },
+    { name: 'Calon pelanggan sulit menemukan Anda', icon: 'i-trend', tone: 'purple', tick: '#7C5CE8', popular: true,
+      desc: 'Bisnis yang bagus tetap kehilangan peluang ketika tidak terlihat pada saat orang mencari.',
+      feats: ['Audit visibilitas digital', 'SEO teknis dan struktur konten', 'Strategi keyword & konten', 'Local search visibility', 'Growth roadmap'] },
+    { name: 'Tim habis waktu untuk pekerjaan berulang', icon: 'i-spark', tone: 'blue', tick: '#3B82F6',
+      desc: 'Respons, follow-up, rekap, dan alur kerja manual membuat tim lambat bergerak.',
+      feats: ['Pemetaan workflow', 'AI assistant sesuai kebutuhan', 'Automation setup', 'Integrasi tools', 'Knowledge base tim'] },
+    { name: 'Teknologi bisnis terasa rapuh', icon: 'i-cloud', tone: 'pink', tick: '#EC5B9E',
+      desc: 'Server, jaringan, akses, dan data belum dikelola sebagai fondasi yang aman.',
+      feats: ['Cloud & server design', 'Network security review', 'Backup & monitoring', 'Access management', 'Infrastructure roadmap'] }
   ];
 
   var FAQS = [
-    { icon: 'i-monitor', tone: 'purple', q: 'Apakah Altora bisa digunakan di HP dan tablet?',
-      a: 'Ya, Altora bisa diakses dari berbagai perangkat, termasuk HP, tablet, dan komputer.' },
-    { icon: 'i-download', tone: 'blue', q: 'Apakah perlu instalasi?',
-      a: 'Tidak perlu. Altora berbasis cloud, jadi Anda bisa langsung gunakan tanpa instalasi.' },
-    { icon: 'i-cloud', tone: 'cyan', q: 'Apakah data saya aman?',
-      a: 'Ya, data Anda dienkripsi dan di-backup setiap hari di server yang aman.' },
-    { icon: 'i-headset', tone: 'orange', q: 'Apakah ada bantuan untuk migrasi data?',
-      a: 'Ya, tim kami siap membantu migrasi data dari sistem atau pencatatan sebelumnya.' },
-    { icon: 'i-store', tone: 'green', q: 'Apakah bisa digunakan untuk banyak cabang?',
-      a: 'Bisa. Altora mendukung multi-cabang dengan kontrol terpusat secara real-time.' },
-    { icon: 'i-sync', tone: 'pink', q: 'Bisakah saya mencoba Altora terlebih dahulu?',
-      a: 'Tentu! Anda bisa mencoba demo gratis dan melihat fitur-fiturnya sebelum berlangganan.' },
-    { icon: 'i-building', tone: 'navy', q: 'Bagaimana jika saya punya lebih dari satu jenis bisnis?',
-      a: 'Bisa. Anda dapat berlangganan beberapa modul sekaligus, misalnya Resto dan Laundry. Setiap modul punya halaman masuk sendiri sesuai jenis bisnisnya.' },
-    { icon: 'i-layers', tone: 'teal', q: 'Apakah saya bisa pindah paket nanti?',
-      a: 'Bisa, kapan saja. Naik atau turun paket bisa dilakukan seiring bisnis Anda berkembang, dan tim kami membantu proses penyesuaiannya.' }
+    { icon: 'i-layers', tone: 'purple', q: 'Apa saja yang dikerjakan Altora?',
+      a: 'Tiga hal: aplikasi custom (web, HP, sistem internal), website dan SEO, serta aplikasi buatan sendiri seperti Altora Office dan Raphael Control Center.' },
+    { icon: 'i-puzzle', tone: 'blue', q: 'Jika kebutuhan kami tidak cocok dengan aplikasi yang ada di pasaran, apakah bisa dibuat khusus?',
+      a: 'Bisa. Kami pelajari alur kerja Anda dulu, lalu membuat aplikasi web atau HP, sistem internal, website, dashboard, dan integrasi dengan sistem lain sesuai kebutuhan.' },
+    { icon: 'i-monitor', tone: 'cyan', q: 'Apakah Altora menjual hardware?',
+      a: 'Tidak. Fokus kami software: aplikasi custom, website, SEO, dan aplikasi buatan sendiri. Kami bisa mengintegrasikan aplikasi dengan perangkat yang sudah Anda punya.' },
+    { icon: 'i-shield', tone: 'orange', q: 'Apakah ada aplikasi yang siap dipakai?',
+      a: 'Ada. Altora Office untuk proyek, tim, dan operasional kantor, serta Raphael Control Center untuk memantau server, website, dan proyek. Keduanya bisa didemokan dan disesuaikan.' },
+    { icon: 'i-trend', tone: 'green', q: 'Apakah bisa untuk pengadaan instansi?',
+      a: 'Bisa. Altora berstatus PKP dan terdaftar sebagai penyedia di Inaproc/LKPP, dengan penawaran, faktur, dan berita acara serah terima.' },
+    { icon: 'i-sync', tone: 'pink', q: 'Bisakah aplikasi yang dibuat terhubung dengan aplikasi atau perangkat yang sudah kami gunakan?',
+      a: 'Umumnya bisa. Kami cek dulu aplikasi dan perangkat yang Anda pakai, lalu tentukan cara menghubungkannya.' },
+    { icon: 'i-clipboard', tone: 'navy', q: 'Bagaimana proses memulai proyek?',
+      a: 'Hubungi kami lewat WhatsApp atau form konsultasi. Setelah memahami kebutuhan Anda, kami sarankan solusi yang sesuai, lalu kirim penawaran.' },
+    { icon: 'i-headset', tone: 'teal', q: 'Bagaimana pendampingan setelah selesai?',
+      a: 'Kami dampingi dari konsultasi awal, pemasangan atau pengembangan, pelatihan pengguna, sampai dukungan setelah sistem berjalan. Detail kerja sama kita diskusikan lewat chat.' }
   ];
+
 
   /* ── render: industries ──────────────────────────── */
 
@@ -63,9 +63,8 @@
         '<span class="mi mi-' + m.tone + '">' + icon(m.icon) + '</span>' +
         '<h3>' + m.name + '</h3>' +
         '<p>' + m.short + '</p>' +
-        '<div class="scene" style="background:linear-gradient(140deg,' + m.hex + ',' + shade(m.hex, -22) + ')">' + icon(m.icon) + '</div>' +
         '<ul>' + m.feats.map(function (f) { return '<li>' + icon('i-check') + f + '</li>'; }).join('') + '</ul>' +
-        '<a class="more" href="#modul" style="color:' + m.hex + '">Pelajari lebih lanjut ' + icon('i-arrow') + '</a>' +
+        '<a class="more" href="' + (m.href || '/services') + '" style="color:' + m.hex + '">Pelajari lebih lanjut ' + icon('i-arrow') + '</a>' +
         '</article>';
     }).join('');
   }
@@ -166,23 +165,7 @@
 
   /* ── nav ─────────────────────────────────────────── */
 
-  var navWrap = $('#nav');
-  var onScroll = function () { navWrap.classList.toggle('stuck', window.scrollY > 12); };
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  var burger = $('#burger'), mobileMenu = $('#mobileMenu');
-  burger.addEventListener('click', function () {
-    var open = mobileMenu.classList.toggle('open');
-    burger.setAttribute('aria-expanded', String(open));
-    burger.setAttribute('aria-label', open ? 'Tutup menu' : 'Buka menu');
-  });
-  $$('#mobileMenu a').forEach(function (a) {
-    a.addEventListener('click', function () {
-      mobileMenu.classList.remove('open');
-      burger.setAttribute('aria-expanded', 'false');
-    });
-  });
+  /* Top bar (scroll & burger) diurus site-shell.js agar sama di semua halaman. */
 
   var hasMenu = $('.has-menu');
   if (hasMenu) {

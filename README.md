@@ -72,3 +72,20 @@ dari HTML/CSS supaya tetap tajam di layar retina dan mudah diperbarui.
 di-crop dan dikonversi ke WebP di `assets/img/`.
 
 Keduanya tidak ikut di-serve — hanya arsip untuk keperluan revisi.
+
+## Artikel (blog)
+
+Blog ada di `/blog` tapi sengaja **tidak** ditampilkan di top bar — hanya ditautkan dari footer
+("Artikel"), sitemap, dan link "Baca juga" di halaman terkait.
+
+1. Tulis artikel baru di `content/blog/<slug>.md` (format front matter ada di atas `scripts/build_blog.py`).
+   Nama file yang diawali `_` dianggap draf.
+2. Bangun: `python3 scripts/build_blog.py && python3 scripts/apply_shell.py`
+   (membuat `blog.html`, `blog/<slug>.html`, dan memperbarui `sitemap.xml`).
+3. Deploy: `HOST=pi@HOST_IP ./deploy.sh --go`
+
+Halaman karier dibangun dari `scripts/build_careers.py` (isi lowongan nyata di `OPENINGS`).
+
+Setelah semua build, jalankan `python3 scripts/apply_seo.py` (favicon, meta, OG, laporan title/description).
+
+Header & footer semua halaman berasal dari `partials/` dan diterapkan oleh `scripts/apply_shell.py`.
