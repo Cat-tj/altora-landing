@@ -1408,7 +1408,7 @@ body > header.nav-wrap + main > section:first-child:not(.hero){margin-top:-80px;
 /* Blog diagrams — 20261019 custom-vs-ready */
 .altora-diagram{margin:2rem 0 2.25rem;padding:1rem;border:1px solid rgba(36,49,58,.10);border-radius:18px;background:#fffaf4}
 .altora-diagram img{display:block;width:100%;height:auto;border-radius:12px}
-.altora-diagram figcaption{margin:.75rem .25rem 0;color:#66727b;font-size:.88rem;line-height:1.5}
+.altora-diagram img[src*="mobile"]{width:auto;max-width:min(100%,300px);margin-inline:auto}.altora-diagram figcaption{margin:.75rem .25rem 0;color:#66727b;font-size:.88rem;line-height:1.5}
 @media (max-width:600px){.altora-diagram{margin:1.5rem 0;padding:.65rem;border-radius:14px}.altora-diagram figcaption{font-size:.82rem}}
 /* Kartu katalog aplikasi & jasa: satu label, daftar bertanda centang (tanpa "Fitur" berulang) */
 .hwi-list{margin:0 0 18px;padding-top:12px;border-top:1px solid #F0ECF8}

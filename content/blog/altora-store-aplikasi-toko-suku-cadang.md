@@ -37,14 +37,16 @@ Di kasir, barcode barang bisa dipindai langsung dengan **kamera HP Android**, ta
 
 Piutang pembeli tercatat dengan **jatuh tempo** dan **nomor PO**, lengkap dengan surat tagihan dan kwitansi. Dari sisi pemasok, pembelian dan utang pemasok dicatat sehingga pembayaran tidak terlewat. Gambaran lengkap alur dari penawaran sampai lunas ada di artikel [Sistem PO untuk toko](/blog/sistem-po-toko).
 
-<!-- SCREENSHOT 1 (dashboard): ganti baris ini dengan ![Dashboard Altora Store menampilkan ringkasan penjualan, stok menipis, dan piutang](/assets/img/blog/altora-store/dashboard.webp "Dashboard: ringkasan penjualan, stok, dan piutang (data contoh)") -->
-<!-- SCREENSHOT 2 (piutang): ganti baris ini dengan ![Daftar piutang pembeli dengan jatuh tempo dan nomor PO](/assets/img/blog/altora-store/piutang.webp "Piutang pembeli dengan jatuh tempo dan nomor PO (data contoh)") -->
+![Dashboard Altora Store menampilkan penjualan hari ini, penjualan bulan ini, laba bersih, nilai stok, utang, piutang pembeli, dan stok menipis](/assets/img/blog/altora-store/dashboard.webp "Beranda toko demo: penjualan, laba, nilai stok, utang, dan piutang. CV Mitra Teknik Mandiri adalah toko fiktif; semua data adalah data contoh demo.")
+
+![Grafik penjualan 30 hari terakhir dan umur piutang di Altora Store](/assets/img/blog/altora-store/dashboard-grafik.webp "Grafik penjualan 30 hari dan umur piutang di beranda. CV Mitra Teknik Mandiri adalah toko fiktif; semua data adalah data contoh demo.")
+![Daftar piutang per pembeli dengan keterlambatan hari, sisa tagihan, dan tombol PDF surat tagihan](/assets/img/blog/altora-store/piutang.webp "Laporan piutang per pembeli: keterlambatan, sisa tagihan, dan surat tagihan PDF. CV Mitra Teknik Mandiri adalah toko fiktif; semua data adalah data contoh demo.")
 
 ### Dokumen PDF
 
 Invoice atau nota, surat jalan, penawaran, dan surat dicetak sebagai PDF dari data yang sama, dengan kop toko Anda.
 
-<!-- SCREENSHOT 3 (invoice): ganti baris ini dengan ![Contoh invoice PDF dari Altora Store](/assets/img/blog/altora-store/invoice.webp "Invoice PDF yang dibuat dari data penjualan (data contoh)") -->
+![Contoh invoice PDF dari Altora Store dengan kop toko dan rincian barang](/assets/img/blog/altora-store/invoice.webp "Invoice PDF yang dibuat dari data penjualan. CV Mitra Teknik Mandiri adalah toko fiktif; semua data adalah data contoh demo.")
 
 ### Laporan dan pajak
 
@@ -54,7 +56,7 @@ Laporan mencakup **omzet dan laba**, **PPN 11%**, dan **PPh final 0,5%** untuk U
 
 Ada peran **pemilik** dan **kasir**. Diskon di atas batas tertentu memerlukan persetujuan pemilik, dan **audit log** mencatat siapa mengubah apa. Bila diperlukan, toko juga bisa mengaktifkan halaman profil perusahaan dan katalog produk yang dapat dibuka publik.
 
-<!-- SCREENSHOT 4 (mobile): ganti baris ini dengan ![Tampilan Altora Store di HP](/assets/img/blog/altora-store/mobile-dashboard.webp "Tampilan di HP (data contoh)") -->
+![Beranda Altora Store di layar HP menampilkan aksi cepat dan ringkasan penjualan, laba, nilai stok, utang, dan piutang](/assets/img/blog/altora-store/mobile-dashboard.webp "Tampilan beranda di HP. CV Mitra Teknik Mandiri adalah toko fiktif; semua data adalah data contoh demo.")
 
 ## Mencoba demo tanpa daftar
 

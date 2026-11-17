@@ -38,10 +38,10 @@ APPS = {
         short='Stok dengan barcode, kasir scan kamera, penawaran, piutang, invoice, surat jalan, dan laporan pajak toko. Bisa dicoba lewat demo gratis.',
         basis='Dibangun pertama untuk toko spare part bearing, dan bisa disesuaikan untuk toko bangunan, sparepart, alat teknik, grosir, atau distributor.',
         os='Web (komputer, tablet, dan HP)',
-        shots=[('store-penjualan', 'Daftar penjualan: nota, pembeli, status lunas, sisa tagihan, serta invoice dan surat jalan', 'Penjualan dan nota'),
-               ('store-stok', 'Stok per nomor part dan merek, dengan penanda stok menipis dan habis', 'Stok per barang'),
-               ('store-penawaran', 'Penawaran harga yang bisa langsung dijadikan penjualan', 'Penawaran harga'),
-               ('store-pembelian', 'Pembelian dan utang ke pemasok dengan jatuh tempo', 'Pembelian dan utang')],
+        shots=[('store-demo-dashboard', 'Beranda Altora Store: penjualan hari ini dan bulan ini, laba bersih, nilai stok, utang, dan piutang pembeli', 'Beranda dan ringkasan'),
+               ('store-demo-piutang', 'Laporan piutang per pembeli dengan keterlambatan, sisa tagihan, dan surat tagihan PDF', 'Piutang per pembeli'),
+               ('store-demo-penjualan', 'Daftar penjualan: nota, pembeli, status lunas, dan sisa tagihan', 'Penjualan dan nota'),
+               ('store-demo-stok', 'Stok per nomor part dan merek, dengan penanda stok menipis dan habis', 'Stok per barang')],
         modules=[('Stok dan barang dengan barcode/QR', 'Stok per nomor part, merek, dan batch, lengkap dengan barcode atau QR per barang. Stok tidak bisa minus, harga pokok mengikuti batch yang benar-benar terjual (FIFO).'),
                  ('Kasir dan scan kamera', 'Penjualan tunai atau tempo di kasir; barcode di-scan dengan kamera HP Android, tanpa alat scanner tambahan. Info pembayaran QRIS bisa dicantumkan.'),
                  ('Penawaran jadi penjualan', 'Surat penawaran PDF yang bisa langsung dijadikan penjualan tanpa ketik ulang.'),
@@ -193,7 +193,7 @@ def detail(k, a):
     url = f'/aplikasi/{k}'
     basis = f'<p style="font-size:.875rem;max-width:56ch;color:#5A6785;margin-top:14px">{e(a["basis"])}</p>' if a.get('basis') else ''
     shots = ''.join(f'<div class="ap2-feat"><div class="ap2-feat-txt"><h3>{e(t)}</h3></div>{pic(sid, alt)}</div>' for sid, alt, t in a['shots'][1:])
-    shots_sec = ('<section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Tampilan aplikasi</h2><p>Screenshot dari aplikasi yang berjalan, dengan data contoh.</p></div><div class="ap2-feats">' + shots + '</div></div></section>') if shots else ''
+    shots_sec = ('<section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Tampilan aplikasi</h2><p>Screenshot dari toko demo fiktif (CV Mitra Teknik Mandiri); semua datanya data contoh.</p></div><div class="ap2-feats">' + shots + '</div></div></section>') if shots else ''
     mods = ''.join(f'<article class="svd-do"><h3>{e(t)}</h3><p>{e(d)}</p></article>' for t, d in a['modules'])
     faq = ''.join(f'<details><summary>{e(q)}</summary><p>{e(x)}</p></details>' for q, x in a['faq'])
     ld = {'@context': 'https://schema.org', '@graph': [org(),

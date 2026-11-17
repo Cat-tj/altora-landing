@@ -178,7 +178,7 @@ def build(key, p):
 <section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>{e(p["flow_title"])}</h2><p>{e(p["flow_sub"])}</p></div><ol class="svd-steps st-flow">{flow}</ol></div></section>
 <section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Fitur utama</h2></div><div class="svd-dos">{modh}</div></div></section>
 <section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Cocok untuk</h2><p>{e(p["fit_sub"])}</p></div><ul class="ap2-fitlist">{fit}</ul></div></section>
-{f'<section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Tampilan aplikasi</h2><p>Screenshot dari aplikasi yang berjalan, dengan data contoh.</p></div><div class="ap2-feats">{gal}</div></div></section>' if gal else ''}
+{f'<section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Tampilan aplikasi</h2><p>Screenshot dari toko demo fiktif (CV Mitra Teknik Mandiri); semua datanya data contoh.</p></div><div class="ap2-feats">{gal}</div></div></section>' if gal else ''}
 <section class="svd-sec"><div class="ct-wrap svd-faq"><div class="pd-block-head"><h2>Pertanyaan umum</h2></div><div>{faqh}</div></div></section>
 <section class="pd-cta"><div class="ct-wrap pd-cta-inner"><div><h2>{e(p["cta"])}</h2><p>Kami tunjukkan lewat demo singkat dan bahas penyesuaiannya untuk organisasi Anda.</p></div><div class="svd-actions">{prim}{wa}</div></div></section>
 </main>'''
