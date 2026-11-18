@@ -23,7 +23,7 @@ CITIES = {
         sectors='perusahaan jasa migas, logistik, kontraktor, perkantoran, sekolah, klinik, dan UMKM',
         local_proof=[], office='balikpapan-utara', near=['samarinda', 'penajam-paser-utara', 'ikn']),
     'samarinda': dict(name='Samarinda',
-        base='Kantor pusat kami di Perum Graha Indah Blok A13, Air Putih, Samarinda Ulu. Tim bisa datang ke lokasi Anda di Samarinda untuk diskusi kebutuhan dan pelatihan pengguna.',
+        base='Kantor pusat kami di Jl. Dayak ASB, Bukuan, Kec. Palaran, Samarinda. Tim bisa datang ke lokasi Anda di Samarinda untuk diskusi kebutuhan dan pelatihan pengguna.',
         sectors='kantor kelurahan dan dinas, kampus, sekolah, klinik, perkantoran, dan UMKM',
         local_proof=[], office='samarinda', near=['balikpapan', 'kutai-kartanegara', 'bontang']),
 }

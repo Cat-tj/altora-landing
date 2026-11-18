@@ -4,27 +4,26 @@ import html, json, pathlib, re, sys
 from urllib.parse import quote
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from site_data import ORG_ID, org
-from portofolio_data import GROUPS, PROJECTS, CLIENT_NAMES, BY, card, icon, e as esc, IMG
+from portofolio_data import GROUPS, PROJECTS, CLIENTS, BY, SVC, ART, card, shot, thumb, icon, short_title, e as esc, IMG
 
 root = pathlib.Path(__file__).resolve().parent.parent
 SITE = 'https://altora.id'
 URL = '/portofolio'
 CSS_VER = '20261016i'
-PF_CSS = '/assets/css/portofolio.css?v=20261118b'
-PF_JS = '/assets/js/portofolio.js?v=20261118a'
+PF_CSS = '/assets/css/portofolio.css?v=20261118p'
+PF_JS = '/assets/js/portofolio.js?v=20261118p'
 WA = 'https://wa.me/6285190911170?text='
 MSG = 'Halo Altora, saya sudah melihat portofolio dan ingin membahas kebutuhan serupa.'
 e = lambda t: html.escape(t, quote=True)
 TITLE = 'Portofolio Proyek | Perangkat, AI, dan Software | Altora'
 DESC = 'Proyek Altora Indonesia: CCTV AI, IoT, fleet management, absensi wajah, portal GIS, HRIS, dan website untuk pemerintahan, kampus, dan industri di Kaltim.'
-LEAD = (f'{len(PROJECTS)} proyek perangkat, jaringan, AI, dan software untuk pemerintahan, kampus, industri, dan usaha di Kalimantan Timur. '
+LEAD = (f'{len(PROJECTS)} dari 50+ proyek perangkat, jaringan, AI, dan software untuk pemerintahan, kampus, industri, dan usaha. '
         'Data sensitif klien tidak ditampilkan.')
 PROOF = [('AI', 'Vision & analytics'), ('IoT', 'Perangkat & lapangan'), ('Software', 'Workflow & data')]
-FEATURED = ['pompy-batara', 'deteksi-apd-ai', 'fleet-management-tambang']   # tiga proyek berscreenshot yang paling relevan
+FEATURED = ['pompy-batara', 'smart-attendance-unmul', 'deteksi-apd-ai']   # sama dengan baris unggulan situs saudara
 HERO_SLUG = 'fleet-management-tambang'
 TRUST = ['Diskusi awal gratis', 'Tanpa kewajiban lanjut', 'Tim lokal Kaltim']
 KIND_LABEL = {'infra': 'Infrastruktur & IoT', 'ai': 'AI & vision', 'software': 'Software & data', 'web': 'Website'}
-ICON_DOC = '<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/>'
 
 
 def wa_url(msg):
@@ -46,7 +45,7 @@ def head_html(title, desc, url, img, ld):
 
 def cta_html(msg):
     trust = ''.join(f'<li>{e(t)}</li>' for t in TRUST)
-    return (f'<section class="pf-cta"><div aria-hidden="true" class="pf-swell" data-swell="cta"></div><div class="pf-wrap"><div class="pf-band pf-rv" data-swell-clear=""><h2>Butuh sistem serupa?</h2>'
+    return (f'<section class="pf-cta"><div aria-hidden="true" class="pf-swell" data-swell="cta"></div><div class="pf-wrap"><div class="pf-band" data-swell-clear=""><h2>Butuh sistem serupa?</h2>'
             f'<p>Ceritakan kebutuhan Anda. Diskusi awal gratis.</p><div class="pf-actions"><a class="pf-btn pf-btn-white" href="{wa_url(msg)}" rel="noopener" target="_blank">Chat WhatsApp</a>'
             f'<a class="pf-btn pf-btn-outline" href="/contact">Kirim pesan</a></div><ul class="pf-trust">{trust}</ul></div></div></section>\n')
 
@@ -56,9 +55,8 @@ def tail_html():
 
 
 def hero_media(p, alt=''):
-    if p.get('img'):
-        return f'<div class="pf-media"><img alt="{e(alt)}" decoding="async" fetchpriority="high" height="770" src="{IMG}{e(p["img"])}" width="1120"/></div>'
-    return f'<div class="pf-media"><div class="pf-media-ph"><span class="pf-ico">{icon(p["icon"])}</span></div></div>'
+    img = thumb(p, 1120, 700, lazy=False, alt=alt).replace('<img ', '<img fetchpriority="high" ', 1)
+    return f'<div class="pf-media">{img}</div>'
 
 
 def page():
@@ -66,12 +64,10 @@ def page():
     filters = f'<button aria-pressed="true" class="is-active" data-filter="all" type="button">Semua <b>{len(PROJECTS)}</b></button>' + ''.join(
         f'<button aria-pressed="false" data-filter="{k}" type="button">{e(KIND_LABEL[k])} <b>{counts[k]}</b></button>' for k, _, _ in GROUPS)
     proof = ''.join(f'<div><b>{e(a)}</b><small>{e(b)}</small></div>' for a, b in PROOF)
-    shots = ''.join(
-        f'<a class="pf-shot pf-rv" href="/portofolio/{BY[k]["slug"]}"><img alt="{e(BY[k]["title"])}" decoding="async" height="375" loading="lazy" src="{IMG}{e(BY[k]["img"])}" width="500"/>'
-        f'<span class="cap"><small>{e(BY[k]["client"])}</small><b>{e(BY[k]["title"])}</b></span></a>' for k in FEATURED)
+    shots = ''.join(shot(BY[k]) for k in FEATURED)
     cards = ''.join(card(p, 'full') for p in PROJECTS)
-    clients = ''.join(f'<li>{e(n)}</li>' for n in CLIENT_NAMES)
-    msg = 'Halo Altora, saya sudah melihat portofolio dan ingin membahas kebutuhan serupa.'
+    logos = ''.join(f'<img alt="{e(n)}" height="46" loading="lazy" src="/assets/img/clients/{f}" width="80"/>' for n, f in CLIENTS)
+    msg = MSG
     ld = {'@context': 'https://schema.org', '@graph': [org(),
         {'@type': 'CollectionPage', '@id': SITE + URL + '#halaman', 'url': SITE + URL, 'name': 'Portofolio proyek Altora Indonesia', 'description': DESC,
          'inLanguage': 'id-ID', 'about': {'@id': ORG_ID},
@@ -83,15 +79,15 @@ def page():
     img = SITE + IMG + BY[HERO_SLUG]['img']
     return head_html(TITLE, DESC, URL, img, ld) + f"""<main class="pf-page" id="main">
 <section class="pf-hero"><div class="pf-wrap pf-split"><div class="pf-ph"><h1>Solusi yang <span class="pf-hl">nyata bekerja.</span></h1><p class="pf-lead">{e(LEAD)}</p><div class="pf-proof">{proof}</div>
-<div class="pf-actions"><a class="pf-btn pf-btn-primary" href="{wa_url(msg)}" rel="noopener" target="_blank">Konsultasi gratis</a></div></div>
-<div class="pf-rv">{hero_media(BY[HERO_SLUG], 'Fleet management armada hauling')}</div></div></section>
-<section class="pf-sec pf-sec-alt"><div class="pf-wrap"><div class="pf-head center pf-rv"><h2>Mulai dari bukti yang paling relevan.</h2><p class="pf-lead">Tiga proyek ini memperlihatkan bentuk kerja kami: data wilayah, keselamatan kerja berbasis AI, dan telematik armada.</p></div>
+<div class="pf-actions"><a class="pf-btn pf-btn-primary" href="{wa_url(msg)}" rel="noopener" target="_blank">Konsultasi gratis</a><a class="pf-btn pf-btn-ghost" href="#proyek">Lihat semua proyek</a></div></div>
+{hero_media(BY[HERO_SLUG], 'Fleet management armada hauling')}</div></section>
+<section class="pf-sec pf-sec-alt"><div class="pf-wrap"><div class="pf-head center"><h2>Mulai dari bukti yang paling relevan.</h2><p class="pf-lead">Tiga proyek ini memperlihatkan bentuk kerja kami: data wilayah, absensi berbasis kamera, dan keselamatan kerja dengan AI.</p></div>
 <div class="pf-shots">{shots}</div></div></section>
-<section class="pf-sec"><div class="pf-wrap"><div class="pf-head center pf-rv"><h2>Eksplorasi proyek lainnya.</h2><p class="pf-lead">Pilih kategori untuk menyaring proyek.</p></div>
-<div aria-label="Filter" class="pf-filters" role="group">{filters}</div>
+<section class="pf-sec" id="proyek"><div class="pf-wrap"><div class="pf-head center"><h2>Eksplorasi proyek lainnya.</h2><p class="pf-lead">Pilih kategori untuk menyaring proyek.</p></div>
+<div aria-label="Filter kategori" class="pf-filters" role="group">{filters}</div>
 <div class="pf-grid">{cards}</div></div></section>
-<section class="pf-sec pf-sec-alt pf-sec-tight"><div class="pf-wrap"><div class="pf-head center pf-rv" style="margin-bottom:24px"><h2 style="font-size:clamp(1.5rem,1.2rem + 1.2vw,2rem)">Instansi dan perusahaan yang pernah bekerja sama</h2></div>
-<ul class="pf-clients">{clients}</ul><p class="pf-note">Detail teknis dan data sensitif klien tidak ditampilkan. Untuk kebutuhan serupa, ceritakan lewat WhatsApp.</p></div></section>
+<section class="pf-sec pf-sec-alt pf-sec-tight"><div class="pf-wrap"><h2 class="pf-logos-h">Dipercaya pemerintahan, kampus, industri, F&amp;B, dan klien internasional</h2>
+<div class="pf-logos">{logos}</div><p class="pf-note">Detail teknis dan data sensitif klien tidak ditampilkan. Untuk kebutuhan serupa, ceritakan lewat WhatsApp.</p></div></section>
 """ + cta_html(msg) + tail_html()
 
 
@@ -112,15 +108,15 @@ def detail(p):
     url = f'{URL}/{p["slug"]}'
     title = f'{p["title"]} | Portofolio Altora'
     if len(title) > 65:
-        title = f'{p["title"].split(":")[0]} | Portofolio Altora'
+        title = f'{short_title(p)} | Portofolio Altora'
     if len(title) > 65:
-        title = f'{p["title"].split(":")[0]} | Altora'
+        title = f'{short_title(p)} | Altora'
     desc = short_desc(p)
     msg = f'Halo Altora, saya tertarik dengan sistem serupa "{p["title"]}".'
     ext = p.get('link') and p['link'][0].startswith('http')
     acts = f'<a class="pf-btn pf-btn-primary" href="{wa_url(msg)}" rel="noopener" target="_blank">Konsultasi gratis</a>'
     if ext:
-        acts += f'<a class="pf-btn pf-btn-ghost" href="{esc(p["link"][0])}" rel="noopener" target="_blank">Kunjungi situs ↗</a>'
+        acts += f'<a class="pf-btn pf-btn-ghost" href="{esc(p["link"][0])}" rel="noopener" target="_blank">Kunjungi situs {icon("ext")}</a>'
     facts = f'<div><dt>Klien</dt><dd>{esc(p["client"])}</dd></div>'
     if p['year']:
         facts += f'<div><dt>Tahun</dt><dd>{esc(p["year"])}</dd></div>'
@@ -128,30 +124,38 @@ def detail(p):
     facts += f'<div><dt>Kategori</dt><dd>{esc(KIND_LABEL[p["group"]])}</dd></div>'
     if ext:
         host = p['link'][0].split('//', 1)[1].rstrip('/')
-        facts += f'<div><dt>Situs langsung</dt><dd><a href="{esc(p["link"][0])}" rel="noopener" target="_blank">{esc(host)} ↗</a></dd></div>'
-    mini = ''
+        facts += f'<div class="wide"><dt>Situs langsung</dt><dd><a href="{esc(p["link"][0])}" rel="noopener" target="_blank">{esc(host)}</a></dd></div>'
+    su, st, sd, sa = SVC[p['svc']]
+    minis = (f'<a class="pf-mini" href="{su}"><img alt="" height="56" loading="lazy" src="{ART}{sa}" width="56"/>'
+             f'<span><b>{esc(st)}</b><small>Layanan terkait · {esc(sd)}</small></span>{icon("arrow")}</a>')
     if p.get('link') and not ext:
-        mini = (f'<div class="pf-mt"><a class="pf-mini" href="{esc(p["link"][0])}"><span class="pf-mi"><svg aria-hidden="true" viewBox="0 0 24 24">{ICON_DOC}</svg></span>'
-                f'<span><b>{esc(p["link"][1].replace("Baca: ", ""))}</b><small>Artikel terkait</small></span></a></div>')
+        minis += (f'<a class="pf-mini" href="{esc(p["link"][0])}"><span class="pf-mi">{icon("doc")}</span>'
+                  f'<span><b>{esc(p["link"][1])}</b><small>Artikel terkait</small></span>{icon("arrow")}</a>')
+    src = ''
+    if p.get('source'):
+        src = f'<p class="pf-src">Sumber: <a href="{esc(p["source"][0])}" rel="noopener" target="_blank">{esc(p["source"][1])}</a></p>'
+    feats = ''.join(f'<article><span class="pf-chk">{icon("check")}</span><h3>{esc(t)}</h3><p>{esc(d)}</p></article>' for t, d in p['feats'])
     same = [q for q in PROJECTS if q['group'] == p['group'] and q['slug'] != p['slug']]
     rest = [q for q in PROJECTS if q['group'] != p['group']]
     rel_cards = ''.join(card(q) for q in (same + rest)[:3])
     ld = {'@context': 'https://schema.org', '@graph': [org(),
         {'@type': 'WebPage', '@id': SITE + url + '#halaman', 'url': SITE + url, 'name': title, 'description': desc, 'inLanguage': 'id-ID',
-         'isPartOf': {'@id': SITE + URL + '#halaman'}, 'about': {'@id': ORG_ID}},
+         'isPartOf': {'@id': SITE + URL + '#halaman'}, 'about': {'@id': ORG_ID}, 'primaryImageOfPage': SITE + IMG + p['img']},
         {'@type': 'BreadcrumbList', 'itemListElement': [
             {'@type': 'ListItem', 'position': 1, 'name': 'Beranda', 'item': SITE + '/'},
             {'@type': 'ListItem', 'position': 2, 'name': 'Portofolio', 'item': SITE + URL},
             {'@type': 'ListItem', 'position': 3, 'name': p['title'], 'item': SITE + url}]}]}
-    img = SITE + IMG + (p['img'] if p.get('img') else BY[HERO_SLUG]['img'])
+    img = SITE + IMG + p['img']
     return head_html(title, desc, url, img, ld) + f"""<main class="pf-page" id="main">
-<section class="pf-hero"><div class="pf-wrap pf-split"><div class="pf-ph"><nav aria-label="Breadcrumb" class="pf-crumb"><a href="/">Beranda</a><a href="{URL}">Portofolio</a><span>{esc(p['title'])}</span></nav>
-<h1>{esc(p['title'])}</h1><p class="pf-lead">{esc(first_sentence(p['desc']))}</p><div class="pf-actions">{acts}</div></div>
-<div class="pf-rv">{hero_media(p, p['title'])}</div></div></section>
-<section class="pf-sec pf-sec-alt"><div class="pf-wrap pf-split top"><div class="pf-split-copy pf-rv"><h2>Tentang proyek ini</h2><p class="pf-lead">{esc(p['desc'])}</p></div>
-<div class="pf-rv"><dl class="pf-facts">{facts}</dl>{mini}</div></div></section>
-<section class="pf-sec"><div class="pf-wrap"><div class="pf-head center pf-rv"><h2>Eksplorasi proyek lainnya.</h2></div><div class="pf-grid">{rel_cards}</div>
-<p class="pf-note"><a href="{URL}" style="color:#5B3FC4;font-weight:700">Lihat semua portofolio →</a></p></div></section>
+<section class="pf-hero"><div class="pf-wrap pf-split"><div class="pf-ph"><nav aria-label="Breadcrumb" class="pf-crumb"><a href="/">Beranda</a><a href="{URL}">Portofolio</a><span>{esc(short_title(p))}</span></nav>
+<h1>{esc(p['title'])}</h1><p class="pf-lead">{esc(p['lead'])}</p><div class="pf-actions">{acts}</div></div>
+{hero_media(p, p['title'])}</div></section>
+<section class="pf-sec pf-sec-alt"><div class="pf-wrap pf-split top"><div class="pf-split-copy"><h2>Tentang proyek ini</h2><p class="pf-lead">{esc(p['about'])}</p>{src}
+<p class="pf-small">Data pribadi dan konfigurasi sistem klien tidak kami tampilkan.</p></div>
+<div class="pf-side"><dl class="pf-facts">{facts}</dl>{minis}</div></div></section>
+<section class="pf-sec"><div class="pf-wrap"><div class="pf-head center"><h2>Fitur utama</h2></div><div class="pf-feats">{feats}</div></div></section>
+<section class="pf-sec pf-sec-alt"><div class="pf-wrap"><div class="pf-head center"><h2>Eksplorasi proyek lainnya.</h2></div><div class="pf-grid">{rel_cards}</div>
+<div class="pf-foot"><a class="pf-btn pf-btn-ghost" href="{URL}">Lihat semua portofolio</a></div></div></section>
 """ + cta_html(msg) + tail_html()
 
 

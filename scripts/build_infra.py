@@ -7,7 +7,7 @@ import html, json, pathlib, re, sys
 from urllib.parse import quote
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from site_data import OFFICES, ORG_ID, org, office_node
-from portofolio_data import BY, HOME_SLUGS, INFRA_SLUGS, card as pf_card
+from portofolio_data import BY, HOME_SLUGS, INFRA_SLUGS, card as pf_card, shot as pf_shot
 
 root = pathlib.Path(__file__).resolve().parent.parent
 SITE = 'https://altora.id'
@@ -54,24 +54,39 @@ AREAS = [
 
 
 
+# Perangkat dari mitra resmi (beranda): logo merek + enam kategori dengan foto produk (seperti situs saudara).
+PARTNERS = [('TP-Link', 'tplink.webp'), ('VIGI', 'vigi.webp'), ('Teltonika', 'teltonika.webp'), ('Lenovo', 'lenovo.webp'), ('GIDA', 'gida.webp'),
+            ('Institut Teknologi Kalimantan', 'itk.webp')]
+KATALOG = [('/assets/img/vigi/s385dps.webp', 'CCTV VIGI &amp; keamanan', 'Kamera VIGI, NVR, tenaga surya, jasa pasang', URL),
+           ('/assets/img/hardware/lenovo-thinkpad-t14.webp', 'Pengadaan perangkat', 'Laptop, PC, tablet, server untuk kantor &amp; instansi', URL),
+           ('/assets/img/hardware/hr-close-glass.webp', 'Jaringan &amp; infrastruktur', 'WiFi, LAN, fiber, rak server, listrik', URL),
+           ('/assets/img/hardware/telt-fmc920.webp', 'GPS tracker &amp; telematika', 'GPS tracker Teltonika, sensor, dan kamera kendaraan', '/services/tracking'),
+           ('/assets/img/hardware/starlink-v5.webp', 'Starlink &amp; internet', 'Kit Starlink, instalasi, off-grid', URL),
+           ('/assets/img/hardware/hde-ifp.webp', 'Display, signage &amp; kios', 'Videotron, interactive flat panel, kios layanan', URL)]
+CHEV = {'l': '<path d="m15 6-6 6 6 6"/>', 'r': '<path d="m9 6 6 6-6 6"/>'}
+
+
 def home_blocks():
-    cards = ''.join(
-        f'<a class="hs-card reveal" data-d="{i}" href="{URL}"><span class="hs-ic"><svg class="ico"><use href="#{ic}"></use></svg></span><h3>{e(t)}</h3><p>{e(p)}</p>'
-        f'<ul>{"".join(f"<li>{e(c)}</li>" for c in chips)}</ul><em>Pelajari <svg class="ico ico-sm"><use href="#i-arrow"></use></svg></em></a>'
-        for i, (ic, t, p, chips) in enumerate(AREAS))
-    infra = (f'<section class="sec ti-sec" id="infrastruktur"><div class="wrap"><div class="tl-head"><p class="eyebrow eyebrow-purple">Infrastruktur &amp; hardware</p>'
-             '<h2>Starlink, CCTV AI, dan jaringan untuk lokasi kerja di Kaltim</h2>'
-             '<p>Untuk proyek infrastruktur perusahaan di Kalimantan Timur: Balikpapan, Samarinda, IKN, Kutai, dan sekitarnya. '
-             'Pasang CCTV rumahan, smart lock, smart home, dan IT support bulanan tetap di Samarinda.</p></div>'
-             f'<div class="lc-svcs">{cards}</div>'
-             f'<p style="margin:22px 0 0"><a class="btn btn-white" href="{URL}">Lihat infrastruktur &amp; hardware <svg class="ico ico-sm"><use href="#i-arrow"></use></svg></a></p></div></section>')
-    cards6 = ''.join(pf_card(BY[k]) for k in HOME_SLUGS)
-    porto = ('<section class="sec ti-sec" id="portofolio"><div class="wrap"><div class="tl-head"><p class="eyebrow eyebrow-purple">Portofolio</p>'
-             '<h2>Proyek yang pernah kami kerjakan</h2>'
-             '<p>Sebagian proyek perangkat, jaringan, AI, dan software untuk pemerintahan, kampus, industri, dan usaha di Kaltim.</p></div>'
-             f'<div class="pf-grid">{cards6}</div>'
-             '<p style="margin:22px 0 0"><a class="btn btn-white" href="/portofolio">Lihat semua portofolio <svg class="ico ico-sm"><use href="#i-arrow"></use></svg></a></p></div></section>')
-    return f'<!-- infra:start -->{infra}{porto}<!-- infra:end -->'
+    shots = ''.join(pf_shot(BY[k], cls='pf-shot hm-shot') for k in HOME_SLUGS)
+    porto = ('<section class="hm hm-alt hm-projects" id="portofolio"><div class="hm-wrap"><div class="hm-head">'
+             '<h2>Proyek yang <span class="hm-hl">sudah berjalan</span></h2>'
+             '<p class="hm-lead">Sebagian dari 50+ proyek lintas industri: pemerintahan, pendidikan, kesehatan, tambang, dan korporasi.</p></div>'
+             '<div class="hm-carousel" data-auto=""><button aria-label="Sebelumnya" class="hm-cbtn hm-prev" type="button">'
+             f'<svg aria-hidden="true" viewBox="0 0 24 24">{CHEV["l"]}</svg></button><button aria-label="Berikutnya" class="hm-cbtn hm-next" type="button">'
+             f'<svg aria-hidden="true" viewBox="0 0 24 24">{CHEV["r"]}</svg></button><div class="hm-track">{shots}</div></div>'
+             '<div class="hm-foot"><a class="hm-btn hm-btn-primary" href="/portofolio">Lihat semua portofolio</a></div></div></section>')
+    logos = ''.join(f'<img alt="{e(n)}" height="38" loading="lazy" src="/assets/img/partners/{f}" width="76"/>' for n, f in PARTNERS)
+    tiles = ''.join(f'<a class="hm-kc" href="{u}"><span class="hm-kc-pic"><img alt="" height="46" loading="lazy" src="{img}" width="46"/></span>'
+                    f'<span class="hm-kc-txt"><b>{t}</b><small>{d}</small></span></a>' for img, t, d, u in KATALOG)
+    infra = ('<section class="hm hm-devices" id="infrastruktur"><div class="hm-wrap"><div class="hm-head">'
+             '<h2>Perangkat dari <span class="hm-hl">mitra resmi</span></h2>'
+             '<p class="hm-lead">CCTV VIGI, GPS tracker Teltonika, Starlink, Lenovo, rak server, display, dan fiber optik. '
+             'Kami sediakan, pasang, dan rawat untuk proyek di Kalimantan Timur.</p></div>'
+             f'<div class="hm-partners">{logos}</div><div class="hm-kc-grid">{tiles}</div>'
+             f'<div class="hm-foot"><a class="hm-btn hm-btn-ghost" href="{URL}">Buka katalog lengkap</a></div>'
+             '<p class="hm-fine">Pasang CCTV rumahan, smart lock, smart home, dan IT support bulanan khusus Samarinda. '
+             'Altora bukan mitra resmi Starlink; Starlink adalah merek dagang SpaceX.</p></div></section>')
+    return f'<!-- infra:start -->{porto}{infra}<!-- infra:end -->'
 
 
 def inject_home():
@@ -84,8 +99,10 @@ def inject_home():
         else:
             assert '<!-- ══════════ HOW WE WORK ══════════ -->' in s, name
             s = s.replace('<!-- ══════════ HOW WE WORK ══════════ -->', block + '\n<!-- ══════════ HOW WE WORK ══════════ -->', 1)
-        if 'portofolio.css' not in s:
-            s = s.replace('</head>', '<link rel="stylesheet" href="/assets/css/portofolio.css?v=20261118"/></head>', 1)
+        if 'portofolio.css' in s:
+            s = re.sub(r'/assets/css/portofolio\.css\?v=[0-9a-z]+', '/assets/css/portofolio.css?v=20261118p', s)
+        else:
+            s = s.replace('</head>', '<link rel="stylesheet" href="/assets/css/portofolio.css?v=20261118p"/></head>', 1)
         p.write_text(s, encoding='utf-8')
     print('beranda: blok infrastruktur + contoh pekerjaan dipasang')
 
@@ -144,7 +161,7 @@ def page():
         {'@type': 'FAQPage', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in FAQ]}]}
     wa = WA + quote(MSG)
     return f'''<!DOCTYPE html>
-<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(TITLE)}</title><meta content="{e(DESC)}" name="description"/><link href="{SITE}{URL}" rel="canonical"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="{e(TITLE)}" property="og:title"/><meta content="{e(DESC)}" property="og:description"/><meta content="{SITE}{URL}" property="og:url"/><meta content="{SITE}{HERO}" property="og:image"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v={CSS_VER}"/><link rel="stylesheet" href="/assets/css/portofolio.css?v=20261118"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head><body class="company-page"><header></header>
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(TITLE)}</title><meta content="{e(DESC)}" name="description"/><link href="{SITE}{URL}" rel="canonical"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="{e(TITLE)}" property="og:title"/><meta content="{e(DESC)}" property="og:description"/><meta content="{SITE}{URL}" property="og:url"/><meta content="{SITE}{HERO}" property="og:image"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v={CSS_VER}"/><link rel="stylesheet" href="/assets/css/portofolio.css?v=20261118p"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head><body class="company-page"><header></header>
 <main class="ct-page svd-page lc-page">
 <section class="svd-hero"><div class="ct-wrap svd-hero-grid">
 <div class="svd-hero-copy"><nav aria-label="Breadcrumb" class="bl-crumb"><a href="/services">Layanan</a><span>/</span><span>Infrastruktur &amp; hardware</span></nav>
