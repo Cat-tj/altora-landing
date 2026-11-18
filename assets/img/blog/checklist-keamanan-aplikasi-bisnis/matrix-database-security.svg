@@ -1,0 +1,51 @@
+<svg width="1000" height="440" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 440" role="img">
+  <title>Perbandingan Praktik Database Aman vs Rawan</title>
+  <desc>Matriks perbandingan konfigurasi database aman versus rawan risiko kebocoran data, port publik, dan kegagalan backup pada server operasional.</desc>
+  <rect width="1000" height="440" fill="#FAF7F2"/>
+  <g font-family="system-ui, -apple-system, sans-serif">
+    <text x="500" y="45" text-anchor="middle" font-size="22" font-weight="bold" fill="#172B4D">Pola Akses Database: Praktik Berisiko vs Standar Aman</text>
+    <text x="500" y="75" text-anchor="middle" font-size="13" fill="#5E6C84">Mengapa port database tidak boleh terbuka langsung ke jaringan internet publik</text>
+
+    <!-- Column 1: Praktik Rawan (Merah / Warning) -->
+    <g transform="translate(60, 110)">
+      <rect width="410" height="290" rx="10" fill="#FFF5F5" stroke="#DE350B" stroke-width="2"/>
+      <rect width="410" height="40" rx="10" fill="#FFEBE6"/>
+      <text x="205" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#DE350B">✕ Pola Berisiko (Sering Terjadi)</text>
+
+      <g transform="translate(25, 65)">
+        <text x="0" y="0" font-size="13" font-weight="bold" fill="#172B4D">• Port DB Terbuka ke Publik (0.0.0.0)</text>
+        <text x="12" y="20" font-size="12" fill="#5E6C84"><tspan x="12" dy="0">Port MySQL (3306) / Postgres (5432) bisa diakses siapa</tspan><tspan x="12" dy="16.2">saja dari internet.</tspan></text>
+
+        <text x="0" y="55" font-size="13" font-weight="bold" fill="#172B4D">• Akun Tunggal Superuser (root)</text>
+        <text x="12" y="75" font-size="12" fill="#5E6C84"><tspan x="12" dy="0">Aplikasi web memakai user root tanpa pembatasan hak</tspan><tspan x="12" dy="16.2">hapus tabel.</tspan></text>
+
+        <text x="0" y="110" font-size="13" font-weight="bold" fill="#172B4D">• Backup Manual atau di Server yang Sama</text>
+        <text x="12" y="130" font-size="12" fill="#5E6C84"><tspan x="12" dy="0">File dump disimpan di folder lokal; saat server rusak, backup</tspan><tspan x="12" dy="16.2">ikut hilang.</tspan></text>
+
+        <text x="0" y="165" font-size="13" font-weight="bold" fill="#172B4D">• Kredensial Hardcode di Source Code</text>
+        <text x="12" y="185" font-size="12" fill="#5E6C84"><tspan x="12" dy="0">Password tersimpan di Git repository dan mudah terbaca tim</tspan><tspan x="12" dy="16.2">pengembang luar.</tspan></text>
+      </g>
+    </g>
+
+    <!-- Column 2: Standar Aman (Hijau / Aman) -->
+    <g transform="translate(530, 110)">
+      <rect width="410" height="290" rx="10" fill="#F4FBF7" stroke="#36B37E" stroke-width="2"/>
+      <rect width="410" height="40" rx="10" fill="#EBF6EE"/>
+      <text x="205" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#006644">✓ Standar Aman Siap Go-Live</text>
+
+      <g transform="translate(25, 65)">
+        <text x="0" y="0" font-size="13" font-weight="bold" fill="#172B4D">• Port Terisolasi Lokal (127.0.0.1)</text>
+        <text x="12" y="20" font-size="12" fill="#5E6C84"><tspan x="12" dy="0">Hanya bisa dihubungi aplikasi lokal; remote via tunnel</tspan><tspan x="12" dy="16.2">terenkripsi (SSH/VPN).</tspan></text>
+
+        <text x="0" y="55" font-size="13" font-weight="bold" fill="#172B4D">• User Khusus dengan Hak Terbatas</text>
+        <text x="12" y="75" font-size="12" fill="#5E6C84"><tspan x="12" dy="0">Hanya izin SELECT/INSERT/UPDATE; tanpa hak DROP TABLE</tspan><tspan x="12" dy="16.2">atau ganti skema.</tspan></text>
+
+        <text x="0" y="110" font-size="13" font-weight="bold" fill="#172B4D">• Backup Otomatis Off-Site &amp; Uji Pulih</text>
+        <text x="12" y="130" font-size="12" fill="#5E6C84"><tspan x="12" dy="0">Backup terjadwal dikirim ke lokasi berbeda dan rutin</tspan><tspan x="12" dy="16.2">disimulasikan restore-nya.</tspan></text>
+
+        <text x="0" y="165" font-size="13" font-weight="bold" fill="#172B4D">• Kredensial di Environment Terisolasi</text>
+        <text x="12" y="185" font-size="12" fill="#5E6C84"><tspan x="12" dy="0">Variabel rahasia dipisah dari repositori kode dan dilindungi</tspan><tspan x="12" dy="16.2">permission ketat.</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>

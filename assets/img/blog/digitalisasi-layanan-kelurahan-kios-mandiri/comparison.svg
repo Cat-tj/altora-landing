@@ -1,0 +1,37 @@
+<svg width="800" height="350" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 350">
+  <title>Perbandingan Layanan Manual dan Kios Mandiri</title>
+  <desc>Tabel perbandingan efisiensi layanan kelurahan konvensional versus digital.</desc>
+  <rect width="800" height="350" fill="#F8F9FA"/>
+
+  <!-- Left: Manual -->
+  <g transform="translate(50, 50)">
+    <rect x="0" y="0" width="320" height="260" rx="12" fill="#FFFFFF" stroke="#E2E8F0" stroke-width="2"/>
+    <rect x="0" y="0" width="320" height="50" rx="12" fill="#E2E8F0"/>
+    <text x="160" y="32" fill="#172B4D" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Layanan Konvensional</text>
+    
+    <text x="30" y="90" fill="#172B4D" font-family="sans-serif" font-size="14" font-weight="bold">• Waktu Tunggu:</text>
+    <text x="50" y="115" fill="#64748B" font-family="sans-serif" font-size="13">• Mengantre di loket.</text>
+    
+    <text x="30" y="150" fill="#172B4D" font-family="sans-serif" font-size="14" font-weight="bold">• Proses Administrasi:</text>
+    <text x="50" y="175" fill="#64748B" font-family="sans-serif" font-size="13">• Berkas fisik rawan terselip.</text>
+
+    <text x="30" y="210" fill="#172B4D" font-family="sans-serif" font-size="14" font-weight="bold">• Beban Staf:</text>
+    <text x="50" y="235" fill="#64748B" font-family="sans-serif" font-size="13">• Staf kewalahan melayani repetisi.</text>
+  </g>
+
+  <!-- Right: Digital / Kios Mandiri -->
+  <g transform="translate(430, 50)">
+    <rect x="0" y="0" width="320" height="260" rx="12" fill="#FFFFFF" stroke="#46B6E9" stroke-width="2"/>
+    <rect x="0" y="0" width="320" height="50" rx="12" fill="#172B4D"/>
+    <text x="160" y="32" fill="#FFFFFF" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle">Kios Mandiri Terpadu</text>
+    
+    <text x="30" y="90" fill="#172B4D" font-family="sans-serif" font-size="14" font-weight="bold">• Waktu Tunggu:</text>
+    <text x="50" y="115" fill="#64748B" font-family="sans-serif" font-size="13">• Proses lebih ringkas.</text>
+    
+    <text x="30" y="150" fill="#172B4D" font-family="sans-serif" font-size="14" font-weight="bold">• Proses Administrasi:</text>
+    <text x="50" y="175" fill="#64748B" font-family="sans-serif" font-size="13">• Terintegrasi database kependudukan.</text>
+
+    <text x="30" y="210" fill="#172B4D" font-family="sans-serif" font-size="14" font-weight="bold">• Beban Staf:</text>
+    <text x="50" y="235" fill="#64748B" font-family="sans-serif" font-size="13">• Staf fokus pada verifikasi &amp; kasus khusus.</text>
+  </g>
+</svg>

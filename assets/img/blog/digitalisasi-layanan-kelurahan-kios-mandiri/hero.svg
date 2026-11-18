@@ -1,0 +1,40 @@
+<svg width="800" height="450" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <title>Transformasi Layanan Kelurahan dengan Kios Mandiri</title>
+  <desc>Ilustrasi arsitektur sistem digitalisasi kelurahan yang menghubungkan warga dengan layanan mandiri.</desc>
+  
+  <rect width="800" height="450" fill="#F8F9FA"/>
+  
+  <!-- Background Pattern -->
+  <circle cx="400" cy="225" r="200" fill="none" stroke="#E2E8F0" stroke-width="2" stroke-dasharray="5 5"/>
+  
+  <!-- Central Node: Kiosk / System -->
+  <g transform="translate(340, 165)">
+    <rect x="0" y="0" width="120" height="150" rx="12" fill="#172B4D"/>
+    <rect x="15" y="15" width="90" height="80" rx="6" fill="#46B6E9"/>
+    <rect x="35" y="110" width="50" height="8" rx="4" fill="#7C5CE8"/>
+    <text x="60" y="60" fill="#FFFFFF" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">KIOS MANDIRI</text>
+  </g>
+  
+  <!-- Left Node: Warga -->
+  <g transform="translate(100, 180)">
+    <circle cx="40" cy="30" r="25" fill="#7C5CE8"/>
+    <rect x="15" y="65" width="50" height="60" rx="10" fill="#172B4D"/>
+    <text x="40" y="145" fill="#172B4D" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Warga</text>
+  </g>
+
+  <!-- Right Node: Database / Kelurahan -->
+  <g transform="translate(600, 180)">
+    <rect x="0" y="10" width="100" height="80" rx="8" fill="#46B6E9"/>
+    <line x1="20" y1="30" x2="80" y2="30" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+    <line x1="20" y1="50" x2="80" y2="50" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>
+    <text x="50" y="125" fill="#172B4D" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle">Database</text>
+  </g>
+
+  <!-- Connectors -->
+  <path d="M 180 210 L 330 210" stroke="#7C5CE8" stroke-width="4" fill="none" stroke-dasharray="6 6"/>
+  <path d="M 470 210 L 590 210" stroke="#46B6E9" stroke-width="4" fill="none" stroke-dasharray="6 6"/>
+
+  <!-- Header text inside SVG -->
+  <text x="400" y="50" fill="#172B4D" font-family="sans-serif" font-size="20" font-weight="bold" text-anchor="middle">Digitalisasi Layanan Publik Kelurahan</text>
+  <text x="400" y="75" fill="#64748B" font-family="sans-serif" font-size="14" text-anchor="middle">Antrean lebih tertata</text>
+</svg>

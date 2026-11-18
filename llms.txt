@@ -41,6 +41,18 @@
 - Portfolio of delivered projects (CCTV AI, IoT, fleet management, face-recognition attendance, GIS portal, HRIS, websites): https://altora.id/portofolio
 - Articles: https://altora.id/blog
 - ERP for maritime and barge logistics in Kalimantan Timur (article): https://altora.id/blog/integrasi-erp-logistik-maritim-kaltim
+- Signs a business needs a POS system instead of a cash book (article): https://altora.id/blog/tanda-bisnis-perlu-pos
+- Barcode vs QR code for cashier and warehouse (article): https://altora.id/blog/barcode-vs-qr-code-kasir-gudang
+- Fleet management for logistics and mining in Kalimantan Timur (article): https://altora.id/blog/fleet-management-logistik-tambang
+- GPS, face, or fingerprint attendance for field teams (article): https://altora.id/blog/absensi-gps-wajah-fingerprint
+- AI CCTV PPE detection on construction sites (article): https://altora.id/blog/deteksi-apd-ai-cctv
+- Temperature and smoke monitoring with IoT for server rooms and warehouses (article): https://altora.id/blog/monitoring-suhu-asap-iot
+- Soil moisture sensors for smart farming in Kalimantan Timur (article): https://altora.id/blog/smart-farming-sensor-tanah
+- Industrial smart IoT in Kalimantan Timur: sensors, edge, connectivity (article): https://altora.id/blog/smart-iot-industri-kalimantan-timur
+- Command center: one screen for CCTV, fleet, and sensors (article): https://altora.id/blog/command-center-satu-layar
+- Self-service kiosks for village/sub-district public services (article): https://altora.id/blog/digitalisasi-layanan-kelurahan-kios-mandiri
+- Business application security checklist before go-live (article): https://altora.id/blog/checklist-keamanan-aplikasi-bisnis
+- Company profile websites that generate leads (article): https://altora.id/blog/website-company-profile-prospek
 - About: https://altora.id/about
 - Contact: https://altora.id/contact
 - Support: https://altora.id/support

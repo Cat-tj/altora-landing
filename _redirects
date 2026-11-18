@@ -180,6 +180,18 @@
 /jasa-pembuatan-website-indonesia    /services/website-seo    301
 /blog/faktor-biaya-pembuatan-aplikasi    /blog/merencanakan-pembuatan-aplikasi    301
 
+# Artikel duplikat per topik -> satu artikel utama
+/blog/tanda-bisnis-sudah-perlu-sistem-pos    /blog/tanda-bisnis-perlu-pos    301
+/blog/tanda-bisnis-anda-sudah-perlu-sistem-pos    /blog/tanda-bisnis-perlu-pos    301
+/blog/fleet-management-kaltim    /blog/fleet-management-logistik-tambang    301
+/blog/fleet-management-logistik-tambang-kaltim    /blog/fleet-management-logistik-tambang    301
+/blog/absensi-gps-tim-lapangan    /blog/absensi-gps-wajah-fingerprint    301
+/blog/absensi-gps-vs-wajah-vs-fingerprint    /blog/absensi-gps-wajah-fingerprint    301
+/blog/deteksi-apd-ai-cctv-proyek-konstruksi    /blog/deteksi-apd-ai-cctv    301
+/blog/monitoring-suhu-asap-ruang-server    /blog/monitoring-suhu-asap-iot    301
+/blog/smart-farming-sensor-tanah-kaltim    /blog/smart-farming-sensor-tanah    301
+/blog/jasa-jual-cctv-samarinda    /jual-cctv-samarinda    301
+
 # Pola (dinamis) diletakkan setelah yang statis
 /id/*    /:splat    301
 /portfolio/*    /services    301
