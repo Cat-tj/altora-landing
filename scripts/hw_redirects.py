@@ -7,7 +7,7 @@ from build_area import CITIES, is_nasional
 
 root = pathlib.Path(__file__).resolve().parent.parent
 FAMILIES = [('jasa-pasang-cctv-', '/services/cctv', False), ('it-support-', '/services/it-support', False),
-            ('jual-cctv-', '/services/cctv', True), ('cctv-tenaga-surya-', '/services/cctv', True), ('jual-smartlock-', '/services/smart-lock', True)]
+            ('jual-cctv-', '/pengadaan', True), ('cctv-tenaga-surya-', '/services/cctv', True), ('jual-smartlock-', '/services/smart-lock', True)]
 lines, removed = [], 0
 for prefix, target, nasional_too in FAMILIES:
     for k in CITIES:

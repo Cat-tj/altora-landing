@@ -26,6 +26,7 @@ NAT_FAQ = [('Apakah bisa dikirim ke {C}?', 'Bisa. Barang dikirim lewat ekspedisi
 from site_data import OFFICES, ORG_ID
 
 root = pathlib.Path(__file__).resolve().parent.parent
+KATALOG = {'smartlock': '/pengadaan#p-smartlock', 'cctv': '/pengadaan#cctv', 'cctv-surya': '/pengadaan#p-vigi-solar'}   # katalog pengadaan perangkat
 e = lambda t: html.escape(str(t), quote=True)
 
 
@@ -145,7 +146,7 @@ def page(pkey, ckey):
     local_links = (f'<a href="/software-house-{ckey}">Software house {e(c["name"])}</a><a href="/jasa-pembuatan-aplikasi-{ckey}">Jasa pembuatan aplikasi {e(c["name"])}</a>' if nas else
                    f'<a href="/jasa-pasang-cctv-{ckey}">Jasa pasang CCTV {e(c["name"])}</a><a href="/it-support-{ckey}">IT support {e(c["name"])}</a>')
     links = (''.join(f'<a href="/{fmt(p["slug"], dict(ALL_CITIES[k], key=k))}">{e(p["short"])} {e(ALL_CITIES[k]["name"])}</a>' for k in near if pkey in products_for(k)) +
-             f'<a href="{p["main"]}">{e(p["main_label"])}</a>' + local_links + same_city)
+             f'<a href="{p["main"]}">{e(p["main_label"])}</a>' + f'<a href="{KATALOG[pkey]}">Katalog pengadaan perangkat</a>' + local_links + same_city)
     msg = f'Halo Altora, saya di {c["name"]} dan butuh {p.get("noun", p["short"].lower())}.'
     office = office_of(c)
     ld = {'@context': 'https://schema.org', '@graph': [

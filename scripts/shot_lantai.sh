@@ -1,5 +1,5 @@
 #!/bin/bash
-# Tangkapan layar asli 8 halaman lantai untuk layar di gedung 3D: assets/img/lantai/<halaman>-<lebar>.webp
+# Tangkapan layar asli 8 halaman lantai (semua kecuali Beranda) untuk layar di gedung 3D: assets/img/lantai/<halaman>-<lebar>.webp
 # Lebar 390/820/1440/1920 px CSS; gedung3d.js memilih yang paling dekat dengan lebar layar pengunjung dan memasangnya pas lebar.
 # Butuh server lokal di port 4321 dan Google Chrome. Jalankan ulang bila tampilan halaman berubah.
 set -e
@@ -12,7 +12,7 @@ shot() {  # halaman lebar tinggi skala lebar-keluaran [ua]
     ${6:+--user-agent="$6"} --screenshot="$TMP/s.png" "http://localhost:4321/$1.html" 2>/dev/null
   cwebp -quiet -q 72 -resize $5 0 "$TMP/s.png" -o "$OUT/$1-$2.webp"
 }
-for p in careers services blog about aplikasi support; do
+for p in services pengadaan aplikasi portofolio blog about careers support; do
   shot $p 390 1000 2 585 "$MOB"
   shot $p 820 1300 1 820
   shot $p 1440 1100 1 1280

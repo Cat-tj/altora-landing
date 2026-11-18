@@ -19,6 +19,7 @@ python3 scripts/build_support.py
 python3 scripts/build_trust.py
 python3 scripts/build_portofolio.py
 python3 scripts/build_infra.py
+python3 scripts/build_pengadaan.py
 python3 scripts/build_gedung.py
 python3 scripts/purge_removed.py services.html algora.html 404.html jasa-pembuatan-software-samarinda.html
 python3 scripts/apply_shell.py

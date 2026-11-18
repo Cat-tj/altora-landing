@@ -19,6 +19,7 @@ CARDS = [
     ('smart-lock', 'Smart lock', 'Samarinda', 'Kunci pintu dengan aplikasi, PIN, kartu, atau sidik jari, lengkap dengan akses tamu.', '/assets/img/hardware/smartlock.webp'),
     ('smart-home', 'Smart home', 'Samarinda', 'Kunci, lampu, AC, sensor, dan kamera dalam satu aplikasi, dengan otomasi.', '/assets/img/services/smart-home.webp'),
     ('infrastruktur-hardware-kaltim', 'Infrastruktur & hardware', 'Kalimantan Timur', 'Starlink untuk lokasi terpencil, CCTV dengan AI, serta jaringan dan sensor untuk perusahaan di Kaltim.', '/assets/img/services/cctv.webp'),
+    ('pengadaan', 'Pengadaan perangkat', 'Katalog & jasa instalasi', 'CCTV VIGI, kit Starlink, rak server, GPS tracker, display, laptop dan server, lengkap dengan pemasangan.', '/assets/img/pengadaan/vigi-aurora.webp'),
     ('it-support', 'IT support bulanan', 'Samarinda', 'Komputer, jaringan, server, backup, dan akun karyawan, dengan kunjungan berkala.', '/assets/img/services/it-support.webp'),
 ]
 HERO = '''<section class="svh-hero"><div class="ct-wrap svh-wrap"><div class="pg-copy">
@@ -29,7 +30,7 @@ HERO = '''<section class="svh-hero"><div class="ct-wrap svh-wrap"><div class="pg
 
 
 def catalogue():
-    cards = ''.join(f'''<a class="svc2-card" href="{'/' + slug if slug.startswith('infrastruktur') else '/services/' + slug}"><span class="svc2-pic"><img alt="{e(name)}" loading="lazy" src="{img}"/></span>
+    cards = ''.join(f'''<a class="svc2-card" href="{'/' + slug if slug.startswith(('infrastruktur', 'pengadaan')) else '/services/' + slug}"><span class="svc2-pic"><img alt="{e(name)}" loading="lazy" src="{img}"/></span>
 <span class="svc2-body"><span class="svc2-top"><i>{n:02d}</i><em>{e(tag)}</em></span><b>{e(name)}</b><span class="svc2-desc">{e(desc)}</span><strong>Pelajari layanan →</strong></span></a>'''
                     for n, (slug, name, tag, desc, img) in enumerate(CARDS, 1))
     return f'''<section class="svc2-sec" id="layanan"><div class="ct-wrap"><div class="svc2-head"><div><p class="eyebrow eyebrow-purple">Pilih layanan</p><h2>Software, perangkat, dan dukungan IT</h2></div>

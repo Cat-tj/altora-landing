@@ -1,0 +1,162 @@
+/* /pengadaan: katalog pengadaan perangkat + jasa instalasi (scripts/build_pengadaan.py).
+   Token Altora: aksen #7C5CE8, tinta #10224F, redup #5A6785, latar #FBF9FE, kartu #FFF, border #E9E5F6. */
+.pgd-page{--pg-ink:#10224F;--pg-mute:#5A6785;--pg-line:#E9E5F6;--pg-tint:#F3F0FD;--pg-acc:#7C5CE8;--pg-deep:#5B3FC4;--pg-shadow:0 14px 34px -24px rgba(43,30,110,.25);overflow-x:clip}
+.pgd-page section[id]{scroll-margin-top:110px}
+.pgd-page article[id]{scroll-margin-top:130px}
+
+/* hero: teks kiri, rak kategori kanan */
+.pgd-hero{padding:clamp(120px,14vw,168px) 0 clamp(28px,4vw,48px)}
+.pgd-hero-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(28px,4vw,64px);align-items:center}
+.pgd-hero-copy h1{margin:0 0 18px;color:var(--pg-ink);font-size:clamp(2.1rem,1.4rem + 2.6vw,3.4rem);font-weight:800;line-height:1.06;letter-spacing:-.035em;max-width:16ch}
+.pgd-hero-copy .ct-lead{max-width:58ch}
+.pgd-hero-copy .svd-actions{display:flex;flex-wrap:wrap;gap:12px;margin:26px 0 22px}
+.pgd-hero-copy .btn-white{background:#fff;border:1px solid #E4DEFA;color:var(--pg-ink)}
+.pgd-channel{display:flex;flex-wrap:wrap;gap:8px 18px;margin:0;padding:18px 0 0;list-style:none;border-top:1px solid var(--pg-line)}
+.pgd-channel li{display:flex;align-items:center;gap:7px;color:var(--pg-ink);font-size:.86rem;font-weight:700}
+.pgd-channel svg,.pgd-jasa li svg{flex:none;width:16px;height:16px;fill:none;stroke:var(--pg-acc);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+
+.pgd-shelf{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.pgd-tile{display:flex;align-items:center;gap:14px;min-width:0;padding:12px 16px 12px 12px;border:1px solid var(--pg-line);border-radius:18px;background:#fff;color:var(--pg-ink);text-decoration:none;box-shadow:var(--pg-shadow);transition:border-color .2s,transform .2s}
+.pgd-tile:hover,.pgd-tile:focus-visible{border-color:var(--pg-acc);transform:translateY(-2px)}
+.pgd-tile:focus-visible{outline:3px solid rgba(124,92,232,.35);outline-offset:2px}
+.pgd-tile-pic,.pgd-tile-ico{flex:none;display:grid;place-items:center;width:76px;height:76px;border-radius:14px;background:var(--pg-tint);overflow:hidden}
+.pgd-tile-pic img{width:84%;height:84%;object-fit:contain}
+.pgd-tile-txt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.pgd-tile-txt b{font-size:.98rem;font-weight:800;line-height:1.25;letter-spacing:-.01em}
+.pgd-tile-txt small{color:var(--pg-mute);font-size:.8rem;line-height:1.35}
+.pgd-tile-txt em{margin-top:3px;color:var(--pg-deep);font-size:.76rem;font-style:normal;font-weight:700;font-variant-numeric:tabular-nums}
+.pgd-tile-jasa{grid-column:1/-1;background:var(--pg-ink);border-color:var(--pg-ink);color:#fff}
+.pgd-tile-jasa .pgd-tile-ico{width:52px;height:52px;background:rgba(255,255,255,.12)}
+.pgd-tile-jasa .pgd-tile-ico svg{width:24px;height:24px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pgd-tile-jasa small{color:#C9C4F5}
+.pgd-tile-jasa:hover,.pgd-tile-jasa:focus-visible{border-color:var(--pg-acc);background:#1A2D63}
+
+.pgd-intro{padding-bottom:clamp(8px,2vw,16px)}
+.pgd-intro p{max-width:80ch;margin:0;padding:16px 20px;border-radius:18px;background:var(--pg-tint);color:var(--pg-mute);font-size:.94rem;line-height:1.6}
+.pgd-intro b{color:var(--pg-ink)}
+
+/* kategori: kolom kiri (judul + jasa instalasinya, menempel saat scroll), kanan kartu produk */
+.pgd-cat{padding:clamp(44px,6vw,80px) 0;border-bottom:1px solid var(--pg-line)}
+.pgd-cat-grid{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:start}
+.pgd-side{position:sticky;top:116px}
+.pgd-ico{display:grid;place-items:center;width:44px;height:44px;border-radius:14px;background:var(--pg-acc);color:#fff}
+.pgd-ico svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pgd-side h2{margin:16px 0 4px;color:var(--pg-ink);font-size:clamp(1.5rem,1.2rem + 1vw,2rem)!important;font-weight:800;line-height:1.15!important;letter-spacing:-.025em!important}
+.pgd-brandline{margin:0 0 12px;color:var(--pg-deep);font-size:.82rem;font-weight:700}
+.pgd-side>p{margin:0 0 18px;color:var(--pg-mute);font-size:.94rem;line-height:1.65}
+.pgd-jasa{padding:18px;border:1px solid var(--pg-line);border-radius:18px;background:#fff}
+.pgd-jasa h3{margin:0 0 4px;color:var(--pg-ink);font-size:1rem;font-weight:800}
+.pgd-jasa p{margin:0 0 12px;color:var(--pg-mute);font-size:.86rem;line-height:1.55}
+.pgd-jasa ul{display:grid;gap:7px;margin:0;padding:0;list-style:none}
+.pgd-jasa li{display:flex;gap:8px;color:var(--pg-ink);font-size:.86rem;font-weight:600;line-height:1.4}
+.pgd-side-cta{display:flex;justify-content:center;width:100%;margin-top:12px;background:#fff!important;border:1px solid #E4DEFA!important;color:var(--pg-ink)!important;box-shadow:none!important}
+.pgd-side-cta:hover{border-color:var(--pg-acc)!important;color:var(--pg-deep)!important}
+.pgd-rel{display:flex;flex-direction:column;gap:6px;margin-top:16px}
+.pgd-rel a{color:var(--pg-deep);font-size:.86rem;font-weight:700;text-decoration:none}
+.pgd-rel a:hover{text-decoration:underline}
+.pgd-note{margin:16px 0 0;padding-top:14px;border-top:1px solid var(--pg-line);color:var(--pg-mute);font-size:.78rem;line-height:1.5}
+
+.pgd-count{margin:0 0 14px;color:var(--pg-mute);font-size:.84rem;font-weight:700;font-variant-numeric:tabular-nums}
+.pgd-sub{margin:28px 0 14px;color:var(--pg-ink);font-size:1.08rem;font-weight:800;letter-spacing:-.01em}
+.pgd-count+.pgd-sub{margin-top:0}
+.pgd-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.pgd-card{display:flex;flex-direction:column;min-width:0;border:1px solid var(--pg-line);border-radius:18px;background:#fff;overflow:hidden}
+.pgd-card:target{border-color:var(--pg-acc);box-shadow:0 0 0 3px rgba(124,92,232,.25)}
+.pgd-pic{display:grid;place-items:center;height:156px;padding:16px;background:#fff;border-bottom:1px solid var(--pg-line)}
+.pgd-pic img{max-width:100%;max-height:124px;width:auto;height:auto;object-fit:contain}
+.pgd-noimg{display:grid;place-items:center;width:72px;height:72px;border-radius:18px;background:var(--pg-tint);color:var(--pg-acc)}
+.pgd-noimg svg{width:32px;height:32px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.pgd-body{display:flex;flex:1;flex-direction:column;padding:14px 16px 16px}
+.pgd-brand{color:var(--pg-deep);font-size:.74rem;font-weight:700}
+.pgd-body h3,.pgd-body h4{margin:2px 0 6px;color:var(--pg-ink);font-size:.98rem;font-weight:800;line-height:1.3;letter-spacing:-.01em}
+.pgd-body>p{margin:0 0 10px;color:var(--pg-mute);font-size:.84rem;line-height:1.55}
+.pgd-specs{display:grid;gap:5px;margin:0 0 14px;padding:10px 0 0;border-top:1px dashed var(--pg-line)}
+.pgd-specs div{display:grid;grid-template-columns:minmax(0,84px) minmax(0,1fr);gap:8px;font-size:.78rem;line-height:1.4}
+.pgd-specs dt{color:var(--pg-mute);font-weight:600}
+.pgd-specs dd{margin:0;color:var(--pg-ink);font-weight:600}
+.pgd-ask{display:inline-flex;align-items:center;gap:7px;margin-top:auto;align-self:flex-start;padding:8px 13px;border:1px solid #E4DEFA;border-radius:999px;color:var(--pg-ink);font-size:.82rem;font-weight:700;text-decoration:none}
+.pgd-ask svg{width:15px;height:15px;fill:#16A34A}
+.pgd-ask:hover,.pgd-ask:focus-visible{border-color:#16A34A;background:#F1FBF4}
+
+/* daftar model VIGI */
+.pgd-models{margin-top:18px;border:1px solid var(--pg-line);border-radius:18px;background:#fff}
+.pgd-models summary{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;color:var(--pg-ink);font-weight:800;cursor:pointer;list-style:none}
+.pgd-models summary::-webkit-details-marker{display:none}
+.pgd-models summary:after{content:'';flex:none;width:10px;height:10px;border-right:2px solid var(--pg-acc);border-bottom:2px solid var(--pg-acc);transform:rotate(45deg) translateY(-3px);transition:transform .2s}
+.pgd-models[open] summary:after{transform:rotate(-135deg) translate(-2px,-1px)}
+.pgd-models-key{margin:0 20px 16px;color:var(--pg-mute);font-size:.84rem;line-height:1.55}
+.pgd-mgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 22px;padding:0 20px 20px}
+.pgd-mgroup h4{display:flex;align-items:center;gap:8px;margin:0 0 8px;color:var(--pg-ink);font-size:.9rem;font-weight:800}
+.pgd-mgroup h4 span{padding:1px 8px;border-radius:999px;background:var(--pg-tint);color:var(--pg-deep);font-size:.72rem;font-variant-numeric:tabular-nums}
+.pgd-mgroup ul{display:grid;gap:3px;margin:0;padding:0;list-style:none}
+.pgd-mgroup li{display:flex;justify-content:space-between;gap:10px;color:var(--pg-mute);font-size:.78rem;line-height:1.45}
+.pgd-mgroup li b{color:var(--pg-ink);font-weight:700;white-space:nowrap}
+.pgd-mgroup li{text-align:right}
+.pgd-mgroup li b{text-align:left}
+
+/* jasa instalasi */
+.pgd-jasa-sec{padding:clamp(56px,7vw,96px) 0}
+.pgd-head{max-width:64ch;margin-bottom:28px}
+.pgd-head h2{margin:0 0 10px;color:var(--pg-ink)}
+.pgd-head p{margin:0;color:var(--pg-mute);line-height:1.65}
+.pgd-steps{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0;margin:0 0 32px;padding:0;list-style:none;counter-reset:pg}
+.pgd-steps li{position:relative;padding:44px 16px 0 0;counter-increment:pg}
+.pgd-steps li:before{content:counter(pg);position:absolute;top:0;left:0;display:grid;place-items:center;width:30px;height:30px;border-radius:999px;background:var(--pg-acc);color:#fff;font-size:.82rem;font-weight:800;font-variant-numeric:tabular-nums;z-index:1}
+.pgd-steps li:after{content:'';position:absolute;top:14px;left:30px;right:0;height:2px;background:linear-gradient(90deg,#C9BCFA,#E9E5F6)}
+.pgd-steps li:last-child:after{display:none}
+.pgd-steps b{display:block;margin-bottom:4px;color:var(--pg-ink);font-size:.94rem;font-weight:800}
+.pgd-steps span{display:block;color:var(--pg-mute);font-size:.84rem;line-height:1.5}
+.pgd-svcs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.pgd-svc{padding:20px;border:1px solid var(--pg-line);border-radius:18px;background:#fff}
+.pgd-svc .pgd-ico{width:38px;height:38px;border-radius:12px;background:var(--pg-tint);color:var(--pg-acc)}
+.pgd-svc .pgd-ico svg{width:19px;height:19px}
+.pgd-svc h3{margin:14px 0 6px;color:var(--pg-ink);font-size:.98rem;font-weight:800}
+.pgd-svc p{margin:0;color:var(--pg-mute);font-size:.85rem;line-height:1.55}
+
+/* cakupan wilayah */
+.pgd-area{padding:0 0 clamp(24px,4vw,48px)}
+.pgd-area-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.pgd-area-card{padding:22px;border:1px solid var(--pg-line);border-radius:24px;background:#fff}
+.pgd-area-card h2{margin:0 0 8px;color:var(--pg-ink);font-size:1.2rem!important;font-weight:800;line-height:1.3!important;letter-spacing:-.015em!important}
+.pgd-area-card p{margin:0 0 12px;color:var(--pg-mute);font-size:.9rem;line-height:1.6}
+.pgd-area-card a{color:var(--pg-deep);font-size:.88rem;font-weight:700;text-decoration:none}
+.pgd-area-card a:hover{text-decoration:underline}
+.pgd-area-links{display:flex;flex-wrap:wrap;gap:6px 14px}
+.pgd-area-office ul{display:grid;gap:8px;margin:0 0 12px;padding:0;list-style:none}
+.pgd-area-office li{display:flex;flex-direction:column;color:var(--pg-mute);font-size:.84rem;line-height:1.45}
+.pgd-area-office li b{color:var(--pg-ink)}
+
+@media (max-width:1180px){
+  .pgd-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pgd-svcs{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .pgd-mgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:1000px){
+  .pgd-hero-grid{grid-template-columns:minmax(0,1fr)}
+  /* satu kolom: judul & pengantar -> kartu produk -> jasa instalasi kategori itu */
+  .pgd-cat-grid{display:flex;flex-direction:column;gap:0}
+  .pgd-side{display:contents}
+  .pgd-ico{align-self:flex-start}
+  .pgd-items{order:1;margin-top:4px}
+  .pgd-jasa,.pgd-side-cta,.pgd-rel,.pgd-note{order:2}
+  .pgd-jasa{margin-top:24px;max-width:560px}
+  .pgd-side-cta{max-width:560px}
+  .pgd-steps{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:24px}
+  .pgd-steps li:nth-child(3):after{display:none}
+  .pgd-area-grid{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:640px){
+  .pgd-hero{padding-top:118px}
+  .pgd-shelf{grid-template-columns:minmax(0,1fr)}
+  .pgd-tile-pic{width:60px;height:60px}
+  .pgd-grid{grid-template-columns:minmax(0,1fr)}
+  .pgd-pic{height:140px}
+  .pgd-svcs{grid-template-columns:minmax(0,1fr)}
+  .pgd-mgrid{grid-template-columns:minmax(0,1fr)}
+  .pgd-steps{grid-template-columns:minmax(0,1fr);row-gap:18px}
+  .pgd-steps li{padding:0 0 0 44px}
+  .pgd-steps li:after{display:none}
+  .pgd-models summary{padding:14px 16px}
+  .pgd-mgrid{padding:0 16px 16px}.pgd-models-key{margin:0 16px 14px}
+}
+@media (prefers-reduced-motion:reduce){.pgd-tile{transition:none}.pgd-tile:hover{transform:none}}
