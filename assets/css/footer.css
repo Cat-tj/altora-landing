@@ -1,12 +1,12 @@
-/* Footer Altora: bentuk dan perilaku sama dengan footer Sentra (medan ASCII animasi di atas gradient gelap,
+/* Footer Altora: bentuk dan perilaku sama dengan footer Sentra (latar Swell animasi di atas gradient gelap,
    kolom tautan, kartu kontak, bar bawah). Hanya warna yang memakai palet Altora (DESIGN.md):
-   navy tinta #10224F, ungu dalam #3E2A97, aksen #7C5CE8, lavender #D6C8FF. Animasi: assets/js/footer-field.js */
+   navy tinta #10224F, ungu dalam #3E2A97, aksen #7C5CE8, lavender #D6C8FF. Latar animasi: Swell (assets/js/swell-bg.js) */
 .ft{--ft-top:#3E2A97;--ft-bot:#10224F;--ft-accent:#D6C8FF;--wa:#16A34A;position:relative;isolation:isolate;overflow:hidden;margin-top:0;padding:clamp(40px,5vw,64px) 0 32px;color:rgba(255,255,255,.66);
   background:linear-gradient(180deg,var(--ft-top),var(--ft-bot));font-family:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.65;text-align:left}
 .ft *,.ft *::before,.ft *::after{box-sizing:border-box}
 .ft-ocean{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.ft-ocean canvas{display:block;width:100%;height:100%;filter:blur(2.5px);transform:scale(1.02)}
-.ft-ocean::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,var(--ft-top) 0,rgba(62,42,151,0) 64px),rgba(16,34,79,.42)}
+.ft-ocean canvas{display:block;width:100%;height:100%}
+.ft-ocean::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,var(--ft-top) 0,rgba(62,42,151,0) 64px),rgba(16,34,79,.18)}
 .ft-wrap{position:relative;z-index:1;width:min(1200px,100% - 40px);margin-inline:auto;padding-top:clamp(40px,5vw,56px)}
 .ft-top{display:grid;grid-template-columns:1.5fr repeat(3,minmax(0,1fr));gap:clamp(28px,4vw,56px)}
 .ft-logo{display:inline-flex;align-items:center;gap:12px;color:#fff;font-weight:800;font-size:1.5rem;letter-spacing:.02em;text-decoration:none;line-height:1}

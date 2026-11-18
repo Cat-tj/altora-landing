@@ -10,7 +10,7 @@ root = pathlib.Path(__file__).resolve().parent.parent
 SITE = 'https://altora.id'
 URL = '/portofolio'
 CSS_VER = '20261016i'
-PF_CSS = '/assets/css/portofolio.css?v=20261118a'
+PF_CSS = '/assets/css/portofolio.css?v=20261118b'
 PF_JS = '/assets/js/portofolio.js?v=20261118a'
 WA = 'https://wa.me/6285190911170?text='
 MSG = 'Halo Altora, saya sudah melihat portofolio dan ingin membahas kebutuhan serupa.'
@@ -46,7 +46,7 @@ def head_html(title, desc, url, img, ld):
 
 def cta_html(msg):
     trust = ''.join(f'<li>{e(t)}</li>' for t in TRUST)
-    return (f'<section class="pf-cta"><div aria-hidden="true" class="pf-dots"></div><div class="pf-wrap"><div class="pf-band pf-rv"><h2>Butuh sistem serupa?</h2>'
+    return (f'<section class="pf-cta"><div aria-hidden="true" class="pf-swell" data-swell="cta"></div><div class="pf-wrap"><div class="pf-band pf-rv" data-swell-clear=""><h2>Butuh sistem serupa?</h2>'
             f'<p>Ceritakan kebutuhan Anda. Diskusi awal gratis.</p><div class="pf-actions"><a class="pf-btn pf-btn-white" href="{wa_url(msg)}" rel="noopener" target="_blank">Chat WhatsApp</a>'
             f'<a class="pf-btn pf-btn-outline" href="/contact">Kirim pesan</a></div><ul class="pf-trust">{trust}</ul></div></div></section>\n')
 
