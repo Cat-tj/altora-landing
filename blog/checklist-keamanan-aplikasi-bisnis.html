@@ -1,68 +1,158 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Checklist Keamanan Aplikasi Bisnis — Blog Altora</title>
-<meta name="description" content="---
-title: Checklist Keamanan Aplikasi Bisnis Sebelum Peluncuran
-description: Panduan checklist keamanan aplikasi bisnis sebelum go-live: RBAC, isolasi dat">
+<title>Checklist Keamanan Aplikasi Bisnis Sebelum Peluncuran | Altora Indonesia</title>
+<meta name="description" content="Panduan checklist keamanan aplikasi bisnis sebelum go-live: RBAC, isolasi database, enkripsi data, backup teruji, hingga audit log operasional.">
 <link rel="canonical" href="https://altora.id/blog/checklist-keamanan-aplikasi-bisnis">
-<link rel="stylesheet" href="/assets/css/styles.css">
-<style>
-  body { font-family: 'Plus Jakarta Sans', sans-serif; background: #fafbfc; color: #172B4D; line-height: 1.7; }
-  .article-wrap { max-width: 800px; margin: 40px auto; background: #fff; padding: 48px; border-radius: 16px; border: 1px solid #ebecf0; box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
-  .article-wrap h1 { font-size: 32px; font-weight: 800; line-height: 1.3; margin-bottom: 24px; color: #091E42; }
-  .article-wrap h2 { font-size: 22px; font-weight: 700; margin-top: 36px; margin-bottom: 16px; color: #172B4D; border-bottom: 2px solid #F4F5F7; padding-bottom: 8px; }
-  .article-wrap h3 { font-size: 18px; font-weight: 600; margin-top: 24px; margin-bottom: 12px; }
-  .article-wrap p { margin-bottom: 18px; font-size: 16px; color: #42526E; }
-  .article-wrap ul, .article-wrap ol { margin-bottom: 20px; padding-left: 24px; }
-  .article-wrap li { margin-bottom: 8px; color: #42526E; }
-  .article-wrap blockquote { border-left: 4px solid #7C5CE8; padding-left: 16px; margin: 24px 0; color: #5E6C84; font-style: italic; background: #FBF9FD; padding: 16px; border-radius: 0 8px 8px 0; }
-  .article-wrap code { background: #F4F5F7; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 14px; color: #D63384; }
-  .article-wrap img, .article-wrap svg { max-width: 100%; height: auto; border-radius: 12px; margin: 24px 0; border: 1px solid #ECE4F7; }
-  .blog-nav { max-width: 800px; margin: 20px auto 0; display: flex; justify-content: space-between; align-items: center; }
-  .blog-nav a { text-decoration: none; color: #7C5CE8; font-weight: 600; }
-  .cta-box { background: linear-gradient(135deg, #7C5CE8 0%, #5E3CC4 100%); color: #fff; padding: 32px; border-radius: 12px; margin-top: 48px; text-align: center; }
-  .cta-box h3 { color: #fff; font-size: 22px; margin-bottom: 12px; }
-  .cta-box p { color: #E9E4F9; margin-bottom: 20px; }
-  .cta-box a { display: inline-block; background: #fff; color: #7C5CE8; padding: 12px 24px; border-radius: 8px; font-weight: 700; text-decoration: none; }
-</style>
+<meta property="og:locale" content="id_ID">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Checklist Keamanan Aplikasi Bisnis Sebelum Peluncuran | Altora Indonesia">
+<meta property="og:description" content="Panduan checklist keamanan aplikasi bisnis sebelum go-live: RBAC, isolasi database, enkripsi data, backup teruji, hingga audit log operasional.">
+<meta property="og:url" content="https://altora.id/blog/checklist-keamanan-aplikasi-bisnis">
+<meta property="og:image" content="https://altora.id/assets/img/blog/checklist-keamanan-aplikasi-bisnis/hero-security-layers.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/styles.css?v=20260920-company-pages">
+<link rel="stylesheet" href="/assets/css/company-pages.css?v=20260920-company-pages">
+<link rel="stylesheet" href="/assets/css/shared-shell.css?v=20260920-shared-shell">
+<link rel="stylesheet" href="/assets/css/site-shell.css?v=20260922-white-frost-v7">
+<link rel="stylesheet" href="/assets/css/unify.css?v=20261117-store">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://altora.id/#organization",
+      "name": "Altora Indonesia",
+      "alternateName": [
+        "Altora",
+        "Algora Teknologi Indonesia"
+      ],
+      "url": "https://altora.id/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://altora.id/assets/img/altora-logo-600.png",
+        "width": 600,
+        "height": 600
+      },
+      "email": "hello@altora.id",
+      "telephone": "+628****1170"
+    },
+    {
+      "@type": "BlogPosting",
+      "headline": "Checklist Keamanan Aplikasi Bisnis Sebelum Peluncuran",
+      "description": "Panduan checklist keamanan aplikasi bisnis sebelum go-live: RBAC, isolasi database, enkripsi data, backup teruji, hingga audit log operasional.",
+      "datePublished": "2026-11-18",
+      "dateModified": "2026-11-18",
+      "inLanguage": "id-ID",
+      "mainEntityOfPage": "https://altora.id/blog/checklist-keamanan-aplikasi-bisnis",
+      "image": "https://altora.id/assets/img/blog/checklist-keamanan-aplikasi-bisnis/hero-security-layers.svg",
+      "author": {
+        "@type": "Organization",
+        "name": "Tim Altora Indonesia",
+        "url": "https://altora.id/"
+      },
+      "publisher": {
+        "@id": "https://altora.id/#organization"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Beranda",
+          "item": "https://altora.id/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Artikel",
+          "item": "https://altora.id/blog"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Checklist Keamanan Aplikasi Bisnis Sebelum Peluncuran",
+          "item": "https://altora.id/blog/checklist-keamanan-aplikasi-bisnis"
+        }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/img/altora-logo-icon-v2.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#7C5CE8">
+<meta property="og:site_name" content="Altora Indonesia">
+<meta name="twitter:card" content="summary_large_image">
 </head>
-<body>
-<div class="blog-nav">
-  <a href="/">&larr; Kembali ke Altora</a>
-  <span style="color:#6B778C;font-size:14px;">Blog &amp; Panduan Bisnis</span>
+<body class="company-page">
+<header class="nav-wrap universal-shell" id="nav">
+<nav class="nav" aria-label="Utama">
+<a class="brand" href="/"><img src="/assets/img/altora-logo-icon-v2.svg?v=20260919-padded" alt="" width="36" height="31"><span>ALTORA</span></a>
+<ul class="nav-links">
+<li><a class="nav-link" href="/services" data-section="/services">Layanan</a></li>
+<li><a class="nav-link" href="/aplikasi" data-section="/aplikasi">Aplikasi</a></li>
+<li><a class="nav-link" href="/blog" data-section="/blog" aria-current="page">Artikel</a></li>
+<li><a class="nav-link" href="/about" data-section="/about">Tentang</a></li>
+<li><a class="nav-link" href="/careers" data-section="/careers">Karier</a></li>
+<li><a class="nav-link" href="/support" data-section="/support">Support</a></li>
+</ul>
+<div class="nav-cta"><a class="btn btn-green" href="/contact">Konsultasi <span aria-hidden="true">&rarr;</span></a></div>
+<button class="burger" id="burger" type="button" aria-label="Buka menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+<a href="/services" data-section="/services">Layanan</a>
+<a href="/aplikasi" data-section="/aplikasi">Aplikasi</a>
+<a href="/blog" data-section="/blog" aria-current="page">Artikel</a>
+<a href="/about" data-section="/about">Tentang</a>
+<a href="/careers" data-section="/careers">Karier</a>
+<a href="/support" data-section="/support">Support</a>
+<div class="mobile-menu-cta"><a class="btn btn-green" href="/contact">Konsultasi <span aria-hidden="true">&rarr;</span></a></div>
 </div>
-<article class="article-wrap">
-  <hr />
-<p>title: Checklist Keamanan Aplikasi Bisnis Sebelum Peluncuran
-description: Panduan checklist keamanan aplikasi bisnis sebelum go-live: RBAC, isolasi database, enkripsi data, backup teruji, hingga audit log operasional.
-date: 2026-11-14
-category: Panduan memilih vendor
-image: //assets/img/blog/img/produk/erp.webp
-related: /services/software-custom | Layanan software custom Altora
-related: /produk | Produk operasional Altora
-visuals_manifest: /assets/img/blog/checklist-keamanan-aplikasi-bisnis/manifest.md</p>
-<hr />
+</header>
+<main class="bl-page">
+<article class="bl-article">
+<header class="bl-head">
+<div class="bl-wrap bl-narrow">
+<nav class="bl-crumb" aria-label="Breadcrumb"><a href="/">Beranda</a><span>/</span><a href="/blog">Artikel</a></nav>
+<p class="eyebrow eyebrow-purple">Panduan Memilih Vendor</p>
+<h1>Checklist Keamanan Aplikasi Bisnis Sebelum Peluncuran</h1>
+<p class="bl-lead">Panduan checklist keamanan aplikasi bisnis sebelum go-live: RBAC, isolasi database, enkripsi data, backup teruji, hingga audit log operasional.</p>
+<p class="bl-meta">Tim Altora Indonesia &middot; <time datetime="2026-11-18">18 November 2026</time> &middot; 5 menit baca</p>
+</div>
+</header>
+<div class="bl-wrap bl-narrow bl-body">
 <p>Momen menjelang peluncuran sistem baru selalu diwarnai antusiasme tinggi. Tim operasional sudah bersiap meninggalkan pencatatan manual, sementara manajemen menantikan laporan penjualan atau stok yang rapi secara otomatis. Namun, di tengah kesibukan menguji alur kerja sehari-hari, ada satu pertanyaan mendasar yang kerap terlewatkan: apakah aplikasi Anda sudah benar-benar aman saat dibuka untuk operasional penuh?</p>
 <p>Bagi pemilik bisnis maupun manajer operasional, keamanan perangkat lunak sering kali terdengar seperti urusan teknis yang rumit. Padahal, insiden keamanan di lapangan jarang bermula dari serangan peretas canggih di film fiksi. Kebanyakan kerugian operasional justru terjadi karena celah mendasar yang lupa ditutup: port pangkalan data yang terbuka bebas ke internet publik, staf biasa yang bisa melihat data sensitif manajemen, atau transaksi yang hilang tanpa bisa dipulihkan karena file backup ternyata rusak sejak lama.</p>
 <p>Di Altora, saat kami merancang solusi melalui <a href="/services/software-custom">layanan software custom</a> maupun modul dalam <a href="/produk">rangkaian produk operasional Altora</a>, tahap pengujian keamanan adalah gerbang wajib sebelum sistem diserahkan ke pengguna. Artikel ini merangkum checklist keamanan aplikasi bisnis praktis yang dapat Anda jadikan panduan saat berdiskusi dengan vendor pengembang atau tim internal sebelum meresmikan peluncuran sistem.</p>
+<p><img alt="Ilustrasi lebar lima pilar keamanan aplikasi bisnis sebelum go-live: RBAC, enkripsi data, isolasi database, backup teruji, dan audit log" src="/assets/img/blog/checklist-keamanan-aplikasi-bisnis/hero-security-layers.svg" /></p>
 <h2>1. Pembatasan hak akses berbasis peran (RBAC)</h2>
 <p>Prinsip dasar keamanan aplikasi operasional adalah membatasi wewenang setiap orang sesuai tanggung jawab pekerjaannya (<em>Role-Based Access Control</em> atau RBAC). Kasir di toko tidak perlu mengakses laporan laba rugi bulanan, staf gudang cukup memperbarui mutasi barang masuk dan keluar, sedangkan manajer memiliki kewenangan menyetujui diskon atau membatalkan nota transaksi.</p>
 <p>Kelemahan fatal yang sering ditemukan pada aplikasi yang dibangun tergesa-gesa adalah proteksi semu di layar antarmuka. Pengembang mungkin hanya menyembunyikan tombol tertentu di halaman web atau aplikasi agar staf tidak mengekliknya. Namun, bila staf tersebut langsung mengetikkan alamat URL menu atau mengirim instruksi lewat peramban, server ternyata tetap memproses data itu tanpa menolak.</p>
-<p>Organisasi keamanan web dunia melalui publikasi resmi <a href="https://owasp.org/projects/top-ten">OWASP Top Ten</a> menempatkan kegagalan kontrol akses (<em>Broken Access Control</em>) sebagai risiko perangkat lunak paling utama yang paling sering dieksploitasi. Karena itu, pastikan tim pengembang Anda menerapkan validasi hak akses di sisi server (<em>server-side authorization</em>). Setiap kali ada data yang diminta atau diubah, server wajib memeriksa identitas dan memastikan perannya memang sah melakukan aksi tersebut.</p>
+<p>Organisasi keamanan web dunia melalui panduan resmi OWASP menegaskan bahwa kegagalan kontrol akses (<em>Broken Access Control</em>) merupakan salah satu risiko aplikasi web paling kritis yang wajib diantisipasi melalui validasi otorisasi terpusat di sisi server.[1] Karena itu, pastikan tim pengembang Anda menerapkan validasi hak akses di sisi server (<em>server-side authorization</em>). Setiap kali ada data yang diminta atau diubah, server wajib memeriksa identitas dan memastikan perannya memang sah melakukan aksi tersebut.</p>
+<p><img alt="Diagram alur validasi otorisasi server-side berlapis: pengguna, validasi token, filter peran (RBAC), hingga penulisan audit log di database" src="/assets/img/blog/checklist-keamanan-aplikasi-bisnis/flow-rbac-validation.svg" /></p>
 <h2>2. Enkripsi data dalam perjalanan dan penyimpanan</h2>
-<p>Data bisnis Anda adalah aset bernilai tinggi. Informasi pelanggan, rincian biaya proyek, harga pokok penjualan, hingga kata sandi pengguna tidak boleh mengalir secara terbuka di jaringan. Standar dasar yang mutlak dipenuhi adalah sertifikat SSL/TLS (protokol HTTPS). Tanda gembok aman pada peramban memastikan komunikasi antara gawai staf di lapangan dan server utama teracak rapi sehingga tidak dapat disadap saat terhubung ke jaringan internet umum.</p>
+<p>Data bisnis Anda adalah aset bernilai tinggi. Informasi pelanggan, rincian biaya proyek, harga pokok penjualan, hingga kata sandi pengguna tidak boleh mengalir secara terbuka di jaringan. Standar dasar yang mutlak dipenuhi adalah sertifikat SSL/TLS (protokol HTTPS) yang mengacu pada standar komunikasi jaringan terpercaya dari IEEE.[4] Tanda gembok aman pada peramban memastikan komunikasi antara gawai staf di lapangan dan server utama teracak rapi sehingga tidak dapat disadap saat terhubung ke jaringan internet umum.</p>
 <p>Namun, perlindungan transmisi saja belum cukup. Data penting yang tersimpan di dalam database juga memerlukan perlakuan khusus. Kata sandi akun pengguna tidak boleh disimpan dalam bentuk teks biasa. Pengembang wajib menerapkan fungsi pengacakan satu arah (<em>cryptographic hashing</em> modern seperti Argon2 atau bcrypt) dengan pengacak tambahan (<em>salt</em>). Dengan metode ini, seandainya berkas server disalin pihak luar, kata sandi asli pengguna tetap tidak dapat dibaca.</p>
 <p>Hal penting lainnya adalah pengelolaan kunci rahasia (<em>environment secrets</em>). Kunci akses gerbang pembayaran, token integrasi pesan, dan kata sandi server tidak boleh ditulis langsung di dalam kode program aplikasi. Seluruh kunci tersebut harus disimpan di berkas konfigurasi lingkungan server yang terisolasi, sehingga tidak mudah bocor ketika kode dikelola bersama pihak ketiga.</p>
 <h2>3. Isolasi akses database dan pemisahan wewenang server</h2>
 <p>Pangkalan data adalah tempat seluruh rekaman stok, keuangan, dan data transaksi bermuara. Oleh karena itu, aturan mendasar dalam pengaturan server adalah: jangan pernah membuka gerbang database langsung ke alamat internet publik (<em>public IP</em>).</p>
 <p>Dalam praktiknya, layanan database seperti PostgreSQL atau MySQL sebaiknya hanya mendengarkan koneksi lokal (<em>listen on localhost / 127.0.0.1</em>) atau berada di dalam jaringan privat virtual tertutup. Jika administrator butuh melakukan pemeliharaan jarak jauh, akses wajib dilakukan lewat saluran terowongan aman (<em>SSH tunnel</em> atau VPN) dengan autentikasi kunci, bukan dengan membiarkan port standar database terbuka bebas.</p>
-<p>Selain jalur jaringan, perhatikan juga wewenang akun database yang digunakan aplikasi. Jangan biarkan sistem terhubung ke database memakai akun administrator tertinggi (<em>root</em> atau <em>superuser</em>). Buatlah akun pengguna khusus aplikasi dengan prinsip hak minimal (<em>principle of least privilege</em>). Akun aplikasi operasional harian umumnya hanya butuh hak membaca, menambah, dan mengubah data. Menghapus izin untuk merusak struktur tabel (<em>DROP TABLE</em>) secara drastis mengurangi risiko kerusakan fatal apabila sistem sempat menghadapi celah injeksi kode.</p>
+<p>Selain jalur jaringan, perhatikan juga wewenang akun database yang digunakan aplikasi. Jangan biarkan sistem terhubung ke database memakai akun administrator tertinggi (<em>root</em> atau <em>superuser</em>). Buatlah akun pengguna khusus aplikasi dengan prinsip hak minimal (<em>principle of least privilege</em>) yang selaras dengan kontrol keamanan sistem informasi NIST SP 800-53 Rev. 5.[3] Akun aplikasi operasional harian umumnya hanya butuh hak membaca, menambah, dan mengubah data. Menghapus izin untuk merusak struktur tabel (<em>DROP TABLE</em>) secara drastis mengurangi risiko kerusakan fatal apabila sistem sempat menghadapi celah injeksi kode.</p>
+<p><img alt="Matriks komparasi konfigurasi database aman versus berisiko tinggi terhadap kebocoran data dan eksposur port publik" src="/assets/img/blog/checklist-keamanan-aplikasi-bisnis/matrix-database-security.svg" /></p>
 <h2>4. Jadwal backup otomatis dan uji coba pemulihan riil</h2>
 <p>Banyak bisnis merasa tenang hanya karena tombol backup otomatis di panel server sudah menyala. Sayangnya, ketenangan itu kerap berujung masalah saat insiden operasional terjadi: file cadangan ternyata kosong, formatnya rusak, atau tim tidak tahu cara mengembalikannya ke server baru.</p>
-<p>Lembaga standardisasi keamanan internasional <a href="https://csrc.nist.gov/pubs/sp/800/115/final">NIST melalui panduan pengujian keamanan SP 800-115</a> menegaskan pentingnya verifikasi berkala terhadap prosedur pemulihan data sebagai bagian utama ketahanan sistem operasional. Dokumen cadangan yang tidak pernah diuji pemulihannya pada dasarnya sama saja dengan tidak memiliki cadangan sama sekali.</p>
+<p>Lembaga standardisasi keamanan internasional NIST melalui panduan pengujian keamanan SP 800-115 menegaskan pentingnya verifikasi berkala terhadap prosedur pemulihan data dan pengujian teknis sistem informasi sebagai bagian utama ketahanan operasional bisnis.[2] Dokumen cadangan yang tidak pernah diuji pemulihannya pada dasarnya sama saja dengan tidak memiliki cadangan sama sekali.</p>
 <p>Checklist backup yang sehat mencakup tiga elemen:
 - <strong>Otomatis dan terjadwal:</strong> Pembuatan salinan data berjalan otomatis pada jam sepi transaksi tanpa mengandalkan ingatan manual staf.
 - <strong>Penyimpanan di lokasi terpisah (<em>off-site backup</em>):</strong> Salinan data tidak boleh disimpan di mesin server yang sama. Jika perangkat keras server utama rusak, file cadangan tetap aman di penyedia penyimpanan cloud atau pusat data cadangan.
@@ -80,13 +170,82 @@ visuals_manifest: /assets/img/blog/checklist-keamanan-aplikasi-bisnis/manifest.m
 <li><strong>Kebijakan kata sandi:</strong> Terapkan standar kata sandi yang memadai dan pertimbangkan autentikasi dua langkah (2FA/OTP) terutama untuk akun manajerial dan keuangan.</li>
 <li><strong>Uji coba pemulihan data:</strong> Pastikan mekanisme backup otomatis sudah berjalan ke lokasi cadangan dan berhasil diuji pemulihannya secara nyata.</li>
 </ol>
+<p><img alt="Kartu periksa enam parameter krusial keamanan aplikasi operasional menjelang peluncuran resmi" src="/assets/img/blog/checklist-keamanan-aplikasi-bisnis/checklist-go-live.svg" /></p>
 <p>Perlu diingat bahwa keamanan aplikasi bukanlah fitur instan yang selesai sekali pasang untuk selamanya, melainkan proses pemeliharaan yang berkesinambungan seiring berkembangnya usaha Anda.</p>
 <p>Jika Anda sedang merencanakan pembangunan sistem baru atau ingin mengevaluasi kesiapan keamanan perangkat lunak bisnis Anda sebelum digunakan massal, silakan <a href="/contact">hubungi tim teknis Altora</a> untuk berdiskusi dan merancang sistem operasional yang stabil, aman, dan siap menopang pertumbuhan bisnis Anda.</p>
-  <div class="cta-box">
-    <h3>Konsultasikan Kebutuhan Sistem &amp; IoT Bisnis Anda</h3>
-    <p>Diskusikan implementasi custom software, ERP, POS, atau Smart IoT industri bersama tim teknis Altora di Balikpapan dan Samarinda.</p>
-    <a href="https://wa.me/6285133221170?text=Halo%20Altora,%20saya%20tertarik%20konsultasi%20solusi%20digital">Hubungi Tim Altora</a>
-  </div>
+<h2>Sources</h2>
+<p>[1] https://cheatsheetseries.owasp.org
+[2] https://csrc.nist.gov/pubs/sp/800/115/final
+[3] https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final
+[4] https://standards.ieee.org</p>
+<div class="cta-box" style="background:linear-gradient(135deg, #7C5CE8 0%, #5E3CC4 100%); color:#fff; padding:32px; border-radius:12px; margin-top:48px; text-align:center;">
+<h3 style="color:#fff; font-size:22px; margin-bottom:12px;">Konsultasikan Keamanan Sistem &amp; Software Bisnis Anda</h3>
+<p style="color:#E9E4F9; margin-bottom:20px;">Diskusikan audit keamanan, arsitektur custom software, atau perlindungan data operasional bersama tim engineering Altora di Balikpapan dan Samarinda.</p>
+<a href="https://wa.me/6285190911170?text=Halo%20Altora,%20saya%20ingin%20konsultasi%20keamanan%20sistem%20dan%20software%20bisnis" style="display:inline-block; background:#fff; color:#7C5CE8; padding:12px 24px; border-radius:8px; font-weight:700; text-decoration:none;">Hubungi Tim Altora</a>
+</div>
+</div>
 </article>
+<section class="bl-more">
+<div class="bl-wrap">
+<h2>Artikel lainnya</h2>
+<div class="bl-grid">
+<a class="bl-card" href="/blog/integrasi-erp-logistik-maritim-kaltim" data-cat="Perencanaan">
+<div class="bl-card-img"><img src="/assets/img/blog/cover/integrasi-erp-maritim.webp" alt="" loading="lazy"></div>
+<div class="bl-card-body">
+<small>Perencanaan &middot; 17 November 2026</small>
+<h3>Integrasi Sistem ERP untuk Perusahaan Logistik Maritim dan Tongkang di Kalimantan Timur</h3>
+<p>Otomatisasi kalkulasi bunker HSD, isolasi HPP per voyage kapal/tongkang Mahakam, monitoring demurrage, dan percepatan siklus tagihan dari 21 hari ke 24 jam.</p>
+<span>Baca artikel</span>
+</div>
+</a>
+<a class="bl-card" href="/blog/smart-iot-industri-kalimantan-timur" data-cat="Perencanaan">
+<div class="bl-card-img"><img src="/assets/img/blog/cover/smart-iot-industri-kalimantan-timur.webp" alt="" loading="lazy"></div>
+<div class="bl-card-body">
+<small>Perencanaan &middot; 16 November 2026</small>
+<h3>Solusi Smart IoT Industri di Kalimantan Timur: Monitoring Aset dan Efisiensi Operasional</h3>
+<p>Penerapan sensor IoT industri untuk pemantauan suhu server, tangki bahan bakar, dan mesin operasional secara real-time dari posko kendali pusat.</p>
+<span>Baca artikel</span>
+</div>
+</a>
+<a class="bl-card" href="/blog/sistem-po-toko" data-cat="Perencanaan">
+<div class="bl-card-img"><img src="/assets/img/blog/cover/sistem-po-toko.webp" alt="" loading="lazy"></div>
+<div class="bl-card-body">
+<small>Perencanaan &middot; 8 November 2026</small>
+<h3>Sistem PO untuk Toko: Menghubungkan Penawaran, Nota, Surat Jalan, dan Tagihan</h3>
+<p>Cara toko yang melayani proyek dan perusahaan mengelola nomor PO pembeli, penawaran, nota, surat jalan, invoice, dan piutang tanpa ketik ulang dan tanpa tagihan yang tercecer.</p>
+<span>Baca artikel</span>
+</div>
+</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="site-footer">
+<div class="sf-wrap sf-top">
+<div class="sf-brand">
+<a class="sf-logo" href="/"><img src="/assets/img/altora-logo-icon-v2.svg?v=20260919-padded" alt="" width="36" height="31" loading="lazy"><span>ALTORA</span></a>
+<p>Altora membuat software custom, website, dan SEO untuk bisnis dan instansi, dan mengembangkan aplikasi sendiri.</p>
+</div>
+<a class="sf-wa" href="https://wa.me/6285190911170?text=Halo%20Altora%2C%20saya%20ingin%20konsultasi%20kebutuhan%20sistem." target="_blank" rel="noopener"><svg class="ico" aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z"/><path d="M8.5 8.8c.3 2.7 2.9 5.4 5.7 5.9l1.3-1.3 2 .9-.4 1.7c-4.6.3-9.4-4.5-9.2-9l1.7-.4.9 2-1.3 1.3"/></svg>Chat WhatsApp</a>
+</div>
+<div class="sf-wrap sf-grid">
+<nav class="sf-col" aria-label="Layanan"><h4>Layanan</h4><a href="/services/software-custom">Software Custom</a><a href="/services/website-seo">Website</a><a href="/services/seo">SEO</a><a href="/services/web-custom">Web Custom</a><a href="/services/mobile-app-custom">Aplikasi Mobile</a><a href="/services/ai-custom">AI Custom</a><a href="/services/private-ai">AI Lokal</a><a href="/services/iot-custom">IoT Custom</a><a href="/services/tracking">Tracking</a><a href="/services/cctv">Pasang CCTV</a><a href="/services/smart-lock">Smart Lock</a><a href="/services/smart-home">Smart Home</a><a href="/services/it-support">IT Support Bulanan</a></nav>
+<nav class="sf-col" aria-label="Aplikasi"><h4>Aplikasi</h4><a href="/aplikasi">Semua aplikasi</a><a href="/aplikasi/fieldops">Altora FieldOps</a><a href="/aplikasi/store">Altora Store</a><a href="/aplikasi/office">Altora Office</a><a href="/aplikasi/teams">Altora Teams</a><a href="/aplikasi/word">Altora Word</a><a href="/aplikasi/sheets">Altora Sheets</a><a href="/aplikasi/slides">Altora Slides</a><a href="/aplikasi/control-center">Altora Control Center</a></nav>
+<nav class="sf-col" aria-label="Perusahaan"><h4>Perusahaan</h4><a href="/about">Tentang</a><a href="/careers">Karier</a><a href="/support">Support</a><a href="/blog">Artikel</a><a href="/contact">Konsultasi</a></nav>
+<div class="sf-col sf-contact"><h4>Kontak</h4>
+<a href="tel:+628****1170"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>+62 851-9091-1170</a>
+<a href="mailto:hello@altora.id"><svg aria-hidden="true" viewBox="0 0 24 24"><rect width="18" height="14" x="3" y="5" rx="2"/><path d="m3 7 9 6 9-6"/></svg>hello@altora.id</a>
+<a class="sf-office" href="https://www.google.com/maps/search/?api=1&amp;query=Altora%20Indonesia%20Perum%20Graha%20Indah%20Blok%20A13%2C%20Air%20Putih%2C%20Samarinda%20Ulu%2C%20Kalimantan%20Timur" target="_blank" rel="noopener"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span><b>Kantor pusat Samarinda</b>Perum Graha Indah Blok A13, Air Putih, Samarinda Ulu</span></a>
+<a class="sf-office" href="https://www.google.com/maps/search/?api=1&amp;query=Altora%20Indonesia%20Jl.%20Soekarno%20Hatta%2C%20Muara%20Rapak%2C%20Balikpapan%20Utara%2C%20Kalimantan%20Timur" target="_blank" rel="noopener"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span><b>Cabang Balikpapan Utara</b>Jl. Soekarno Hatta, Muara Rapak, Balikpapan Utara</span></a>
+</div>
+</div>
+<div class="sf-wrap sf-base">
+<span>&copy; 2026 Altora Indonesia</span><span class="sf-areas">Software house: <a href="/software-house-balikpapan">Balikpapan</a><a href="/software-house-samarinda">Samarinda</a><a href="/software-house-kalimantan-timur">Kalimantan Timur</a><a href="/area-layanan">Semua area layanan</a></span>
+<span class="sf-legal"><a href="/privacy">Privasi</a><a href="/terms">Ketentuan</a></span>
+</div>
+</footer>
+<script src="/assets/js/modules.js?v=20261011a" defer></script>
+<script src="/assets/js/main.js?v=20261022a" defer></script>
+<script src="/assets/js/site-shell.js?v=20261010e" defer></script>
 </body>
 </html>
