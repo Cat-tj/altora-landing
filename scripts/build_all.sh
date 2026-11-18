@@ -11,6 +11,7 @@ python3 scripts/build_local.py
 python3 scripts/build_area.py
 python3 scripts/build_produk_kota.py
 python3 scripts/hw_redirects.py
+python3 scripts/build_kaltim_hw.py
 python3 scripts/build_industri.py
 python3 scripts/build_aplikasi.py
 python3 scripts/build_app_seo.py
@@ -29,3 +30,4 @@ python3 scripts/apply_seo.py
 python3 scripts/apply_schema.py
 python3 scripts/purge_removed.py --images
 python3 scripts/clean_sitemap.py
+python3 scripts/build_llms.py

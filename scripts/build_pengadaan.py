@@ -56,12 +56,13 @@ CATS = [
       ['Survei titik kamera', 'Kabel, tiang &amp; bracket', 'Setting NVR &amp; aplikasi HP', 'Analitik: APD/K3, perimeter, hitung orang']),
      [('/infrastruktur-hardware-kaltim', 'CCTV AI untuk perusahaan (Kaltim)'), ('/services/cctv', 'Pasang CCTV rumah &amp; toko (Samarinda)'),
       ('/cctv-tenaga-surya-samarinda', 'CCTV tenaga surya &amp; 4G'), ('/jual-cctv-samarinda', 'Jual CCTV Samarinda')]),
-    ('starlink', 'Starlink &amp; internet', 'Kit Starlink, instalasi, off-grid', 'sat', 'Kit Starlink · bukan mitra resmi',
-     'Kit Starlink untuk rumah, kantor, site tambang, kebun, dan kapal yang tidak terjangkau fiber. '
-     'Kami bantu pengadaan kitnya dan memasang sampai Wi-Fi menyala di titik yang dibutuhkan.', 'starlink-v5.webp',
+    ('starlink', 'Starlink &amp; internet', 'Kit Starlink, instalasi, off-grid', 'sat', 'Kit Starlink · khusus Kalimantan Timur',
+     'Kit Starlink untuk rumah, kantor, site tambang, kebun, dan kapal di Kalimantan Timur yang tidak terjangkau fiber. '
+     'Kami bantu pengadaan kitnya dan memasang sampai Wi-Fi menyala di titik yang dibutuhkan. Layanan kit Starlink hanya untuk wilayah Kalimantan Timur.', 'starlink-v5.webp',
      ('Instalasi Starlink &amp; off-grid', 'Pemasangan lengkap: mounting, kabel, Wi-Fi, dan panel surya untuk lokasi tanpa PLN.',
       ['Survei titik &amp; mounting', 'Tiang &amp; grounding anti-petir', 'Wi-Fi repeater / mesh', 'Failover dual-WAN', 'Panel surya &amp; baterai']),
-     [('/infrastruktur-hardware-kaltim', 'Starlink untuk lokasi terpencil (Kaltim)')]),
+     [('/infrastruktur-hardware-kaltim', 'Starlink untuk lokasi terpencil (Kaltim)'), ('/jual-starlink-samarinda', 'Kit Starlink Samarinda'),
+      ('/jual-starlink-balikpapan', 'Kit Starlink Balikpapan'), ('/jual-starlink-berau', 'Kit Starlink Berau')]),
     ('jaringan', 'Jaringan &amp; infrastruktur', 'Rak server, data center, fiber optik', 'rack', 'HaganeRack · Fasser · mitra resmi',
      'Rak server, sistem pendingin data center, dan alat ukur fiber optik untuk ruang server, kantor, dan proyek jaringan. '
      'Kabel LAN, WiFi, dan listriknya juga kami kerjakan.', 'hr-close-glass.webp',
@@ -118,9 +119,10 @@ FAQ = [
     ('Apakah ada daftar harga?', 'Harga bergantung tipe, jumlah, dan lokasi pemasangan, jadi kami tidak memasang daftar harga. Kirim kebutuhan Anda lewat WhatsApp, kami balas dengan penawaran tertulis.'),
     ('Apakah bisa beli perangkat saja tanpa pemasangan?', 'Bisa. Perangkat bisa dibeli saja, atau sekaligus dengan pemasangan, konfigurasi, dan perawatan oleh tim kami.'),
     ('Apakah Altora mitra resmi Starlink?', 'Tidak. Altora bukan mitra resmi Starlink. Kami membantu pengadaan kit, survei lokasi, pemasangan, grounding, dan integrasi ke jaringan Anda. Starlink adalah merek dagang SpaceX.'),
+    ('Apakah kit Starlink bisa dikirim ke luar Kalimantan Timur?', 'Tidak. Pengadaan dan pemasangan kit Starlink oleh Altora hanya untuk wilayah Kalimantan Timur: Samarinda, Balikpapan, Bontang, Berau, Kutai Kartanegara, Kutai Timur, Kutai Barat, Mahakam Ulu, Paser, Penajam Paser Utara, dan IKN.'),
     ('Merek apa saja yang tersedia?', 'Perangkat dari mitra resmi: CCTV VIGI by TP-Link dan Dahua, GPS tracker Teltonika, laptop, PC, dan server Lenovo, display HDe, rak server HaganeRack, dan alat fiber optik Fasser. Hikvision dan HiLook juga tersedia, begitu pula merek lain yang bisa dibahas sesuai kebutuhan proyek.'),
     ('Apakah bisa untuk pengadaan instansi?', 'Bisa. Altora berstatus PKP dan terdaftar sebagai penyedia di Inaproc/LKPP, dengan penawaran, faktur, dan berita acara serah terima.'),
-    ('Wilayah mana yang dilayani untuk pemasangan?', 'Proyek perusahaan dan instansi di Kalimantan Timur: Balikpapan, Samarinda, IKN, Kutai, dan sekitarnya. Pasang CCTV rumahan, smart lock, smart home, dan IT support bulanan saat ini hanya Samarinda. Di luar Kalimantan Timur, perangkat bisa dikirim; pemasangan di lokasi kami bahas per proyek.'),
+    ('Wilayah mana yang dilayani untuk pemasangan?', 'Proyek perusahaan dan instansi di Kalimantan Timur: Balikpapan, Samarinda, IKN, Kutai, dan sekitarnya. Pasang CCTV rumahan, smart lock, smart home, dan IT support bulanan saat ini hanya Samarinda. Di luar Kalimantan Timur, perangkat selain kit Starlink bisa dikirim; pemasangan di lokasi kami bahas per proyek. Kit Starlink khusus Kalimantan Timur.'),
 ]
 
 
@@ -173,7 +175,7 @@ def section(c):
                  f'<a class="btn btn-purple" href="{wa("Halo Altora, saya ingin minta penawaran CCTV merek Dahua, Hikvision, atau HiLook. Kebutuhan saya: ")}" rel="noopener" target="_blank">Minta penawaran</a></div>')
     note = ''
     if key == 'starlink':
-        note = '<p class="pgd-note">Altora bukan mitra resmi Starlink. Kami membantu pengadaan kit dan pemasangannya. Starlink adalah merek dagang SpaceX.</p>'
+        note = '<p class="pgd-note">Wilayah layanan kit Starlink: Kalimantan Timur saja. Altora bukan mitra resmi Starlink; kami membantu pengadaan kit dan pemasangannya. Starlink adalah merek dagang SpaceX.</p>'
     if key == 'cctv':
         note = '<p class="pgd-note">Smart lock dan pasang CCTV untuk rumah atau toko saat ini khusus Samarinda. CCTV untuk perusahaan dan site proyek melayani Kalimantan Timur.</p>'
     pts = ''.join(f'<li>{icon("check")}{p}</li>' for p in jpts)

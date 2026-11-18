@@ -4,7 +4,7 @@ from urllib.parse import quote
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from build_area import shell, SITE, WA
 from build_trust import STATS
-from site_data import OFFICES, one_line, maps_link, org, office_node, map_html
+from site_data import OFFICES, ORG_ID, SITE as _SITE, one_line, maps_link, org_full, office_node, map_html, HOME_FAQ
 
 root = pathlib.Path(__file__).resolve().parent.parent
 e = lambda t: html.escape(str(t), quote=True)
@@ -49,6 +49,7 @@ def build():
     collage = ''.join(f'<figure class="ap2-shot ab-c{i}"><div class="ap2-bar"><i></i><i></i><i></i></div><img alt="" {"" if i == 1 else "loading=lazy "}src="{u}"/></figure>' for i, u in enumerate(COLLAGE, 1))
     offices = ''.join(f'<a class="ab-office" href="{e(maps_link(o))}" rel="noopener" target="_blank"><span class="ab-office-ico">{ico("pin")}</span>'
                       f'<span><small>{"Kantor pusat" if o["hq"] else "Cabang"}</small><b>{e(o["label"])}</b><span>{e(one_line(o))}</span><em>Buka di Google Maps →</em></span></a>' for o in OFFICES)
+    faq = ''.join(f'<details><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q, a in HOME_FAQ[:4])
     msg = 'Halo Altora, saya ingin berdiskusi tentang kebutuhan software, website, atau SEO.'
     body = f'''<main class="ct-page ab-page">
 <section class="ab-hero"><div class="ct-wrap ab-hero-grid">
@@ -58,6 +59,11 @@ def build():
 <div class="ab-actions"><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Diskusi dengan tim kami</a><a class="pd-link" href="/aplikasi">Lihat aplikasi kami →</a></div></div>
 <div class="ab-collage">{collage}</div>
 </div></section>
+<section class="ab-sec ab-facts-sec" id="profil"><div class="ct-wrap ab-facts"><div><p class="eyebrow eyebrow-purple">Profil singkat</p><h2>Tentang Altora Indonesia</h2></div>
+<div class="ab-facts-text"><p>Altora Indonesia (Altora) adalah software house yang berkantor pusat di Jl. Dayak ASB, Bukuan, Kecamatan Palaran, Kota Samarinda, Kalimantan Timur. Altora berdiri di Samarinda pada 2019 dan memiliki dua kantor cabang di Balikpapan: Balikpapan Utara (Jl. Soekarno Hatta, Muara Rapak) dan Pasar Baru.</p>
+<p>Altora membuat software custom, aplikasi web dan mobile, website, SEO, AI, dan IoT, serta menyediakan pengadaan dan pemasangan perangkat seperti CCTV, jaringan, server rack, GPS tracker, dan kit Starlink untuk perusahaan dan instansi di Kalimantan Timur. Pasang CCTV rumahan, smart lock, smart home, dan IT support bulanan dilayani khusus di Samarinda.</p>
+<p>Selama lebih dari 6 tahun, Altora telah menyelesaikan lebih dari 50 proyek bersama 13 ahli in-house. Klien Altora antara lain Pemerintah Kota Samarinda, Universitas Mulawarman, Institut Teknologi Kalimantan, STT Migas Balikpapan, dan Diskominfosandi Kabupaten Barito Utara. Altora berstatus PKP dan terdaftar sebagai penyedia di Inaproc/LKPP.</p>
+<p>Kontak: telepon/WhatsApp +62 851-9091-1170, email hello@altora.id, situs <a href="/">altora.id</a>. Halaman kota: <a href="/software-house-samarinda">software house Samarinda</a>, <a href="/software-house-balikpapan">software house Balikpapan</a>, dan <a href="/software-house-kalimantan-timur">software house Kalimantan Timur</a>.</p></div></div></section>
 <section class="ab-sec ab-stats-sec"><div class="ct-wrap"><div class="ts-stats">{stats}</div></div></section>
 <section class="ab-sec"><div class="ct-wrap"><div class="ab-head"><p class="eyebrow eyebrow-purple">Yang kami kerjakan</p><h2>Dari ide sampai aplikasi yang dipakai</h2><p class="ab-p">Layanan software, perangkat, dan dukungan IT, bisa diambil satu per satu atau digabung dalam satu proyek.</p></div>
 <div class="ab-svcs">{svcs}</div></div></section>
@@ -70,13 +76,17 @@ def build():
 <div class="ab-legal"><p class="eyebrow eyebrow-purple">Legalitas</p><h2>Resmi dan siap tender</h2>
 <ul><li>Badan usaha resmi berstatus PKP</li><li>Terdaftar sebagai penyedia di Inaproc / LKPP</li><li>Kontrak, faktur pajak, dan berita acara di setiap pekerjaan</li></ul></div>
 <div><p class="eyebrow eyebrow-purple">Kantor</p><h2>Datang ke kantor kami</h2><div class="ab-offices">{offices}</div>{map_html()}</div></div></section>
+<section class="ab-sec"><div class="ct-wrap svd-faq"><div class="pd-block-head"><h2>Pertanyaan tentang Altora</h2></div><div>{faq}</div></div></section>
 <section class="pd-cta"><div class="ct-wrap pd-cta-inner"><div><h2>Siap mulai? Ceritakan kebutuhan Anda.</h2><p>Konsultasi gratis, tanpa kewajiban lanjut.</p></div><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Konsultasi gratis</a></div></section>
 </main>'''
-    ld = {'@context': 'https://schema.org', '@type': 'AboutPage', 'name': 'Tentang Altora Indonesia', 'url': SITE + '/about',
-          'mainEntity': dict(org(), department=[office_node(o) for o in OFFICES])}
-    return shell('Tentang Altora Indonesia | Samarinda & Balikpapan',
-                 'Altora Indonesia di Samarinda dan Balikpapan: jasa pembuatan software custom, website, dan SEO.',
-                 '/about', SITE + COLLAGE[0], ld, body)
+    ld = {'@context': 'https://schema.org', '@graph': [org_full()] + [office_node(o) for o in OFFICES] + [
+          {'@type': 'AboutPage', '@id': SITE + '/about#halaman', 'name': 'Tentang Altora Indonesia', 'url': SITE + '/about', 'inLanguage': 'id-ID',
+           'isPartOf': {'@id': SITE + '/#website'}, 'about': {'@id': ORG_ID}, 'mainEntity': {'@id': ORG_ID}, 'publisher': {'@id': ORG_ID}},
+          {'@type': 'BreadcrumbList', 'itemListElement': [{'@type': 'ListItem', 'position': 1, 'name': 'Beranda', 'item': SITE + '/'},
+                                                          {'@type': 'ListItem', 'position': 2, 'name': 'Tentang', 'item': SITE + '/about'}]}]}
+    return shell('Tentang Altora Indonesia | Software House Samarinda sejak 2019',
+                 'Altora Indonesia: software house di Samarinda sejak 2019 dengan dua cabang di Balikpapan. 50+ proyek, 13 ahli in-house, PKP dan terdaftar di Inaproc/LKPP.',
+                 '/about', SITE + COLLAGE[0], ld, body, extra_head='<link rel="stylesheet" href="/assets/css/local-seo.css?v=20261118a"/>')
 
 
 if __name__ == '__main__':

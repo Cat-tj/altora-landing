@@ -126,16 +126,17 @@ NASIONAL = {
                ('Perkebunan & kehutanan', 'Aplikasi laporan lapangan dan dashboard.'),
                ('Kampus & sekolah', 'Website institusi dan aplikasi administrasi.')]),
     'barito-utara': dict(name='Barito Utara', seat='Muara Teweh, Kalimantan Tengah', near=['palangka-raya', 'banjarmasin', 'pontianak'],
+        proof=['pompy-batara', 'dashboard-geospasial-dapodik'],
         sectors='pemerintahan kabupaten, tambang batu bara, perkebunan, dan angkutan sungai',
         needs=[('Pemerintah kabupaten', 'Website resmi dan aplikasi layanan publik untuk kantor dinas.'),
                ('Tambang & perkebunan', 'Aplikasi laporan lapangan dan pemantauan armada.'),
                ('Sekolah & layanan publik', 'Website resmi dan aplikasi pelaporan.')]),
-    'pontianak': dict(name='Pontianak', seat='Kalimantan Barat', near=['palangka-raya', 'banjarmasin', 'batam'],
+    'pontianak': dict(name='Pontianak', seat='Kalimantan Barat', near=['palangka-raya', 'banjarmasin', 'barito-utara'],
         sectors='perkebunan sawit, perdagangan lintas batas, pelabuhan, dan pemerintahan provinsi',
         needs=[('Perkebunan', 'Aplikasi laporan kebun dan absensi pekerja.'),
                ('Perdagangan & distribusi', 'Sistem penjualan dan stok antar cabang.'),
                ('Instansi', 'Website resmi dan aplikasi layanan publik.')]),
-    'tarakan': dict(name='Tarakan', seat='Kalimantan Utara', near=['banjarmasin', 'palu', 'manado'],
+    'tarakan': dict(name='Tarakan', seat='Kalimantan Utara', near=['berau', 'bontang', 'samarinda'],
         sectors='migas, perikanan, pelabuhan, dan perdagangan, termasuk Tanjung Selor dan Nunukan',
         needs=[('Migas & perikanan', 'Absensi lapangan, laporan produksi, dan aplikasi stok.'),
                ('Pemerintah daerah Kaltara', 'Website resmi dan aplikasi layanan publik.'),
@@ -171,3 +172,14 @@ NASIONAL = {
                ('Sekolah & layanan kesehatan', 'Website, pendaftaran, dan antrian online.'),
                ('Usaha', 'Website dan aplikasi penjualan.')]),
 }
+
+
+# Kebijakan indeks halaman kota (SEO lokal, 2026-11-18). Kota di luar Kalimantan tidak punya fakta lokal (kantor, tim,
+# proyek), jadi halamannya tetap hidup untuk pengunjung tetapi diberi noindex,follow dan dikeluarkan dari sitemap.xml
+# agar tidak terbaca sebagai doorway page. Kota di Pulau Kalimantan tetap diindeks. Untuk membalik: kosongkan aturan ini.
+KALIMANTAN = {'banjarmasin', 'palangka-raya', 'barito-utara', 'pontianak', 'tarakan'}
+
+
+def is_indexed(key):
+    """True bila halaman kota <key> boleh diindeks (Kalimantan Timur, kota Kalimantan lain, atau bukan kota nasional)."""
+    return key not in NASIONAL or key in KALIMANTAN

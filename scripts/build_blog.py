@@ -168,7 +168,7 @@ def build():
             {'@type': 'BlogPosting', 'headline': p['title'], 'description': p['description'], 'datePublished': p['date'],
              'dateModified': updated, 'inLanguage': 'id-ID', 'mainEntityOfPage': SITE + url,
              'image': SITE + p.get('image', '/assets/img/altora-logo-600.png'),
-             'author': {'@type': 'Organization', 'name': 'Tim Altora Indonesia', 'url': SITE + '/'},
+             'author': {'@type': 'Organization', '@id': ORG_ID, 'name': 'Altora Indonesia', 'url': SITE + '/'},
              'publisher': {'@id': ORG_ID}},
             {'@type': 'BreadcrumbList', 'itemListElement': [
                 {'@type': 'ListItem', 'position': 1, 'name': 'Beranda', 'item': SITE + '/'},

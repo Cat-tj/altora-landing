@@ -1,61 +1,68 @@
 # Altora Indonesia
 
-> Altora Indonesia (brand: Altora) is an Indonesian software company headquartered in Samarinda, East Kalimantan, with branch offices in Balikpapan (Balikpapan Utara and Pasar Baru). It builds custom software, websites, and SEO for businesses, campuses, and government agencies, and develops its own applications.
+> Altora Indonesia (Altora) adalah software house yang berkantor pusat di Samarinda, Kalimantan Timur, Indonesia, sejak 2019, dengan dua kantor cabang di Balikpapan. Altora membuat software custom, aplikasi web dan mobile, website, SEO, AI, dan IoT, serta menyediakan pengadaan dan pemasangan perangkat untuk perusahaan dan instansi di Kalimantan Timur.
 
-## Identity
-- Legal/brand name: Altora Indonesia
-- Short name: Altora
-- Former identity: Algora Teknologi Indonesia (Algora)
-- Official website: https://altora.id/
-- Rebrand information: https://altora.id/algora
-- Head office: Jl. Dayak ASB, Bukuan, Kec. Palaran, Samarinda, Kalimantan Timur
-- Branches: Jl. Soekarno Hatta, Muara Rapak, Balikpapan Utara; Pasar Baru, Balikpapan
-- Registered supplier on Inaproc/LKPP (Indonesian government procurement)
-- Contact: hello@altora.id, WhatsApp +62 851-9091-1170 (https://wa.me/6285190911170)
+Altora Indonesia (Altora) is a software house headquartered in Samarinda, East Kalimantan (Kalimantan Timur), Indonesia, founded in 2019, with two branch offices in Balikpapan. Not related to other companies named "Altora" outside Indonesia.
 
-## What Altora does
-- Custom software: web apps, mobile apps, internal systems, dashboards, and integrations built around the client's workflow
-- Websites for companies, campuses, and government institutions, with a CMS the client can edit
-- SEO: technical audit, on-page optimization, local SEO, and reporting
-- Infrastructure and hardware projects for companies across Kalimantan Timur (Balikpapan, Samarinda, IKN, Kutai, and surroundings): Starlink satellite internet for remote sites, AI-enabled CCTV (PPE/K3 violation detection, perimeter intrusion, people counting), structured cabling, network, and IoT sensors (https://altora.id/infrastruktur-hardware-kaltim). Altora is not an official Starlink partner.
-- Hardware procurement catalogue with installation services (https://altora.id/pengadaan): VIGI and Dahua CCTV cameras (official partners; Hikvision and HiLook also available), NVRs and solar kits; Starlink kits with mounting, grounding and off-grid power (Altora resells and installs Starlink kits but is not an official Starlink partner); HaganeRack server racks and data-center cooling; Fasser fiber-optic tools; Teltonika GPS trackers, fuel/CAN/TPMS sensors and vehicle cameras; HDe videotrons, interactive flat panels and kiosks; Lenovo and HDe laptops, PCs, tablets and servers. No public price list; quotes via WhatsApp. PKP and registered on Inaproc/LKPP for government procurement. Installation for companies across Kalimantan Timur.
-- Small-device services in Samarinda only: CCTV installation (including solar and 4G CCTV, official VIGI and Dahua devices), smart locks, smart home, and monthly IT support contracts for companies (https://altora.id/services/cctv, /services/smart-lock, /services/smart-home, /services/it-support)
-- Remote delivery across Indonesia, with on-site discussion and training in Kalimantan Timur
+## Fakta utama
+- Nama: Altora Indonesia (nama pendek: Altora; nama lama: Algora Teknologi Indonesia)
+- Situs resmi: https://altora.id/
+- Berdiri: 2019, di Samarinda
+- Pengalaman: 6+ tahun, 50+ proyek terdeliver, 13 ahli in-house
+- Legalitas: berstatus PKP, terdaftar sebagai penyedia di Inaproc/LKPP (pengadaan pemerintah)
+- Telepon/WhatsApp: +62 851-9091-1170 (https://wa.me/6285190911170)
+- Email: hello@altora.id
 
-## Applications built by Altora
-- Altora Store: web-based store management for retail and wholesale shops (spare parts, building materials, distributors): FIFO stock per batch, purchases and supplier debt, cash or credit sales with the buyer's PO number, quotations that convert to sales, invoice and delivery note (surat jalan) PDFs, stock counts from a phone, and 15 reports (https://altora.id/aplikasi/store, overview in Indonesian: https://altora.id/aplikasi-toko)
-- Altora FieldOps: field operations for mining and oil & gas: wells and sites, HSE and permit to work, heavy assets, field crew, legal readiness, AFE and accounting (https://altora.id/aplikasi/fieldops)
-- Altora Office: internal work platform with project and task boards (Altora Projek), operations, HRIS, and marketing modules, plus an AI assistant for daily reports (https://altora.id/aplikasi/office)
-- Altora Teams: HRIS dan kinerja tim, meliputi KPI dan review, cuti dan persetujuan, serta kalender kerja (https://altora.id/aplikasi/teams)
-- Altora Control Center: monitoring for servers, websites, cron jobs, and AI agents, with a project workspace and WhatsApp alerts (https://altora.id/aplikasi/control-center)
+## Kantor
+- Kantor pusat Samarinda: Jl. Dayak ASB, Bukuan, Kec. Palaran, Samarinda, Kalimantan Timur, Indonesia
+- Cabang Balikpapan Utara: Jl. Soekarno Hatta, Muara Rapak, Balikpapan Utara, Kalimantan Timur, Indonesia
+- Cabang Balikpapan Pasar Baru: Pasar Baru, Balikpapan, Kalimantan Timur, Indonesia
+- Peta kantor pusat: https://www.google.com/maps?q=-0.5810649,117.2105898 (perkiraan titik Kelurahan Bukuan, Palaran)
 
-## Key pages
-- Services: https://altora.id/services
-- Applications: https://altora.id/aplikasi
-- Store and distributor app (Indonesian): https://altora.id/aplikasi-toko
-- Mining and oil & gas field operations app: https://altora.id/aplikasi-pertambangan
-- Project management and office operations app: https://altora.id/aplikasi-manajemen-proyek
-- HRIS, KPI and leave app: https://altora.id/aplikasi-hris
-- Server and website monitoring app: https://altora.id/aplikasi-monitoring-server
-- Office suite (documents, spreadsheets, presentations): https://altora.id/aplikasi-perkantoran
-- Portfolio of delivered projects (CCTV AI, IoT, fleet management, face-recognition attendance, GIS portal, HRIS, websites): https://altora.id/portofolio
-- Articles: https://altora.id/blog
-- ERP for maritime and barge logistics in Kalimantan Timur (article): https://altora.id/blog/integrasi-erp-logistik-maritim-kaltim
-- Signs a business needs a POS system instead of a cash book (article): https://altora.id/blog/tanda-bisnis-perlu-pos
-- Barcode vs QR code for cashier and warehouse (article): https://altora.id/blog/barcode-vs-qr-code-kasir-gudang
-- Fleet management for logistics and mining in Kalimantan Timur (article): https://altora.id/blog/fleet-management-logistik-tambang
-- GPS, face, or fingerprint attendance for field teams (article): https://altora.id/blog/absensi-gps-wajah-fingerprint
-- AI CCTV PPE detection on construction sites (article): https://altora.id/blog/deteksi-apd-ai-cctv
-- Temperature and smoke monitoring with IoT for server rooms and warehouses (article): https://altora.id/blog/monitoring-suhu-asap-iot
-- Soil moisture sensors for smart farming in Kalimantan Timur (article): https://altora.id/blog/smart-farming-sensor-tanah
-- Industrial smart IoT in Kalimantan Timur: sensors, edge, connectivity (article): https://altora.id/blog/smart-iot-industri-kalimantan-timur
-- Command center: one screen for CCTV, fleet, and sensors (article): https://altora.id/blog/command-center-satu-layar
-- Self-service kiosks for village/sub-district public services (article): https://altora.id/blog/digitalisasi-layanan-kelurahan-kios-mandiri
-- Business application security checklist before go-live (article): https://altora.id/blog/checklist-keamanan-aplikasi-bisnis
-- Company profile websites that generate leads (article): https://altora.id/blog/website-company-profile-prospek
-- About: https://altora.id/about
-- Contact: https://altora.id/contact
-- Support: https://altora.id/support
-- Infrastructure and hardware, Kalimantan Timur: https://altora.id/infrastruktur-hardware-kaltim
-- Hardware procurement catalogue and installation services: https://altora.id/pengadaan
-- Service areas: https://altora.id/area-layanan
+## Layanan
+- Software custom, aplikasi web, dan aplikasi mobile (Android/iOS): https://altora.id/services/software-custom
+- Pembuatan website dan SEO: https://altora.id/services/website-seo, https://altora.id/services/seo
+- AI (analitik CCTV, deteksi APD, pengenalan wajah) dan IoT (sensor): https://altora.id/services/ai-custom, https://altora.id/services/iot-custom
+- Tracking armada dan aset: https://altora.id/services/tracking
+- Pengadaan dan pemasangan perangkat untuk perusahaan dan instansi di Kalimantan Timur (CCTV VIGI dan Dahua, jaringan, server rack, GPS Teltonika, videotron, laptop/PC Lenovo): https://altora.id/pengadaan
+- Kit Starlink dan pemasangannya, khusus wilayah Kalimantan Timur. Altora bukan mitra resmi Starlink.
+- Khusus Samarinda: pasang CCTV rumahan, smart lock, smart home, IT support bulanan
+- Tanpa daftar harga publik; penawaran tertulis lewat WhatsApp
+
+## Area layanan
+- Langsung dari kantor: Samarinda, Balikpapan
+- Dari kantor terdekat: Bontang, Kutai Kartanegara, Kutai Timur, Kutai Barat, Mahakam Ulu, Berau, Paser, Penajam Paser Utara, IKN Nusantara
+- Software dan website juga dikerjakan jarak jauh untuk klien di seluruh Indonesia
+
+## Klien dan proyek nyata
+- Klien antara lain: Pemkot Samarinda, Diskominfosandi Kab. Barito Utara, Universitas Mulawarman, Institut Teknologi Kalimantan, STT Migas Balikpapan, PT Adhi Karya, PT Astra International Tbk, RM Payakumbuah, 1Ci Enterprise, MBC Entertainment
+- Instalasi CCTV siap analitik AI, 50+ unit — Fakultas Farmasi Universitas Mulawarman (2025): https://altora.id/portofolio/cctv-ai-farmasi-unmul
+- Absensi face recognition — Universitas Mulawarman (2025): https://altora.id/portofolio/smart-attendance-unmul
+- Website dan sistem informasi fakultas — Fakultas Ekonomi dan Bisnis Universitas Mulawarman (2024): https://altora.id/portofolio/website-feb-unmul
+- Deteksi APD berbasis AI — PT Multi Harapan Utama (2025): https://altora.id/portofolio/deteksi-apd-ai
+- HRIS mobile: absensi, payroll, dan slip gaji — Bukit Baiduri Energi (2024): https://altora.id/portofolio/hris-mobile-payroll
+- Fleet management armada hauling — Kontraktor tambang · Kaltim (2025): https://altora.id/portofolio/fleet-management-tambang
+- Optimasi rute dan monitoring armada distribusi — Operator logistik · Balikpapan (2024): https://altora.id/portofolio/optimasi-rute-armada
+- POMPy BATARA: portal one map dan dashboard daerah — Diskominfosandi Kab. Barito Utara (2025): https://altora.id/portofolio/pompy-batara
+- GPS armada dan radio marine VHF — Logistik & maritim · Mahakam: https://altora.id/portofolio/fleet-radio-kapal
+- Sistem antrian dan pendaftaran poliklinik — Klinik & RS swasta · Samarinda (2024): https://altora.id/portofolio/antrian-poliklinik
+
+## Halaman penting
+- Software house Samarinda: https://altora.id/software-house-samarinda
+- Software house Balikpapan: https://altora.id/software-house-balikpapan
+- Software house Kalimantan Timur: https://altora.id/software-house-kalimantan-timur
+- Jasa pembuatan aplikasi Samarinda: https://altora.id/jasa-pembuatan-aplikasi-samarinda
+- Jasa pembuatan aplikasi Balikpapan: https://altora.id/jasa-pembuatan-aplikasi-balikpapan
+- Jasa pembuatan website Samarinda: https://altora.id/jasa-pembuatan-website-samarinda
+- Tentang Altora: https://altora.id/about
+- Kontak: https://altora.id/contact
+- Layanan: https://altora.id/services
+- Pengadaan perangkat: https://altora.id/pengadaan
+- Portofolio: https://altora.id/portofolio
+- Aplikasi buatan Altora (Altora Office, Teams, Store, FieldOps, Control Center): https://altora.id/aplikasi
+- Area layanan: https://altora.id/area-layanan
+- Artikel: https://altora.id/blog
+- Versi lengkap untuk AI: https://altora.id/llms-full.txt
+
+## Profil resmi di luar situs (sameAs)
+- (belum ada profil eksternal resmi yang dicantumkan)

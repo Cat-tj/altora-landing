@@ -5,7 +5,7 @@ import pathlib, re
 root = pathlib.Path(__file__).resolve().parent.parent
 header_tpl = (root / 'partials/header.html').read_text(encoding='utf-8').strip()
 footer = (root / 'partials/footer.html').read_text(encoding='utf-8').strip()
-skip = ('id/', 'leads/', 'outreach/', 'design/', 'partials/', 'ops/')
+skip = ('id/', 'leads/', 'outreach/', 'design/', 'partials/', 'ops/', 'dist/', 'node_modules/')
 # versi site-shell.css (gaya menu atas & footer) disamakan di semua halaman; naikkan saat site-shell.css berubah
 SHELL_CSS = '/assets/css/site-shell.css?v=20261118-nav9'
 
