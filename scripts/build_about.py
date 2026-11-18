@@ -1,10 +1,10 @@
 """Halaman /about. Jalankan lewat scripts/build_all.sh."""
-import html, pathlib, sys
+import re, html, pathlib, sys
 from urllib.parse import quote
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from build_area import shell, SITE, WA
 from build_trust import STATS
-from site_data import OFFICES, one_line, maps_link, org, office_node
+from site_data import OFFICES, one_line, maps_link, org, office_node, map_html
 
 root = pathlib.Path(__file__).resolve().parent.parent
 e = lambda t: html.escape(str(t), quote=True)
@@ -39,7 +39,7 @@ ico = lambda n: f'<svg aria-hidden="true" viewBox="0 0 24 24">{ICO[n]}</svg>'
 
 
 def build():
-    stats = ''.join(f'<div><b>{e(v)}</b><span>{e(k)}</span></div>' for v, k in STATS)
+    stats = ''.join(f'<div><b>{e(v)}</b><span>{e(k)}</span></div>' for v, k, *_ in STATS)
     work = ''.join(f'<article class="ab-div"><span class="ab-div-ico">{ico(i)}</span><h3>{e(t)}</h3><p>{e(d)}</p>'
                    '<ul>' + ''.join(f'<li>{e(x)}</li>' for x in pts) + '</ul></article>' for t, d, i, pts in WORK)
     steps = ''.join(f'<li><span class="ab-tl-year">{n}</span><div><b>{e(t)}</b><p>{e(d)}</p></div></li>' for n, (t, d) in enumerate(STEPS, 1))
@@ -69,7 +69,7 @@ def build():
 <section class="ab-sec"><div class="ct-wrap ab-split ab-split-even">
 <div class="ab-legal"><p class="eyebrow eyebrow-purple">Legalitas</p><h2>Resmi dan siap tender</h2>
 <ul><li>Badan usaha resmi berstatus PKP</li><li>Terdaftar sebagai penyedia di Inaproc / LKPP</li><li>Kontrak, faktur pajak, dan berita acara di setiap pekerjaan</li></ul></div>
-<div><p class="eyebrow eyebrow-purple">Kantor</p><h2>Datang ke kantor kami</h2><div class="ab-offices">{offices}</div></div></div></section>
+<div><p class="eyebrow eyebrow-purple">Kantor</p><h2>Datang ke kantor kami</h2><div class="ab-offices">{offices}</div>{map_html()}</div></div></section>
 <section class="pd-cta"><div class="ct-wrap pd-cta-inner"><div><h2>Siap mulai? Ceritakan kebutuhan Anda.</h2><p>Konsultasi gratis, tanpa kewajiban lanjut.</p></div><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Konsultasi gratis</a></div></section>
 </main>'''
     ld = {'@context': 'https://schema.org', '@type': 'AboutPage', 'name': 'Tentang Altora Indonesia', 'url': SITE + '/about',
@@ -81,4 +81,12 @@ def build():
 
 if __name__ == '__main__':
     (root / 'about.html').write_text(build(), encoding='utf-8')
-    print('about.html dibuat')
+    # peta kantor pusat juga di /contact (halaman tulisan tangan; disisipkan di antara penanda)
+    c = root / 'contact.html'; t = c.read_text(encoding='utf-8')
+    block = f'<!-- peta:start -->{map_html()}<!-- peta:end -->'
+    if '<!-- peta:start -->' in t:
+        t = re.sub(r'<!-- peta:start -->.*?<!-- peta:end -->', lambda _: block, t, flags=re.S)
+    else:
+        t = t.replace('<p class="ct-muted">Kantor pusat di Samarinda', block + '<p class="ct-muted">Kantor pusat di Samarinda', 1)
+    c.write_text(t, encoding='utf-8')
+    print('about.html dibuat, peta kantor di contact.html')

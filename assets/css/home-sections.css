@@ -1,0 +1,136 @@
+/* Beranda: empat section yang mengikuti beranda situs saudara (strip kepercayaan + angka, peta jangkauan Samarinda,
+   carousel proyek, perangkat dari mitra resmi). Token Altora (DESIGN.md). Dipasang oleh build_trust.py dan build_infra.py.
+   Kartu .pf-shot berasal dari portofolio.css. */
+.hm{--ink:#10224F;--text:#3B4366;--muted:#5A6785;--line:#E9E5F6;--line2:#E4DEFA;--accent:#7C5CE8;--deep:#5B3FC4;--tint:#F3F0FD;--alt:#F5F2FD;
+  --shadow:0 14px 34px -24px rgba(43,30,110,.25);--shadow2:0 24px 48px -24px rgba(43,30,110,.32);
+  position:relative;padding:clamp(56px,7vw,96px) 0;color:var(--text);font-family:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+.hm-alt{background:var(--alt);border-block:1px solid #EEE9FB}
+.hm-wrap{width:min(1200px,100% - 40px);margin-inline:auto}
+.hm h2{margin:0;color:var(--ink);font-family:inherit;font-weight:800;letter-spacing:-.03em;line-height:1.12;font-size:clamp(1.85rem,1.3rem + 2vw,2.75rem)}
+.hm-hl{color:var(--accent)}
+.hm-lead{margin:0;color:var(--text);font-size:1.0625rem;line-height:1.7}
+.hm-head{display:grid;justify-items:center;gap:12px;max-width:760px;margin:0 auto clamp(28px,3.5vw,44px);text-align:center}
+.hm-head .hm-lead{max-width:60ch}
+.hm-foot{display:flex;justify-content:center;margin-top:36px}
+.hm-btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 24px;border:1px solid transparent;border-radius:999px;font:700 .95rem/1 "Plus Jakarta Sans",system-ui,sans-serif;text-decoration:none;white-space:nowrap;transition:background .18s,border-color .18s,color .18s}
+.hm-btn-primary{background:var(--accent);color:#fff;box-shadow:0 10px 22px -12px rgba(124,92,232,.7)}
+.hm-btn-primary:hover{background:#6A4AD6;color:#fff}
+.hm-btn-ghost{background:#fff;color:var(--ink);border-color:var(--line2)}
+.hm-btn-ghost:hover{border-color:var(--accent);color:var(--deep)}
+.hm-btn:focus-visible,.hm-kc:focus-visible,.hm-cbtn:focus-visible,.reach-tabs button:focus-visible,.pin:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+/* 1. Strip kepercayaan */
+.hm-trust{padding:clamp(44px,5vw,64px) 0;background:var(--alt);border-block:1px solid #EEE9FB}
+.hm-trust h2{margin:0 auto 30px;max-width:34ch;text-align:center;font-size:clamp(1.25rem,1rem + .8vw,1.6rem);letter-spacing:-.02em}
+.hm-logos,.hm-partners{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:18px 40px}
+.hm-logos img{width:auto;height:46px;max-width:140px;object-fit:contain;filter:grayscale(1);opacity:.7;transition:filter .2s,opacity .2s}
+.hm-logos img:hover,.hm-partners img:hover{filter:none;opacity:1}
+.hm-logos img[src*="/astra"]{height:30px}
+.hm-logos img[src*="/mbc"]{height:52px;filter:grayscale(1) brightness(.62) contrast(1.5);opacity:.85}
+.hm-logos img[src*="/mbc"]:hover{filter:none;opacity:1}
+.hm-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:40px}
+.hm-stat{display:flex;align-items:center;gap:14px;padding:18px 20px;border:1px solid var(--line);border-radius:18px;background:#fff}
+.hm-stat-ico{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:var(--tint);color:var(--deep)}
+.hm-stat-ico svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.hm-stat b{display:block;color:var(--ink);font-size:1.6rem;font-weight:800;letter-spacing:-.02em;line-height:1.1;font-variant-numeric:tabular-nums}
+.hm-stat span{color:var(--muted);font-size:.9rem}
+.hm-creds{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 24px;margin:18px 0 0;padding:0;list-style:none;color:var(--muted);font-size:.84rem}
+.hm-creds li{display:inline-flex;align-items:center;gap:7px}
+.hm-creds li::before{content:"";width:14px;height:14px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237C5CE8' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5 10 17.5 19 7'/%3E%3C/svg%3E") center/contain no-repeat}
+
+/* 2. Berbasis di Samarinda + peta jangkauan (gaya peta mengikuti reach.css situs saudara) */
+.hm-reach{overflow:hidden;background:var(--alt);border-block:1px solid #EEE9FB}
+.hm-reach-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,72px);align-items:center}
+.hm-reach-copy{display:grid;gap:14px;justify-items:start;min-width:0}
+.hm-reach-copy h2{font-size:clamp(1.8rem,1.1rem + 1.5vw,2.5rem)}
+.hm-reach-copy .hm-lead{font-size:1rem;line-height:1.65}
+.hm-checks{display:grid;width:100%;margin:0;padding:0;list-style:none}
+.hm-checks li{display:grid;grid-template-columns:28px 1fr;gap:3px 14px;padding:13px 0;border-bottom:1px solid var(--line)}
+.hm-checks li:last-child{border-bottom:0}
+.hm-checks li::before{content:"";grid-row:1/span 2;width:24px;height:24px;margin-top:1px;border-radius:50%;background:var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5 10 16.5 18 8'/%3E%3C/svg%3E") center/14px no-repeat}
+.hm-checks b{color:var(--ink);font-weight:700}
+.hm-checks span{color:var(--text);font-size:.92rem;line-height:1.55}
+.reach{position:relative;min-height:480px;border-radius:24px;overflow:hidden;background:linear-gradient(180deg,#F7F4FF,#ECE6FB);border:1px solid var(--line);box-shadow:var(--shadow)}
+.reach-map{position:absolute;inset:0;container-type:size}
+.reach-view{position:absolute;margin:0;opacity:0;visibility:hidden;transition:opacity .45s ease,visibility 0s linear .45s;
+  top:50%;width:max(100cqw,100cqh * 1.6129);aspect-ratio:1000/620;transform:translateY(-50%);
+  left:clamp(100cqw - max(100cqw,100cqh * 1.6129),50cqw - var(--fx) * max(100cqw,100cqh * 1.6129),0px)}
+.reach-view.hw{--fx:.66}
+.reach-view.sw{--fx:.5;width:100cqw;left:0}
+.reach[data-mode="hw"] .reach-view.hw,.reach[data-mode="sw"] .reach-view.sw{opacity:1;visibility:visible;transition:opacity .45s ease}
+.reach-view>img,.reach-view>svg{position:absolute;inset:0;display:block;width:100%;height:100%}
+.reach-view .arc{fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:0}
+.reach-view .arc-c{stroke:#3E2A97;stroke-width:5.6;opacity:.3}
+.pin{position:absolute;left:var(--x);top:var(--y);width:0;height:0;padding:0;border:0;background:none;cursor:default;font-family:inherit}
+.pin i{position:absolute;left:-5px;top:-5px;width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 3px #fff}
+.pin.hq i{left:-7px;top:-7px;width:14px;height:14px;background:#10224F}
+.pin.hq i::after{content:"";position:absolute;inset:-7px;border-radius:50%;border:2px solid var(--accent);opacity:0;animation:reach-pulse 2.4s ease-out infinite}
+.pin .lbl{position:absolute;top:-11px;white-space:nowrap;padding:5px 8px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.94);color:var(--ink);font:600 .72rem/1 "Plus Jakarta Sans",system-ui,sans-serif;box-shadow:0 4px 12px -8px rgba(16,34,79,.4)}
+.pin .lbl.r{left:11px}.pin .lbl.l{right:11px}
+.pin .lbl.t{left:50%;top:-34px;transform:translateX(-50%)}.pin .lbl.b{left:50%;top:13px;transform:translateX(-50%)}
+.pin.hq .lbl{background:#10224F;border-color:#10224F;color:#fff}
+.reach-tabs{position:absolute;z-index:3;top:20px;left:20px;display:grid;grid-template-columns:1fr 1fr;gap:6px;width:min(400px,calc(100% - 40px));padding:5px;border-radius:16px;background:rgba(255,255,255,.75);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 10px 30px -18px rgba(16,34,79,.45)}
+.reach-tabs button{display:grid;gap:2px;justify-items:start;padding:10px 14px;border:0;border-radius:12px;background:transparent;color:var(--text);text-align:left;cursor:pointer;font-family:inherit;transition:background .2s,box-shadow .2s}
+.reach-tabs button b{color:var(--ink);font-size:.95rem;font-weight:700}
+.reach-tabs button span{color:var(--muted);font-size:.8rem}
+.reach-tabs button[aria-selected="true"]{background:#fff;box-shadow:0 1px 2px rgba(16,34,79,.06),0 6px 16px -10px rgba(16,34,79,.35)}
+.reach-tabs button[aria-selected="true"] b{color:var(--deep)}
+.reach-cap{position:absolute;z-index:3;left:20px;right:20px;bottom:20px;margin:0;padding:12px 16px;border-radius:14px;background:rgba(255,255,255,.86);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);color:var(--text);font-size:.88rem;line-height:1.55;box-shadow:0 10px 30px -18px rgba(16,34,79,.45)}
+.reach-cap span{display:none}
+.reach[data-mode="hw"] .reach-cap .hw,.reach[data-mode="sw"] .reach-cap .sw{display:inline}
+.reach.play .reach-view .arc{animation:reach-draw .9s cubic-bezier(.3,.7,.3,1) both;animation-delay:calc(var(--i) * 110ms)}
+.reach.play .reach-view .pin:not(.hq){animation:reach-pop .45s cubic-bezier(.3,1.4,.5,1) both;animation-delay:calc(var(--i) * 110ms + 450ms)}
+.reach:not(.in-view) .pin.hq i::after{animation-play-state:paused}
+@keyframes reach-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes reach-pop{from{opacity:0;transform:scale(.4)}to{opacity:1;transform:none}}
+@keyframes reach-pulse{0%{opacity:.9;transform:scale(.6)}100%{opacity:0;transform:scale(2.4)}}
+
+/* 3. Carousel proyek */
+.hm-carousel{position:relative}
+.hm-track{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(260px,calc((100% - 54px) / 4));gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 18px;scrollbar-width:none}
+.hm-track::-webkit-scrollbar{display:none}
+.hm-shot{scroll-snap-align:start}
+.hm-shot .pf-shot-img{aspect-ratio:16/10}
+.hm-cbtn{position:absolute;top:34%;z-index:2;display:grid;place-items:center;width:44px;height:44px;border:1px solid var(--line2);border-radius:50%;background:#fff;color:var(--deep);cursor:pointer;box-shadow:var(--shadow)}
+.hm-cbtn:hover{border-color:var(--accent)}
+.hm-cbtn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.hm-prev{left:-22px}.hm-next{right:-22px}
+
+/* 4. Perangkat dari mitra resmi */
+.hm-partners{margin-bottom:32px}
+.hm-partners img{width:auto;height:38px;max-width:120px;object-fit:contain;filter:grayscale(1);opacity:.72;transition:filter .2s,opacity .2s}
+.hm-kc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.hm-kc{display:flex;align-items:center;gap:14px;padding:12px;border:1px solid var(--line);border-radius:16px;background:#fff;color:inherit;text-decoration:none;transition:border-color .15s,box-shadow .15s}
+.hm-kc:hover{border-color:#CFC3F7;box-shadow:var(--shadow)}
+.hm-kc-pic{flex:none;display:grid;place-items:center;width:54px;height:54px;border-radius:12px;background:var(--tint);overflow:hidden}
+.hm-kc-pic img{width:46px;height:46px;object-fit:contain}
+.hm-kc-txt b{display:block;color:var(--ink);font-size:.95rem;font-weight:700;line-height:1.25}
+.hm-kc-txt small{display:block;margin-top:2px;color:var(--muted);font-size:.8rem;line-height:1.4}
+.hm-fine{margin:18px auto 0;max-width:70ch;color:var(--muted);font-size:.8rem;line-height:1.55;text-align:center}
+
+@media(max-width:1080px){.hm-track{grid-auto-columns:minmax(240px,calc((100% - 36px) / 3))}}
+@media(max-width:980px){.hm-reach-grid{grid-template-columns:minmax(0,1fr)}.reach{min-height:420px}}
+@media(max-width:860px){.hm-stats{grid-template-columns:minmax(0,1fr)}.hm-kc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.hm-cbtn{display:none}.hm-track{grid-auto-columns:78%}}
+@media(max-width:640px){.reach{min-height:380px}.reach-tabs{top:12px;left:12px;width:calc(100% - 24px)}.reach-cap{left:12px;right:12px;bottom:12px;font-size:.82rem}
+  .pin:not(.hq) .lbl{opacity:0;pointer-events:none;transition:opacity .2s}.pin:not(.hq){width:28px;height:28px;margin:-14px 0 0 -14px;cursor:pointer}
+  .pin:not(.hq) i{left:9px;top:9px}.pin:not(.hq) .lbl.r{left:25px}.pin:not(.hq) .lbl.l{right:25px}.pin:not(.hq):focus .lbl,.pin:not(.hq):hover .lbl{opacity:1}
+  .hm-logos{gap:16px 26px}.hm-logos img{height:36px;max-width:100px}.hm-partners{gap:14px 24px}.hm-partners img{height:30px}}
+@media(max-width:560px){.hm-kc-grid{grid-template-columns:minmax(0,1fr)}.hm-btn{white-space:normal;text-align:center}}
+@media(prefers-reduced-motion:reduce){.reach.play .reach-view .arc,.reach.play .reach-view .pin,.pin.hq i::after{animation:none}.reach-view{transition:none}}
+/* Desktop: peta penuh di setengah kanan section sampai tepi layar, seperti beranda situs saudara */
+@media(min-width:981px){
+  .hm-reach{padding:clamp(48px,6vh,80px) 0}
+  .hm-reach-grid{min-height:560px}
+  .hm-reach .reach{position:absolute;top:0;right:0;bottom:0;width:50%;min-height:0;border:0;border-radius:0;box-shadow:none;background:linear-gradient(180deg,#F7F4FF,#ECE6FB)}
+  .hm-reach .reach::before{content:"";position:absolute;z-index:2;top:0;bottom:0;left:0;width:72px;background:linear-gradient(90deg,var(--alt),rgba(245,242,253,0));pointer-events:none}
+  .hm-reach .reach-tabs{top:32px;left:48px}
+  .hm-reach .reach-cap{left:48px;right:32px;bottom:32px;max-width:520px}
+}
+/* HP/tablet: keterangan di bawah peta (tidak menutupi pin) */
+@media(max-width:980px){
+  .reach{display:flex;flex-direction:column;min-height:0}
+  .reach-map{position:relative;inset:auto;height:400px}
+  .reach-cap{position:static;margin:0 12px 12px;box-shadow:none;background:#fff}
+}
+@media(max-width:640px){.reach-map{height:340px}}

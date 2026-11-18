@@ -4,7 +4,7 @@ import html, pathlib, sys
 from urllib.parse import quote
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from build_area import shell, update_sitemap, SITE, WA
-from build_trust import CLIENTS, logo_tile
+from build_trust import SECTOR_CLIENTS as CLIENTS, logo_tile
 
 root = pathlib.Path(__file__).resolve().parent.parent
 e = lambda t: html.escape(str(t), quote=True)

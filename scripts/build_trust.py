@@ -3,15 +3,16 @@ Jalankan dari root repo:  python3 scripts/build_trust.py && python3 scripts/appl
 Blok disisipkan di antara penanda <!-- nama:start --> ... <!-- nama:end -->."""
 import html, pathlib, re, sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from site_data import FACTS
+from site_data import FACTS, OFFICE_SAMARINDA_GEO
+from portofolio_data import CLIENTS
 
 root = pathlib.Path(__file__).resolve().parent.parent
 e = lambda t: html.escape(str(t), quote=True)
 
-# klien: dikosongkan (portofolio & logo klien dihapus saat pisah dari Sentra); isi ulang hanya dengan klien Altora yang sudah setuju dicantumkan
-CLIENTS = []
-
-STATS = [('3', 'kantor di Kaltim'), ('20+', 'aplikasi yang kami kembangkan'), ('14', 'layanan software, perangkat, dan IT')]
+# Angka dan klien sama dengan situs saudara (dikonfirmasi pemilik kedua perusahaan, 2026-11-18). Ikon: (riwayat, piala, tim).
+STATS = [('6+', 'tahun beroperasi', 'clock'), ('50+', 'proyek terdeliver', 'trophy'), ('13', 'ahli in-house', 'team')]
+HOME_CSS = '<link href="/assets/css/home-sections.css?v=20261118p" rel="stylesheet"/>'
+HOME_JS = '<script defer src="/assets/js/home-sections.js?v=20261118p"></script>'
 
 INDUSTRIES = [
     ('pertambangan', 'Tambang & industri berat', 'Aplikasi pelaporan, approval, dan dashboard'),
@@ -32,10 +33,16 @@ ICO = {
     'code': '<path d="m9 8-4 4 4 4M15 8l4 4-4 4M13 6l-2 12"/>',
     'ai': '<rect height="12" rx="2" width="12" x="6" y="6"/><path d="M9.5 9.5h5v5h-5zM9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/>',
     'arrow': '<path d="M5 12h14M13 6l6 6-6 6"/>',
+    'clock': '<path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/><path d="M12 7v5l3 2"/>',
+    'team': '<circle cx="9" cy="8" r="3.2"/><path d="M3 19c.6-3.2 3-5 6-5s5.4 1.8 6 5"/><circle cx="17" cy="9" r="2.4"/><path d="M16.5 14.2c2.3.2 3.9 1.7 4.5 4.3"/>',
 }
 
 def ico(n):
     return f'<svg aria-hidden="true" viewBox="0 0 24 24">{ICO[n]}</svg>'
+
+
+# Logo per sektor untuk halaman /industri/* (build_industri.py): (nama, berkas logo, sektor). Belum diisi.
+SECTOR_CLIENTS = []
 
 
 def logo_tile(name, logo, sector):
@@ -44,22 +51,59 @@ def logo_tile(name, logo, sector):
     return f'<li class="tl-tile" title="{e(name)}">{inner}</li>'
 
 
-def logos_block(heading='Dipercaya oleh'):
-    if not CLIENTS:
-        return ''
-    tiles = ''.join(logo_tile(*c) for c in CLIENTS)
-    return (f'<section aria-label="Klien kami" class="sec tl-sec"><div class="wrap">'
-            f'<div class="tl-head"><p class="eyebrow eyebrow-purple">Klien kami</p><h2>{e(heading)}</h2>'
-            '<p>Sebagian klien mempercayakan lebih dari satu proyek. Dengan persetujuan klien, kami bisa memfasilitasi kontak referensi atau kunjungan lokasi.</p></div>'
-            f'<ul class="tl-grid">{tiles}</ul></div></section>')
-
-
 def stats_block():
-    stats = ''.join(f'<div><b>{e(v)}</b><span>{e(k)}</span></div>' for v, k in STATS)
+    """Strip kepercayaan seperti situs saudara: judul kecil, logo klien abu-abu, tiga kartu angka; legalitas di bawahnya."""
+    logos = ''.join(f'<img alt="{e(n)}" height="46" loading="lazy" src="/assets/img/clients/{f}" width="80"/>' for n, f in CLIENTS)
+    stats = ''.join(f'<div class="hm-stat"><span class="hm-stat-ico">{ico(i)}</span><div><b>{e(v)}</b><span>{e(k)}</span></div></div>' for v, k, i in STATS)
     creds = ['Badan usaha resmi, berstatus PKP', 'Terdaftar sebagai penyedia di Inaproc / LKPP']
-    return ('<section aria-label="Angka dan legalitas" class="sec ts-sec"><div class="wrap">'
-            f'<div class="ts-stats">{stats}</div>'
-            '<ul class="ts-creds">' + ''.join(f'<li>{e(c)}</li>' for c in creds) + '</ul></div></section>')
+    return ('<section aria-label="Klien dan angka" class="hm hm-trust"><div class="hm-wrap">'
+            '<h2>Dipercaya pemerintahan, kampus, industri, F&amp;B, dan klien internasional</h2>'
+            f'<div class="hm-logos">{logos}</div><div class="hm-stats">{stats}</div>'
+            '<ul class="hm-creds">' + ''.join(f'<li>{e(c)}</li>' for c in creds) + '</ul></div></section>')
+
+
+# Peta jangkauan: koordinat pin dalam persen terhadap peta 1000x620 (sama dengan peta titik situs saudara).
+# Proyeksi peta Kalimantan (dicocokkan dari pin Bontang, Samarinda, Balikpapan): x% = 64.93 + 7.57*(lon-116.85),
+# y% = 61.31 - 12.12*(lat-0.13). Pin kantor pusat dihitung dari OFFICE_SAMARINDA_GEO (Palaran, tenggara kota Samarinda).
+HQ_PIN = (round(64.93 + 7.57 * (OFFICE_SAMARINDA_GEO[1] - 116.85), 2), round(61.31 - 12.12 * (OFFICE_SAMARINDA_GEO[0] - 0.13), 2))
+HW_PINS = [('Bontang', 69.85, 61.31, 'r', 1, 'M676.6 433.6Q675.4 397.6 698.5 380.1'),
+           ('Balikpapan · 2 cabang', 64.93, 77.92, 'r', 2, 'M676.6 433.6Q648.6 449.6 649.3 483.1'),
+           ('Penajam · IKN', 63.97, 74.35, 'l', 0, 'M676.6 433.6Q648.7 436.5 639.7 461.0')]
+SW_PINS = [('Kuala Lumpur', 45.11, 53.53, 'l', 0, 'M500.5 343.5Q478.4 326.8 451.1 331.9'), ('Shanghai', 51.43, 39.06, 'l', 1, 'M500.5 343.5Q485.1 289.8 514.3 242.2'),
+           ('Seoul', 53.19, 35.79, 't', 2, 'M500.5 343.5Q489.4 275.8 531.9 221.9'), ('Tokyo', 57.25, 36.76, 'r', 3, 'M500.5 343.5Q511.1 269.9 572.5 227.9'),
+           ('Sydney', 60.93, 72.60, 'r', 4, 'M500.5 343.5Q578.4 372.9 609.3 450.1'), ('Dubai', 30.28, 42.16, 'l', 5, 'M500.5 343.5Q419.7 259.0 302.8 261.4'),
+           ('London', 12.58, 28.61, 'r', 7, 'M500.5 343.5Q349.7 178.0 125.8 177.4'), ('San Francisco', 88.52, 35.69, 'l', 6, 'M500.5 343.5Q666.0 197.8 885.2 221.3')]
+
+
+def _view(cls, img, label, hq, hq_lbl, pins):
+    start = f'M{hq[0] * 10:.1f} {hq[1] * 6.2:.1f}'   # garis selalu berangkat dari pin kantor pusat
+    pins = [(n, x, y, side, i, start + d[d.index('Q'):]) for n, x, y, side, i, d in pins]
+    arcs = ''.join(f'<path class="arc arc-c" d="{d}" pathLength="1" style="--i:{i}"/><path class="arc" d="{d}" pathLength="1" style="--i:{i}"/>' for _, _, _, _, i, d in pins)
+    pp = ''.join(f'<button class="pin" style="--x:{x}%;--y:{y}%;--i:{i}" type="button"><i></i><span class="lbl {side}">{e(n)}</span></button>' for n, x, y, side, i, _ in pins)
+    return (f'<figure aria-label="{e(label)}" class="reach-view {cls}" role="img"><img alt="" decoding="async" height="620" loading="lazy" src="/assets/img/reach/{img}" width="1000"/>'
+            f'<svg aria-hidden="true" viewBox="0 0 1000 620">{arcs}</svg><span class="pin hq" style="--x:{hq[0]}%;--y:{hq[1]}%"><i></i><span class="lbl {hq_lbl}">Samarinda · Kantor pusat</span></span>{pp}</figure>')
+
+
+def reach_block():
+    """'Berbasis di Samarinda, sejak 2019' + peta titik Kalimantan/dunia dengan tab Hardware/Software (perilaku: home-sections.js)."""
+    checks = [('Hardware &amp; software, satu tim', 'Dari kamera dan sensor di lapangan sampai aplikasi dan dashboard, dikerjakan tim in-house yang sama.'),
+              ('AI yang berjalan di server Anda', 'CCTV analytics, computer vision, dan AI lokal bisa berjalan on-premise, jadi data tidak keluar dari kantor Anda.'),
+              ('Pilot dulu, baru skala', 'Mulai dari pilot 2–4 minggu dengan indikator yang jelas sebelum rollout penuh.')]
+    li = ''.join(f'<li><b>{t}</b><span>{d}</span></li>' for t, d in checks)
+    hw = _view('hw', 'borneo.svg', 'Peta Kalimantan: area layanan hardware Altora di Kalimantan Timur', HQ_PIN, 'l', HW_PINS)
+    sw = _view('sw', 'world.svg', 'Peta dunia: software dan AI Altora dikerjakan dari Samarinda untuk klien di mana saja', (50.05, 55.40), 'b', SW_PINS)
+    return ('<section class="hm hm-reach" id="jangkauan"><div class="hm-wrap hm-reach-grid"><div class="hm-reach-copy">'
+            '<h2>Berbasis di Samarinda, <span class="hm-hl">sejak 2019</span></h2>'
+            '<p class="hm-lead">Altora Indonesia berdiri di Samarinda pada 2019. Tim lapangan kami memasang dan merawat perangkat di Kalimantan Timur. '
+            'Software dan AI kami kerjakan dari Samarinda untuk klien di dalam dan luar negeri.</p>'
+            f'<ul class="hm-checks">{li}</ul><a class="hm-btn hm-btn-primary" href="/about">Kenali Altora</a></div>'
+            '<div class="reach" data-mode="hw"><div aria-label="Jangkauan layanan Altora" class="reach-tabs" role="tablist">'
+            '<button aria-selected="true" data-mode="hw" role="tab" type="button"><b>Hardware</b><span>Kalimantan Timur</span></button>'
+            '<button aria-selected="false" data-mode="sw" role="tab" tabindex="-1" type="button"><b>Software</b><span>Seluruh dunia</span></button></div>'
+            f'<div class="reach-map">{hw}{sw}</div>'
+            '<p aria-live="polite" class="reach-cap"><span class="hw">Tim lapangan kami survei, memasang, dan merawat perangkat proyek di seluruh Kalimantan Timur. '
+            'Pasang CCTV rumahan, smart lock, smart home, dan IT support bulanan khusus Samarinda.</span>'
+            '<span class="sw">Software, AI, dan dashboard kami kerjakan dari Samarinda untuk klien di mana pun.</span></p></div></div></section>')
 
 
 def process_block():
@@ -134,8 +178,14 @@ def put(s, name, block, anchor=None, before=True, replace_re=None):
 if __name__ == '__main__':
     p = root / 'index.html'; s = p.read_text(encoding='utf-8')
     s = put(s, 'hero-picks', picks_block(), anchor='</div>\n<div class="hero-stage', before=True)
-    s = put(s, 'trust', logos_block())
+    s = put(s, 'trust', '')
     s = put(s, 'stats', stats_block(), anchor='<!-- trust:end -->', before=False)
+    s = put(s, 'reach', reach_block(), anchor='<!-- stats:end -->', before=False)
+    if 'home-sections.css' not in s:
+        s = s.replace('</head>', HOME_CSS + '</head>', 1)
+    if 'home-sections.js' not in s:
+        s = s.replace('</body>', HOME_JS + '</body>', 1)
+    s = re.sub(r'/assets/(css/home-sections\.css|js/home-sections\.js)\?v=[0-9a-z]+', lambda m: HOME_CSS.split('"')[1] if 'css' in m.group(1) else HOME_JS.split('src="')[1].split('"')[0], s)
     s = put(s, 'proses', process_block(), replace_re=r'<section class="sec how" id="alur">.*?</section>')
     s = re.sub(r'<!-- keamanan:start -->.*?<!-- keamanan:end -->', '', s, flags=re.S)
     s = put(s, 'industri', industry_block(), anchor='<section class="sec faq-sec" id="faq">')

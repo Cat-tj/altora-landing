@@ -41,7 +41,7 @@ CITIES = [
          desc='Software house di Samarinda: jasa pembuatan aplikasi custom, website, dan SEO untuk instansi, kampus, dan bisnis.',
          h1='Software house di Samarinda',
          lead='Altora Indonesia berkantor pusat di Samarinda. Kami membuat aplikasi custom, website, dan SEO untuk instansi, kampus, dan bisnis di Samarinda.',
-         why=[('Kantor pusat di Samarinda', 'Kantor pusat kami di Perum Graha Indah Blok A13, Air Putih, Samarinda Ulu. Tim bisa datang untuk diskusi kebutuhan dan pelatihan di lokasi Anda.'),
+         why=[('Kantor pusat di Samarinda', 'Kantor pusat kami di Jl. Dayak ASB, Bukuan, Kec. Palaran, Samarinda. Tim bisa datang untuk diskusi kebutuhan dan pelatihan di lokasi Anda.'),
               ('Terbiasa dengan administrasi instansi', 'Penawaran, faktur, berita acara serah terima, dan dokumentasi pekerjaan kami siapkan untuk kebutuhan administrasi.'),
               ('Bisa datang ke lokasi', 'Diskusi, demo, dan pelatihan pengguna dapat dilakukan langsung di kantor Anda di Samarinda.')],
          needs=[('Kelurahan, kecamatan, dan dinas', 'Website resmi dan aplikasi pelayanan yang mudah dipakai warga dan mudah dikelola petugas.'),
