@@ -75,7 +75,7 @@ SERVICES = {
         lead='Pemasangan CCTV untuk kantor, gudang, toko, sekolah, dan area proyek di {C}. Mulai dari survei titik kamera, pemasangan, sampai bisa dipantau dari HP, lalu dirawat secara berkala.',
         hero='/assets/img/services/cctv.webp',
         dos=[('Survei titik kamera', 'Kami tentukan posisi kamera supaya area penting terlihat jelas dan tidak ada titik buta.'),
-             ('Kamera IP & NVR', 'Kamera dan perekam dari principal resmi seperti VIGI, dengan garansi resmi.'),
+             ('Kamera IP & NVR', 'Kamera dan perekam dari principal resmi seperti VIGI dan Dahua, dengan garansi resmi.'),
              ('Pantau dari HP', 'Rekaman langsung dan rekaman lama bisa dibuka dari HP atau komputer.'),
              ('Perangkat pendukung', 'NVR, penyimpanan, jaringan PoE, dan UPS yang disesuaikan dengan jumlah kamera.'),
              ('CCTV tenaga surya', 'Untuk lokasi tanpa listrik atau kabel, seperti proyek, kebun, dan tambak.'),

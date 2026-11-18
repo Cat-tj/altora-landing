@@ -160,3 +160,8 @@
   .pgd-mgrid{padding:0 16px 16px}.pgd-models-key{margin:0 16px 14px}
 }
 @media (prefers-reduced-motion:reduce){.pgd-tile{transition:none}.pgd-tile:hover{transform:none}}
+
+/* kartu "Juga tersedia" merek CCTV lain */
+.pgd-also{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin:22px 0 0;padding:20px 22px;border:1px solid var(--pg-line);border-radius:18px;background:#fff;box-shadow:0 14px 34px -24px rgba(43,30,110,.25)}
+.pgd-also b{display:block;color:#10224F;font-size:1rem;line-height:1.35}
+.pgd-also p{margin:6px 0 0;color:var(--pg-mute);font-size:.88rem;line-height:1.55;max-width:46ch}

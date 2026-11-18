@@ -19,7 +19,7 @@ CARDS = [
     ('smart-lock', 'Smart lock', 'Samarinda', 'Kunci pintu dengan aplikasi, PIN, kartu, atau sidik jari, lengkap dengan akses tamu.', '/assets/img/hardware/smartlock.webp'),
     ('smart-home', 'Smart home', 'Samarinda', 'Kunci, lampu, AC, sensor, dan kamera dalam satu aplikasi, dengan otomasi.', '/assets/img/services/smart-home.webp'),
     ('infrastruktur-hardware-kaltim', 'Infrastruktur & hardware', 'Kalimantan Timur', 'Starlink untuk lokasi terpencil, CCTV dengan AI, serta jaringan dan sensor untuk perusahaan di Kaltim.', '/assets/img/services/cctv.webp'),
-    ('pengadaan', 'Pengadaan perangkat', 'Katalog & jasa instalasi', 'CCTV VIGI, kit Starlink, rak server, GPS tracker, display, laptop dan server, lengkap dengan pemasangan.', '/assets/img/pengadaan/vigi-aurora.webp'),
+    ('pengadaan', 'Pengadaan perangkat', 'Katalog & jasa instalasi', 'CCTV VIGI dan Dahua, kit Starlink, rak server, GPS tracker, display, laptop dan server, lengkap dengan pemasangan.', '/assets/img/pengadaan/vigi-aurora.webp'),
     ('it-support', 'IT support bulanan', 'Samarinda', 'Komputer, jaringan, server, backup, dan akun karyawan, dengan kunjungan berkala.', '/assets/img/services/it-support.webp'),
 ]
 HERO = '''<section class="svh-hero"><div class="ct-wrap svh-wrap"><div class="pg-copy">

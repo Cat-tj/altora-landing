@@ -20,10 +20,10 @@ e = lambda t: html.escape(str(t), quote=True)
 wa = lambda msg: WA + quote(msg)
 
 TITLE = 'Pengadaan Perangkat: CCTV, Starlink, Jaringan & Laptop | Altora'
-DESC = ('Pengadaan CCTV VIGI, kit Starlink, rak server, GPS Teltonika, display, dan laptop/PC/server Lenovo, '
+DESC = ('Pengadaan CCTV VIGI dan Dahua, kit Starlink, rak server, GPS Teltonika, display, dan laptop/PC/server Lenovo, '
         'lengkap dengan jasa instalasi di Kalimantan Timur.')
 H1 = 'Pengadaan perangkat, sekaligus pemasangannya'
-LEAD = ('CCTV VIGI, kit Starlink, jaringan dan rak server, GPS tracker, display, sampai laptop dan server. '
+LEAD = ('CCTV VIGI dan Dahua, kit Starlink, jaringan dan rak server, GPS tracker, display, sampai laptop dan server. '
         'Kami sediakan barang resmi bergaransi, pasang di lokasi, dan rawat setelahnya untuk perusahaan dan instansi di Kalimantan Timur.')
 
 ICONS = {
@@ -49,13 +49,13 @@ WA_ICON = ('<svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12.05 2C6.6 2 
 
 # (anchor, judul, ringkasan tile, ikon, merek, pengantar, foto tile, jasa (judul, isi, poin), tautan terkait)
 CATS = [
-    ('cctv', 'CCTV VIGI &amp; keamanan', 'Kamera, NVR, tenaga surya, smart lock', 'camera', 'VIGI by TP-Link · mitra resmi',
-     'Kamera VIGI untuk rumah, toko, kantor, gudang, dan site proyek, lengkap dengan NVR, tenaga surya, dan software pemantauan. '
+    ('cctv', 'CCTV &amp; keamanan', 'Kamera, NVR, tenaga surya, smart lock', 'camera', 'VIGI by TP-Link · Dahua · mitra resmi',
+     'Kamera VIGI dan Dahua untuk rumah, toko, kantor, gudang, dan site proyek, lengkap dengan NVR, tenaga surya, dan software pemantauan. '
      'Kirim denah atau foto lokasi, kami bantu hitung tipe dan jumlah kameranya.', 'vigi-turret-fullcolor.webp',
      ('Jasa pasang CCTV', 'Survei titik, pemasangan kamera dan NVR, sampai rekaman bisa dipantau dari HP.',
       ['Survei titik kamera', 'Kabel, tiang &amp; bracket', 'Setting NVR &amp; aplikasi HP', 'Analitik: APD/K3, perimeter, hitung orang']),
      [('/infrastruktur-hardware-kaltim', 'CCTV AI untuk perusahaan (Kaltim)'), ('/services/cctv', 'Pasang CCTV rumah &amp; toko (Samarinda)'),
-      ('/cctv-tenaga-surya-samarinda', 'CCTV tenaga surya &amp; 4G'), ('/jual-cctv-samarinda', 'Jual CCTV VIGI Samarinda')]),
+      ('/cctv-tenaga-surya-samarinda', 'CCTV tenaga surya &amp; 4G'), ('/jual-cctv-samarinda', 'Jual CCTV Samarinda')]),
     ('starlink', 'Starlink &amp; internet', 'Kit Starlink, instalasi, off-grid', 'sat', 'Kit Starlink · bukan mitra resmi',
      'Kit Starlink untuk rumah, kantor, site tambang, kebun, dan kapal yang tidak terjangkau fiber. '
      'Kami bantu pengadaan kitnya dan memasang sampai Wi-Fi menyala di titik yang dibutuhkan.', 'starlink-v5.webp',
@@ -118,7 +118,7 @@ FAQ = [
     ('Apakah ada daftar harga?', 'Harga bergantung tipe, jumlah, dan lokasi pemasangan, jadi kami tidak memasang daftar harga. Kirim kebutuhan Anda lewat WhatsApp, kami balas dengan penawaran tertulis.'),
     ('Apakah bisa beli perangkat saja tanpa pemasangan?', 'Bisa. Perangkat bisa dibeli saja, atau sekaligus dengan pemasangan, konfigurasi, dan perawatan oleh tim kami.'),
     ('Apakah Altora mitra resmi Starlink?', 'Tidak. Altora bukan mitra resmi Starlink. Kami membantu pengadaan kit, survei lokasi, pemasangan, grounding, dan integrasi ke jaringan Anda. Starlink adalah merek dagang SpaceX.'),
-    ('Merek apa saja yang tersedia?', 'Perangkat dari mitra resmi: CCTV VIGI by TP-Link, GPS tracker Teltonika, laptop, PC, dan server Lenovo, display HDe, rak server HaganeRack, dan alat fiber optik Fasser. Merek lain bisa dibahas sesuai kebutuhan proyek.'),
+    ('Merek apa saja yang tersedia?', 'Perangkat dari mitra resmi: CCTV VIGI by TP-Link dan Dahua, GPS tracker Teltonika, laptop, PC, dan server Lenovo, display HDe, rak server HaganeRack, dan alat fiber optik Fasser. Hikvision dan HiLook juga tersedia, begitu pula merek lain yang bisa dibahas sesuai kebutuhan proyek.'),
     ('Apakah bisa untuk pengadaan instansi?', 'Bisa. Altora berstatus PKP dan terdaftar sebagai penyedia di Inaproc/LKPP, dengan penawaran, faktur, dan berita acara serah terima.'),
     ('Wilayah mana yang dilayani untuk pemasangan?', 'Proyek perusahaan dan instansi di Kalimantan Timur: Balikpapan, Samarinda, IKN, Kutai, dan sekitarnya. Pasang CCTV rumahan, smart lock, smart home, dan IT support bulanan saat ini hanya Samarinda. Di luar Kalimantan Timur, perangkat bisa dikirim; pemasangan di lokasi kami bahas per proyek.'),
 ]
@@ -168,6 +168,9 @@ def section(c):
         body += (f'<h3 class="pgd-sub">{e(sub)}</h3>' if sub else '') + f'<div class="pgd-grid">{cards}</div>'
     if key == 'cctv':
         body += vigi_models()
+        body += ('<div class="pgd-also"><div><b>Juga tersedia: Dahua, Hikvision, dan HiLook</b>'
+                 '<p>Dahua adalah mitra resmi kami; Hikvision dan HiLook tersedia sesuai kebutuhan proyek. Tipe dan ketersediaannya kami konfirmasi lewat chat.</p></div>'
+                 f'<a class="btn btn-purple" href="{wa("Halo Altora, saya ingin minta penawaran CCTV merek Dahua, Hikvision, atau HiLook. Kebutuhan saya: ")}" rel="noopener" target="_blank">Minta penawaran</a></div>')
     note = ''
     if key == 'starlink':
         note = '<p class="pgd-note">Altora bukan mitra resmi Starlink. Kami membantu pengadaan kit dan pemasangannya. Starlink adalah merek dagang SpaceX.</p>'
@@ -224,7 +227,7 @@ def page():
         {'@type': 'FAQPage', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in FAQ]}]}
     og = SITE + IMG + 'vigi-turret-fullcolor.webp'
     return f'''<!DOCTYPE html>
-<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(TITLE)}</title><meta content="{e(DESC)}" name="description"/><link href="{SITE}{URL}" rel="canonical"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="{e(TITLE)}" property="og:title"/><meta content="{e(DESC)}" property="og:description"/><meta content="{SITE}{URL}" property="og:url"/><meta content="{og}" property="og:image"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v=20261016i"/><link rel="stylesheet" href="/assets/css/pengadaan.css?v={CSS_VER}"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head><body class="company-page"><header></header>
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(TITLE)}</title><meta content="{e(DESC)}" name="description"/><link href="{SITE}{URL}" rel="canonical"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="{e(TITLE)}" property="og:title"/><meta content="{e(DESC)}" property="og:description"/><meta content="{SITE}{URL}" property="og:url"/><meta content="{og}" property="og:image"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v=20261016i"/><link rel="stylesheet" href="/assets/css/pengadaan.css?v=b{CSS_VER}"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head><body class="company-page"><header></header>
 <main class="ct-page pgd-page">
 <section class="pgd-hero"><div class="ct-wrap pgd-hero-grid">
 <div class="pgd-hero-copy"><nav aria-label="Breadcrumb" class="bl-crumb"><a href="/">Beranda</a><span>/</span><a href="/services">Layanan</a><span>/</span><span>Pengadaan perangkat</span></nav>
@@ -233,7 +236,7 @@ def page():
 <ul class="pgd-channel" aria-label="Jalur pengadaan">{chan}</ul></div>
 <nav aria-label="Kategori perangkat" class="pgd-shelf">{shelf}</nav>
 </div></section>
-<div class="pgd-intro ct-wrap"><p><b>{total} produk dalam {len(CATS)} kategori</b>, dari mitra resmi VIGI by TP-Link, Teltonika, Lenovo, HDe, HaganeRack, dan Fasser, ditambah kit Starlink. Tanpa daftar harga: setiap produk punya tombol <b>Minta penawaran</b> yang membuka chat WhatsApp dengan nama produknya.</p></div>
+<div class="pgd-intro ct-wrap"><p><b>{total} produk dalam {len(CATS)} kategori</b>, dari mitra resmi VIGI by TP-Link, Dahua, Teltonika, Lenovo, HDe, HaganeRack, dan Fasser, ditambah kit Starlink. Tanpa daftar harga: setiap produk punya tombol <b>Minta penawaran</b> yang membuka chat WhatsApp dengan nama produknya.</p></div>
 {sections}
 <section class="pgd-jasa-sec" id="jasa-instalasi"><div class="ct-wrap">
 <div class="pgd-head"><h2>Jasa instalasi</h2><p>Barang yang kami sediakan juga kami pasang. Tim teknisi datang ke lokasi, dari survei sampai perawatan, dengan alur yang sama untuk setiap proyek.</p></div>

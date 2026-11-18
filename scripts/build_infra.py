@@ -55,9 +55,9 @@ AREAS = [
 
 
 # Perangkat dari mitra resmi (beranda): logo merek + enam kategori dengan foto produk (seperti situs saudara).
-PARTNERS = [('TP-Link', 'tplink.webp'), ('VIGI', 'vigi.webp'), ('Teltonika', 'teltonika.webp'), ('Lenovo', 'lenovo.webp'), ('GIDA', 'gida.webp'),
+PARTNERS = [('TP-Link', 'tplink.webp'), ('VIGI', 'vigi.webp'), ('Dahua', 'dahua.webp'), ('Teltonika', 'teltonika.webp'), ('Lenovo', 'lenovo.webp'), ('GIDA', 'gida.webp'),
             ('Institut Teknologi Kalimantan', 'itk.webp')]
-KATALOG = [('/assets/img/vigi/s385dps.webp', 'CCTV VIGI &amp; keamanan', 'Kamera VIGI, NVR, tenaga surya, jasa pasang', '/pengadaan#cctv'),
+KATALOG = [('/assets/img/vigi/s385dps.webp', 'CCTV &amp; keamanan', 'Kamera VIGI dan Dahua, NVR, tenaga surya, jasa pasang', '/pengadaan#cctv'),
            ('/assets/img/hardware/lenovo-thinkpad-t14.webp', 'Pengadaan perangkat', 'Laptop, PC, tablet, server untuk kantor &amp; instansi', '/pengadaan#komputer'),
            ('/assets/img/hardware/hr-close-glass.webp', 'Jaringan &amp; infrastruktur', 'WiFi, LAN, fiber, rak server, listrik', '/pengadaan#jaringan'),
            ('/assets/img/hardware/telt-fmc920.webp', 'GPS tracker &amp; telematika', 'GPS tracker Teltonika, sensor, dan kamera kendaraan', '/pengadaan#gps'),
@@ -80,7 +80,7 @@ def home_blocks():
                     f'<span class="hm-kc-txt"><b>{t}</b><small>{d}</small></span></a>' for img, t, d, u in KATALOG)
     infra = ('<section class="hm hm-devices" id="infrastruktur"><div class="hm-wrap"><div class="hm-head">'
              '<h2>Perangkat dari <span class="hm-hl">mitra resmi</span></h2>'
-             '<p class="hm-lead">CCTV VIGI, GPS tracker Teltonika, Starlink, Lenovo, rak server, display, dan fiber optik. '
+             '<p class="hm-lead">CCTV VIGI dan Dahua, GPS tracker Teltonika, Starlink, Lenovo, rak server, display, dan fiber optik. '
              'Kami sediakan, pasang, dan rawat untuk proyek di Kalimantan Timur.</p></div>'
              f'<div class="hm-partners">{logos}</div><div class="hm-kc-grid">{tiles}</div>'
              '<div class="hm-foot"><a class="hm-btn hm-btn-ghost" href="/pengadaan">Buka katalog lengkap</a></div>'
@@ -117,7 +117,7 @@ DOS = [
     ('sat', 'Terminal Starlink', 'Terminal Starlink untuk site tambang, kebun sawit, vessel, dan kantor proyek yang tidak terjangkau kabel fiber optik.'),
     ('tool', 'Tiang dan grounding', 'Pemasangan mounting pole dan grounding anti-petir supaya terminal aman di lokasi terbuka.'),
     ('plug', 'Failover dual-WAN', 'Router Mikrotik dengan dua jalur internet, sehingga koneksi pindah otomatis saat salah satu jalur putus.'),
-    ('camera', 'Kamera IP & edge AI', 'Kamera IP Hikvision, HiLook, atau Dahua dengan analitik AI yang berjalan di perangkat, bukan sekadar merekam.'),
+    ('camera', 'Kamera IP & edge AI', 'Kamera IP VIGI dan Dahua (mitra resmi) atau Hikvision dan HiLook, dengan analitik AI yang berjalan di perangkat, bukan sekadar merekam.'),
     ('helmet', 'Deteksi APD/K3', 'Mengenali pekerja tanpa helm, rompi, atau sepatu safety, lalu mengirim peringatan.'),
     ('zone', 'Perimeter & hitung orang', 'Pengawasan pagar dan area terlarang di gudang, serta penghitungan orang di pintu atau area tertentu.'),
     ('monitor', 'Command center multi-cabang', 'Satu layar pantau untuk kamera dari beberapa cabang atau lokasi.'),
@@ -132,7 +132,7 @@ FAQ = [
     ('Apakah pasang CCTV rumahan, smart lock, dan IT support bulanan juga melayani Balikpapan?', 'Belum. Layanan perangkat kecil itu saat ini hanya untuk Samarinda. Halaman ini untuk proyek infrastruktur perusahaan di Kalimantan Timur, seperti site terpencil, CCTV berbasis AI, dan jaringan multi-cabang.'),
     ('Apakah Altora mitra resmi Starlink?', 'Tidak. Altora bukan mitra resmi Starlink. Kami membantu survei lokasi, pemasangan, grounding, dan integrasi ke jaringan Anda. Soal terminal dan langganan, kami bahas saat konsultasi. Starlink adalah merek dagang SpaceX.'),
     ('Apa yang bisa dikenali oleh CCTV AI?', 'Contohnya pelanggaran APD (helm, rompi, sepatu safety), orang yang masuk area perimeter, dan jumlah orang. Jenis deteksi yang cocok kami tentukan saat survei, karena hasilnya dipengaruhi sudut kamera dan pencahayaan.'),
-    ('Merek kamera apa yang dipakai?', 'Kami memasang kamera IP seperti Hikvision, HiLook, dan Dahua, dan bisa menyesuaikan dengan perangkat yang sudah Anda punya.'),
+    ('Merek kamera apa yang dipakai?', 'Kami menyediakan dan memasang kamera VIGI dan Dahua (keduanya mitra resmi), serta Hikvision dan HiLook. Mereknya disesuaikan dengan kebutuhan proyek dan perangkat yang sudah Anda punya.'),
     ('Bagaimana perawatannya?', 'Perawatan berkala bisa disepakati dalam kontrak SLA. Isi dan jadwalnya kami bahas bersama setelah survei.'),
 ]
 
