@@ -1,39 +1,133 @@
-/* Portofolio: kartu proyek, penanda kelompok, dan daftar klien. Token mengikuti DESIGN.md (satu aksen ungu). */
-.pf-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px;margin-top:22px}
-.pf-card{display:flex;flex-direction:column;overflow:hidden;border:1px solid #E9E5F6;border-radius:18px;background:#fff;color:#10224F;text-decoration:none;box-shadow:0 14px 34px -24px rgba(43,30,110,.25);transition:border-color .2s,box-shadow .2s,transform .2s;scroll-margin-top:96px}
-a.pf-card:hover{border-color:#CFC3F7;box-shadow:0 18px 40px -24px rgba(43,30,110,.35);transform:translateY(-2px)}
-.pf-card:target{border-color:#7C5CE8;box-shadow:0 0 0 3px #F3F0FD,0 18px 40px -24px rgba(43,30,110,.35)}
-.pf-media{display:block;aspect-ratio:16/10;overflow:hidden;background:#F3F0FD;border-bottom:1px solid #E9E5F6}
-.pf-media img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center}
-.pf-media-ico{display:flex;align-items:center;justify-content:center;background:linear-gradient(140deg,#F3F0FD,#FFFFFF 60%,#EEE6FF)}
-.pf-ico{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:12px;background:#F3F0FD;color:#5B3FC4}
-.pf-ico svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.pf-ico-lg{width:64px;height:64px;border-radius:20px;background:#fff;box-shadow:0 14px 34px -24px rgba(43,30,110,.35)}
-.pf-ico-lg svg{width:30px;height:30px}
-.pf-body{display:flex;flex-direction:column;flex:1;padding:18px 20px 20px}
-.pf-body small{color:#5A6785;font-size:.78rem;font-weight:700;letter-spacing:.01em}
-.pf-body h3{margin:6px 0 6px;color:#10224F;font-size:1.04rem;font-weight:800;letter-spacing:-.01em;line-height:1.3}
-.pf-body p{margin:0;color:#5A6785;font-size:.88rem;line-height:1.6}
-.pf-tags{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 0;padding:0;list-style:none}
-.pf-tags li{padding:4px 10px;border-radius:999px;background:#F7F5FD;color:#41466A;font-size:.74rem;font-weight:600}
-.pf-link,.pf-more{margin-top:auto;padding-top:14px;color:#5B3FC4;font-size:.86rem;font-weight:700;font-style:normal;text-decoration:none}
-.pf-link:hover,.pf-more:hover{color:#3E2A97}
-.pf-compact{padding:20px;gap:12px}
-.pf-compact .pf-body{padding:0}
-.pf-compact .pf-body p{font-size:.85rem}
-.pf-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
-.pf-nav{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 0;padding:0;list-style:none}
-.pf-nav a{display:inline-flex;gap:8px;align-items:center;padding:8px 14px;border:1px solid #E4DEFA;border-radius:999px;background:#fff;color:#10224F;font-size:.86rem;font-weight:700;text-decoration:none}
-.pf-nav a:hover{border-color:#7C5CE8;color:#5B3FC4}
-.pf-nav span{color:#5A6785;font-weight:600;font-variant-numeric:tabular-nums}
-.pf-group{scroll-margin-top:96px}
-.pf-group-head{max-width:680px}
-.pf-group-head h2{margin:0 0 6px;color:#10224F;font-size:clamp(1.35rem,1.1rem + .9vw,1.8rem);font-weight:800;letter-spacing:-.02em}
-.pf-group-head p{margin:0;color:#5A6785;font-size:.95rem;line-height:1.6}
-.pf-clients{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0;padding:0;list-style:none}
-.pf-clients li{padding:8px 14px;border:1px solid #E9E5F6;border-radius:999px;background:#fff;color:#10224F;font-size:.88rem;font-weight:600}
-.pf-note{margin:16px 0 0;color:#5A6785;font-size:.88rem;line-height:1.6;max-width:62ch}
-.pf-grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-@media(max-width:900px){.pf-grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:560px){.pf-grid,.pf-grid-3{grid-template-columns:1fr}}
-@media(prefers-reduced-motion:reduce){.pf-card{transition:none}a.pf-card:hover{transform:none}}
+/* Portofolio: bentuk halaman dan komponen mengikuti /portfolio Sentra Technology (hero terbelah + bukti pilihan + filter +
+   grid kartu 3 kolom + band CTA gelap), dengan token Altora (DESIGN.md): satu aksen ungu #7C5CE8, tinta #10224F,
+   Plus Jakarta Sans. Kartu .pf-card juga dipakai di beranda (#portofolio) dan /infrastruktur-hardware-kaltim. */
+.pf-card,.pf-page{--pf-ink:#10224F;--pf-text:#41466A;--pf-muted:#5A6785;--pf-line:#E9E5F6;--pf-line2:#E4DEFA;--pf-accent:#7C5CE8;--pf-deep:#5B3FC4;--pf-deeper:#3E2A97;--pf-tint:#F3F0FD;--pf-alt:#F7F5FD;
+  --pf-shadow:0 14px 34px -24px rgba(43,30,110,.25);--pf-shadow2:0 24px 48px -24px rgba(43,30,110,.32)}
+.pf-page{color:var(--pf-text);font-family:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:clip}
+.pf-wrap{width:min(1200px,100% - 40px);margin-inline:auto}
+.pf-page h1,.pf-page h2,.pf-page h3{margin:0;color:var(--pf-ink);font-family:inherit;font-weight:800;letter-spacing:-.025em;line-height:1.12}
+.pf-page p{margin:0}
+.pf-lead{color:var(--pf-text);font-size:1.08rem;line-height:1.7}
+.pf-hl{color:var(--pf-accent)}
+
+/* Tombol */
+.pf-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 26px;border:1px solid transparent;border-radius:999px;font:700 .95rem/1 inherit;font-family:inherit;text-decoration:none;white-space:nowrap;cursor:pointer;transition:background .18s,color .18s,border-color .18s,transform .18s,box-shadow .18s}
+.pf-btn-primary{background:var(--pf-accent);color:#fff;box-shadow:0 10px 22px -12px rgba(124,92,232,.7)}
+.pf-btn-primary:hover{background:#6A4AD6;transform:translateY(-1px)}
+.pf-btn-ghost{background:#fff;color:var(--pf-ink);border-color:var(--pf-line2)}
+.pf-btn-ghost:hover{border-color:var(--pf-accent);color:var(--pf-deep)}
+.pf-btn-white{background:#fff;color:var(--pf-ink)}
+.pf-btn-white:hover{background:var(--pf-tint)}
+.pf-btn-outline{color:#fff;border-color:rgba(255,255,255,.45)}
+.pf-btn-outline:hover{background:rgba(255,255,255,.12)}
+.pf-btn:focus-visible,.pf-card:focus-visible,.pf-shot:focus-visible,.pf-filters button:focus-visible{outline:3px solid var(--pf-accent);outline-offset:3px}
+.pf-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+
+/* Hero */
+.pf-hero{position:relative;overflow:hidden;padding:clamp(40px,5vw,64px) 0 clamp(44px,6vw,72px)}
+.pf-hero::before{content:"";position:absolute;z-index:-1;width:680px;height:420px;right:-10%;top:-20%;border-radius:50%;background:#E4DBFF;filter:blur(90px);opacity:.7}
+.pf-split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,72px);align-items:center}
+.pf-split.top{align-items:start}
+.pf-ph{display:grid;gap:18px;justify-items:start;min-width:0}
+.pf-hero h1{font-size:clamp(2.2rem,1.4rem + 3vw,3.7rem);line-height:1.07;letter-spacing:-.03em}
+.pf-hero .pf-lead{max-width:640px}
+.pf-proof{display:flex;flex-wrap:wrap;gap:10px 22px}
+.pf-proof div{display:grid;gap:2px;padding-left:14px;border-left:2px solid var(--pf-tint)}
+.pf-proof b{color:var(--pf-ink);font-weight:700;font-size:.92rem}
+.pf-proof small{color:var(--pf-muted);font-size:.82rem}
+.pf-media{position:relative}
+.pf-media>img{width:100%;aspect-ratio:16/11;object-fit:cover;object-position:top;border-radius:24px;border:6px solid #fff;box-shadow:var(--pf-shadow2)}
+.pf-media-ph{display:flex;align-items:center;justify-content:center;aspect-ratio:16/11;border-radius:24px;border:6px solid #fff;box-shadow:var(--pf-shadow2);background:linear-gradient(140deg,#F3F0FD,#fff 60%,#EEE6FF)}
+.pf-crumb{display:flex;flex-wrap:wrap;gap:6px;color:var(--pf-muted);font-size:.85rem}
+.pf-crumb a{color:var(--pf-muted);text-decoration:none}
+.pf-crumb a:hover{color:var(--pf-accent)}
+.pf-crumb>*+*::before{content:"/";margin-right:6px;opacity:.5}
+
+/* Section */
+.pf-sec{position:relative;padding:clamp(64px,8vw,112px) 0}
+.pf-sec-alt{background:var(--pf-alt)}
+.pf-sec-tight{padding:clamp(40px,5vw,64px) 0}
+.pf-head{display:grid;gap:14px;margin-bottom:clamp(32px,4vw,52px)}
+.pf-head.center{justify-items:center;text-align:center;max-width:760px;margin-inline:auto}
+.pf-head h2{font-size:clamp(1.9rem,1.3rem + 2.2vw,3rem)}
+.pf-head .pf-lead{max-width:640px}
+.pf-split-copy{display:grid;gap:18px;justify-items:start}
+.pf-split-copy h2{font-size:clamp(1.9rem,1.3rem + 2vw,2.9rem)}
+.pf-sources{font-size:.88rem;color:var(--pf-muted)}
+
+/* Bukti pilihan */
+.pf-shots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.pf-shot{display:block;overflow:hidden;border:1px solid var(--pf-line);border-radius:18px;background:#fff;color:inherit;text-decoration:none;box-shadow:var(--pf-shadow);transition:box-shadow .2s,transform .2s}
+.pf-shot:hover{box-shadow:var(--pf-shadow2);transform:translateY(-2px)}
+.pf-shot img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:top}
+.pf-shot .cap{display:grid;gap:3px;padding:14px 16px 16px}
+.pf-shot small{color:var(--pf-muted);font-size:.78rem;line-height:1.45}
+.pf-shot b{color:var(--pf-ink);font-size:1rem;font-weight:800;line-height:1.25}
+
+/* Filter */
+.pf-filters{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:30px}
+.pf-filters button{padding:9px 16px;border:1px solid var(--pf-line2);border-radius:999px;background:#fff;color:var(--pf-text);font:600 .88rem/1.2 inherit;font-family:inherit;cursor:pointer;transition:all .15s}
+.pf-filters button:hover{border-color:var(--pf-accent);color:var(--pf-deep)}
+.pf-filters button.is-active{background:var(--pf-ink);border-color:var(--pf-ink);color:#fff}
+.pf-filters b{margin-left:4px;font-weight:600;opacity:.6;font-variant-numeric:tabular-nums}
+
+/* Kartu proyek (portofolio, beranda, infrastruktur) */
+.pf-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:22px}
+.pf-page .pf-grid{margin-top:0}
+.pf-card{display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--pf-line);border-radius:18px;background:#fff;color:var(--pf-ink);text-decoration:none;box-shadow:var(--pf-shadow);transition:border-color .2s,box-shadow .2s,transform .2s;scroll-margin-top:96px}
+.pf-card[hidden]{display:none}
+.pf-card:hover{border-color:#CFC3F7;box-shadow:var(--pf-shadow2);transform:translateY(-2px)}
+.pf-card:target{border-color:var(--pf-accent);box-shadow:0 0 0 3px var(--pf-tint),var(--pf-shadow2)}
+.pf-card .pf-thumb{display:block;aspect-ratio:16/10;overflow:hidden;background:var(--pf-tint);border-bottom:1px solid var(--pf-line)}
+.pf-card .pf-thumb img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center}
+.pf-card .pf-thumb-ico{display:flex;align-items:center;justify-content:center;background:linear-gradient(140deg,#F3F0FD,#FFFFFF 60%,#EEE6FF)}
+.pf-ico{display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;border-radius:20px;background:#fff;color:var(--pf-deep);box-shadow:var(--pf-shadow)}
+.pf-ico svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.pf-media-ph .pf-ico{width:92px;height:92px;border-radius:28px}
+.pf-media-ph .pf-ico svg{width:42px;height:42px}
+.pf-card .pf-body{display:grid;gap:8px;align-content:start;padding:18px 20px 20px}
+.pf-card .pf-body small{color:var(--pf-deep);font-size:.78rem;font-weight:700;line-height:1.4}
+.pf-card .pf-body h3{margin:0;color:var(--pf-ink);font-size:1.06rem;font-weight:800;letter-spacing:-.01em;line-height:1.3}
+.pf-card .pf-body p{margin:0;color:var(--pf-muted);font-size:.9rem;line-height:1.6;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
+.pf-tags{display:flex;flex-wrap:wrap;gap:6px}
+.pf-tag{padding:4px 10px;border-radius:999px;background:var(--pf-alt);color:#41466A;font-size:.76rem;font-weight:600}
+
+/* Fakta proyek (halaman detail) */
+.pf-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:0}
+.pf-facts div{padding:14px 16px;border:1px solid var(--pf-line);border-radius:14px;background:#fff}
+.pf-facts dt{color:var(--pf-muted);font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.pf-facts dd{margin:4px 0 0;color:var(--pf-ink);font-size:.94rem;font-weight:700;overflow-wrap:anywhere}
+.pf-facts a{color:var(--pf-deep)}
+.pf-mt{margin-top:14px}
+.pf-mini{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:center;padding:12px;border:1px solid var(--pf-line);border-radius:16px;background:#fff;color:inherit;text-decoration:none;transition:box-shadow .2s,border-color .2s}
+.pf-mini:hover{border-color:#CFC3F7;box-shadow:var(--pf-shadow)}
+.pf-mini .pf-mi{display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:var(--pf-tint);color:var(--pf-deep)}
+.pf-mini .pf-mi svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.pf-mini b{display:block;color:var(--pf-ink);font-size:.96rem;line-height:1.25}
+.pf-mini small{color:var(--pf-muted);font-size:.8rem}
+
+/* Daftar klien */
+.pf-clients{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:0;padding:0;list-style:none}
+.pf-clients li{padding:8px 14px;border:1px solid var(--pf-line);border-radius:999px;background:#fff;color:var(--pf-ink);font-size:.88rem;font-weight:600}
+.pf-note{margin:18px auto 0;max-width:62ch;color:var(--pf-muted);font-size:.88rem;line-height:1.6;text-align:center}
+
+/* Band CTA gelap (menyambung ke footer) */
+.pf-cta{position:relative;overflow:hidden;isolation:isolate;color:#fff;padding:clamp(80px,10vw,136px) 0 clamp(72px,9vw,120px);
+  background:radial-gradient(50% 70% at 12% 0%,rgba(169,139,255,.5) 0%,transparent 70%),radial-gradient(45% 60% at 92% 30%,rgba(124,92,232,.45) 0%,transparent 70%),linear-gradient(180deg,#7C5CE8 0%,#5B3FC4 48%,#3E2A97 100%)}
+.pf-cta .pf-wrap{position:relative;z-index:1}
+.pf-swell{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.pf-swell::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(62,42,151,0) 70%,rgba(62,42,151,.55) 100%);pointer-events:none}
+.pf-band{display:grid;justify-items:center;gap:18px;max-width:820px;margin-inline:auto;text-align:center}
+.pf-band h2{max-width:760px;color:#fff;font-size:clamp(1.8rem,1.2rem + 2vw,2.8rem)}
+.pf-band p{max-width:600px;color:rgba(255,255,255,.85)}
+.pf-band .pf-actions{justify-content:center;margin-top:6px}
+.pf-trust{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;margin:0;padding:0;list-style:none;color:rgba(255,255,255,.85);font-size:.88rem}
+.pf-trust li::before{content:"\2713  ";font-weight:700}
+
+/* Reveal saat scroll (hanya aktif bila JS jalan) */
+.pf-js .pf-rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+.pf-js .pf-rv.in{opacity:1;transform:none}
+
+@media(max-width:860px){.pf-split{grid-template-columns:1fr}.pf-grid,.pf-shots{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.pf-grid,.pf-shots{grid-template-columns:1fr}.pf-btn{white-space:normal;text-align:center}.pf-actions .pf-btn{flex:1 1 100%}}
+@media(prefers-reduced-motion:reduce){.pf-card,.pf-shot,.pf-btn{transition:none}.pf-card:hover,.pf-shot:hover{transform:none}.pf-js .pf-rv{opacity:1;transform:none;transition:none}}

@@ -65,11 +65,11 @@ def home_blocks():
              'Pasang CCTV rumahan, smart lock, smart home, dan IT support bulanan tetap di Samarinda.</p></div>'
              f'<div class="lc-svcs">{cards}</div>'
              f'<p style="margin:22px 0 0"><a class="btn btn-white" href="{URL}">Lihat infrastruktur &amp; hardware <svg class="ico ico-sm"><use href="#i-arrow"></use></svg></a></p></div></section>')
-    cards6 = ''.join(pf_card(BY[k], 'link') for k in HOME_SLUGS)
+    cards6 = ''.join(pf_card(BY[k]) for k in HOME_SLUGS)
     porto = ('<section class="sec ti-sec" id="portofolio"><div class="wrap"><div class="tl-head"><p class="eyebrow eyebrow-purple">Portofolio</p>'
              '<h2>Proyek yang pernah kami kerjakan</h2>'
              '<p>Sebagian proyek perangkat, jaringan, AI, dan software untuk pemerintahan, kampus, industri, dan usaha di Kaltim.</p></div>'
-             f'<div class="pf-grid pf-grid-3">{cards6}</div>'
+             f'<div class="pf-grid">{cards6}</div>'
              '<p style="margin:22px 0 0"><a class="btn btn-white" href="/portofolio">Lihat semua portofolio <svg class="ico ico-sm"><use href="#i-arrow"></use></svg></a></p></div></section>')
     return f'<!-- infra:start -->{infra}{porto}<!-- infra:end -->'
 
@@ -125,7 +125,7 @@ def page():
     pains = ''.join(f'<li><b>{e(t)}</b><span>{e(d)}</span></li>' for t, d in PAINS)
     dos = ''.join(f'<article class="svd-do"><span class="svd-ico">{icon(i)}</span><h3>{e(t)}</h3><p>{e(d)}</p></article>' for i, t, d in DOS)
     steps = ''.join(f'<li><b>{e(s)}</b></li>' for s in STEPS)
-    works = ''.join(pf_card(BY[k], 'compact') for k in INFRA_SLUGS)
+    works = ''.join(pf_card(BY[k]) for k in INFRA_SLUGS)
     faq = ''.join(f'<details><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q, a in FAQ)
     offices = ''.join(f'<p><b>{e(o["label"])}</b>, {e(o["street"])}, {e(o["city"])}</p>' for o in OFFICES)
     related = ''.join(f'<a href="{u}">{e(t)}</a>' for u, t in [
