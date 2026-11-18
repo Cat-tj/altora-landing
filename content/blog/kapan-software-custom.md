@@ -6,6 +6,7 @@ category: Panduan memilih vendor
 image: /assets/img/blog/cover/kapan-software-custom.webp
 related: /services/software-custom | Software custom Altora
 related: /services/software-custom | Layanan software custom
+related: /blog/checklist-keamanan-aplikasi-bisnis | Checklist keamanan aplikasi bisnis sebelum go-live
 related: /contact | Diskusikan kebutuhan
 ---
 Saat pekerjaan operasional mulai terasa lambat, banyak bisnis langsung bertanya: apakah harus membuat aplikasi sendiri? Jawabannya tidak selalu. Aplikasi siap pakai dapat menjadi pilihan tepat bila alur kerja Anda umum, dapat mengikuti cara kerja produk tersebut, dan kebutuhan utama bisa dipenuhi tanpa banyak penyesuaian.

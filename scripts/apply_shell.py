@@ -5,17 +5,19 @@ import pathlib, re
 root = pathlib.Path(__file__).resolve().parent.parent
 header_tpl = (root / 'partials/header.html').read_text(encoding='utf-8').strip()
 footer = (root / 'partials/footer.html').read_text(encoding='utf-8').strip()
-skip = ('id/', 'leads/', 'outreach/', 'design/', 'partials/', 'ops/')
+skip = ('id/', 'leads/', 'outreach/', 'design/', 'partials/', 'ops/', 'dist/', 'node_modules/')
+# versi site-shell.css (gaya menu atas & footer) disamakan di semua halaman; naikkan saat site-shell.css berubah
+SHELL_CSS = '/assets/css/site-shell.css?v=20261118-nav9'
 
 def section_of(rel):
     route = '/' + rel[:-5]  # buang .html
     if route == '/blog':
         return '/blog'
-    if route == '/index':
+    if route in ('/index', '/beranda'):
         return '/'
     if route == '/aplikasi' or route.startswith('/aplikasi/'):
         return '/aplikasi'
-    for sec in ('/services', '/industri', '/portofolio', '/blog', '/about', '/support', '/careers'):
+    for sec in ('/services', '/pengadaan', '/industri', '/portofolio', '/blog', '/about', '/support', '/careers'):
         if route == sec or route.startswith(sec + '/'):
             return sec
     return None
@@ -36,6 +38,7 @@ for f in sorted(root.rglob('*.html')):
     new, n = re.subn(r'<header\b.*?</header>', lambda _: header_for(rel), s, count=1, flags=re.S)
     if n == 0:
         new = re.sub(r'(<body[^>]*>)', lambda m: m.group(1) + header_for(rel), new, count=1)
+    new = re.sub(r'/assets/css/site-shell\.css\?v=[^"]*', SHELL_CSS, new)
     new, n = re.subn(r'<footer\b.*?</footer>', lambda _: footer, new, count=1, flags=re.S)
     if n == 0:
         new = new.replace('</main>', '</main>' + footer, 1)

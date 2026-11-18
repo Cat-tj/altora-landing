@@ -197,8 +197,8 @@ def detail(k, a):
     mods = ''.join(f'<article class="svd-do"><h3>{e(t)}</h3><p>{e(d)}</p></article>' for t, d in a['modules'])
     faq = ''.join(f'<details><summary>{e(q)}</summary><p>{e(x)}</p></details>' for q, x in a['faq'])
     ld = {'@context': 'https://schema.org', '@graph': [org(),
-        {'@type': 'SoftwareApplication', 'name': a['name'], 'description': a['short'], 'url': SITE + url, 'applicationCategory': 'BusinessApplication',
-         'operatingSystem': a.get('os') or ('Web' + (', macOS' if k == 'control-center' else '')), 'image': SITE + IMG + a['shots'][0][0] + '.webp',
+        {'@type': 'CreativeWork', 'additionalType': 'https://schema.org/SoftwareApplication', 'name': a['name'], 'description': a['short'], 'url': SITE + url,
+         'image': SITE + IMG + a['shots'][0][0] + '.webp',
          'publisher': {'@id': ORG_ID}},
         {'@type': 'BreadcrumbList', 'itemListElement': [{'@type': 'ListItem', 'position': 1, 'name': 'Beranda', 'item': SITE + '/'},
             {'@type': 'ListItem', 'position': 2, 'name': 'Aplikasi', 'item': SITE + '/aplikasi'}, {'@type': 'ListItem', 'position': 3, 'name': a['name'], 'item': SITE + url}]},
@@ -223,7 +223,7 @@ def hub():
 <div class="ap2-card-body"><p class="eyebrow eyebrow-purple">{e(a["tag"])}</p><h2><a href="/aplikasi/{k}">{e(a["name"])}</a></h2><p>{e(a["short"])}</p>
 <div class="svd-actions"><a class="btn btn-purple" href="/aplikasi/{k}">Lihat detail</a><a class="svd-link" href="{a.get("demo_url") or demo_link(a["name"])}" rel="noopener" target="_blank">{"Coba demo" if a.get("demo_url") else "Minta demo"}</a></div></div></article>''' for k, a in APPS.items())
     ld = {'@context': 'https://schema.org', '@type': 'CollectionPage', 'name': 'Aplikasi buatan Altora', 'url': SITE + '/aplikasi',
-          'hasPart': [{'@type': 'SoftwareApplication', 'name': a['name'], 'url': SITE + f'/aplikasi/{k}'} for k, a in APPS.items()]}
+          'hasPart': [{'@type': 'CreativeWork', 'additionalType': 'https://schema.org/SoftwareApplication', 'name': a['name'], 'url': SITE + f'/aplikasi/{k}'} for k, a in APPS.items()]}
     body = f'''<main class="ct-page svd-page ap2-page">
 <section class="svd-hero"><div class="ct-wrap ap2-hero ap2-hero-hub"><div class="ap2-hero-copy"><p class="eyebrow eyebrow-purple">Aplikasi buatan Altora</p>
 <h1>Aplikasi yang kami kembangkan dan pakai sendiri.</h1>

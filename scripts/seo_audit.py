@@ -74,9 +74,61 @@ def robots_blocked(robots: str) -> list[str]:
     return blocked
 
 
+SKIP_DIRS = ("dist/", "leads/", "outreach/", "ops/", "design/", "partials/", "content/", "scripts/", "node_modules/", ".git/")
+
+
+def site_checks() -> list[str]:
+    """Pemeriksaan seluruh situs: JSON-LD valid, satu entitas Organization yang konsisten, sitemap hanya berisi URL final yang boleh diindeks."""
+    import json
+    sys.path.insert(0, str(ROOT / "scripts"))
+    from site_data import org, ORG_ID
+    base = org()
+    errs: list[str] = []
+    pages = [p for p in ROOT.rglob("*.html") if not p.relative_to(ROOT).as_posix().startswith(SKIP_DIRS)]
+    noindex = set()
+    for p in pages:
+        rel = p.relative_to(ROOT).as_posix()
+        s = p.read_text(encoding="utf-8")
+        if "noindex" in content(tag(s, "meta", "name", "robots")):
+            noindex.add("/" + rel[:-5].removesuffix("index").rstrip("/"))
+        for raw in re.findall(r'<script type="application/ld\+json"[^>]*>(.*?)</script>', s, re.S):
+            try:
+                data = json.loads(raw)
+            except ValueError as err:
+                errs.append(f"json-ld rusak: {rel}: {err}"); continue
+            stack = [data]
+            while stack:
+                o = stack.pop()
+                if isinstance(o, list):
+                    stack.extend(o); continue
+                if not isinstance(o, dict):
+                    continue
+                t = o.get("@type"); ts = t if isinstance(t, list) else [t]
+                if "Product" in ts or "SoftwareApplication" in ts or "aggregateRating" in o:
+                    errs.append(f"schema Product/SoftwareApplication/rating: {rel}")
+                if "Organization" in ts and "Altora" in str(o.get("name", "")) and o.get("@id") != ORG_ID:
+                    errs.append(f"Organization Altora tanpa @id: {rel}")
+                if o.get("@id") == ORG_ID and len(o) > 1:
+                    bad = [k for k, v in base.items() if k in o and o[k] != v]
+                    if bad: errs.append(f"Organization bertentangan ({', '.join(bad)}): {rel}")
+                stack.extend(o.values())
+    redirects = []
+    for line in (ROOT / "_redirects").read_text(encoding="utf-8").splitlines():
+        parts = line.split("#", 1)[0].split()
+        if len(parts) >= 3 and parts[2].startswith("30"):
+            redirects.append(re.compile("^" + re.escape(parts[0]).replace(r"\*", ".*") + "$"))
+    for loc in re.findall(r"<loc>https://altora\.id([^<]*)</loc>", (ROOT / "sitemap.xml").read_text(encoding="utf-8")):
+        path = loc.rstrip("/") or "/"
+        if path in noindex: errs.append(f"noindex di sitemap: {loc}")
+        if path != "/" and any(r.match(path) for r in redirects): errs.append(f"URL dialihkan di sitemap: {loc}")
+    return errs
+
+
 def main() -> int:
     local = (ROOT / "index.html").read_text(encoding="utf-8")
     failures = [name for name, check in required.items() if not check(local)]
+    site_errs = site_checks()
+    failures += site_errs[:20] + ([f"... {len(site_errs) - 20} lainnya"] if len(site_errs) > 20 else [])
     warnings: list[str] = []
     sitemap = ROOT / "sitemap.xml"
     robots = ROOT / "robots.txt"
@@ -110,7 +162,8 @@ def main() -> int:
         print("FAIL:")
         print("\n".join(f"- {x}" for x in failures))
         return 1
-    print("PASS: title, description, canonical, robots, schema, social tags, sitemap, robots.txt, referenced images, and live endpoints.")
+    print("PASS: title, description, canonical, robots, schema, social tags, sitemap, robots.txt, referenced images, live endpoints, "
+          "JSON-LD parse + single Organization entity on all pages, sitemap without noindex/redirected URLs, no Product markup.")
     return 0
 
 

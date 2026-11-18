@@ -1,0 +1,37 @@
+<svg width="800" height="400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <title>Perbandingan Inspeksi Manual vs AI CCTV</title>
+  <desc>Perbandingan efektivitas pengawasan K3 secara manual vs otomatis menggunakan AI CCTV.</desc>
+  <style>
+    .bg { fill: #F8F9FA; }
+    .card { fill: #FFFFFF; stroke: #E2E8F0; stroke-width: 2; rx: 8; }
+    .text-title { font-family: system-ui, -apple-system, sans-serif; font-size: 18px; font-weight: bold; fill: #172B4D; }
+    .text-header { font-family: system-ui, -apple-system, sans-serif; font-size: 15px; font-weight: bold; fill: #172B4D; }
+    .text-body { font-family: system-ui, -apple-system, sans-serif; font-size: 13px; fill: #4A5568; }
+    .highlight { fill: #7C5CE8; font-weight: bold; }
+  </style>
+  <rect width="800" height="400" class="bg"/>
+  
+  <text x="40" y="45" class="text-title">Perbandingan Metode Pengawasan K3</text>
+
+  <!-- Card 1: Manual -->
+  <rect x="40" y="80" width="340" height="280" class="card"/>
+  <rect x="40" y="80" width="340" height="50" fill="#FFF5F5" rx="8"/>
+  <text x="60" y="112" class="text-header" fill="#C53030">Inspeksi Manual (Patroli)</text>
+
+  <text x="60" y="160" class="text-body">• Cakupan terbatas pada waktu patroli</text>
+  <text x="60" y="195" class="text-body">• Rentan terhadap faktor kelelahan</text>
+  <text x="60" y="230" class="text-body">• Subjektivitas pencatatan tinggi</text>
+  <text x="60" y="265" class="text-body">• Keterlambatan pencegahan insiden</text>
+  <text x="60" y="320" class="text-body" font-weight="bold" fill="#718096">Bergantung pada jumlah petugas</text>
+
+  <!-- Card 2: AI CCTV -->
+  <rect x="420" y="80" width="340" height="280" class="card"/>
+  <rect x="420" y="80" width="340" height="50" fill="#E6FFFA" rx="8"/>
+  <text x="440" y="112" class="text-header" fill="#234E52">AI CCTV Otomatis (Altora)</text>
+
+  <text x="440" y="160" class="text-body">• Pemantauan terus-menerus selama sistem aktif</text>
+  <text x="440" y="195" class="text-body">• Deteksi mengikuti aturan yang ditetapkan</text>
+  <text x="440" y="230" class="text-body">• Notifikasi saat dugaan pelanggaran</text>
+  <text x="440" y="265" class="text-body">• Arsip data &amp; laporan tersimpan</text>
+  <text x="440" y="320" class="text-body" font-weight="bold" fill="#319795">Membantu pengawas bertindak lebih cepat</text>
+</svg>

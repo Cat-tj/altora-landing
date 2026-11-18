@@ -5,7 +5,7 @@ import collections, html, pathlib, re
 root = pathlib.Path(__file__).resolve().parent.parent
 SITE = 'https://altora.id'
 DEFAULT_IMG = SITE + '/assets/img/altora-logo-600.png'
-skip = ('id/', 'leads/', 'outreach/', 'design/', 'partials/', 'ops/', 'content/', 'scripts/')
+skip = ('id/', 'leads/', 'outreach/', 'design/', 'partials/', 'ops/', 'content/', 'scripts/', 'dist/', 'node_modules/')
 
 ICONS = ('<link href="/favicon.ico" rel="icon" sizes="any"/>'
          '<link href="/assets/img/altora-logo-icon-v2.svg" rel="icon" type="image/svg+xml"/>'

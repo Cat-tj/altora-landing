@@ -1,0 +1,54 @@
+<svg width="800" height="400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <title>Alur Kerja Deteksi APD AI CCTV</title>
+  <desc>Diagram alur dari tangkapan kamera hingga peringatan pelanggaran K3 otomatis.</desc>
+  <style>
+    .bg { fill: #F8F9FA; }
+    .box { fill: #FFFFFF; stroke: #E2E8F0; stroke-width: 2; rx: 6; }
+    .text-title { font-family: system-ui, -apple-system, sans-serif; font-size: 18px; font-weight: bold; fill: #172B4D; }
+    .text-step { font-family: system-ui, -apple-system, sans-serif; font-size: 14px; font-weight: bold; fill: #172B4D; }
+    .text-desc { font-family: system-ui, -apple-system, sans-serif; font-size: 12px; fill: #4A5568; }
+    .arrow { stroke: #7C5CE8; stroke-width: 2.5; fill: none; marker-end: url(#arrowhead); }
+  </style>
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="6" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7C5CE8"/>
+    </marker>
+  </defs>
+  
+  <rect width="800" height="400" class="bg"/>
+  
+  <text x="40" y="45" class="text-title">Alur Kerja Sistem Deteksi APD Real-Time</text>
+
+  <!-- Step 1 -->
+  <rect x="40" y="90" width="200" height="220" class="box"/>
+  <circle cx="140" cy="135" r="24" fill="#EDF2F7"/>
+  <text x="140" y="140" font-size="14px" font-weight="bold" fill="#7C5CE8" text-anchor="middle">01</text>
+  <text x="140" y="180" class="text-step" text-anchor="middle">Video Streaming</text>
+  <text x="60" y="210" class="text-desc" text-anchor="start">Kamera CCTV IP lokal</text>
+  <text x="60" y="230" class="text-desc" text-anchor="start">menangkap aktivitas</text>
+  <text x="60" y="250" class="text-desc" text-anchor="start">area kerja secara live.</text>
+
+  <!-- Arrow 1 -->
+  <path d="M 250 200 L 285 200" class="arrow"/>
+
+  <!-- Step 2 -->
+  <rect x="300" y="90" width="200" height="220" class="box"/>
+  <circle cx="400" cy="135" r="24" fill="#EDF2F7"/>
+  <text x="400" y="140" font-size="14px" font-weight="bold" fill="#7C5CE8" text-anchor="middle">02</text>
+  <text x="400" y="180" class="text-step" text-anchor="middle">Edge Processing</text>
+  <text x="320" y="210" class="text-desc" text-anchor="start">Model AI mendeteksi</text>
+  <text x="320" y="230" class="text-desc" text-anchor="start">atribut helm, rompi,</text>
+  <text x="320" y="250" class="text-desc" text-anchor="start">dan masker pekerja.</text>
+
+  <!-- Arrow 2 -->
+  <path d="M 510 200 L 545 200" class="arrow"/>
+
+  <!-- Step 3 -->
+  <rect x="560" y="90" width="200" height="220" class="box"/>
+  <circle cx="660" cy="135" r="24" fill="#EDF2F7"/>
+  <text x="660" y="140" font-size="14px" font-weight="bold" fill="#7C5CE8" text-anchor="middle">03</text>
+  <text x="660" y="180" class="text-step" text-anchor="middle">Alert &amp; Log</text>
+  <text x="580" y="210" class="text-desc" text-anchor="start">Pemberitahuan instan</text>
+  <text x="580" y="230" class="text-desc" text-anchor="start">ke safety officer dan</text>
+  <text x="580" y="250" class="text-desc" text-anchor="start">pencatatan laporan.</text>
+</svg>

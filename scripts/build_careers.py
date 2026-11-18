@@ -5,7 +5,7 @@ Selama OPENINGS kosong, halaman menampilkan talent network (tanpa lowongan palsu
 Lowongan yang diisi otomatis mendapat data terstruktur JobPosting untuk Google Jobs."""
 import html, json, pathlib
 from urllib.parse import quote
-from site_data import ORG_ID, LOGO
+from site_data import ORG_ID, LOGO, org
 
 root = pathlib.Path(__file__).resolve().parent.parent
 CSS_VER = '20261016i'
@@ -82,7 +82,7 @@ def opening_card(o):
 def job_ld(o):
     return {'@type': 'JobPosting', 'title': o['title'], 'description': o['summary'], 'datePosted': o['posted'],
             'validThrough': o['until'], 'employmentType': o['employment'],
-            'hiringOrganization': {'@type': 'Organization', '@id': ORG_ID, 'name': 'Altora Indonesia', 'sameAs': 'https://altora.id/', 'logo': LOGO},
+            'hiringOrganization': org(),
             'jobLocation': {'@type': 'Place', 'address': {'@type': 'PostalAddress', 'addressLocality': o['location'],
                                                           'addressRegion': 'Kalimantan Timur', 'addressCountry': 'ID'}}}
 

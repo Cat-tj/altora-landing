@@ -4,14 +4,17 @@ halaman Samarinda. Juga menghapus file HTML kota lain yang tersisa. Aman dijalan
 import pathlib, re, sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from build_area import CITIES, is_nasional
+from build_kaltim_hw import CCTV as CCTV_PERUSAHAAN   # halaman CCTV perusahaan per kota yang dipulihkan (bukan dialihkan)
 
 root = pathlib.Path(__file__).resolve().parent.parent
 FAMILIES = [('jasa-pasang-cctv-', '/services/cctv', False), ('it-support-', '/services/it-support', False),
-            ('jual-cctv-', '/services/cctv', True), ('cctv-tenaga-surya-', '/services/cctv', True), ('jual-smartlock-', '/services/smart-lock', True)]
+            ('jual-cctv-', '/pengadaan', True), ('cctv-tenaga-surya-', '/services/cctv', True), ('jual-smartlock-', '/services/smart-lock', True)]
 lines, removed = [], 0
 for prefix, target, nasional_too in FAMILIES:
     for k in CITIES:
         if k == 'samarinda' or (is_nasional(k) and not nasional_too):
+            continue
+        if prefix == 'jasa-pasang-cctv-' and k in CCTV_PERUSAHAAN:
             continue
         lines.append(f'/{prefix}{k}    {target}    301')
         f = root / f'{prefix}{k}.html'

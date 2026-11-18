@@ -1,0 +1,91 @@
+<svg width="1200" height="480" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 480" role="img">
+  <title>Lapisan Keamanan Aplikasi Bisnis Sebelum Go-Live</title>
+  <desc>Ilustrasi konseptual arsitektur keamanan bertingkat mencakup RBAC, enkripsi transmisi dan data, pembatasan akses database, backup teruji, serta audit log.</desc>
+  <rect width="1200" height="480" fill="#FAF7F2"/>
+  <g font-family="system-ui, -apple-system, sans-serif">
+    <text x="600" y="48" text-anchor="middle" font-size="24" font-weight="bold" fill="#172B4D">Lapisan Perlindungan Aplikasi Bisnis Sebelum Peluncuran</text>
+    <text x="600" y="78" text-anchor="middle" font-size="14" fill="#5E6C84">Lima pilar perlindungan operasional yang wajib dipastikan sebelum sistem dipakai umum</text>
+
+    <!-- Card 1: Akses &amp; RBAC -->
+    <g transform="translate(60, 110)">
+      <rect width="200" height="300" rx="12" fill="#EDE9FB" stroke="#7C5CE8" stroke-width="2"/>
+      <circle cx="100" cy="50" r="26" fill="#7C5CE8"/>
+      <!-- Keyhole/User Icon -->
+      <path d="M92 44 A8 8 0 1 1 108 44 A8 8 0 0 1 92 44 M85 64 C85 57 92 55 100 55 C108 55 115 57 115 64 Z" fill="#FAF7F2"/>
+      <text x="100" y="105" text-anchor="middle" font-size="16" font-weight="bold" fill="#172B4D">1. Hak Akses (RBAC)</text>
+      <text x="100" y="135" text-anchor="middle" font-size="12" fill="#5E6C84">Pemisahan wewenang</text>
+      <rect x="20" y="155" width="160" height="120" rx="8" fill="#FFFFFF"/>
+      <text x="30" y="185" font-size="12" fill="#172B4D">• Role per jabatan</text>
+      <text x="30" y="210" font-size="12" fill="#172B4D">• Proteksi level menu</text>
+      <text x="30" y="235" font-size="12" fill="#172B4D">• Proteksi level API</text>
+      <text x="30" y="260" font-size="12" fill="#172B4D">• Password kuat &amp; MFA</text>
+    </g>
+
+    <!-- Card 2: Enkripsi &amp; Jaringan -->
+    <g transform="translate(285, 110)">
+      <rect width="200" height="300" rx="12" fill="#E4F2FA" stroke="#46B6E9" stroke-width="2"/>
+      <circle cx="100" cy="50" r="26" fill="#46B6E9"/>
+      <!-- Lock Icon -->
+      <rect x="90" y="44" width="20" height="16" rx="2" fill="#FAF7F2"/>
+      <path d="M93 44 V38 A7 7 0 0 1 107 38 V44" fill="none" stroke="#FAF7F2" stroke-width="2.5"/>
+      <text x="100" y="105" text-anchor="middle" font-size="16" font-weight="bold" fill="#172B4D">2. Enkripsi Data</text>
+      <text x="100" y="135" text-anchor="middle" font-size="12" fill="#5E6C84">Jalur &amp; penyimpanan</text>
+      <rect x="20" y="155" width="160" height="120" rx="8" fill="#FFFFFF"/>
+      <text x="30" y="185" font-size="12" fill="#172B4D">• Wajib HTTPS / TLS</text>
+      <text x="30" y="210" font-size="12" fill="#172B4D">• Hashing argon2/bcrypt</text>
+      <text x="30" y="235" font-size="12" fill="#172B4D">• Enkripsi payload sensitif</text>
+      <text x="30" y="260" font-size="12" fill="#172B4D">• Secret di env terisolasi</text>
+    </g>
+
+    <!-- Card 3: Database Isolation -->
+    <g transform="translate(510, 110)">
+      <rect width="200" height="300" rx="12" fill="#FAF1DE" stroke="#E8A25A" stroke-width="2"/>
+      <circle cx="100" cy="50" r="26" fill="#E8A25A"/>
+      <!-- Database/Wall Icon -->
+      <ellipse cx="100" cy="38" rx="14" ry="5" fill="#FAF7F2"/>
+      <path d="M86 38 V50 C86 53 92 56 100 56 C108 56 114 53 114 50 V38" fill="none" stroke="#FAF7F2" stroke-width="2.5"/>
+      <path d="M86 46 V58 C86 61 92 64 100 64 C108 64 114 61 114 58 V46" fill="none" stroke="#FAF7F2" stroke-width="2.5"/>
+      <text x="100" y="105" text-anchor="middle" font-size="16" font-weight="bold" fill="#172B4D">3. Isolasi Database</text>
+      <text x="100" y="135" text-anchor="middle" font-size="12" fill="#5E6C84">Tutup eksposur publik</text>
+      <rect x="20" y="155" width="160" height="120" rx="8" fill="#FFFFFF"/>
+      <text x="30" y="185" font-size="12" fill="#172B4D">• Bind port ke localhost</text>
+      <text x="30" y="210" font-size="12" fill="#172B4D">• User DB hak minimal</text>
+      <text x="30" y="235" font-size="12" fill="#172B4D">• Akses via SSH tunnel</text>
+      <text x="30" y="260" font-size="12" fill="#172B4D">• Cegah SQL injection</text>
+    </g>
+
+    <!-- Card 4: Backup Teruji -->
+    <g transform="translate(735, 110)">
+      <rect width="200" height="300" rx="12" fill="#EBF6EE" stroke="#36B37E" stroke-width="2"/>
+      <circle cx="100" cy="50" r="26" fill="#36B37E"/>
+      <!-- Backup Cycle Icon -->
+      <path d="M90 50 A12 12 0 1 1 112 50 A12 12 0 0 1 90 50" fill="none" stroke="#FAF7F2" stroke-width="2.5"/>
+      <polygon points="108,35 116,42 108,46" fill="#FAF7F2"/>
+      <text x="100" y="105" text-anchor="middle" font-size="16" font-weight="bold" fill="#172B4D">4. Backup Teruji</text>
+      <text x="100" y="135" text-anchor="middle" font-size="12" fill="#5E6C84">Otomatis &amp; berkala</text>
+      <rect x="20" y="155" width="160" height="120" rx="8" fill="#FFFFFF"/>
+      <text x="30" y="185" font-size="12" fill="#172B4D">• Jadwal cron otomatis</text>
+      <text x="30" y="210" font-size="12" fill="#172B4D">• Salinan off-site</text>
+      <text x="30" y="235" font-size="12" fill="#172B4D">• Uji restore riil</text>
+      <text x="30" y="260" font-size="12" fill="#172B4D">• Retensi versi terukur</text>
+    </g>
+
+    <!-- Card 5: Audit Log -->
+    <g transform="translate(960, 110)">
+      <rect width="180" height="300" rx="12" fill="#F4F5F7" stroke="#97A0AF" stroke-width="2"/>
+      <circle cx="90" cy="50" r="26" fill="#5E6C84"/>
+      <!-- Log list icon -->
+      <rect x="78" y="38" width="24" height="24" rx="3" fill="none" stroke="#FAF7F2" stroke-width="2"/>
+      <line x1="83" y1="44" x2="97" y2="44" stroke="#FAF7F2" stroke-width="2"/>
+      <line x1="83" y1="50" x2="97" y2="50" stroke="#FAF7F2" stroke-width="2"/>
+      <line x1="83" y1="56" x2="93" y2="56" stroke="#FAF7F2" stroke-width="2"/>
+      <text x="90" y="105" text-anchor="middle" font-size="16" font-weight="bold" fill="#172B4D">5. Audit Log</text>
+      <text x="90" y="135" text-anchor="middle" font-size="12" fill="#5E6C84">Jejak aktivitas penting</text>
+      <rect x="15" y="155" width="150" height="120" rx="8" fill="#FFFFFF"/>
+      <text x="25" y="185" font-size="12" fill="#172B4D">• Log siapa &amp; kapan</text>
+      <text x="25" y="210" font-size="12" fill="#172B4D">• Catat perubahan data</text>
+      <text x="25" y="235" font-size="12" fill="#172B4D">• Waspada login gagal</text>
+      <text x="25" y="260" font-size="12" fill="#172B4D">• Log tidak bisa diubah</text>
+    </g>
+  </g>
+</svg>

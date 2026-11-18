@@ -7,6 +7,7 @@ import html, pathlib, sys
 from urllib.parse import quote
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from build_area import shell, update_sitemap, SITE, WA
+from site_data import ORG_ID
 from build_aplikasi import APPS, pic, cta_buttons, wa_alt
 
 root = pathlib.Path(__file__).resolve().parent.parent
@@ -160,10 +161,9 @@ def build(key, p):
     details = ''.join(f'<a class="svd-link" href="/aplikasi/{k}">Detail {e(APPS[k]["name"])}</a>' for k in p['apps'])
     url = p['url']
     ld = {'@context': 'https://schema.org', '@graph': [
-        *[{'@type': 'SoftwareApplication', 'name': a['name'], 'url': SITE + url, 'description': a['short'],
-           'applicationCategory': 'BusinessApplication', 'applicationSubCategory': p['sub'], 'operatingSystem': a.get('os') or 'Web',
-           'image': SITE + '/assets/img/apps/' + a['shots'][0][0] + '.webp', 'inLanguage': 'id', 'featureList': [t for t, _ in a['modules']],
-           'publisher': {'@type': 'Organization', 'name': 'Altora Indonesia', 'url': SITE + '/'}} for a in apps],
+        *[{'@type': 'CreativeWork', 'additionalType': 'https://schema.org/SoftwareApplication', 'name': a['name'], 'url': SITE + url, 'description': a['short'],
+           'image': SITE + '/assets/img/apps/' + a['shots'][0][0] + '.webp', 'inLanguage': 'id', 'genre': p['sub'], 'keywords': ', '.join(t for t, _ in a['modules']),
+           'publisher': {'@id': ORG_ID}} for a in apps],
         {'@type': 'BreadcrumbList', 'itemListElement': [{'@type': 'ListItem', 'position': 1, 'name': 'Beranda', 'item': SITE + '/'},
             {'@type': 'ListItem', 'position': 2, 'name': 'Aplikasi', 'item': SITE + '/aplikasi'}, {'@type': 'ListItem', 'position': 3, 'name': p['crumb'], 'item': SITE + url}]},
         {'@type': 'FAQPage', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': x}} for q, x in faq]}]}

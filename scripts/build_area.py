@@ -5,9 +5,10 @@ Jangan menambah kota tanpa fakta lokal yang nyata (risiko 'doorway pages')."""
 import html, json, pathlib, re, sys
 from urllib.parse import quote
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from site_data import OFFICES, ORG_ID, org, office_node
+from site_data import OFFICES, ORG_ID, org, office_node, label_lc
 from regions import REGIONS
-from regions_nasional import NASIONAL
+from regions_nasional import NASIONAL, is_indexed
+from portofolio_data import BY as PF_BY, card as pf_card
 
 root = pathlib.Path(__file__).resolve().parent.parent
 CSS_VER = '20261016i'
@@ -31,7 +32,7 @@ OFFICE_BY_KEY = {o['key']: o for o in OFFICES}
 for _k, _r in REGIONS.items():
     _o = OFFICE_BY_KEY[_r['office']]
     CITIES[_k] = dict(_r, local_proof=[],
-                      base=f"{_r['name']} kami layani dari {_o['label'].lower()} ({_o['city']}). Untuk diskusi kebutuhan dan pelatihan pengguna, tim kami bisa datang ke lokasi sesuai jadwal; pengerjaan dan dukungan lanjutan berjalan lewat video call dan WhatsApp.")
+                      base=f"{_r['name']} kami layani dari {label_lc(_o)}. Untuk diskusi kebutuhan dan pelatihan pengguna, tim kami bisa datang ke lokasi sesuai jadwal; pengerjaan dan dukungan lanjutan berjalan lewat video call dan WhatsApp.")
 
 
 # Kota di luar Kaltim: hanya layanan jarak jauh (lihat regions_nasional.py)
@@ -75,7 +76,7 @@ SERVICES = {
         lead='Pemasangan CCTV untuk kantor, gudang, toko, sekolah, dan area proyek di {C}. Mulai dari survei titik kamera, pemasangan, sampai bisa dipantau dari HP, lalu dirawat secara berkala.',
         hero='/assets/img/services/cctv.webp',
         dos=[('Survei titik kamera', 'Kami tentukan posisi kamera supaya area penting terlihat jelas dan tidak ada titik buta.'),
-             ('Kamera IP & NVR', 'Kamera dan perekam dari principal resmi seperti VIGI, dengan garansi resmi.'),
+             ('Kamera IP & NVR', 'Kamera dan perekam dari principal resmi seperti VIGI dan Dahua, dengan garansi resmi.'),
              ('Pantau dari HP', 'Rekaman langsung dan rekaman lama bisa dibuka dari HP atau komputer.'),
              ('Perangkat pendukung', 'NVR, penyimpanan, jaringan PoE, dan UPS yang disesuaikan dengan jumlah kamera.'),
              ('CCTV tenaga surya', 'Untuk lokasi tanpa listrik atau kabel, seperti proyek, kebun, dan tambak.'),
@@ -157,6 +158,43 @@ def fmt(t, c):
     return t.replace('{C}', c['name']).replace('{c}', c['key'])
 
 
+# Maksud pencarian tiap halaman layanan x kota (supaya 4 halaman satu kota tidak saling bersaing):
+# software house = memilih vendor/tim; aplikasi = membangun aplikasi; website = membuat situs; SEO = muncul di Google.
+INTENT = {
+    'aplikasi': 'Untuk Anda yang sudah tahu butuh aplikasi: web, Android, atau iOS untuk approval, absensi, stok, antrian, atau laporan.',
+    'website': 'Untuk Anda yang butuh situs: company profile, website instansi, atau landing page, lengkap dengan CMS.',
+    'seo': 'Untuk Anda yang sudah punya website tetapi belum muncul di Google saat calon pelanggan mencari.',
+    'software': 'Untuk Anda yang sedang memilih software house: siapa kami, kantor, proyek, dan cara kerja.',
+    'cctv': 'Untuk Anda yang butuh kamera pengawas di kantor, rumah, toko, atau gudang.',
+    'itsupport': 'Untuk kantor yang butuh perawatan komputer, jaringan, dan server secara rutin.',
+}
+# Proyek nyata per layanan x kota (slug portofolio_data). Kartu menampilkan nama klien apa adanya.
+SERVICE_PROOF = {
+    ('aplikasi', 'samarinda'): ['smart-attendance-unmul', 'antrian-poliklinik', 'hris-mobile-payroll'],
+    ('website', 'samarinda'): ['website-feb-unmul', 'website-farmasi-unmul'],
+    ('aplikasi', 'balikpapan'): ['optimasi-rute-armada', 'hris-mobile-payroll', 'fleet-management-tambang'],
+    ('aplikasi', 'barito-utara'): ['pompy-batara', 'dashboard-geospasial-dapodik'],
+    ('website', 'barito-utara'): ['pompy-batara'],
+}
+KALTIM_DEFAULT_PROOF = {'aplikasi': ['hris-mobile-payroll', 'fleet-management-tambang'], 'website': ['website-feb-unmul', 'website-farmasi-unmul']}
+
+
+def proof_for(skey, ckey):
+    if (skey, ckey) in SERVICE_PROOF:
+        return SERVICE_PROOF[(skey, ckey)]
+    return [] if is_nasional(ckey) else KALTIM_DEFAULT_PROOF.get(skey, [])
+
+
+def city_services_html(skey, ckey):
+    """Kartu ke halaman lain di kota yang sama, masing-masing dengan maksudnya sendiri."""
+    c = dict(CITIES[ckey], key=ckey)
+    cards = [(f'/software-house-{ckey}', f'Software house {c["name"]}', INTENT['software'])]
+    cards += [(f'/{fmt(SERVICES[k]["slug"], c)}', f'{SERVICES[k]["short"]} {c["name"]}', INTENT[k]) for k in services_for(ckey) if k != skey]
+    items = ''.join(f'<a class="lc-svc" href="{u}"><b>{e(t)}</b><span>{e(d)}</span></a>' for u, t, d in cards)
+    return (f'<section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Layanan Altora lain di {e(c["name"])}</h2>'
+            f'<p>{e(INTENT[skey])}</p></div><div class="lc-svcs">{items}</div></div></section>')
+
+
 def page(skey, ckey):
     s = SERVICES[skey]; c = dict(CITIES[ckey], key=ckey)
     url = '/' + fmt(s['slug'], c)
@@ -173,8 +211,13 @@ def page(skey, ckey):
     near = near_of(ckey)
     same_city = ''.join(f'<a href="/{fmt(SERVICES[k]["slug"], dict(CITIES[ckey], key=ckey))}">{e(SERVICES[k]["short"])} {e(c["name"])}</a>' for k in services_for(ckey) if k != skey)
     links = (''.join(f'<a href="/{fmt(s["slug"], dict(CITIES[k], key=k))}">{e(s["short"])} {e(CITIES[k]["name"])}</a>' for k in near if skey in services_for(k)) +
-             f'<a href="{s["main"]}">{e(s["main_label"])}</a><a href="/software-house-{ckey}">Software house {e(c["name"])}</a>' + same_city)
+             f'<a href="{s["main"]}">{e(s["main_label"])}</a><a href="/software-house-{ckey}">Software house {e(c["name"])}</a>')
     msg = f'Halo Altora, saya di {c["name"]} dan butuh {s["short"].lower()}.'
+    robots = 'index,follow,max-image-preview:large' if is_indexed(ckey) else 'noindex,follow'
+    proof = [PF_BY[x] for x in proof_for(skey, ckey) if x in PF_BY]
+    proof_html = ('' if not proof else f'<section class="svd-sec" id="proyek"><div class="ct-wrap"><div class="pd-block-head"><h2>Contoh proyek {e(s["short"].lower())} kami</h2>'
+                  '<p>Proyek nyata yang dikerjakan tim Altora. Nama klien tertera di setiap kartu.</p></div><div class="pf-grid">' + ''.join(pf_card(p) for p in proof) + '</div></div></section>')
+    hero_alt = f'Ilustrasi layanan {s["short"].lower()} Altora Indonesia untuk {c["name"]}'
     clients_p = '' if c.get('needs') else f'<p>Klien kami di {e(c["name"])} antara lain {e(c["sectors"])}.</p>'
     local_offices = [] if is_nasional(ckey) else [o for o in OFFICES if o['city'] == c['name']]
     ld = {'@context': 'https://schema.org', '@graph': [org()] + [office_node(o) for o in local_offices] + [
@@ -191,56 +234,84 @@ def page(skey, ckey):
 <div class="svd-hero-copy"><nav aria-label="Breadcrumb" class="bl-crumb"><a href="/area-layanan">Area layanan</a><span>/</span><span>{e(c["name"])}</span></nav>
 <p class="eyebrow eyebrow-purple">Altora Indonesia · {e(c["name"])}{", " + e(c["seat"]) if nas else ""}</p><h1>{e(h1)}</h1><p class="ct-lead">{e(fmt(s["lead"], c))}</p>
 <div class="svd-actions"><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Konsultasi gratis</a><a class="svd-link" href="#lihat-juga">Lihat juga</a></div></div>
-<figure class="svd-hero-pic"><img alt="{e(h1)}" src="{s["hero"]}" style="object-position:50% 45%"/><span class="svd-chip svd-chip-0">{e(c["name"])}</span><span class="svd-chip svd-chip-1">{"Dikerjakan jarak jauh" if nas else "Tim lokal"}</span><span class="svd-chip svd-chip-2">Konsultasi gratis</span></figure>
+<figure class="svd-hero-pic"><img alt="{e(hero_alt)}" src="{s["hero"]}" style="object-position:50% 45%"/><span class="svd-chip svd-chip-0">{e(c["name"])}</span><span class="svd-chip svd-chip-1">{"Dikerjakan jarak jauh" if nas else "Tim lokal"}</span><span class="svd-chip svd-chip-2">Konsultasi gratis</span></figure>
 </div></section>
 <section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Yang kami kerjakan</h2></div><div class="svd-dos">{dos}</div></div></section>
 <section class="svd-sec"><div class="ct-wrap lc-office"><div><h2>{"Cara kami bekerja untuk klien di " + e(c["name"]) if nas else "Melayani " + e(c["name"])}</h2><p>{e(c["base"])}</p>{clients_p}</div></div></section>
 {needs_html(c)}
+{proof_html}
+{city_services_html(skey, ckey)}
 <section class="svd-sec" id="lihat-juga"><div class="ct-wrap">
 <div class="svd-related"><b>Lihat juga</b>{links}</div></div></section>
 <section class="svd-sec"><div class="ct-wrap svd-faq"><div class="pd-block-head"><h2>Pertanyaan umum</h2></div><div>{faq}</div></div></section>
 <section class="pd-cta"><div class="ct-wrap pd-cta-inner"><div><h2>Butuh {e(s["short"].lower())} di {e(c["name"])}?</h2><p>Ceritakan kebutuhan Anda. Diskusi awal gratis.</p></div><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Chat WhatsApp</a></div></section>
 </main>'''
-    return url, h1, shell(title, desc, url, SITE + s['hero'], ld, body)
+    extra = '<link rel="stylesheet" href="/assets/css/portofolio.css?v=20261118p"/>' if proof else ''
+    return url, h1, shell(title, desc, url, SITE + s['hero'], ld, body, robots=robots, extra_head=extra)
 
 
-def shell(title, desc, url, img, ld, body):
+def shell(title, desc, url, img, ld, body, robots='index,follow,max-image-preview:large', extra_head=''):
     return f'''<!DOCTYPE html>
-<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(title)}</title><meta content="{e(desc)}" name="description"/><link href="{SITE}{url}" rel="canonical"/><meta content="index,follow,max-image-preview:large" name="robots"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="{e(title)}" property="og:title"/><meta content="{e(desc)}" property="og:description"/><meta content="{SITE}{url}" property="og:url"/><meta content="{img}" property="og:image"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v={CSS_VER}"/><link rel="stylesheet" href="/assets/css/apps.css?v=5"/><script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head><body class="company-page"><header></header>
+<html lang="id"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>{e(title)}</title><meta content="{e(desc)}" name="description"/><link href="{SITE}{url}" rel="canonical"/><meta content="{robots}" name="robots"/><meta content="id_ID" property="og:locale"/><meta content="website" property="og:type"/><meta content="{e(title)}" property="og:title"/><meta content="{e(desc)}" property="og:description"/><meta content="{SITE}{url}" property="og:url"/><meta content="{img}" property="og:image"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="/assets/css/styles.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/company-pages.css?v=20260920-company-pages" rel="stylesheet"/><link href="/assets/css/shared-shell.css?v=20260920-shared-shell" rel="stylesheet"/><link href="/assets/css/site-shell.css?v=20260922-white-frost-v7" rel="stylesheet"/><link rel="stylesheet" href="/assets/css/unify.css?v={CSS_VER}"/><link rel="stylesheet" href="/assets/css/apps.css?v=5"/>{extra_head}<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script></head><body class="company-page"><header></header>
 {body}
 <footer></footer>
 <script defer="" src="/assets/js/site-shell.js?v=20261010e"></script></body></html>
 '''
 
 
+# Kota dengan halaman CCTV perusahaan (harus sama dengan build_kaltim_hw.CCTV)
+CCTV_PERUSAHAAN = ('bontang', 'kutai-kartanegara', 'ikn')
+
+
 def hub(built):
-    rows = ''
-    nat = ''
+    """Hub /area-layanan: Kalimantan Timur lengkap (semua layanan per kota), Kalimantan lain ringkas,
+    dan kota di luar Kalimantan hanya sebagai daftar kecil 'juga melayani jarak jauh' (halamannya noindex)."""
+    rows, kal, remote = '', '', []
     for ckey, cdat in CITIES.items():
         if is_nasional(ckey):
+            if not is_indexed(ckey):
+                remote.append(f'<a href="/software-house-{ckey}">{e(cdat["name"])}</a>')
+                continue
             links = ''.join(f'<a href="{u}">{e(h)}</a>' for (ck, u, h) in built if ck == ckey)
-            nat += f'<div class="pk-hubcity"><h3>{e(cdat["name"])} <small>{e(cdat["seat"])}</small></h3><div class="svd-related"><a href="/software-house-{ckey}">Software house {e(cdat["name"])}</a>{links}</div></div>'
+            kal += f'<div class="pk-hubcity"><h3>{e(cdat["name"])} <small>{e(cdat["seat"])}</small></h3><div class="svd-related"><a href="/software-house-{ckey}">Software house {e(cdat["name"])}</a>{links}</div></div>'
             continue
         links = ''.join(f'<a class="lc-svc" href="{u}"><b>{e(h)}</b></a>' for (ck, u, h) in built if ck == ckey)
+        # halaman perangkat Kaltim dari build_kaltim_hw.py: kit Starlink (semua kota Kaltim) dan CCTV perusahaan (kota tertentu)
+        links += f'<a class="lc-svc" href="/jual-starlink-{ckey}"><b>Kit Starlink {e(cdat["name"])}</b></a>'
+        if ckey in CCTV_PERUSAHAAN:
+            links += f'<a class="lc-svc" href="/jasa-pasang-cctv-{ckey}"><b>CCTV perusahaan {e(cdat["name"])}</b></a>'
         rows += (f'<section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>{e(cdat["name"])}</h2><p>{e(cdat["base"])}</p></div>'
                  f'<div class="lc-svcs"><a class="lc-svc" href="/software-house-{ckey}"><b>Software house {e(cdat["name"])}</b></a>{links}</div></div></section>')
     body = ('<main class="ct-page svd-page lc-page"><section class="svd-hero"><div class="ct-wrap"><p class="eyebrow eyebrow-purple">Area layanan</p>'
-            '<h1>Area layanan Altora di Kalimantan Timur</h1><p class="ct-lead">Kantor pusat di Samarinda dan dua cabang di Balikpapan. Dari sana kami melayani seluruh Kalimantan Timur, termasuk Bontang, Kutai Kartanegara, Kutai Timur, Kutai Barat, Mahakam Ulu, Berau, Paser, Penajam Paser Utara, dan IKN Nusantara.</p></div></section>'
+            '<h1>Area layanan Altora di Kalimantan Timur</h1><p class="ct-lead">Kantor pusat di Samarinda dan dua cabang di Balikpapan. Dari sana kami melayani seluruh Kalimantan Timur, termasuk Bontang, Kutai Kartanegara, Kutai Timur, Kutai Barat, Mahakam Ulu, Berau, Paser, Penajam Paser Utara, dan IKN Nusantara.</p>'
+            '<div class="svd-related"><b>Mulai dari</b><a href="/software-house-samarinda">Software house Samarinda</a><a href="/software-house-balikpapan">Software house Balikpapan</a><a href="/software-house-kalimantan-timur">Software house Kalimantan Timur</a></div></div></section>'
             + rows +
-            '<section class="svd-sec" id="nasional"><div class="ct-wrap"><div class="pd-block-head"><h2>Di luar Kalimantan Timur</h2>'
-            '<p>Untuk kota lain di Indonesia kami mengerjakan aplikasi, website, dan sistem secara jarak jauh dari Samarinda.</p></div>'
-            + nat + '</div></section>' +
+            '<section class="svd-sec" id="kalimantan"><div class="ct-wrap"><div class="pd-block-head"><h2>Kalimantan lainnya</h2>'
+            '<p>Untuk Kalimantan Utara, Kalimantan Selatan, Kalimantan Tengah, dan Kalimantan Barat, aplikasi dan website kami kerjakan dari Samarinda dengan demo berkala; pertemuan langsung dijadwalkan bila perlu.</p></div>'
+            + kal + '</div></section>'
+            '<section class="svd-sec" id="nasional"><div class="ct-wrap"><div class="pd-block-head"><h2>Juga melayani jarak jauh</h2>'
+            '<p>Software, website, dan SEO juga kami kerjakan jarak jauh untuk klien di kota lain di Indonesia. Kantor dan tim lapangan kami hanya ada di Kalimantan Timur.</p></div>'
+            '<div class="svd-related lc-remote">' + ''.join(remote) + '</div></div></section>'
             '<section class="svd-sec"><div class="ct-wrap"><div class="svd-related"><b>Wilayah lain</b><a href="/software-house-kalimantan-timur">Software house Kalimantan Timur</a><a href="/contact">Lokasi lain? Hubungi kami</a></div></div></section>'
             '</main>')
-    ld = {'@context': 'https://schema.org', '@type': 'CollectionPage', 'name': 'Area layanan Altora', 'url': SITE + '/area-layanan'}
-    return shell('Area Layanan Altora | Kaltim & Seluruh Indonesia', 'Jasa pembuatan aplikasi, website, dan SEO untuk Kaltim dan seluruh Indonesia, dikerjakan dari Samarinda dan Balikpapan.', '/area-layanan', SITE + '/assets/img/altora-logo-600.png', ld, body)
+    ld = {'@context': 'https://schema.org', '@type': 'CollectionPage', '@id': SITE + '/area-layanan#halaman', 'name': 'Area layanan Altora',
+          'url': SITE + '/area-layanan', 'inLanguage': 'id-ID', 'publisher': {'@id': ORG_ID}, 'about': {'@id': ORG_ID}}
+    return shell('Area Layanan Altora | Samarinda, Balikpapan & Kaltim', 'Area layanan Altora Indonesia: kantor pusat Samarinda, dua cabang Balikpapan, dan seluruh Kalimantan Timur untuk aplikasi, website, SEO, dan perangkat.', '/area-layanan', SITE + '/assets/img/altora-logo-600.png', ld, body)
 
 
-def update_sitemap(urls):
+def update_sitemap(urls, drop=(), lastmod=None, new_date='2026-11-18'):
+    """Tambahkan URL yang belum ada (lastmod = tanggal perubahan isi), perbarui lastmod URL yang ada, dan buang URL di `drop`
+    (halaman noindex tidak boleh ada di sitemap)."""
+    import re as _re
     sm = root / 'sitemap.xml'; s = sm.read_text(encoding='utf-8')
+    for u in drop:
+        s = _re.sub(r'\s*<url><loc>' + _re.escape(SITE + u) + r'</loc>.*?</url>', '', s, flags=_re.S)
     for u in urls:
-        if f'<loc>{SITE}{u}</loc>' not in s:
-            s = s.replace('</urlset>', f'  <url><loc>{SITE}{u}</loc><lastmod>2026-10-13</lastmod><priority>0.8</priority></url>\n</urlset>')
+        loc = f'<loc>{SITE}{u}</loc>'
+        if loc not in s:
+            s = s.replace('</urlset>', f'  <url>{loc}<lastmod>{lastmod or new_date}</lastmod><priority>0.8</priority></url>\n</urlset>')
+        elif lastmod:
+            s = _re.sub(_re.escape(loc) + r'<lastmod>[^<]*</lastmod>', loc + f'<lastmod>{lastmod}</lastmod>', s)
     sm.write_text(s, encoding='utf-8')
 
 
@@ -252,5 +323,6 @@ if __name__ == '__main__':
             (root / (url.lstrip('/') + '.html')).write_text(htmlp, encoding='utf-8')
             built.append((ckey, url, h1))
     (root / 'area-layanan.html').write_text(hub(built), encoding='utf-8')
-    update_sitemap([u for _, u, _ in built] + ['/area-layanan'])
+    update_sitemap([u for ck, u, _ in built if is_indexed(ck)] + ['/area-layanan'],
+                   drop=[u for ck, u, _ in built if not is_indexed(ck)], lastmod='2026-11-18')
     print('area:', len(built), 'halaman +', '/area-layanan')

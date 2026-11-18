@@ -1,0 +1,63 @@
+<svg width="1000" height="480" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 480" role="img">
+  <title>Checklist Keamanan Aplikasi Bisnis Sebelum Go-Live</title>
+  <desc>Daftar periksa 6 tahap verifikasi keamanan yang wajib dipenuhi sebelum aplikasi bisnis resmi digunakan oleh pengguna operasional.</desc>
+  <rect width="1000" height="480" fill="#FAF7F2"/>
+  <g font-family="system-ui, -apple-system, sans-serif">
+    <text x="500" y="45" text-anchor="middle" font-size="22" font-weight="bold" fill="#172B4D">Daftar Periksa Keamanan Operasional Menjelang Go-Live</text>
+    <text x="500" y="75" text-anchor="middle" font-size="13" fill="#5E6C84">Tandai setiap parameter ini bersama tim teknis sebelum sistem dibuka penuh</text>
+
+    <!-- Checklist Item 1 -->
+    <g transform="translate(60, 110)">
+      <rect width="410" height="95" rx="8" fill="#FFFFFF" stroke="#EDE9FB" stroke-width="1.5"/>
+      <circle cx="45" cy="48" r="18" fill="#EDE9FB"/>
+      <text x="45" y="54" text-anchor="middle" font-size="14" font-weight="bold" fill="#7C5CE8">01</text>
+      <text x="80" y="38" font-size="14" font-weight="bold" fill="#172B4D">Pembersihan Secret &amp; Mode Debug</text>
+      <text x="80" y="60" font-size="12" fill="#5E6C84"><tspan x="80" dy="0">Nonaktifkan error verbose, pastikan API key/token</tspan><tspan x="80" dy="16.2">tidak bocor di browser atau kode sumber.</tspan></text>
+    </g>
+
+    <!-- Checklist Item 2 -->
+    <g transform="translate(530, 110)">
+      <rect width="410" height="95" rx="8" fill="#FFFFFF" stroke="#EDE9FB" stroke-width="1.5"/>
+      <circle cx="45" cy="48" r="18" fill="#EDE9FB"/>
+      <text x="45" y="54" text-anchor="middle" font-size="14" font-weight="bold" fill="#7C5CE8">02</text>
+      <text x="80" y="38" font-size="14" font-weight="bold" fill="#172B4D">Validasi Input &amp; Proteksi XSS / SQLi</text>
+      <text x="80" y="60" font-size="12" fill="#5E6C84"><tspan x="80" dy="0">Filter karakter khusus di form, gunakan</tspan><tspan x="80" dy="16.2">parameterized query di seluruh query database.</tspan></text>
+    </g>
+
+    <!-- Checklist Item 3 -->
+    <g transform="translate(60, 225)">
+      <rect width="410" height="95" rx="8" fill="#FFFFFF" stroke="#E4F2FA" stroke-width="1.5"/>
+      <circle cx="45" cy="48" r="18" fill="#E4F2FA"/>
+      <text x="45" y="54" text-anchor="middle" font-size="14" font-weight="bold" fill="#46B6E9">03</text>
+      <text x="80" y="38" font-size="14" font-weight="bold" fill="#172B4D">Otorisasi Server-Side (RBAC)</text>
+      <text x="80" y="60" font-size="12" fill="#5E6C84"><tspan x="80" dy="0">Kunci hak akses per outlet/tenant langsung di</tspan><tspan x="80" dy="16.2">endpoint backend, bukan sekadar sembunyikan UI.</tspan></text>
+    </g>
+
+    <!-- Checklist Item 4 -->
+    <g transform="translate(530, 225)">
+      <rect width="410" height="95" rx="8" fill="#FFFFFF" stroke="#E4F2FA" stroke-width="1.5"/>
+      <circle cx="45" cy="48" r="18" fill="#E4F2FA"/>
+      <text x="45" y="54" text-anchor="middle" font-size="14" font-weight="bold" fill="#46B6E9">04</text>
+      <text x="80" y="38" font-size="14" font-weight="bold" fill="#172B4D">Isolasi Port &amp; Hak Database</text>
+      <text x="80" y="60" font-size="12" fill="#5E6C84"><tspan x="80" dy="0">Bind DB ke localhost/private network, pakai user</tspan><tspan x="80" dy="16.2">aplikasi dengan hak akses seminimal mungkin.</tspan></text>
+    </g>
+
+    <!-- Checklist Item 5 -->
+    <g transform="translate(60, 340)">
+      <rect width="410" height="95" rx="8" fill="#FFFFFF" stroke="#EBF6EE" stroke-width="1.5"/>
+      <circle cx="45" cy="48" r="18" fill="#EBF6EE"/>
+      <text x="45" y="54" text-anchor="middle" font-size="14" font-weight="bold" fill="#36B37E">05</text>
+      <text x="80" y="38" font-size="14" font-weight="bold" fill="#172B4D">Simulasi Pemulihan Backup (Restore Test)</text>
+      <text x="80" y="60" font-size="12" fill="#5E6C84"><tspan x="80" dy="0">Jalankan dump data terjadwal ke server cadangan</tspan><tspan x="80" dy="16.2">dan uji apakah file dump benar-benar bisa dibuka.</tspan></text>
+    </g>
+
+    <!-- Checklist Item 6 -->
+    <g transform="translate(530, 340)">
+      <rect width="410" height="95" rx="8" fill="#FFFFFF" stroke="#EBF6EE" stroke-width="1.5"/>
+      <circle cx="45" cy="48" r="18" fill="#EBF6EE"/>
+      <text x="45" y="54" text-anchor="middle" font-size="14" font-weight="bold" fill="#36B37E">06</text>
+      <text x="80" y="38" font-size="14" font-weight="bold" fill="#172B4D">Audit Log Aktivitas Sensitif</text>
+      <text x="80" y="60" font-size="12" fill="#5E6C84"><tspan x="80" dy="0">Catat riwayat login, perubahan nominal harga/stok,</tspan><tspan x="80" dy="16.2">penghapusan data, dan unduhan laporan.</tspan></text>
+    </g>
+  </g>
+</svg>

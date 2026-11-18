@@ -26,6 +26,7 @@ NAT_FAQ = [('Apakah bisa dikirim ke {C}?', 'Bisa. Barang dikirim lewat ekspedisi
 from site_data import OFFICES, ORG_ID
 
 root = pathlib.Path(__file__).resolve().parent.parent
+KATALOG = {'smartlock': '/pengadaan#p-smartlock', 'cctv': '/pengadaan#cctv', 'cctv-surya': '/pengadaan#p-vigi-solar'}   # katalog pengadaan perangkat
 e = lambda t: html.escape(str(t), quote=True)
 
 
@@ -77,6 +78,7 @@ PRODUCTS = {
              ('Perawatan berkala', 'Cek kamera, rekaman, dan firmware secara berkala.')],
         faq=[('Apakah bisa beli CCTV saja tanpa pasang?', 'Bisa. Kami juga melayani pembelian putus, termasuk untuk teknisi dan kontraktor.'),
              ('CCTV VIGI itu merek apa?', 'VIGI adalah lini CCTV profesional dari TP-Link, dengan kamera AI, NVR, dan aplikasi pemantauan.'),
+             ('Apakah tersedia merek selain VIGI?', 'Dahua (mitra resmi) serta Hikvision dan HiLook juga tersedia sesuai kebutuhan proyek. Tanyakan lewat WhatsApp.'),
              ('Kamera mana yang cocok untuk malam hari?', 'Untuk area gelap, pilih seri ColorPro (kode S) yang tetap berwarna di malam hari, atau seri IR (kode I).'),
              ('Apakah tersedia paket CCTV?', 'Tersedia paket NVR + kamera + hard disk, dan bisa disesuaikan jumlah titiknya.')]),
     'cctv-surya': dict(slug='cctv-tenaga-surya-{c}', short='CCTV tenaga surya', noun='CCTV tenaga surya', h1='CCTV tenaga surya & 4G di {C}',
@@ -145,7 +147,7 @@ def page(pkey, ckey):
     local_links = (f'<a href="/software-house-{ckey}">Software house {e(c["name"])}</a><a href="/jasa-pembuatan-aplikasi-{ckey}">Jasa pembuatan aplikasi {e(c["name"])}</a>' if nas else
                    f'<a href="/jasa-pasang-cctv-{ckey}">Jasa pasang CCTV {e(c["name"])}</a><a href="/it-support-{ckey}">IT support {e(c["name"])}</a>')
     links = (''.join(f'<a href="/{fmt(p["slug"], dict(ALL_CITIES[k], key=k))}">{e(p["short"])} {e(ALL_CITIES[k]["name"])}</a>' for k in near if pkey in products_for(k)) +
-             f'<a href="{p["main"]}">{e(p["main_label"])}</a>' + local_links + same_city)
+             f'<a href="{p["main"]}">{e(p["main_label"])}</a>' + f'<a href="{KATALOG[pkey]}">Katalog pengadaan perangkat</a>' + local_links + same_city)
     msg = f'Halo Altora, saya di {c["name"]} dan butuh {p.get("noun", p["short"].lower())}.'
     office = office_of(c)
     ld = {'@context': 'https://schema.org', '@graph': [

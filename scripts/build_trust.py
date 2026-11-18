@@ -3,7 +3,7 @@ Jalankan dari root repo:  python3 scripts/build_trust.py && python3 scripts/appl
 Blok disisipkan di antara penanda <!-- nama:start --> ... <!-- nama:end -->."""
 import html, pathlib, re, sys
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
-from site_data import FACTS, OFFICE_SAMARINDA_GEO
+from site_data import FACTS, OFFICE_SAMARINDA_GEO, HOME_FAQ, PHONE_DISPLAY, EMAIL
 from portofolio_data import CLIENTS
 
 root = pathlib.Path(__file__).resolve().parent.parent
@@ -11,7 +11,7 @@ e = lambda t: html.escape(str(t), quote=True)
 
 # Angka dan klien sama dengan situs saudara (dikonfirmasi pemilik kedua perusahaan, 2026-11-18). Ikon: (riwayat, piala, tim).
 STATS = [('6+', 'tahun beroperasi', 'clock'), ('50+', 'proyek terdeliver', 'trophy'), ('13', 'ahli in-house', 'team')]
-HOME_CSS = '<link href="/assets/css/home-sections.css?v=20261118p" rel="stylesheet"/>'
+HOME_CSS = '<link href="/assets/css/home-sections.css?v=20261119a" rel="stylesheet"/>'
 HOME_JS = '<script defer src="/assets/js/home-sections.js?v=20261118p"></script>'
 
 INDUSTRIES = [
@@ -96,7 +96,9 @@ def reach_block():
             '<h2>Berbasis di Samarinda, <span class="hm-hl">sejak 2019</span></h2>'
             '<p class="hm-lead">Altora Indonesia berdiri di Samarinda pada 2019. Tim lapangan kami memasang dan merawat perangkat di Kalimantan Timur. '
             'Software dan AI kami kerjakan dari Samarinda untuk klien di dalam dan luar negeri.</p>'
-            f'<ul class="hm-checks">{li}</ul><a class="hm-btn hm-btn-primary" href="/about">Kenali Altora</a></div>'
+            f'<ul class="hm-checks">{li}</ul>{nap_block()}'
+            '<div class="hm-nap-act"><a class="hm-btn hm-btn-primary" href="/software-house-samarinda">Software house Samarinda</a>'
+            '<a class="hm-btn hm-btn-ghost" href="/software-house-balikpapan">Software house Balikpapan</a></div></div>'
             '<div class="reach" data-mode="hw"><div aria-label="Jangkauan layanan Altora" class="reach-tabs" role="tablist">'
             '<button aria-selected="true" data-mode="hw" role="tab" type="button"><b>Hardware</b><span>Kalimantan Timur</span></button>'
             '<button aria-selected="false" data-mode="sw" role="tab" tabindex="-1" type="button"><b>Software</b><span>Seluruh dunia</span></button></div>'
@@ -104,6 +106,26 @@ def reach_block():
             '<p aria-live="polite" class="reach-cap"><span class="hw">Tim lapangan kami survei, memasang, dan merawat perangkat proyek di seluruh Kalimantan Timur. '
             'Pasang CCTV rumahan, smart lock, smart home, dan IT support bulanan khusus Samarinda.</span>'
             '<span class="sw">Software, AI, dan dashboard kami kerjakan dari Samarinda untuk klien di mana pun.</span></p></div></div></section>')
+
+
+def nap_block():
+    """Nama-alamat-telepon yang terlihat di beranda (sama persis dengan schema dan Google Business Profile)."""
+    return ('<address class="hm-nap"><b>Altora Indonesia</b>'
+            '<span>Kantor pusat: Jl. Dayak ASB, Bukuan, Kec. Palaran, Kota Samarinda, Kalimantan Timur</span>'
+            '<span>Cabang: Jl. Soekarno Hatta, Muara Rapak, Balikpapan Utara · Pasar Baru, Balikpapan</span>'
+            f'<span><a href="tel:+6285190911170">{PHONE_DISPLAY}</a> · <a href="mailto:{EMAIL}">{EMAIL}</a> · <a href="/about">Profil lengkap</a></span></address>')
+
+
+ICON_FAQ = ['i-layers', 'i-monitor', 'i-puzzle', 'i-trend', 'i-sync', 'i-shield', 'i-clipboard', 'i-headset']
+TONE_FAQ = ['purple', 'blue', 'cyan', 'green', 'pink', 'orange', 'navy', 'teal']
+
+
+def faq_items():
+    """FAQ beranda sebagai HTML statis (sebelumnya dibangkitkan main.js, tidak terbaca mesin pencari). Markup sama dengan versi JS."""
+    return ''.join(f'<div class="qa reveal" data-d="{i % 4}"><summary aria-controls="fa{i}" aria-expanded="false" role="button" tabindex="0">'
+                   f'<span class="mi mi-{TONE_FAQ[i % 8]}"><svg class="ico"><use href="#{ICON_FAQ[i % 8]}"/></svg></span><h3>{e(q)}</h3>'
+                   '<svg class="ico caret"><use href="#i-chevron"/></svg></summary>'
+                   f'<div class="qa-body" id="fa{i}"><p>{e(a)}</p></div></div>' for i, (q, a) in enumerate(HOME_FAQ))
 
 
 def process_block():
@@ -189,6 +211,14 @@ if __name__ == '__main__':
     s = put(s, 'proses', process_block(), replace_re=r'<section class="sec how" id="alur">.*?</section>')
     s = re.sub(r'<!-- keamanan:start -->.*?<!-- keamanan:end -->', '', s, flags=re.S)
     s = put(s, 'industri', industry_block(), anchor='<section class="sec faq-sec" id="faq">')
+    s = re.sub(r'<div class="faq-grid" id="faqGrid">.*?</div><!-- faqgrid:end -->|<div class="faq-grid" id="faqGrid"></div>',
+               lambda _: f'<div class="faq-grid" id="faqGrid">{faq_items()}</div><!-- faqgrid:end -->', s, count=1, flags=re.S)
     p.write_text(s, encoding='utf-8')
+    # /beranda (salinan beranda tanpa pembuka 3D, canonical ke /) ikut FAQ statis dan versi CSS yang sama
+    b = root / 'beranda.html'; t = b.read_text(encoding='utf-8')
+    t = re.sub(r'<div class="faq-grid" id="faqGrid">.*?</div><!-- faqgrid:end -->|<div class="faq-grid" id="faqGrid"></div>',
+               lambda _: f'<div class="faq-grid" id="faqGrid">{faq_items()}</div><!-- faqgrid:end -->', t, count=1, flags=re.S)
+    t = re.sub(r'/assets/css/home-sections\.css\?v=[0-9a-z]+', HOME_CSS.split('"')[1], t)
+    b.write_text(t, encoding='utf-8')
 
     print('blok kredibilitas: beranda diperbarui')

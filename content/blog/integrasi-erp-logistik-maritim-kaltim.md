@@ -8,6 +8,7 @@ image: /assets/img/blog/cover/integrasi-erp-logistik-maritim-kaltim.webp
 related: /services/software-custom | Software custom Altora
 related: /services/iot-custom | IoT custom dan sensor telemetri
 related: /portofolio | Portofolio proyek Altora
+related: /blog/smart-iot-industri-kalimantan-timur | Smart IoT industri di Kalimantan Timur
 related: /contact | Konsultasi proyek ERP dan maritim
 ---
 

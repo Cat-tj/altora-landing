@@ -1,0 +1,279 @@
+# Altora Indonesia
+
+> Altora Indonesia (Altora) adalah software house yang berkantor pusat di Samarinda, Kalimantan Timur, Indonesia, sejak 2019, dengan dua kantor cabang di Balikpapan. Altora membuat software custom, aplikasi web dan mobile, website, SEO, AI, dan IoT, serta menyediakan pengadaan dan pemasangan perangkat untuk perusahaan dan instansi di Kalimantan Timur.
+
+Altora Indonesia (Altora) is a software house headquartered in Samarinda, East Kalimantan (Kalimantan Timur), Indonesia, founded in 2019, with two branch offices in Balikpapan. Not related to other companies named "Altora" outside Indonesia.
+
+## Fakta utama
+- Nama: Altora Indonesia (nama pendek: Altora; nama lama: Algora Teknologi Indonesia)
+- Situs resmi: https://altora.id/
+- Berdiri: 2019, di Samarinda
+- Pengalaman: 6+ tahun, 50+ proyek terdeliver, 13 ahli in-house
+- Legalitas: berstatus PKP, terdaftar sebagai penyedia di Inaproc/LKPP (pengadaan pemerintah)
+- Telepon/WhatsApp: +62 851-9091-1170 (https://wa.me/6285190911170)
+- Email: hello@altora.id
+
+## Kantor
+- Kantor pusat Samarinda: Jl. Dayak ASB, Bukuan, Kec. Palaran, Samarinda, Kalimantan Timur, Indonesia
+- Cabang Balikpapan Utara: Jl. Soekarno Hatta, Muara Rapak, Balikpapan Utara, Kalimantan Timur, Indonesia
+- Cabang Balikpapan Pasar Baru: Pasar Baru, Balikpapan, Kalimantan Timur, Indonesia
+- Peta kantor pusat: https://www.google.com/maps?q=-0.5810649,117.2105898 (perkiraan titik Kelurahan Bukuan, Palaran)
+
+## Layanan
+- Software custom, aplikasi web, dan aplikasi mobile (Android/iOS): https://altora.id/services/software-custom
+- Pembuatan website dan SEO: https://altora.id/services/website-seo, https://altora.id/services/seo
+- AI (analitik CCTV, deteksi APD, pengenalan wajah) dan IoT (sensor): https://altora.id/services/ai-custom, https://altora.id/services/iot-custom
+- Tracking armada dan aset: https://altora.id/services/tracking
+- Pengadaan dan pemasangan perangkat untuk perusahaan dan instansi di Kalimantan Timur (CCTV VIGI dan Dahua, jaringan, server rack, GPS Teltonika, videotron, laptop/PC Lenovo): https://altora.id/pengadaan
+- Kit Starlink dan pemasangannya, khusus wilayah Kalimantan Timur. Altora bukan mitra resmi Starlink.
+- Khusus Samarinda: pasang CCTV rumahan, smart lock, smart home, IT support bulanan
+- Tanpa daftar harga publik; penawaran tertulis lewat WhatsApp
+
+## Area layanan
+- Langsung dari kantor: Samarinda, Balikpapan
+- Dari kantor terdekat: Bontang, Kutai Kartanegara, Kutai Timur, Kutai Barat, Mahakam Ulu, Berau, Paser, Penajam Paser Utara, IKN Nusantara
+- Software dan website juga dikerjakan jarak jauh untuk klien di seluruh Indonesia
+
+## Klien dan proyek nyata
+- Klien antara lain: Pemkot Samarinda, Diskominfosandi Kab. Barito Utara, Universitas Mulawarman, Institut Teknologi Kalimantan, STT Migas Balikpapan, PT Adhi Karya, PT Astra International Tbk, RM Payakumbuah, 1Ci Enterprise, MBC Entertainment
+- Instalasi CCTV siap analitik AI, 50+ unit — Fakultas Farmasi Universitas Mulawarman (2025): https://altora.id/portofolio/cctv-ai-farmasi-unmul
+- Absensi face recognition — Universitas Mulawarman (2025): https://altora.id/portofolio/smart-attendance-unmul
+- Website dan sistem informasi fakultas — Fakultas Ekonomi dan Bisnis Universitas Mulawarman (2024): https://altora.id/portofolio/website-feb-unmul
+- Deteksi APD berbasis AI — PT Multi Harapan Utama (2025): https://altora.id/portofolio/deteksi-apd-ai
+- HRIS mobile: absensi, payroll, dan slip gaji — Bukit Baiduri Energi (2024): https://altora.id/portofolio/hris-mobile-payroll
+- Fleet management armada hauling — Kontraktor tambang · Kaltim (2025): https://altora.id/portofolio/fleet-management-tambang
+- Optimasi rute dan monitoring armada distribusi — Operator logistik · Balikpapan (2024): https://altora.id/portofolio/optimasi-rute-armada
+- POMPy BATARA: portal one map dan dashboard daerah — Diskominfosandi Kab. Barito Utara (2025): https://altora.id/portofolio/pompy-batara
+- GPS armada dan radio marine VHF — Logistik & maritim · Mahakam: https://altora.id/portofolio/fleet-radio-kapal
+- Sistem antrian dan pendaftaran poliklinik — Klinik & RS swasta · Samarinda (2024): https://altora.id/portofolio/antrian-poliklinik
+
+## Halaman penting
+- Software house Samarinda: https://altora.id/software-house-samarinda
+- Software house Balikpapan: https://altora.id/software-house-balikpapan
+- Software house Kalimantan Timur: https://altora.id/software-house-kalimantan-timur
+- Jasa pembuatan aplikasi Samarinda: https://altora.id/jasa-pembuatan-aplikasi-samarinda
+- Jasa pembuatan aplikasi Balikpapan: https://altora.id/jasa-pembuatan-aplikasi-balikpapan
+- Jasa pembuatan website Samarinda: https://altora.id/jasa-pembuatan-website-samarinda
+- Tentang Altora: https://altora.id/about
+- Kontak: https://altora.id/contact
+- Layanan: https://altora.id/services
+- Pengadaan perangkat: https://altora.id/pengadaan
+- Portofolio: https://altora.id/portofolio
+- Aplikasi buatan Altora (Altora Office, Teams, Store, FieldOps, Control Center): https://altora.id/aplikasi
+- Area layanan: https://altora.id/area-layanan
+- Artikel: https://altora.id/blog
+
+## Profil resmi di luar situs (sameAs)
+- (belum ada profil eksternal resmi yang dicantumkan)
+
+## Pertanyaan umum
+
+### Apa itu Altora?
+Altora Indonesia (Altora) adalah software house dan penyedia solusi teknologi yang berkantor pusat di Samarinda, Kalimantan Timur, sejak 2019. Altora membuat software custom, aplikasi web dan mobile, website, SEO, AI, dan IoT, serta menyediakan pengadaan dan pemasangan perangkat. Lebih dari 50 proyek sudah diselesaikan oleh 13 ahli in-house.
+
+### Di mana kantor Altora?
+Kantor pusat Altora Indonesia di Jl. Dayak ASB, Bukuan, Kecamatan Palaran, Kota Samarinda, Kalimantan Timur. Cabang di Balikpapan Utara (Jl. Soekarno Hatta, Muara Rapak) dan di Pasar Baru, Balikpapan. Telepon/WhatsApp +62 851-9091-1170, email hello@altora.id.
+
+### Apakah Altora software house di Samarinda?
+Ya. Altora Indonesia adalah software house yang berkantor pusat di Samarinda dan punya dua cabang di Balikpapan. Klien kami di Samarinda antara lain Pemerintah Kota Samarinda dan Universitas Mulawarman.
+
+### Apakah Altora juga melayani Balikpapan dan kota lain di Kalimantan Timur?
+Ya. Balikpapan dilayani dari dua cabang kami, dan kabupaten/kota lain di Kalimantan Timur (Bontang, Kutai Kartanegara, Kutai Timur, Berau, Paser, Penajam Paser Utara, IKN, dan lainnya) dilayani dari kantor terdekat. Software juga dikerjakan jarak jauh untuk klien di seluruh Indonesia.
+
+### Layanan apa saja yang dikerjakan Altora?
+Software custom, aplikasi web dan mobile, website, SEO, AI (analitik CCTV, pengenalan wajah), IoT, tracking armada, serta pengadaan dan pemasangan perangkat seperti CCTV, jaringan, server rack, GPS tracker, dan kit Starlink untuk perusahaan dan instansi di Kalimantan Timur. Pasang CCTV rumahan, smart lock, smart home, dan IT support bulanan khusus Samarinda.
+
+### Apakah Altora bisa melayani pengadaan instansi pemerintah?
+Bisa. Altora berstatus PKP dan terdaftar sebagai penyedia di Inaproc/LKPP, dengan penawaran, faktur pajak, dan berita acara serah terima.
+
+### Bagaimana cara memulai proyek dengan Altora?
+Hubungi kami lewat WhatsApp +62 851-9091-1170 atau form konsultasi. Diskusi awal gratis; setelah kebutuhan jelas, kami kirim penawaran tertulis.
+
+### Bagaimana pendampingan setelah proyek selesai?
+Kami melatih pengguna, lalu memberi dukungan lewat WhatsApp dan akses jarak jauh, serta kunjungan ke lokasi bila perlu, sesuai kontrak.
+
+## Semua proyek portofolio
+- Jaringan, CCTV, dan POS rumah makan — RM Payakumbuah: https://altora.id/portofolio/rm-payakumbuah
+  Kasir POS, CCTV multi-sudut, switch 24-port, Wi-Fi pelanggan, dan walkie talkie dapur untuk operasional rumah makan.
+- GPS armada dan radio marine VHF — Logistik & maritim · Mahakam: https://altora.id/portofolio/fleet-radio-kapal
+  GPS tracker untuk armada logistik tambang di Kaltim dan radio marine VHF untuk komunikasi transportasi perairan Mahakam.
+- Fleet management armada hauling — Kontraktor tambang · Kaltim (2025): https://altora.id/portofolio/fleet-management-tambang
+  Telematik armada hauling: posisi dan riwayat perjalanan, status unit, geofence, dan laporan operasi dalam satu dashboard.
+- Anjungan layanan mandiri kelurahan — Pemerintahan & pelayanan: https://altora.id/portofolio/kios-mandiri-kelurahan
+  Rancangan hardware Anjungan Layanan Mandiri (Kios-K) layar sentuh supaya pengurusan surat kependudukan berjalan tanpa antre.
+- Pemantau ruang server dan gudang — Industri & pergudangan: https://altora.id/portofolio/iot-monitoring-gudang
+  Sensor suhu, kelembapan, kebocoran, dan asap yang aktif sepanjang waktu, dengan notifikasi WhatsApp dan dashboard pusat.
+- Instalasi CCTV siap analitik AI, 50+ unit — Fakultas Farmasi Universitas Mulawarman (2025): https://altora.id/portofolio/cctv-ai-farmasi-unmul
+  Lebih dari 50 kamera VIGI yang disiapkan untuk analitik AI dan pemantauan operasional, dipasang langsung di lokasi.
+- Smartlock akses gedung kampus — Fakultas Farmasi Universitas Mulawarman (2025): https://altora.id/portofolio/smartlock-farmasi-unmul
+  Kontrol akses digital untuk ruang dan gedung kampus, dengan pemantauan perangkat dan riwayat akses.
+- Pemantau cuaca dan kelembapan lahan — Perkebunan sawit · Kaltim (2025): https://altora.id/portofolio/iot-monitoring-lahan-sawit
+  Kelembapan tanah, suhu, dan kelembapan udara dibaca dari sensor lewat jaringan LoRa, lalu tampil di HP petugas lapangan.
+- Deteksi APD berbasis AI — PT Multi Harapan Utama (2025): https://altora.id/portofolio/deteksi-apd-ai
+  Analitik vision dari kamera untuk memantau kepatuhan APD, dengan pemantauan kejadian dan peringatan operasional.
+- Absensi face recognition — Universitas Mulawarman (2025): https://altora.id/portofolio/smart-attendance-unmul
+  Absensi otomatis dengan pengenalan wajah dari aliran kamera CCTV, lengkap dengan event kehadiran dan jejak audit.
+- Optimasi rute dan monitoring armada distribusi — Operator logistik · Balikpapan (2024): https://altora.id/portofolio/optimasi-rute-armada
+  Monitoring distribusi dan pembacaan rute armada untuk operasi logistik: GPS, visibilitas armada, dan pemantauan rute.
+- Dashboard media monitoring dan analitik isu — Intelligence Media Management (2024): https://altora.id/portofolio/media-monitoring
+  Dashboard untuk membaca isu dan aktivitas media, dengan pelacakan isu dan analitik sebagai bahan insight operasional.
+- Analisis sentimen dan social listening — Platform analitik media sosial (2025): https://altora.id/portofolio/sentiment-social-listening
+  Analisis percakapan publik untuk membaca tema, sentimen, dan perkembangan isu, lengkap dengan pelaporan.
+- Transkripsi rapat bahasa Indonesia — Korporasi & kampus · Kaltim (2025): https://altora.id/portofolio/transkripsi-rapat
+  Transkripsi rapat berbahasa Indonesia yang berjalan di server sendiri, untuk catatan rapat dan pencarian informasi kembali.
+- POMPy BATARA: portal one map dan dashboard daerah — Diskominfosandi Kab. Barito Utara (2025): https://altora.id/portofolio/pompy-batara
+  Portal peta tematik yang menyatukan data spasial dan tematik dari berbagai perangkat daerah sebagai dasar keputusan berbasis data.
+- Dashboard geospasial DAPODIK — Diskominfosandi Kab. Barito Utara (2024): https://altora.id/portofolio/dashboard-geospasial-dapodik
+  Peta sebaran sekolah dari data DAPODIK, dengan dashboard analitik untuk mendukung keputusan di bidang pendidikan.
+- HRIS mobile: absensi, payroll, dan slip gaji — Bukit Baiduri Energi (2024): https://altora.id/portofolio/hris-mobile-payroll
+  Kehadiran, payroll, dan informasi karyawan dalam satu alur, dengan akses karyawan dari HP.
+- Sistem antrian dan pendaftaran poliklinik — Klinik & RS swasta · Samarinda (2024): https://altora.id/portofolio/antrian-poliklinik
+  Alur pendaftaran dan antrian yang membuat layanan klinik lebih tertata, dengan display operasional.
+- Lentera: penilaian kesehatan keuangan koperasi — BPR & koperasi · Kaltim (2023): https://altora.id/portofolio/lentera-koperasi
+  Platform web dan mobile untuk membaca indikator dan kondisi keuangan koperasi secara terstruktur, dengan monitoring dan pelaporan.
+- Website dan sistem informasi fakultas — Fakultas Ekonomi dan Bisnis Universitas Mulawarman (2024): https://altora.id/portofolio/website-feb-unmul
+  Platform informasi fakultas dengan arsitektur informasi yang jelas, tampilan responsif, dan alur editorial untuk pengelolaan konten.
+- Website resmi fakultas — Fakultas Farmasi Universitas Mulawarman (2023): https://altora.id/portofolio/website-farmasi-unmul
+  Website publik untuk struktur informasi, publikasi, dan pembaruan konten fakultas, dikelola lewat CMS.
+
+## Halaman layanan
+- Software Custom: https://altora.id/services/software-custom
+- Website & SEO: https://altora.id/services/website-seo
+- SEO: https://altora.id/services/seo
+- Web Custom: https://altora.id/services/web-custom
+- Aplikasi Mobile Custom: https://altora.id/services/mobile-app-custom
+- AI Custom: https://altora.id/services/ai-custom
+- AI Lokal (Private AI): https://altora.id/services/private-ai
+- IoT Custom: https://altora.id/services/iot-custom
+- Tracking: https://altora.id/services/tracking
+- Pasang CCTV: https://altora.id/services/cctv
+- Smart Lock: https://altora.id/services/smart-lock
+- Smart Home: https://altora.id/services/smart-home
+- IT Support Bulanan: https://altora.id/services/it-support
+- Infrastruktur & Hardware Kaltim: https://altora.id/infrastruktur-hardware-kaltim
+- Pengadaan Perangkat: CCTV, Starlink, Jaringan & Laptop: https://altora.id/pengadaan
+
+## Halaman kota (Kalimantan)
+- Jasa Pembuatan Aplikasi Samarinda: https://altora.id/jasa-pembuatan-aplikasi-samarinda
+- Jasa Pembuatan Software Samarinda: https://altora.id/jasa-pembuatan-software-samarinda
+- Jasa Pembuatan Website Samarinda: https://altora.id/jasa-pembuatan-website-samarinda
+- Software House Samarinda – Pembuatan Aplikasi & Website: https://altora.id/software-house-samarinda
+- Software House Balikpapan – Pembuatan Aplikasi & Website: https://altora.id/software-house-balikpapan
+- Software House Kalimantan Timur – Aplikasi & Website: https://altora.id/software-house-kalimantan-timur
+- Jasa Pembuatan Website Balikpapan: https://altora.id/jasa-pembuatan-website-balikpapan
+- Jasa Pembuatan Aplikasi Balikpapan: https://altora.id/jasa-pembuatan-aplikasi-balikpapan
+- Jasa Pembuatan Website Bontang: https://altora.id/jasa-pembuatan-website-bontang
+- Jasa Pembuatan Aplikasi Bontang: https://altora.id/jasa-pembuatan-aplikasi-bontang
+- Jasa Pembuatan Website Kutai Kartanegara: https://altora.id/jasa-pembuatan-website-kutai-kartanegara
+- Pembuatan aplikasi Kutai Kartanegara: https://altora.id/jasa-pembuatan-aplikasi-kutai-kartanegara
+- Jasa Pembuatan Website Kutai Timur: https://altora.id/jasa-pembuatan-website-kutai-timur
+- Jasa Pembuatan Aplikasi Kutai Timur: https://altora.id/jasa-pembuatan-aplikasi-kutai-timur
+- Jasa Pembuatan Website Kutai Barat: https://altora.id/jasa-pembuatan-website-kutai-barat
+- Jasa Pembuatan Aplikasi Kutai Barat: https://altora.id/jasa-pembuatan-aplikasi-kutai-barat
+- Jasa Pembuatan Website Mahakam Ulu: https://altora.id/jasa-pembuatan-website-mahakam-ulu
+- Jasa Pembuatan Aplikasi Mahakam Ulu: https://altora.id/jasa-pembuatan-aplikasi-mahakam-ulu
+- Jasa Pembuatan Website Berau: https://altora.id/jasa-pembuatan-website-berau
+- Jasa Pembuatan Aplikasi Berau: https://altora.id/jasa-pembuatan-aplikasi-berau
+- Jasa Pembuatan Website Paser: https://altora.id/jasa-pembuatan-website-paser
+- Jasa Pembuatan Aplikasi Paser: https://altora.id/jasa-pembuatan-aplikasi-paser
+- Jasa Pembuatan Website Penajam Paser Utara: https://altora.id/jasa-pembuatan-website-penajam-paser-utara
+- Pembuatan aplikasi Penajam Paser Utara: https://altora.id/jasa-pembuatan-aplikasi-penajam-paser-utara
+- Jasa Pembuatan Website IKN Nusantara: https://altora.id/jasa-pembuatan-website-ikn
+- Jasa Pembuatan Aplikasi IKN Nusantara: https://altora.id/jasa-pembuatan-aplikasi-ikn
+- Software House Bontang: https://altora.id/software-house-bontang
+- Software House Kutai Kartanegara: https://altora.id/software-house-kutai-kartanegara
+- Software House Kutai Timur: https://altora.id/software-house-kutai-timur
+- Software House Kutai Barat: https://altora.id/software-house-kutai-barat
+- Software House Mahakam Ulu: https://altora.id/software-house-mahakam-ulu
+- Software House Berau: https://altora.id/software-house-berau
+- Software House Paser: https://altora.id/software-house-paser
+- Software House Penajam Paser Utara: https://altora.id/software-house-penajam-paser-utara
+- Software House IKN Nusantara: https://altora.id/software-house-ikn
+- Software House Banjarmasin: https://altora.id/software-house-banjarmasin
+- Software House Palangka Raya: https://altora.id/software-house-palangka-raya
+- Software House Barito Utara: https://altora.id/software-house-barito-utara
+- Software House Pontianak: https://altora.id/software-house-pontianak
+- Software House Tarakan: https://altora.id/software-house-tarakan
+- Jasa Pembuatan Website Banjarmasin: https://altora.id/jasa-pembuatan-website-banjarmasin
+- Jasa Pembuatan Aplikasi Banjarmasin: https://altora.id/jasa-pembuatan-aplikasi-banjarmasin
+- Jasa Pembuatan Website Palangka Raya: https://altora.id/jasa-pembuatan-website-palangka-raya
+- Jasa Pembuatan Aplikasi Palangka Raya: https://altora.id/jasa-pembuatan-aplikasi-palangka-raya
+- Jasa Pembuatan Website Barito Utara: https://altora.id/jasa-pembuatan-website-barito-utara
+- Jasa Pembuatan Aplikasi Barito Utara: https://altora.id/jasa-pembuatan-aplikasi-barito-utara
+- Jasa Pembuatan Website Pontianak: https://altora.id/jasa-pembuatan-website-pontianak
+- Jasa Pembuatan Aplikasi Pontianak: https://altora.id/jasa-pembuatan-aplikasi-pontianak
+- Jasa Pembuatan Website Tarakan: https://altora.id/jasa-pembuatan-website-tarakan
+- Jasa Pembuatan Aplikasi Tarakan: https://altora.id/jasa-pembuatan-aplikasi-tarakan
+- Jasa SEO Balikpapan: https://altora.id/jasa-seo-balikpapan
+- Jasa SEO Samarinda: https://altora.id/jasa-seo-samarinda
+- Jasa SEO Bontang: https://altora.id/jasa-seo-bontang
+- Jasa SEO Kutai Kartanegara: https://altora.id/jasa-seo-kutai-kartanegara
+- Jasa SEO Kutai Timur: https://altora.id/jasa-seo-kutai-timur
+- Jasa SEO Kutai Barat: https://altora.id/jasa-seo-kutai-barat
+- Jasa SEO Mahakam Ulu: https://altora.id/jasa-seo-mahakam-ulu
+- Jasa SEO Berau: https://altora.id/jasa-seo-berau
+- Jasa SEO Paser: https://altora.id/jasa-seo-paser
+- Jasa SEO Penajam Paser Utara: https://altora.id/jasa-seo-penajam-paser-utara
+- Jasa SEO IKN Nusantara: https://altora.id/jasa-seo-ikn
+- Jasa SEO Banjarmasin: https://altora.id/jasa-seo-banjarmasin
+- Jasa SEO Palangka Raya: https://altora.id/jasa-seo-palangka-raya
+- Jasa SEO Barito Utara: https://altora.id/jasa-seo-barito-utara
+- Jasa SEO Pontianak: https://altora.id/jasa-seo-pontianak
+- Jasa SEO Tarakan: https://altora.id/jasa-seo-tarakan
+- Jasa Pasang CCTV Samarinda: https://altora.id/jasa-pasang-cctv-samarinda
+- IT Support Samarinda: https://altora.id/it-support-samarinda
+- Jual & Pasang Smartlock Samarinda: https://altora.id/jual-smartlock-samarinda
+- Jual CCTV Samarinda: https://altora.id/jual-cctv-samarinda
+- CCTV Tenaga Surya Samarinda: https://altora.id/cctv-tenaga-surya-samarinda
+- Jual Kit Starlink Samarinda & Pemasangan: https://altora.id/jual-starlink-samarinda
+- Jual Kit Starlink Balikpapan & Pemasangan: https://altora.id/jual-starlink-balikpapan
+- Jual Kit Starlink Bontang & Pemasangan: https://altora.id/jual-starlink-bontang
+- Jual Kit Starlink Kutai Kartanegara & Pemasangan: https://altora.id/jual-starlink-kutai-kartanegara
+- Jual Kit Starlink Kutai Timur & Pemasangan: https://altora.id/jual-starlink-kutai-timur
+- Jual Kit Starlink Kutai Barat & Pemasangan: https://altora.id/jual-starlink-kutai-barat
+- Jual Kit Starlink Mahakam Ulu & Pemasangan: https://altora.id/jual-starlink-mahakam-ulu
+- Jual Kit Starlink Berau & Pemasangan: https://altora.id/jual-starlink-berau
+- Jual Kit Starlink Paser & Pemasangan: https://altora.id/jual-starlink-paser
+- Jual Kit Starlink Penajam Paser Utara & Pemasangan: https://altora.id/jual-starlink-penajam-paser-utara
+- Jual Kit Starlink IKN Nusantara & Pemasangan: https://altora.id/jual-starlink-ikn
+- Jasa Pasang CCTV Bontang untuk Perusahaan: https://altora.id/jasa-pasang-cctv-bontang
+- Jasa Pasang CCTV Kutai Kartanegara untuk Perusahaan: https://altora.id/jasa-pasang-cctv-kutai-kartanegara
+- Jasa Pasang CCTV IKN Nusantara untuk Perusahaan: https://altora.id/jasa-pasang-cctv-ikn
+
+## Aplikasi buatan Altora
+- Aplikasi Buatan Altora: https://altora.id/aplikasi
+- Altora Office: https://altora.id/aplikasi/office
+- Altora Teams: https://altora.id/aplikasi/teams
+- Altora Word: https://altora.id/aplikasi/word
+- Altora Sheets: https://altora.id/aplikasi/sheets
+- Altora Slides: https://altora.id/aplikasi/slides
+- Altora Control Center: https://altora.id/aplikasi/control-center
+- Altora FieldOps: https://altora.id/aplikasi/fieldops
+- Altora Store: https://altora.id/aplikasi/store
+- Aplikasi Toko & Distributor: Stok, PO, Surat Jalan: https://altora.id/aplikasi-toko
+- Aplikasi Pertambangan & Migas: HSE, PTW, Aset: https://altora.id/aplikasi-pertambangan
+- Aplikasi Manajemen Proyek & Kantor: https://altora.id/aplikasi-manajemen-proyek
+- Aplikasi HRIS: KPI Karyawan & Cuti Online: https://altora.id/aplikasi-hris
+- Aplikasi Monitoring Server & Website: https://altora.id/aplikasi-monitoring-server
+- Aplikasi Perkantoran: Dokumen, Lembar Kerja, Presentasi: https://altora.id/aplikasi-perkantoran
+
+## Artikel
+- Checklist Keamanan Aplikasi Bisnis Sebelum Go-Live: https://altora.id/blog/checklist-keamanan-aplikasi-bisnis
+- Integrasi Sistem ERP untuk Perusahaan Logistik Maritim dan Tongkang di Kalimantan Timur: https://altora.id/blog/integrasi-erp-logistik-maritim-kaltim
+- Altora Store: Aplikasi Toko Suku Cadang & Industri: https://altora.id/blog/altora-store-aplikasi-toko-suku-cadang
+- Smart IoT Industri di Kaltim: Monitoring Aset Lapangan: https://altora.id/blog/smart-iot-industri-kalimantan-timur
+- Barcode vs QR Code di Kasir dan Gudang untuk UMKM: https://altora.id/blog/barcode-vs-qr-code-kasir-gudang
+- Command Center: Satu Layar untuk CCTV, Armada, dan Sensor: https://altora.id/blog/command-center-satu-layar
+- Sistem PO Toko: Penawaran, Nota, Surat Jalan & Tagihan: https://altora.id/blog/sistem-po-toko
+- Digitalisasi Layanan Kelurahan dengan Kios Mandiri: https://altora.id/blog/digitalisasi-layanan-kelurahan-kios-mandiri
+- Deteksi APD dengan AI CCTV di Proyek Konstruksi: https://altora.id/blog/deteksi-apd-ai-cctv
+- Website Company Profile yang Menghasilkan Prospek: https://altora.id/blog/website-company-profile-prospek
+- Absensi GPS, Wajah, atau Fingerprint untuk Tim Lapangan: https://altora.id/blog/absensi-gps-wajah-fingerprint
+- Kapan Perlu Software Custom, Kapan Cukup Aplikasi Siap Pakai: https://altora.id/blog/kapan-software-custom
+- Panduan Sensor Kelembapan Tanah untuk Smart Farming Kaltim: https://altora.id/blog/smart-farming-sensor-tanah
+- Monitoring Suhu dan Asap IoT untuk Ruang Server dan Gudang: https://altora.id/blog/monitoring-suhu-asap-iot
+- Fleet Management untuk Logistik dan Tambang di Kaltim: https://altora.id/blog/fleet-management-logistik-tambang
+- Membimbing SMPN 5 Balikpapan ke Juara 2 Innovakids 2026: https://altora.id/blog/membimbing-smpn-5-balikpapan-innovakids-2026
+- Tanda Bisnis Perlu Sistem POS, Bukan Buku Kas: https://altora.id/blog/tanda-bisnis-perlu-pos
+- Cara Memilih Software House di Samarinda dan Balikpapan: https://altora.id/blog/cara-memilih-software-house-samarinda-balikpapan
+- Merencanakan Pembuatan Aplikasi: 7 Hal Penentu Cakupan: https://altora.id/blog/merencanakan-pembuatan-aplikasi

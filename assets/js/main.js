@@ -34,24 +34,7 @@
       feats: ['Cloud & server design', 'Network security review', 'Backup & monitoring', 'Access management', 'Infrastructure roadmap'] }
   ];
 
-  var FAQS = [
-    { icon: 'i-layers', tone: 'purple', q: 'Apa saja yang dikerjakan Altora?',
-      a: 'Tiga hal: aplikasi custom (web, HP, sistem internal), website dan SEO, serta aplikasi buatan sendiri seperti Altora Office dan Raphael Control Center.' },
-    { icon: 'i-puzzle', tone: 'blue', q: 'Jika kebutuhan kami tidak cocok dengan aplikasi yang ada di pasaran, apakah bisa dibuat khusus?',
-      a: 'Bisa. Kami pelajari alur kerja Anda dulu, lalu membuat aplikasi web atau HP, sistem internal, website, dashboard, dan integrasi dengan sistem lain sesuai kebutuhan.' },
-    { icon: 'i-monitor', tone: 'cyan', q: 'Apakah Altora menjual hardware?',
-      a: 'Tidak. Fokus kami software: aplikasi custom, website, SEO, dan aplikasi buatan sendiri. Kami bisa mengintegrasikan aplikasi dengan perangkat yang sudah Anda punya.' },
-    { icon: 'i-shield', tone: 'orange', q: 'Apakah ada aplikasi yang siap dipakai?',
-      a: 'Ada. Altora Office untuk proyek, tim, dan operasional kantor, serta Raphael Control Center untuk memantau server, website, dan proyek. Keduanya bisa didemokan dan disesuaikan.' },
-    { icon: 'i-trend', tone: 'green', q: 'Apakah bisa untuk pengadaan instansi?',
-      a: 'Bisa. Altora berstatus PKP dan terdaftar sebagai penyedia di Inaproc/LKPP, dengan penawaran, faktur, dan berita acara serah terima.' },
-    { icon: 'i-sync', tone: 'pink', q: 'Bisakah aplikasi yang dibuat terhubung dengan aplikasi atau perangkat yang sudah kami gunakan?',
-      a: 'Umumnya bisa. Kami cek dulu aplikasi dan perangkat yang Anda pakai, lalu tentukan cara menghubungkannya.' },
-    { icon: 'i-clipboard', tone: 'navy', q: 'Bagaimana proses memulai proyek?',
-      a: 'Hubungi kami lewat WhatsApp atau form konsultasi. Setelah memahami kebutuhan Anda, kami sarankan solusi yang sesuai, lalu kirim penawaran.' },
-    { icon: 'i-headset', tone: 'teal', q: 'Bagaimana pendampingan setelah selesai?',
-      a: 'Kami dampingi dari konsultasi awal, pemasangan atau pengembangan, pelatihan pengguna, sampai dukungan setelah sistem berjalan. Detail kerja sama kita diskusikan lewat chat.' }
-  ];
+  var FAQS = [];  // isi FAQ ada di HTML (scripts/build_trust.py + site_data.HOME_FAQ)
 
 
   /* ── render: industries ──────────────────────────── */
@@ -109,7 +92,8 @@
 
   var faqGrid = $('#faqGrid');
   if (faqGrid) {
-    faqGrid.innerHTML = FAQS.map(function (f, i) {
+    // FAQ sekarang HTML statis dari scripts/build_trust.py (terbaca mesin pencari); FAQS hanya cadangan bila grid kosong
+    if (!faqGrid.children.length) faqGrid.innerHTML = FAQS.map(function (f, i) {
       return '<div class="qa reveal" data-d="' + (i % 4) + '">' +
         '<summary role="button" tabindex="0" aria-expanded="false" aria-controls="fa' + i + '">' +
           '<span class="mi mi-' + f.tone + '">' + icon(f.icon) + '</span>' +

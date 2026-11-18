@@ -33,7 +33,7 @@ function init() {
   if (mobile) root.classList.add('gd-m');
 
   // ── ukuran gedung (meter) ──
-  const W = 24, D = 17, FH = 6, LOBBY = 7, N = 7, SLAB = 0.5;
+  const W = 24, D = 17, FH = 6, LOBBY = 7, N = 9, SLAB = 0.5;
   const base = k => (k === 1 ? 0 : LOBBY + (k - 2) * FH);
   const height = k => (k === 1 ? LOBBY : FH);
   const TOTAL = LOBBY + (N - 1) * FH;
@@ -254,8 +254,8 @@ function init() {
   let beam = null;
   const leds = [];
   const ROOMS = {
-    // 7 · Beranda (lantai teratas): ruang meeting penuh, proyektor menyala ke layar = pintu masuk ke beranda
-    7(room, k) {
+    // lantai teratas (Beranda): ruang meeting penuh, proyektor menyala ke layar = pintu masuk ke beranda
+    top(room, k) {
       const housing = at(box(1, 0.22, 0.25, M.dark), 0, 0, BACK + 0.05); room.add(housing);
       const lens = new THREE.Vector3(0, 0.87, 1.92);
       const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.Float32BufferAttribute(new Array(36).fill(0), 3));
@@ -289,11 +289,14 @@ function init() {
   };
 
   // ── isi tiap lantai sesuai halamannya; perabot statis digabung per material agar ringan ──
+  // urutan lantai mengikuti menu atas (Beranda paling atas). Nomor lantai juga dipakai assets/js/gedung-back.js (MAP).
   const PAGES = {
-    7: ['Beranda', '/', 'Kenalan dengan Altora'], 6: ['Karier', '/careers', 'Gabung tim Altora'], 5: ['Layanan', '/services', 'Software, website & SEO'],
-    4: ['Artikel', '/blog', 'Panduan & wawasan'], 3: ['Tentang', '/about', 'Kenali Altora'],
-    2: ['Aplikasi', '/aplikasi', 'Buatan Altora'], 1: ['Support', '/support', 'Bantuan teknis'],
+    9: ['Beranda', '/', 'Kenalan dengan Altora'], 8: ['Layanan', '/services', 'Software, AI, CCTV & IT'], 7: ['Pengadaan', '/pengadaan', 'Perangkat & jasa instalasi'],
+    6: ['Aplikasi', '/aplikasi', 'Buatan Altora'], 5: ['Portofolio', '/portofolio', 'Proyek yang sudah berjalan'], 4: ['Artikel', '/blog', 'Panduan & wawasan'],
+    3: ['Tentang', '/about', 'Kenali Altora'], 2: ['Karier', '/careers', 'Gabung tim Altora'], 1: ['Support', '/support', 'Bantuan teknis'],
   };
+  // isi ruangan tiap lantai (lantai teratas selalu ruang meeting, lihat ROOMS.top)
+  const KIND = { 8: 'ops', 7: 'gudang', 6: 'kantor', 5: 'galeri', 4: 'artikel', 3: 'kantor', 2: 'karier', 1: 'lobi' };
   const LABELS = {};
   const SHOTS = [390, 820, 1440, 1920];                                  // lebar tangkapan layar yang tersedia; pilih yang paling dekat dengan lebar layar
   const shotW = () => SHOTS.reduce((a, b) => Math.abs(b - VW) < Math.abs(a - VW) ? b : a);
@@ -324,7 +327,7 @@ function init() {
       if ((L.img && L.img[v]) || PAGES[k][1] === '/') return;             // lantai Beranda: isinya beranda asli (lapisan HTML), tanpa tangkapan layar
       const im = new Image(); im.decoding = 'async';
       im.onload = () => { L.img = L.img || {}; L.img[v] = im; L.draw(L.aspect); };
-      im.src = '/assets/img/lantai/' + PAGES[k][1].slice(1) + '-' + v + '.webp?v=4';
+      im.src = '/assets/img/lantai/' + PAGES[k][1].slice(1) + '-' + v + '.webp?v=5';
     } };
     return mat;
   }
@@ -413,14 +416,15 @@ function init() {
     [[-10.8, -7], [10.8, -7], [-10.8, 7.3], [10.8, 7.3]].forEach(([x, z]) => plantAt(x, z));
     let screen = null;                                                   // layar yang dituju kamera saat lantai ini diklik
 
-    if (k === 2 || k === 3 || k === 4) {                                 // Aplikasi / Tentang / Artikel: kantor terbuka yang padat
+    const kind = KIND[k];
+    if (kind === 'kantor' || kind === 'artikel') {                       // Aplikasi / Tentang / Artikel: kantor terbuka yang padat
       let i = k * 5;
       for (const z of [6.2, 3.4, 0.6, -2.4]) for (let x = -9.6; x <= 9.6; x += 2.4) { if (z === -2.4 && Math.abs(x) < 3) continue; station(x, z, i, (i + k) % 5 !== 0); i++; }
       [-10.6, -8.6].forEach(x => S(lite(1.6, 1.9, 0.6, V2.cab), x, 0.95, -7.3));        // lemari arsip
       S(lite(1.0, 1.2, 0.7, M.white), 9.4, 0.6, -7.2); S(lite(0.8, 0.12, 0.5, M.dark), 9.4, 1.25, -7.2);  // printer
       S(lite(0.06, 1.6, 3.2, V2.board), -11.6, 2.2, 0);                                    // papan tulis dinding samping
       walk(2, -6, -4.6, 'x', -10, 10, 1.2); walk(5, 4, -5.2, 'x', -10, 10, 0.9); walk(7, 11, 2, 'z', -5, 7, 1.0);
-      if (k === 3 || k === 2) screen = { kind: 'wide', hBase: 2.3, maxW: 4.4, bottom: 1.5, z: BACK, bezelPad: 0.14 };
+      if (kind === 'kantor') screen = { kind: 'wide', hBase: 2.3, maxW: 4.4, bottom: 1.5, z: BACK, bezelPad: 0.14 };
       else {                                                              // Artikel: poster besar + papan pengumuman berisi kertas
         screen = { kind: 'wide', hBase: 2.8, maxW: 4.2, bottom: 1.3, z: BACK, bezelPad: 0.12, poster: true };
         [-1, 1].forEach(sd => {
@@ -428,7 +432,7 @@ function init() {
           for (let a = 0; a < 6; a++) S(lite(0.7, 0.85, 0.02, V2.paper[(a + (sd > 0 ? 2 : 0)) % 5]), sd * 5.2 - 1.05 + (a % 3) * 1.05, 2.0 + Math.floor(a / 3) * 1.0, BACK + 0.08);
         });
       }
-    } else if (k === 6) {                                                // Karier: ruang wawancara + area onboarding tim baru
+    } else if (kind === 'karier') {                                      // Karier: ruang wawancara + area onboarding tim baru
       screen = { kind: 'wide', hBase: 2.4, maxW: 4.4, bottom: 1.4, z: BACK, bezelPad: 0.14 };
       S(desk(4.4, 1.4, 0.75, M.wood), 0, 0, -3.0);                                              // meja wawancara
       [-1.4, 0, 1.4].forEach((x, j) => {                                                       // panel pewawancara menghadap kandidat
@@ -444,7 +448,45 @@ function init() {
       [[-8, 4.6], [-5, 4.6]].forEach(([x, z]) => S(sofa(2.6), x, 0, z, Math.PI));             // lounge
       [[-8.5, 4.4], [-7.4, 4.4], [-5.2, 4.4]].forEach(([x, z], j) => S(mini(j + 3, true), x, 0, z, Math.PI));
       walk(4, -6, 1.5, 'x', -10, 2, 0.9); walk(8, 2, 0.8, 'x', -4, 10, 1.1);
-    } else if (k === 5) {                                                // Layanan: ruang monitoring CCTV & sistem
+    } else if (kind === 'gudang') {                                      // Pengadaan: gudang & ruang pamer perangkat (rak barang, CCTV, Starlink, laptop, server)
+      screen = { kind: 'wide', hBase: 2.2, maxW: 4.2, bottom: 1.6, z: BACK, bezelPad: 0.12 };
+      const crate = j => (j % 3 ? V2.wood : V2.prod[j % 8]);
+      for (const z of [-5.6, -2.4, 0.8, 4.0]) {                                               // rak gudang di sisi kiri, berisi kardus
+        [-10.9, -6.3].forEach(x => S(lite(0.1, 2.7, 0.9, M.frame), x, 1.35, z));
+        for (let r = 0; r < 3; r++) {
+          S(lite(4.6, 0.06, 0.9, V2.shelf), -8.6, 0.35 + r * 0.95, z);
+          for (let b = 0; b < 4; b++) if ((b + r + Math.round(z)) % 5 !== 0) S(lite(0.8, 0.5, 0.6, crate(b + r * 4 + Math.round(z))), -10.3 + b * 1.15, 0.63 + r * 0.95, z);
+        }
+      }
+      for (let j = 0; j < 6; j++) S(lite(0.9, 0.6, 0.7, V2.wood), -2.6 + (j % 3) * 0.95, 0.42 + Math.floor(j / 3) * 0.6, 5.6);   // palet barang masuk
+      S(lite(3.0, 0.12, 1.2, V2.wood), -1.65, 0.06, 5.6);
+      S(lite(3.4, 1.0, 1.0, deskTop), 1.2, 0.5, -1.2); S(lite(3.4, 0.12, 1.02, M.purple), 1.2, 1.0, -1.2);   // meja serah terima
+      S(lite(0.5, 0.32, 0.03, screenGlow), 0.6, 1.25, -1.35); S(mini(2, false), 1.6, 0, -2.1); S(mini(5, false), 0.8, 0, -0.1, Math.PI);
+      [[4.2, 2.2], [7.4, 2.2], [4.2, 5.2], [7.4, 5.2]].forEach(([x, z], j) => {                // meja pamer: CCTV, Starlink, laptop
+        S(lite(2.4, 0.9, 1.2, M.white), x, 0.45, z);
+        if (j === 0) [-0.7, 0, 0.7].forEach(dx => { S(cyl(0.22, 0.26, 0.2, M.white), x + dx, 1.0, z); S(lite(0.16, 0.12, 0.05, M.dark), x + dx, 1.0, z + 0.24); });
+        else if (j === 1) { const d = lite(1.3, 0.06, 0.8, M.white); d.rotation.x = -0.5; S(d, x, 1.35, z); S(lite(0.08, 0.5, 0.08, M.dark), x, 1.05, z + 0.1); }
+        else [-0.6, 0.6].forEach(dx => { S(lite(0.7, 0.03, 0.45, M.dark), x + dx, 0.92, z); const sc = lite(0.7, 0.42, 0.03, screenGlow); sc.rotation.x = -0.25; S(sc, x + dx, 1.13, z - 0.22); });
+      });
+      [9.8, 10.9].forEach(x => { S(lite(0.9, 2.3, 1.1, M.dark), x, 1.15, -5.6);                   // rak server contoh
+        for (let r = 0; r < 4; r++) { const led = at(lite(0.05, 0.08, 0.08, r % 2 ? M.led : M.ledP), x - 0.3 + r * 0.2, 0.5 + r * 0.45, -5.03); room.add(led); leds.push(led); } });
+      walk(1, -4.8, -3.8, 'z', -6, 6, 0.9); walk(6, 2, 3.6, 'x', -3, 9, 1.1); walk(3, 5.8, 0.4, 'x', 2, 10, 0.8);
+    } else if (kind === 'galeri') {                                      // Portofolio: galeri proyek, panel karya di dinding + maket di tengah
+      screen = { kind: 'wide', hBase: 2.5, maxW: 4.6, bottom: 1.4, z: BACK, bezelPad: 0.14, frame: true };
+      [-1, 1].forEach(sd => { for (let j = 0; j < 4; j++) {                                    // panel proyek menyala di dinding samping
+        const z = -5.4 + j * 3.4;
+        S(lite(0.08, 1.7, 2.5, V2.wood), sd * 11.55, 2.1, z);
+        S(lite(0.03, 1.45, 2.25, j % 2 ? camFeed(j + (sd > 0 ? 4 : 0)) : screenGlow), sd * 11.49, 2.1, z);
+      } });
+      [-1, 1].forEach(sd => { S(lite(2.6, 1.6, 0.06, V2.paper[sd > 0 ? 2 : 3]), sd * 6.4, 2.3, BACK + 0.04); S(lite(2.8, 1.8, 0.04, V2.wood), sd * 6.4, 2.3, BACK + 0.01); });
+      [[-4, 0.5], [0, 2.4], [4, 0.5]].forEach(([x, z], j) => {                               // alas maket proyek
+        S(lite(1.6, 0.9, 1.6, M.white), x, 0.45, z);
+        S(lite(0.5, 0.7 + j * 0.25, 0.5, V2.prod[j]), x - 0.3, 0.9 + (0.7 + j * 0.25) / 2, z - 0.2); S(lite(0.6, 0.4, 0.6, M.lilac), x + 0.35, 1.1, z + 0.25);
+      });
+      [[-6, 5.2], [6, 5.2]].forEach(([x, z]) => S(sofa(2.6), x, 0, z, Math.PI));
+      [[-9.6, -3.6, -Math.PI / 2], [-9.8, 3.2, -Math.PI / 2], [9.7, 0, Math.PI / 2], [-1.2, 4.4, 0]].forEach(([x, z, r], j) => S(mini(j + 2, false), x, 0, z, r));
+      walk(4, -2, -3, 'x', -8, 8, 0.8); walk(7, 7, 3.6, 'z', -4, 6, 0.9);
+    } else if (kind === 'ops') {                                         // Layanan: ruang monitoring CCTV & sistem
       screen = { kind: 'wide', hBase: 2.0, maxW: 3.6, bottom: 1.7, z: BACK, bezelPad: 0.1 };
       for (let a = 0; a < 8; a++) { const sd = a < 4 ? -1 : 1, j = a % 4; S(lite(2.2, 1.25, 0.08, camFeed(a)), sd * (3.4 + (j % 2) * 2.35), 1.75 + Math.floor(j / 2) * 1.4, BACK + 0.04); }
       for (const z of [-2.2, 0.9]) for (let x = -7.5; x <= 7.5; x += 3) {
@@ -488,7 +530,7 @@ function init() {
     g.add(at(box(W - 0.6, gh, 0.2, M.wall, false, true), 0, gy, -D / 2 + 0.4));
     const room = new THREE.Group(); room.position.y = SLAB; g.add(room);
     scene.add(g);
-    if (k === N) { ROOMS[k](room, k); labelMat(k); }                                  // lantai teratas: ruang meeting yang dikunjungi kamera
+    if (k === N) { ROOMS.top(room, k); labelMat(k); }                                  // lantai teratas: ruang meeting yang dikunjungi kamera
     else busyFloor(room, k, gh);             // lantai lain: aktivitas yang terlihat dari luar + layar halamannya
     g.position.y = base(k);
     floors[k] = { g, h };
@@ -1019,8 +1061,8 @@ function init() {
     }
   }
   const far = () => {                                                  // desktop: gedung di kanan (panel teks di kiri); mobile: gedung di atas (panel di bawah)
-    const narrow = VW < 900, az = 0.62, el = narrow ? 0.14 : 0.1, d = narrow ? 330 : 230;
-    const look = new THREE.Vector3(0, narrow ? 13 : 47, 0);
+    const narrow = VW < 900, az = 0.62, el = narrow ? 0.14 : 0.1, d = narrow ? 356 : 246;   // 9 lantai: sedikit lebih jauh dari versi 7 lantai
+    const look = new THREE.Vector3(0, narrow ? 16 : 50, 0);
     if (!narrow) look.add(new THREE.Vector3(-Math.cos(az), 0, Math.sin(az)).multiplyScalar(Math.min(60, 0.26 * TAN * d * (VW / VH) * 2)));
     return { pos: new THREE.Vector3(Math.sin(az) * Math.cos(el) * d, look.y + Math.sin(el) * d, Math.cos(az) * Math.cos(el) * d).add(new THREE.Vector3(look.x, 0, look.z)), look, up };
   };

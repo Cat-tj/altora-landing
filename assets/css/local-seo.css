@@ -1,0 +1,31 @@
+/* Komponen halaman lokal (software house per kota) dan profil /about. Token mengikuti DESIGN.md. */
+.lc-about{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center}
+.lc-about h2{margin:0 0 12px;color:#10224F;font-size:clamp(1.5rem,1.15rem + 1.2vw,2.1rem);font-weight:800;letter-spacing:-.025em;line-height:1.15}
+.lc-about p{margin:0 0 12px;color:#3B4366;line-height:1.7}
+.lc-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.lc-facts>div{display:flex;flex-direction:column;gap:4px;padding:18px 20px;border:1px solid #E9E5F6;border-radius:18px;background:#fff;box-shadow:0 14px 34px -24px rgba(43,30,110,.25)}
+.lc-facts b{color:#5B3FC4;font-size:clamp(1.5rem,1.2rem + 1vw,2rem);font-weight:800;line-height:1.05;font-variant-numeric:tabular-nums}
+.lc-facts span{color:#5A6785;font-size:.86rem;line-height:1.4}
+.lc-more{margin:18px 0 0}.lc-more a{color:#5B3FC4;font-weight:700;text-decoration:none}
+.lc-note{margin:14px 0 0;color:#5A6785;font-size:.9rem;line-height:1.6}
+.lc-page .pf-grid{margin-top:22px}
+.lc-nap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,48px);align-items:start}
+.lc-nap h3{margin:20px 0 6px;color:#10224F;font-size:1rem;font-weight:800}
+.lc-nap p{margin:0;color:#3B4366;line-height:1.65}
+.lc-nap-cards{display:grid;gap:10px;margin-top:16px}
+.lc-nap-card{display:flex;flex-direction:column;gap:3px;padding:16px 18px;border:1px solid #E9E5F6;border-radius:16px;background:#fff}
+.lc-nap-card small{color:#5B3FC4;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.lc-nap-card b{color:#10224F}
+.lc-nap-card span{color:#3B4366;font-size:.92rem;line-height:1.5}
+.lc-nap-card a{margin-top:4px;color:#5B3FC4;font-size:.86rem;font-weight:700;text-decoration:none}
+.lc-nap-contact{margin-top:14px!important;font-size:.92rem}
+.lc-nap-contact a{color:#5B3FC4;font-weight:700}
+.lc-nap-map .ofc-map{margin:0}
+.lc-nap-map .ofc-map iframe{height:340px}
+.lc-remote a{font-weight:600}
+/* /about: profil faktual */
+.ab-facts{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:clamp(24px,4vw,56px);align-items:start}
+.ab-facts h2{margin:10px 0 0;color:#10224F;font-size:clamp(1.5rem,1.15rem + 1.2vw,2.1rem);font-weight:800;letter-spacing:-.025em;line-height:1.15}
+.ab-facts-text p{margin:0 0 14px;color:#3B4366;line-height:1.75}
+.ab-facts-text a{color:#5B3FC4;font-weight:700}
+@media (max-width:900px){.lc-about,.lc-nap,.ab-facts{grid-template-columns:minmax(0,1fr)}.lc-nap-map .ofc-map iframe{height:260px}}

@@ -134,3 +134,9 @@
   .reach-cap{position:static;margin:0 12px 12px;box-shadow:none;background:#fff}
 }
 @media(max-width:640px){.reach-map{height:340px}}
+/* NAP (nama, alamat, telepon) di blok jangkauan beranda */
+.hm-nap{display:grid;gap:4px;width:100%;margin:4px 0 0;padding:16px 18px;border:1px solid var(--line);border-radius:18px;background:#fff;font-style:normal;font-size:.9rem;line-height:1.55;color:var(--text)}
+.hm-nap b{color:var(--ink);font-size:.98rem}
+.hm-nap a{color:var(--deep);font-weight:700}
+.hm-nap-act{display:flex;flex-wrap:wrap;gap:10px}
+@media (max-width:480px){.hm-nap-act .hm-btn{width:100%}}
