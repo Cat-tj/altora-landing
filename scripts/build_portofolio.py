@@ -162,7 +162,7 @@ def detail(p):
             {'@type': 'ListItem', 'position': 3, 'name': short_title(p), 'item': SITE + url}]}]}
     img = SITE + IMG + p['img']
     return head_html(title, desc, url, img, ld) + f"""<main class="pf-page" id="main">
-<section class="pf-hero"><div class="pf-wrap pf-split"><div class="pf-ph"><nav aria-label="Breadcrumb" class="pf-crumb"><a href="/">Beranda</a><a href="{URL}">Portofolio</a><span>{esc(short_title(p))}</span></nav>
+<section class="pf-hero"><div class="pf-wrap pf-split"><div class="pf-ph"><nav aria-label="Breadcrumb" class="pf-crumb"><a href="/beranda">Beranda</a><a href="{URL}">Portofolio</a><span>{esc(short_title(p))}</span></nav>
 <h1>{esc(p['title'])}</h1><p class="pf-lead">{esc(p['lead'])}</p><div class="pf-actions">{acts}</div></div>
 {hero_media(p, p['title'])}</div></section>
 <section class="pf-sec pf-sec-alt"><div class="pf-wrap pf-split top"><div class="pf-split-copy"><h2>Tentang proyek ini</h2><p class="pf-lead">{esc(p['about'])}</p>{src}

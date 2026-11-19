@@ -279,7 +279,7 @@ def rich_body(c, msg):
     about = ''.join(f'<p>{e(p)}</p>' for p in c['about'])
     return f'''<main class="ct-page svd-page lc-page">
 <section class="svd-hero"><div class="ct-wrap svd-hero-grid">
-<div class="svd-hero-copy"><nav aria-label="Breadcrumb" class="bl-crumb"><a href="/">Beranda</a><span>/</span><a href="/area-layanan">Area layanan</a><span>/</span><span>{e(c["city"])}</span></nav>
+<div class="svd-hero-copy"><nav aria-label="Breadcrumb" class="bl-crumb"><a href="/beranda">Beranda</a><span>/</span><a href="/area-layanan">Area layanan</a><span>/</span><span>{e(c["city"])}</span></nav>
 <p class="eyebrow eyebrow-purple">{e(c["eyebrow"])}</p><h1>{e(c["h1"])}</h1><p class="ct-lead">{e(c["lead"])}</p>
 <div class="svd-actions"><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Konsultasi gratis</a><a class="svd-link" href="#proyek">Lihat proyek</a><a class="svd-link" href="#kantor">Alamat kantor</a></div></div>
 <figure class="svd-hero-pic"><img alt="{e(HERO_ALT)}" fetchpriority="high" src="{HERO}" style="object-position:50% 45%"/><span class="svd-chip svd-chip-0">Sejak {FACTS["since"]}</span><span class="svd-chip svd-chip-1">{e(c["city"])}</span><span class="svd-chip svd-chip-2">Konsultasi gratis</span></figure>
@@ -310,7 +310,7 @@ def plain_body(c, msg):
     proof = proof_html(c) if c.get('proof') else ''
     return f'''<main class="ct-page svd-page lc-page">
 <section class="svd-hero"><div class="ct-wrap svd-hero-grid">
-<div class="svd-hero-copy"><nav aria-label="Breadcrumb" class="bl-crumb"><a href="/">Beranda</a><span>/</span><span>{e(c["h1"])}</span></nav>
+<div class="svd-hero-copy"><nav aria-label="Breadcrumb" class="bl-crumb"><a href="/beranda">Beranda</a><span>/</span><span>{e(c["h1"])}</span></nav>
 <p class="eyebrow eyebrow-purple">Altora Indonesia · {e(c["city"])}</p><h1>{e(c["h1"])}</h1><p class="ct-lead">{e(c["lead"])}</p>
 <div class="svd-actions"><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Konsultasi gratis</a><a class="svd-link" href="#lihat-juga">Lihat juga</a></div></div>
 <figure class="svd-hero-pic"><img alt="{e(HERO_ALT)}" src="{HERO}" style="object-position:50% 45%"/><span class="svd-chip svd-chip-0">{e(c["city"])}</span><span class="svd-chip svd-chip-1">{"Dikerjakan jarak jauh" if c.get("remote") else "Tim lokal"}</span><span class="svd-chip svd-chip-2">Konsultasi gratis</span></figure>

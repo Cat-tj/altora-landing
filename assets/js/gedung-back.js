@@ -4,7 +4,7 @@
    - di ujung bawah halaman (selesai melihat-lihat): sama, dengan scroll ke bawah
    - tombol "Kembali ke gedung" di kiri bawah setelah halaman di-scroll */
 (function () {
-  var MAP = { services: 8, pengadaan: 7, aplikasi: 6, portofolio: 5, blog: 4, about: 3, careers: 2, support: 1 };   // = PAGES di gedung3d.js
+  var MAP = { services: 8, pengadaan: 7, aplikasi: 6, portofolio: 5, blog: 4, about: 3, careers: 2, support: 1, beranda: 9 };   // = PAGES di gedung3d.js
   var k = MAP[location.pathname.replace(/^\/|\.html$|\/$/g, '').split('/')[0]];
   if (!k || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var FONT = 'font:600 .875rem/1.2 "Plus Jakarta Sans",system-ui,sans-serif;';

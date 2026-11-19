@@ -291,7 +291,7 @@ function init() {
   // ── isi tiap lantai sesuai halamannya; perabot statis digabung per material agar ringan ──
   // urutan lantai mengikuti menu atas (Beranda paling atas). Nomor lantai juga dipakai assets/js/gedung-back.js (MAP).
   const PAGES = {
-    9: ['Beranda', '/', 'Kenalan dengan Altora'], 8: ['Layanan', '/services', 'Software, AI, CCTV & IT'], 7: ['Pengadaan', '/pengadaan', 'Perangkat & jasa instalasi'],
+    9: ['Beranda', '/beranda', 'Kenalan dengan Altora'], 8: ['Layanan', '/services', 'Software, AI, CCTV & IT'], 7: ['Pengadaan', '/pengadaan', 'Perangkat & jasa instalasi'],
     6: ['Aplikasi', '/aplikasi', 'Buatan Altora'], 5: ['Portofolio', '/portofolio', 'Proyek yang sudah berjalan'], 4: ['Artikel', '/blog', 'Panduan & wawasan'],
     3: ['Tentang', '/about', 'Kenali Altora'], 2: ['Karier', '/careers', 'Gabung tim Altora'], 1: ['Support', '/support', 'Bantuan teknis'],
   };
@@ -324,7 +324,7 @@ function init() {
       x.fillStyle = '#5A6785'; x.font = '600 ' + Math.round(fs * 0.26) + 'px ' + F; x.fillText(PAGES[k][2], w / 2, h / 2 + fs * 0.85);
       tex.needsUpdate = true;
     }, load(v) {                                                        // v: lebar tangkapan layar (scripts/shot_lantai.sh)
-      if ((L.img && L.img[v]) || PAGES[k][1] === '/') return;             // lantai Beranda: isinya beranda asli (lapisan HTML), tanpa tangkapan layar
+      if ((L.img && L.img[v]) || PAGES[k][1] === '/beranda') return;             // lantai Beranda: isinya beranda asli (lapisan HTML), tanpa tangkapan layar
       const im = new Image(); im.decoding = 'async';
       im.onload = () => { L.img = L.img || {}; L.img[v] = im; L.draw(L.aspect); };
       im.src = '/assets/img/lantai/' + PAGES[k][1].slice(1) + '-' + v + '.webp?v=5';
@@ -1203,7 +1203,6 @@ function init() {
   function startVisit(k) {
     if (visit || auto) return;
     const ip = introProgress(); if (!ip || ip.t > 0.02) return;           // hanya dari tampilan awal gedung
-    if (k === N) { menu = true; playIntro(); return; }                   // lantai Beranda: masuk lewat proyektor ruang meeting, sama seperti scroll
     if (k === N) screens[N].surface.material = LABELS[N].mat;
     visit = { k, t0: performance.now(), from: startPose() };
     auto = true;                                                         // input scroll diabaikan selama perjalanan

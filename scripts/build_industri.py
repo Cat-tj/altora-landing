@@ -79,7 +79,7 @@ def page(key, d):
         {'@type': 'FAQPage', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': x}} for q, x in d['faq']]}]}
     body = f'''<main class="ct-page ind-page">
 <section class="ind-hero {d["tone"]}"><div class="ct-wrap ind-hero-grid"><div>
-<nav aria-label="Breadcrumb" class="vg-crumb"><a href="/">Beranda</a> / <a href="/industri">Industri</a> / <span>{e(d["name"])}</span></nav>
+<nav aria-label="Breadcrumb" class="vg-crumb"><a href="/beranda">Beranda</a> / <a href="/industri">Industri</a> / <span>{e(d["name"])}</span></nav>
 <h1>{e(d["h1"])}</h1><p class="ct-lead">{e(d["lead"])}</p>
 <div class="ap-actions"><a class="btn btn-white" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Konsultasi gratis</a><a class="ind-link" href="#solusi">Lihat solusi</a></div></div>
 <figure class="ind-hero-pic"><img alt="{e(d["name"])}" src="{d["hero"]}"/></figure></div></section>
@@ -96,7 +96,7 @@ def page(key, d):
 
 def hub():
     cards = ''.join(f'<a class="ti-card ti-{k}" href="/industri/{k}"><b>{e(d["name"])}</b><small>{e(d["lead"])}</small></a>' for k, d in INDUSTRIES.items())
-    body = ('<main class="ct-page ind-page"><section class="ap-hero"><div class="ct-wrap"><nav aria-label="Breadcrumb" class="vg-crumb"><a href="/">Beranda</a> / <span>Industri</span></nav>'
+    body = ('<main class="ct-page ind-page"><section class="ap-hero"><div class="ct-wrap"><nav aria-label="Breadcrumb" class="vg-crumb"><a href="/beranda">Beranda</a> / <span>Industri</span></nav>'
             '<h1>Solusi per industri</h1><p class="ct-lead">Aplikasi, website, dan SEO, disesuaikan untuk konteks yang berbeda: tambang, pemerintahan, pendidikan, dan korporasi.</p></div></section>'
             f'<section class="ap-sec"><div class="ct-wrap"><div class="ti-grid ind-hub">{cards}</div></div></section></main>')
     ld = {'@context': 'https://schema.org', '@type': 'CollectionPage', 'name': 'Solusi per industri', 'url': SITE + '/industri'}

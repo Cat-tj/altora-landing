@@ -13,8 +13,8 @@ def section_of(rel):
     route = '/' + rel[:-5]  # buang .html
     if route == '/blog':
         return '/blog'
-    if route in ('/index', '/beranda'):
-        return '/'
+    if route in ("/index", "/beranda"):
+        return "/beranda"
     if route == '/aplikasi' or route.startswith('/aplikasi/'):
         return '/aplikasi'
     for sec in ('/services', '/pengadaan', '/industri', '/portofolio', '/blog', '/about', '/support', '/careers'):
