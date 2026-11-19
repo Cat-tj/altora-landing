@@ -56,7 +56,7 @@ Altora Indonesia (Altora) is a software house headquartered in Samarinda, East K
 - AI (analitik CCTV, deteksi APD, pengenalan wajah) dan IoT (sensor): {SITE}/services/ai-custom, {SITE}/services/iot-custom
 - Tracking armada dan aset: {SITE}/services/tracking
 - Pengadaan dan pemasangan perangkat untuk perusahaan dan instansi di Kalimantan Timur (CCTV VIGI dan Dahua, jaringan, server rack, GPS Teltonika, videotron, laptop/PC Lenovo): {SITE}/pengadaan
-- Kit Starlink dan pemasangannya, khusus wilayah Kalimantan Timur. Altora bukan mitra resmi Starlink.
+- Kit Starlink dan pemasangannya, khusus wilayah Kalimantan Timur. Altora bukan mitra resmi Starlink. Halaman per kota: {SITE}/jual-starlink-samarinda, {SITE}/jual-starlink-balikpapan, {SITE}/jual-starlink-bontang (juga Kutai Kartanegara, Kutai Timur, Kutai Barat, Mahakam Ulu, Berau, Paser, Penajam Paser Utara, IKN)
 - Khusus Samarinda: pasang CCTV rumahan, smart lock, smart home, IT support bulanan
 - Tanpa daftar harga publik; penawaran tertulis lewat WhatsApp
 

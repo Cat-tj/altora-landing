@@ -14,7 +14,9 @@ from portofolio_data import BY as PF, card as pf_card
 
 root = pathlib.Path(__file__).resolve().parent.parent
 e = lambda t: html.escape(str(t), quote=True)
-TODAY = '2026-11-18'
+TODAY = '2026-11-20'
+TODAY_ID = '20 November 2026'
+LOCAL_CSS = '<link rel="stylesheet" href="/assets/css/local-seo.css?v=20261120a"/>'
 PF_CSS = '<link rel="stylesheet" href="/assets/css/portofolio.css?v=20261118p"/>'
 KIT = {it[0]: it for it in PG['starlink'][0][1]}
 
@@ -128,11 +130,11 @@ def faq_ld(items):
     return {'@type': 'FAQPage', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in items]}
 
 
-def common(kind, k, url, title, desc, h1, lead, eyebrow, hero, hero_alt, chips, sections, faq, links, msg):
+def common(kind, k, url, title, desc, h1, lead, eyebrow, hero, hero_alt, chips, sections, faq, links, msg, facts=''):
     c = AREA[k]
     ld = {'@context': 'https://schema.org', '@graph': [org(),
         {'@type': 'WebPage', '@id': SITE + url + '#halaman', 'url': SITE + url, 'name': title, 'description': desc, 'inLanguage': 'id-ID',
-         'isPartOf': {'@id': SITE + '/#website'}, 'publisher': {'@id': ORG_ID}, 'about': {'@id': SITE + url + '#layanan'}},
+         'isPartOf': {'@id': SITE + '/#website'}, 'publisher': {'@id': ORG_ID}, 'about': {'@id': SITE + url + '#layanan'}, 'dateModified': TODAY},
         {'@type': 'Service', '@id': SITE + url + '#layanan', 'name': h1, 'description': desc, 'url': SITE + url, 'serviceType': kind,
          'areaServed': {'@type': 'City' if k in ('samarinda', 'balikpapan', 'bontang') else 'AdministrativeArea', 'name': c['name']},
          'provider': {'@id': ORG_ID}},
@@ -151,6 +153,7 @@ def common(kind, k, url, title, desc, h1, lead, eyebrow, hero, hero_alt, chips, 
 <div class="svd-actions"><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Minta penawaran</a><a class="svd-link" href="#layanan">Lihat layanan</a></div></div>
 <figure class="svd-hero-pic pk-hero-pic"><img alt="{e(hero_alt)}" src="{hero}"/>{ch}</figure>
 </div></section>
+{facts}
 {sections}
 <section class="svd-sec"><div class="ct-wrap svd-faq"><div class="pd-block-head"><h2>Pertanyaan umum</h2></div><div>{faq_html}</div></div></section>
 <section class="svd-sec" id="lihat-juga"><div class="ct-wrap"><div class="svd-related"><b>Lihat juga</b>{rel}</div></div></section>
@@ -158,7 +161,7 @@ def common(kind, k, url, title, desc, h1, lead, eyebrow, hero, hero_alt, chips, 
 </main>'''
     if len(desc) > 160:
         desc = desc[:157].rsplit(' ', 1)[0].rstrip(',.:;') + '.'
-    return shell(title, desc, url, SITE + hero, ld, body, extra_head=PF_CSS)
+    return shell(title, desc, url, SITE + hero, ld, body, extra_head=PF_CSS + LOCAL_CSS)
 
 
 def starlink_page(k):
@@ -166,19 +169,34 @@ def starlink_page(k):
     o = office_of(c)
     url = f'/jual-starlink-{k}'
     name = c['name']
-    title = f'Jual Kit Starlink {name} & Pemasangan | Altora'
+    title = f'Starlink {name}: Jual Kit & Jasa Pasang | Altora'
     if len(title) > 65:
-        title = f'Kit Starlink {name} & Pemasangan | Altora'
+        title = f'Starlink {name}: Kit & Pemasangan | Altora'
     desc = f'Kit Starlink di {name}: pengadaan kit, survei, mounting, grounding, Wi-Fi, dan daya surya oleh tim Altora dari {o["city"]}. Khusus Kalimantan Timur.'
     h1 = f'Jual kit Starlink dan pemasangan di {name}'
     lead = (f'Pengadaan kit Starlink beserta pemasangannya di {name}: untuk {d["where"]}. Tim kami dari {label_lc(o)} '
             'mensurvei titik, memasang dudukan dan grounding, lalu menyebar Wi-Fi sampai ke titik kerja.')
+    facts_rows = [('Layanan', 'Pengadaan kit Starlink, survei lokasi, mounting, grounding, Wi-Fi, failover dual-WAN, dan daya surya'),
+                  ('Wilayah', f'{name} dan seluruh Kalimantan Timur (khusus Kaltim)'),
+                  ('Dilayani dari', f'{o["label"]}, {with_city(o)}'),
+                  ('Kontak', 'WhatsApp/telepon +62 851-9091-1170 · hello@altora.id'),
+                  ('Status', 'Bukan mitra resmi Starlink; PKP dan terdaftar di Inaproc/LKPP'),
+                  ('Harga', 'Penawaran tertulis setelah lokasi dan kebutuhan jelas')]
+    dl = ''.join(f'<div><dt>{e(a)}</dt><dd>{e(b)}</dd></div>' for a, b in facts_rows)
+    facts = (f'<section class="svd-sec lc-facts-sec" id="ringkasan"><div class="ct-wrap"><div class="lc-facts"><h2>Ringkasan: Starlink di {e(name)}</h2><dl>{dl}</dl>'
+             f'<p class="lc-note">Diperbarui <time datetime="{TODAY}">{TODAY_ID}</time>.</p></div></div></section>')
+    steps = [('Chat lokasi & kebutuhan', 'Kirim titik lokasi, jenis bangunan atau kapal, dan jumlah pengguna lewat WhatsApp.'),
+             ('Survei & rekomendasi kit', 'Kami cek pandangan langit, jalur kabel, dan sumber daya, lalu menyarankan tipe kit.'),
+             ('Penawaran tertulis', 'Rincian kit, dudukan, kabel, Wi-Fi, dan daya dikirim tertulis sebelum pekerjaan dimulai.'),
+             ('Pemasangan & uji', 'Kit dipasang, dibumikan, Wi-Fi disebar, lalu koneksi diuji bersama Anda.')]
+    steps_html = ''.join(f'<li><b>{e(t)}</b><span>{e(x)}</span></li>' for t, x in steps)
     cases = ''.join(f'<article class="svd-do"><h3>{e(t)}</h3><p>{e(x)}</p></article>' for t, x in d['cases'])
     kits = ''.join(kit_card(x, name) for x in d['kits'])
     dos = ''.join(f'<article class="svd-do"><h3>{e(t)}</h3><p>{e(x)}</p></article>' for t, x in STARLINK_DOS)
     sections = f'''<section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Siapa yang memakai Starlink di {e(name)}</h2></div><div class="svd-dos">{cases}</div></div></section>
 <section class="svd-sec" id="produk"><div class="ct-wrap"><div class="pd-block-head"><h2>Kit yang biasanya cocok untuk {e(name)}</h2><p>Tipe pastinya kami tentukan setelah survei. Semua kit di <a href="/pengadaan#starlink">katalog pengadaan</a>.</p></div><div class="pk-grid">{kits}</div></div></section>
 <section class="svd-sec" id="layanan"><div class="ct-wrap"><div class="pd-block-head"><h2>Pemasangan sampai Wi-Fi menyala</h2></div><div class="svd-dos">{dos}</div></div></section>
+<section class="svd-sec svd-pains"><div class="ct-wrap svd-pains-grid"><div class="pd-block-head"><h2>Cara pesan Starlink di {e(name)}</h2></div><ol class="lc-needs lc-steps">{steps_html}</ol></div></section>
 <section class="svd-sec"><div class="ct-wrap lc-office"><div><h2>Dilayani dari {e(label_lc(o))}</h2><p>{e(c["base"])}</p>
 <p>Kantor terdekat: {e(o["label"])}, {e(with_city(o))}. Telepon/WhatsApp +62 851-9091-1170.</p>
 <p class="lc-note">Altora bukan mitra resmi Starlink. Kami membantu pengadaan kit Starlink dan pemasangannya, khusus wilayah Kalimantan Timur. Aktivasi dan langganan kami bahas saat konsultasi. Starlink adalah merek dagang SpaceX.</p></div></div></section>'''
@@ -186,6 +204,8 @@ def starlink_page(k):
            ('Apakah Altora mitra resmi Starlink?', 'Tidak. Altora bukan mitra resmi Starlink. Kami membantu pengadaan kit, survei lokasi, pemasangan, grounding, dan integrasi ke jaringan Anda. Starlink adalah merek dagang SpaceX.'),
            ('Wilayah mana yang dilayani untuk kit Starlink?', 'Hanya Kalimantan Timur: Samarinda, Balikpapan, Bontang, Berau, Kutai Kartanegara, Kutai Timur, Kutai Barat, Mahakam Ulu, Paser, Penajam Paser Utara, dan IKN.'),
            (f'Berapa harga kit Starlink dan pemasangan di {name}?', 'Kami tidak memasang daftar harga karena kebutuhan dudukan, kabel, Wi-Fi, dan daya berbeda di tiap lokasi. Kirim lokasi dan kebutuhan Anda lewat WhatsApp; kami balas dengan penawaran tertulis.'),
+           ('Apa saja yang termasuk dalam pemasangan Starlink?', 'Survei titik, dudukan (tiang, atap, atau kapal), perapian kabel, grounding anti-petir, dan pengaturan Wi-Fi. Bila perlu: failover dual-WAN, Wi-Fi mesh, serta panel surya dan baterai.'),
+           (f'Kit Starlink mana yang cocok di {name}?', 'Standard untuk rumah dan kantor kecil, Mini untuk kapal atau lokasi yang sering berpindah, serta Performance atau Enterprise untuk tambang, proyek, dan banyak pengguna. Tipe pastinya kami tentukan setelah survei.'),
            ('Bagaimana dengan aktivasi dan langganan?', 'Aktivasi dan pilihan langganan kami bahas saat konsultasi, sesuai pemakaian Anda.'),
            ('Apakah bisa untuk pengadaan instansi?', 'Bisa. Altora berstatus PKP dan terdaftar sebagai penyedia di Inaproc/LKPP.')]
     links = [('/pengadaan#starlink', 'Katalog kit Starlink'), ('/infrastruktur-hardware-kaltim', 'Infrastruktur & hardware Kaltim'),
@@ -194,7 +214,7 @@ def starlink_page(k):
     msg = f'Halo Altora, saya di {name} dan ingin konsultasi kit Starlink beserta pemasangannya.'
     return url, common('Pengadaan dan pemasangan kit Starlink', k, url, title, desc, h1, lead, f'Kit Starlink · {name} · Kalimantan Timur',
                        '/assets/img/pengadaan/starlink-v5.webp', f'Kit Starlink untuk pemasangan di {name}', [name, 'Survei & pasang', 'Khusus Kaltim'],
-                       sections, faq, links, msg)
+                       sections, faq, links, msg, facts)
 
 
 def cctv_page(k):

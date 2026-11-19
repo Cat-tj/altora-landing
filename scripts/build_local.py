@@ -13,11 +13,12 @@ from portofolio_data import BY as PF, card as pf_card
 
 root = pathlib.Path(__file__).resolve().parent.parent
 CSS_VER = '20261016i'
-LOCAL_CSS = '/assets/css/local-seo.css?v=20261119a'
+LOCAL_CSS = '/assets/css/local-seo.css?v=20261120a'
 PF_CSS = '/assets/css/portofolio.css?v=20261118p'
 SITE = 'https://altora.id'
 WA = 'https://wa.me/6285190911170?text='
-TODAY = '2026-11-18'
+TODAY = '2026-11-20'
+TODAY_ID = '20 November 2026'
 e = lambda t: html.escape(t, quote=True)
 
 SERVICES = [
@@ -271,6 +272,22 @@ def office_html(c):
             f'<div class="lc-nap-map">{the_map}</div></div></section>')
 
 
+def facts_html(c):
+    """Ringkasan fakta singkat: jawaban langsung yang mudah dikutip Google dan mesin AI (GEO)."""
+    offs = [OFFICE[k] for k in c['offices']]
+    rows = [('Nama', 'Altora Indonesia'),
+            ('Jenis usaha', 'Software house: aplikasi, website, SEO, AI, IoT, dan pengadaan perangkat'),
+            ('Berdiri', f'{FACTS["since"]} di Samarinda'),
+            ('Alamat', ' · '.join(full_addr(o) for o in offs)),
+            ('Kontak', f'{PHONE_DISPLAY} · {EMAIL}'),
+            ('Rekam jejak', f'{FACTS["projects"]} proyek, {FACTS["team"]} ahli in-house, PKP dan terdaftar di Inaproc/LKPP'),
+            ('Area layanan', 'Seluruh Kalimantan Timur; proyek software juga dikerjakan jarak jauh')]
+    dl = ''.join(f'<div><dt>{e(k)}</dt><dd>{e(v)}</dd></div>' for k, v in rows)
+    return (f'<section class="svd-sec lc-facts-sec" id="ringkasan"><div class="ct-wrap"><div class="lc-facts">'
+            f'<h2>Ringkasan: software house {e(c["city"])}</h2><dl>{dl}</dl>'
+            f'<p class="lc-note">Diperbarui <time datetime="{TODAY}">{TODAY_ID}</time>.</p></div></div></section>')
+
+
 def rich_body(c, msg):
     why = ''.join(f'<article class="svd-do"><h3>{e(t)}</h3><p>{e(d)}</p></article>' for t, d in c['why'])
     needs = ''.join(f'<li><b>{e(t)}</b><span>{e(d)}</span></li>' for t, d in c['needs'])
@@ -284,6 +301,7 @@ def rich_body(c, msg):
 <div class="svd-actions"><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Konsultasi gratis</a><a class="svd-link" href="#proyek">Lihat proyek</a><a class="svd-link" href="#kantor">Alamat kantor</a></div></div>
 <figure class="svd-hero-pic"><img alt="{e(HERO_ALT)}" fetchpriority="high" src="{HERO}" style="object-position:50% 45%"/><span class="svd-chip svd-chip-0">Sejak {FACTS["since"]}</span><span class="svd-chip svd-chip-1">{e(c["city"])}</span><span class="svd-chip svd-chip-2">Konsultasi gratis</span></figure>
 </div></section>
+{facts_html(c)}
 <section class="svd-sec lc-about-sec"><div class="ct-wrap lc-about"><div><h2>Tentang Altora di {e(c["city"])}</h2>{about}</div>{stats_html()}</div></section>
 <section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Kenapa memilih Altora di {e(c["city"])}</h2></div><div class="svd-dos lc-why">{why}</div></div></section>
 {services_full_html(c)}
@@ -344,7 +362,7 @@ def page(c):
     ld = {'@context': 'https://schema.org', '@graph': [org()] + [office_node(o) for o in local_offices] + [
         {'@type': 'WebPage', '@id': SITE + url + '#halaman', 'url': SITE + url, 'name': c['title'], 'description': c['desc'], 'inLanguage': 'id-ID',
          'isPartOf': {'@id': SITE + '/#website'}, 'publisher': {'@id': ORG_ID}, 'about': {'@id': SITE + url + '#layanan'},
-         'primaryImageOfPage': {'@type': 'ImageObject', 'url': SITE + HERO}},
+         'primaryImageOfPage': {'@type': 'ImageObject', 'url': SITE + HERO}, 'dateModified': TODAY},
         {'@type': 'Service', '@id': SITE + url + '#layanan', 'name': c['h1'], 'serviceType': 'Software house',
          'description': c['desc'], 'url': SITE + url,
          'provider': {'@id': office_id(local_offices[0]) if local_offices else ORG_ID},
