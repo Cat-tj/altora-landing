@@ -236,7 +236,7 @@ def build():
                      f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>')
                 + '<main class="bl-page">'
                 + '<article class="bl-article"><header class="bl-head"><div class="bl-wrap bl-narrow">'
-                + f'<nav aria-label="Breadcrumb" class="bl-crumb"><a href="/">Beranda</a><span>/</span><a href="/blog">Artikel</a><span>/</span><span aria-current="page">{e(crumb)}</span></nav>'
+                + f'<nav aria-label="Breadcrumb" class="bl-crumb"><a href="/beranda">Beranda</a><span>/</span><a href="/blog">Artikel</a><span>/</span><span aria-current="page">{e(crumb)}</span></nav>'
                 + f'<p class="eyebrow eyebrow-purple">{e(p["category"])}</p><h1>{e(p["title"])}</h1>'
                 + f'<p class="bl-lead">{e(p["description"])}</p>'
                 + f'<p class="bl-meta">Tim Altora Indonesia · <time datetime="{p["date"]}">{tanggal(p["date"])}</time>' + (f' · Diperbarui <time datetime="{updated}">{tanggal(updated)}</time>' if updated != p['date'] else '') + f' · {minutes} menit baca</p>'
