@@ -1,0 +1,6 @@
+# Laporan celah keamanan untuk altora.id (RFC 9116)
+Contact: mailto:hello@altora.id
+Contact: https://altora.id/contact
+Expires: 2027-11-19T00:00:00.000Z
+Preferred-Languages: id, en
+Canonical: https://altora.id/.well-known/security.txt

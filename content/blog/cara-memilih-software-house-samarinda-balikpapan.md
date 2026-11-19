@@ -3,9 +3,11 @@ title: Cara Memilih Software House di Samarinda dan Balikpapan: 8 Pertanyaan Seb
 seo_title: Cara Memilih Software House di Samarinda dan Balikpapan
 description: Checklist praktis memilih software house di Samarinda dan Balikpapan: cara mereka memahami masalah, kepemilikan source code, dan dukungan setelah sistem berjalan.
 date: 2026-10-11
+updated: 2026-11-19
 category: Panduan memilih vendor
 image: /assets/img/blog/cover/cara-memilih-software-house-samarinda-balikpapan.webp
 related: /software-house-samarinda | Software house di Samarinda
+related: /software-house-balikpapan | Software house di Balikpapan
 related: /services/software-custom | Layanan software custom Altora
 related: /contact | Konsultasi kebutuhan
 ---
@@ -53,7 +55,7 @@ Hampir tidak ada organisasi yang mulai dari nol. Ada spreadsheet, aplikasi akunt
 
 Masa paling rawan adalah dua sampai empat minggu pertama setelah sistem dipakai. Tanyakan apakah ada pelatihan untuk pengguna, siapa yang bisa dihubungi saat ada kendala, dan berapa lama waktu respons yang dijanjikan.
 
-Vendor yang berada di kota yang sama—misalnya di Samarinda atau Balikpapan—punya keuntungan nyata di fase ini: mereka bisa datang ke lokasi saat ada masalah perangkat atau jaringan.
+Vendor yang berada di kota yang sama—misalnya di Samarinda atau Balikpapan—punya keuntungan nyata di fase ini: mereka bisa datang ke lokasi saat ada masalah perangkat atau jaringan. Kapan jarak vendor berpengaruh dan kapan tidak, kami bahas di [vendor aplikasi lokal atau dari luar Kaltim](/blog/vendor-aplikasi-lokal-atau-luar-kaltim).
 
 ## 7. Apa yang perlu dirawat setelah proyek selesai?
 
@@ -76,4 +78,10 @@ Sebelum tanda tangan, pastikan Anda bisa menjawab ini dengan yakin:
 7. Perawatan setelah proyek sudah direncanakan.
 8. Vendor jujur ketika solusi yang lebih sederhana sudah cukup.
 
-Kalau Anda sedang menimbang pembuatan sistem untuk organisasi di Kalimantan Timur, [ceritakan kondisinya kepada tim Altora](/contact). Kami mulai dari proses kerja Anda, bukan dari paket.
+## Panduan terkait
+
+- [Software house atau freelancer? Panduan untuk perusahaan dan instansi di Kaltim](/blog/software-house-vs-freelancer-kaltim)
+- [Vendor aplikasi lokal atau dari luar Kaltim?](/blog/vendor-aplikasi-lokal-atau-luar-kaltim)
+- [Contoh aplikasi untuk instansi dan perusahaan di Kalimantan Timur](/blog/contoh-aplikasi-instansi-perusahaan-kaltim)
+
+Kalau Anda sedang menimbang pembuatan sistem untuk organisasi di Kalimantan Timur, lihat [software house Samarinda](/software-house-samarinda) atau [jasa pembuatan aplikasi Balikpapan](/software-house-balikpapan), lalu [ceritakan kondisinya kepada tim Altora](/contact). Kami mulai dari proses kerja Anda, bukan dari paket.

@@ -10,3 +10,6 @@ dist/
 leads/
 outreach/
 ops/
+
+# state pengiriman IndexNow (lokal, lihat scripts/indexnow_ping.py)
+scripts/.indexnow_state.json

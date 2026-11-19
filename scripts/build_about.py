@@ -35,6 +35,21 @@ ICO = {
     'code': '<path d="m9 8-4 4 4 4M15 8l4 4-4 4M13 6l-2 12"/>',
     'pin': '<path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/>',
 }
+# "Altora dalam angka & fakta": hanya fakta yang sudah dikonfirmasi (site_data.FACTS, OFFICES, HOME_FAQ). Setiap jawaban
+# ditulis sebagai kalimat utuh yang bisa dikutip apa adanya oleh mesin pencari dan asisten AI.
+FAKTA = [
+    ('Nama', 'Altora Indonesia, juga dikenal sebagai Altora.'),
+    ('Jenis usaha', 'Software house dan penyedia solusi teknologi: software custom, aplikasi web dan mobile, website, SEO, AI, IoT, serta pengadaan dan pemasangan perangkat.'),
+    ('Berdiri', 'Altora Indonesia berdiri di Samarinda, Kalimantan Timur, pada 2019 dan sudah beroperasi lebih dari 6 tahun.'),
+    ('Kantor pusat', 'Jl. Dayak ASB, Bukuan, Kecamatan Palaran, Kota Samarinda, Kalimantan Timur.'),
+    ('Cabang', 'Dua cabang di Balikpapan: Balikpapan Utara (Jl. Soekarno Hatta, Muara Rapak) dan Pasar Baru.'),
+    ('Tim', '13 ahli in-house yang menangani analisis, desain, pengembangan, pengujian, pelatihan, dan dukungan.'),
+    ('Proyek', 'Lebih dari 50 proyek telah diselesaikan untuk instansi, kampus, dan perusahaan.'),
+    ('Klien', 'Antara lain Pemerintah Kota Samarinda, Universitas Mulawarman, Institut Teknologi Kalimantan, STT Migas Balikpapan, dan Diskominfosandi Kabupaten Barito Utara.'),
+    ('Legalitas', 'Badan usaha berstatus PKP dan terdaftar sebagai penyedia di Inaproc/LKPP.'),
+    ('Wilayah layanan', 'Samarinda dan Balikpapan langsung dari kantor Altora; kabupaten/kota lain di Kalimantan Timur dari kantor terdekat; software juga dikerjakan jarak jauh untuk seluruh Indonesia.'),
+    ('Kontak', 'Telepon/WhatsApp +62 851-9091-1170, email hello@altora.id, situs altora.id.'),
+]
 ico = lambda n: f'<svg aria-hidden="true" viewBox="0 0 24 24">{ICO[n]}</svg>'
 
 
@@ -64,6 +79,9 @@ def build():
 <p>Altora membuat software custom, aplikasi web dan mobile, website, SEO, AI, dan IoT, serta menyediakan pengadaan dan pemasangan perangkat seperti CCTV, jaringan, server rack, GPS tracker, dan kit Starlink untuk perusahaan dan instansi di Kalimantan Timur. Pasang CCTV rumahan, smart lock, smart home, dan IT support bulanan dilayani khusus di Samarinda.</p>
 <p>Selama lebih dari 6 tahun, Altora telah menyelesaikan lebih dari 50 proyek bersama 13 ahli in-house. Klien Altora antara lain Pemerintah Kota Samarinda, Universitas Mulawarman, Institut Teknologi Kalimantan, STT Migas Balikpapan, dan Diskominfosandi Kabupaten Barito Utara. Altora berstatus PKP dan terdaftar sebagai penyedia di Inaproc/LKPP.</p>
 <p>Kontak: telepon/WhatsApp +62 851-9091-1170, email hello@altora.id, situs <a href="/">altora.id</a>. Halaman kota: <a href="/software-house-samarinda">software house Samarinda</a>, <a href="/software-house-balikpapan">software house Balikpapan</a>, dan <a href="/software-house-kalimantan-timur">software house Kalimantan Timur</a>.</p></div></div></section>
+<section class="ab-sec" id="fakta"><div class="ct-wrap ab-facts"><div><p class="eyebrow eyebrow-purple">Ringkas untuk dikutip</p><h2>Altora dalam angka &amp; fakta</h2>
+<p class="ab-p">Data resmi perusahaan. Bila Anda menulis tentang Altora, silakan kutip dari sini.</p></div>
+<dl class="ab-kv">{''.join(f'<div><dt>{e(k)}</dt><dd>{e(v)}</dd></div>' for k, v in FAKTA)}</dl></div></section>
 <section class="ab-sec ab-stats-sec"><div class="ct-wrap"><div class="ts-stats">{stats}</div></div></section>
 <section class="ab-sec"><div class="ct-wrap"><div class="ab-head"><p class="eyebrow eyebrow-purple">Yang kami kerjakan</p><h2>Dari ide sampai aplikasi yang dipakai</h2><p class="ab-p">Layanan software, perangkat, dan dukungan IT, bisa diambil satu per satu atau digabung dalam satu proyek.</p></div>
 <div class="ab-svcs">{svcs}</div></div></section>
@@ -86,7 +104,7 @@ def build():
                                                           {'@type': 'ListItem', 'position': 2, 'name': 'Tentang', 'item': SITE + '/about'}]}]}
     return shell('Tentang Altora Indonesia | Software House Samarinda sejak 2019',
                  'Altora Indonesia: software house di Samarinda sejak 2019 dengan dua cabang di Balikpapan. 50+ proyek, 13 ahli in-house, PKP dan terdaftar di Inaproc/LKPP.',
-                 '/about', SITE + COLLAGE[0], ld, body, extra_head='<link rel="stylesheet" href="/assets/css/local-seo.css?v=20261118a"/>')
+                 '/about', SITE + COLLAGE[0], ld, body, extra_head='<link rel="stylesheet" href="/assets/css/local-seo.css?v=20261119a"/>')
 
 
 if __name__ == '__main__':

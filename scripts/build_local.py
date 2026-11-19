@@ -13,7 +13,7 @@ from portofolio_data import BY as PF, card as pf_card
 
 root = pathlib.Path(__file__).resolve().parent.parent
 CSS_VER = '20261016i'
-LOCAL_CSS = '/assets/css/local-seo.css?v=20261118a'
+LOCAL_CSS = '/assets/css/local-seo.css?v=20261119a'
 PF_CSS = '/assets/css/portofolio.css?v=20261118p'
 SITE = 'https://altora.id'
 WA = 'https://wa.me/6285190911170?text='
@@ -58,6 +58,21 @@ TIME_QA = ('Berapa lama pembuatan aplikasi atau website?',
 SUPPORT_QA = ('Apakah ada maintenance setelah aplikasi selesai?',
               'Ada. Setelah serah terima, kami melatih pengguna lalu memberi dukungan lewat WhatsApp (dibalas di jam kerja), akses jarak jauh, '
               'dan kunjungan ke lokasi bila perlu. Cakupan pemeliharaan, pembaruan, dan backup ditulis di kontrak.')
+
+# Panduan (artikel informasional) yang ditautkan dari halaman kota utama. Halaman kota = niat komersial,
+# artikel = niat informasional; artikelnya menaut balik ke /software-house-samarinda, /software-house-balikpapan, dan /contact.
+GUIDES = [('/blog/cara-memilih-software-house-samarinda-balikpapan', 'Cara memilih software house', '8 pertanyaan sebelum tanda tangan kontrak.'),
+          ('/blog/software-house-vs-freelancer-kaltim', 'Software house atau freelancer?', 'Kapan freelancer cukup, kapan perlu tim dan badan usaha.'),
+          ('/blog/vendor-aplikasi-lokal-atau-luar-kaltim', 'Vendor lokal atau dari luar Kaltim?', 'Bagian proyek yang dipengaruhi jarak, dan yang tidak.'),
+          ('/blog/contoh-aplikasi-instansi-perusahaan-kaltim', 'Contoh aplikasi di Kalimantan Timur', 'Kampus, klinik, tambang, logistik, dan perkebunan.')]
+
+
+def guides_html():
+    items = ''.join(f'<a class="lc-svc" href="{u}"><b>{e(t)}</b><span>{e(d)}</span></a>' for u, t, d in GUIDES)
+    return ('<section class="svd-sec" id="panduan"><div class="ct-wrap"><div class="pd-block-head"><h2>Panduan sebelum memilih software house</h2>'
+            '<p>Bahan pertimbangan yang bisa Anda baca dulu sebelum menghubungi vendor mana pun.</p></div>'
+            f'<div class="lc-svcs">{items}</div></div></section>')
+
 
 CITIES = [
     dict(slug='software-house-samarinda', city='Samarinda', area='Samarinda', rich=True, offices=['samarinda'],
@@ -276,6 +291,7 @@ def rich_body(c, msg):
 <section class="svd-sec svd-pains"><div class="ct-wrap svd-pains-grid"><div class="pd-block-head"><h2>Kebutuhan yang sering kami kerjakan di {e(c["city"])}</h2></div><ul class="lc-needs">{needs}</ul></div></section>
 {intents_html(c)}
 {office_html(c)}
+{guides_html()}
 <section class="svd-sec"><div class="ct-wrap svd-faq"><div class="pd-block-head"><h2>Pertanyaan seputar software house {e(c["city"])}</h2></div><div>{faq}</div></div></section>
 <section class="svd-sec" id="lihat-juga"><div class="ct-wrap">{regions_html() if c.get("regions") else ""}
 <div class="svd-related"><b>Lihat juga</b>{nearby}</div></div></section>

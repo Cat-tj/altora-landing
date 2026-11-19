@@ -29,3 +29,12 @@
 .ab-facts-text p{margin:0 0 14px;color:#3B4366;line-height:1.75}
 .ab-facts-text a{color:#5B3FC4;font-weight:700}
 @media (max-width:900px){.lc-about,.lc-nap,.ab-facts{grid-template-columns:minmax(0,1fr)}.lc-nap-map .ofc-map iframe{height:260px}}
+
+/* /about: Altora dalam angka & fakta */
+.ab-kv{margin:0;border:1px solid #E9E5F6;border-radius:18px;background:#fff;overflow:hidden}
+.ab-kv div{display:grid;grid-template-columns:minmax(0,10rem) minmax(0,1fr);gap:4px 20px;padding:14px 20px;border-top:1px solid #E9E5F6}
+.ab-kv div:first-child{border-top:0}
+.ab-kv dt{color:#5A6785;font-size:.8125rem;font-weight:700;letter-spacing:.02em}
+.ab-kv dd{margin:0;color:#10224F;line-height:1.6}
+@media (max-width:640px){.ab-kv div{grid-template-columns:minmax(0,1fr)}}
+.ab-facts .ab-p{margin:12px 0 0}

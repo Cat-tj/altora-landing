@@ -89,3 +89,23 @@ Halaman karier dibangun dari `scripts/build_careers.py` (isi lowongan nyata di `
 Setelah semua build, jalankan `python3 scripts/apply_seo.py` (favicon, meta, OG, laporan title/description).
 
 Header & footer semua halaman berasal dari `partials/` dan diterapkan oleh `scripts/apply_shell.py`.
+
+## IndexNow (Bing, Yandex, Seznam; dipakai Copilot dan ChatGPT search)
+
+Kunci IndexNow ada di file `2ac47fce9c55d6153288346c1b868c41.txt` di root situs
+(dilayani di `https://altora.id/2ac47fce9c55d6153288346c1b868c41.txt`). Jangan dihapus atau diganti namanya;
+kunci yang sama tertulis di `scripts/indexnow_ping.py`.
+
+`./deploy.sh --go` otomatis menjalankan ping setelah deploy produksi berhasil (bukan untuk `TARGET=pi`
+atau `PAGES_BRANCH` selain `main`; lewati dengan `INDEXNOW=0 ./deploy.sh --go`). Manual, **setelah** deploy:
+
+```bash
+python3 scripts/indexnow_ping.py --dry-run   # lihat URL yang akan dikirim
+python3 scripts/indexnow_ping.py             # kirim URL baru / yang lastmod-nya berubah di sitemap.xml
+python3 scripts/indexnow_ping.py --all       # kirim semua URL di sitemap.xml
+python3 scripts/indexnow_ping.py --urls /about /blog/slug-artikel
+```
+
+Pembanding perubahan disimpan di `scripts/.indexnow_state.json` (lokal, tidak di-commit) dan hanya diperbarui
+bila API menjawab 200/202. Pemanggilan pertama tanpa state mengirim semua URL. Jawaban 403 berarti file kunci
+belum terpasang di situs; 422 berarti ada URL di luar altora.id.

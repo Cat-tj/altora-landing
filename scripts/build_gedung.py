@@ -29,7 +29,10 @@ GPU = ('var di=x.getExtension("WEBGL_debug_renderer_info"),gr=di?String(x.getPar
        r'if(x.getParameter(x.MAX_TEXTURE_SIZE)<4096||/SwiftShader|llvmpipe|Mali-(4|T)|Adreno \(TM\) [345]\d\d|PowerVR/i.test(gr))lite=true;'
        'if(f)lite=false;if(lite){document.documentElement.classList.add("gd-lite");return}')
 # tanda boot sejak awal: tampilkan latar langit + logo sampai 3D siap (beranda biasa tidak sempat berkedip); batal sendiri bila 3D tidak jalan
-BOOT = ('<script id="gd-boot">(function(){try{if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;' + LITE +
+# HP (layar sentuh < 768px) selalu dapat beranda biasa: pembuka 3D (Three.js ±1,3 MB + render WebGL) di HP kelas atas pun
+# menahan LCP/TBT berdetik-detik di Lighthouse mobile. ?3d=1 tetap bisa memaksanya untuk demo.
+PHONE = 'if(matchMedia("(pointer:coarse)").matches&&Math.min(screen.width,screen.height)<768)lite=true;'
+BOOT = ('<script id="gd-boot">(function(){try{if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;' + LITE + PHONE +
         'var g=document.createElement("canvas"),x=g.getContext("webgl2")||g.getContext("webgl");if(!x)return;' + GPU +
         'var l=x.getExtension("WEBGL_lose_context");if(l)l.loseContext();'
         'var d=document.documentElement,h=new Date().getHours();d.classList.add("gd-boot");if(h<5||h>=19)d.classList.add("gd-boot-night");'

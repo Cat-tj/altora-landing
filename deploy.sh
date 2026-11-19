@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Deploy altora.id. Sejak 2026-10-28 situs dilayani Cloudflare Pages (proyek altora-landing).
-# Pakai:  ./deploy.sh --go                          -> susun dist/ lalu deploy produksi ke Cloudflare Pages
+# Pakai:  ./deploy.sh --go                          -> susun dist/, deploy produksi ke Cloudflare Pages, lalu ping IndexNow
 #         ./deploy.sh                               -> hanya menyusun dist/ (tanpa upload)
 #         TARGET=pi HOST=pi@<ip> ./deploy.sh --go   -> cadangan lama: rsync ke Raspberry Pi (/home/pi/altora-landing)
 # File internal (leads, outreach, script, catatan) TIDAK ikut. Untuk rsync ke Pi: semua yang tidak ada di repo
@@ -8,7 +8,12 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 if [[ "${TARGET:-pages}" != "pi" ]]; then
-  if [[ "${1:-}" == "--go" ]]; then sh scripts/build_pages.sh --deploy; else sh scripts/build_pages.sh; echo ">> dist/ siap. Jalankan './deploy.sh --go' untuk deploy ke Cloudflare Pages."; fi
+  if [[ "${1:-}" == "--go" ]]; then
+    sh scripts/build_pages.sh --deploy
+    # Deploy produksi berhasil (set -e): kabari IndexNow soal URL yang berubah. Gagal ping tidak menggagalkan deploy;
+    # ulangi manual dengan 'python3 scripts/indexnow_ping.py'. Hanya untuk produksi (PAGES_BRANCH main); lewati dengan INDEXNOW=0
+    if [[ "${INDEXNOW:-1}" != "0" && "${PAGES_BRANCH:-main}" == "main" ]]; then python3 scripts/indexnow_ping.py || echo ">> IndexNow gagal; jalankan ulang: python3 scripts/indexnow_ping.py"; fi
+  else sh scripts/build_pages.sh; echo ">> dist/ siap. Jalankan './deploy.sh --go' untuk deploy ke Cloudflare Pages."; fi
   exit 0
 fi
 HOST="${HOST:?Set HOST, contoh: TARGET=pi HOST=pi@HOST_IP ./deploy.sh --go}"
