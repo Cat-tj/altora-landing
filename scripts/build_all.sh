@@ -31,3 +31,4 @@ python3 scripts/apply_schema.py
 python3 scripts/purge_removed.py --images
 python3 scripts/clean_sitemap.py
 python3 scripts/build_llms.py
+python3 scripts/apply_perf.py

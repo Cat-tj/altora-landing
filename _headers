@@ -1,5 +1,20 @@
 # Header Cloudflare Pages. HTML memakai bawaan Pages (max-age=0, must-revalidate = divalidasi ulang tiap kunjungan,
-# sama dengan "no-cache" di Caddy). Aset boleh disimpan browser 4 jam; CSS/JS sudah memakai ?v= sebagai cache-bust.
+# sama dengan "no-cache" di Caddy).
+# Satu path hanya boleh cocok dengan SATU aturan Cache-Control: Pages menggabungkan header bernama sama dari beberapa
+# aturan dengan koma, jadi Cache-Control ditulis per folder, bukan di /assets/*.
 /assets/*
-  Cache-Control: public, max-age=14400
   X-Content-Type-Options: nosniff
+
+# CSS/JS/vendor: setiap rujukan di dist/ diberi ?v=<hash isi file> oleh scripts/stamp_assets.py (build_pages.sh),
+# jadi URL berubah setiap isinya berubah dan file boleh disimpan browser setahun tanpa validasi ulang.
+/assets/css/*
+  Cache-Control: public, max-age=31536000, immutable
+/assets/js/*
+  Cache-Control: public, max-age=31536000, immutable
+/assets/vendor/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Gambar belum memakai nama/versi berbasis isi (file kadang diganti dengan nama sama), jadi cukup 1 hari,
+# lalu boleh dipakai sambil divalidasi ulang di latar selama 7 hari.
+/assets/img/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
