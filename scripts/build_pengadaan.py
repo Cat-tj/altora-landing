@@ -200,7 +200,7 @@ def page():
     steps = ''.join(f'<li><b>{t}</b><span>{d}</span></li>' for t, d in STEPS)
     jasa = ''.join(f'<article class="pgd-svc"><span class="pgd-ico">{icon(i)}</span><h3>{t}</h3><p>{d}</p></article>' for i, t, d in JASA)
     faq = ''.join(f'<details><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q, a in FAQ)
-    offices = ''.join(f'<li><b>{e(o["label"])}</b>{e(o["street"])}, {e(o["city"])}</li>' for o in OFFICES)
+    offices = ''.join(f'<li><b>{e(o["label"])}</b>{e(o["street"])}, {e(o["city"])}</li>' for o in OFFICES if o['region'] == 'Kalimantan Timur')
     hero_msg = 'Halo Altora, saya ingin minta penawaran pengadaan perangkat. Kebutuhan saya: '
     total = sum(count(k) for k, *_ in CATS)
 
@@ -213,7 +213,7 @@ def page():
                 if img:
                     it['image'] = SITE + IMG + img
                 items.append(it)
-    ld = {'@context': 'https://schema.org', '@graph': [org()] + [office_node(o) for o in OFFICES] + [
+    ld = {'@context': 'https://schema.org', '@graph': [org()] + [office_node(o) for o in OFFICES if o['region'] == 'Kalimantan Timur'] + [
         {'@type': 'CollectionPage', '@id': SITE + URL + '#halaman', 'url': SITE + URL, 'name': 'Pengadaan perangkat Altora', 'description': DESC,
          'inLanguage': 'id-ID', 'about': {'@id': ORG_ID}, 'isPartOf': {'@id': SITE + '/#website'},
          'mainEntity': {'@type': 'ItemList', 'name': 'Katalog pengadaan perangkat', 'numberOfItems': len(items), 'itemListElement': items}},

@@ -317,6 +317,20 @@ def rich_body(c, msg):
 </main>'''
 
 
+def branch_html(c):
+    """Blok kantor cabang di luar Kaltim: ringkasan fakta + kartu alamat + peta pin."""
+    o = c['branch']
+    rows = [('Nama', f'Altora Indonesia – {o["label"]}'), ('Alamat', full_addr(o)), ('Kontak', f'{PHONE_DISPLAY} · {EMAIL}'),
+            ('Layanan', 'Aplikasi web & HP, software custom, website, SEO, dashboard'),
+            ('Kantor pusat', 'Jl. Dayak ASB, Bukuan, Kec. Palaran, Samarinda, Kalimantan Timur (sejak ' + FACTS['since'] + ')'),
+            ('Rekam jejak', f'{FACTS["projects"]} proyek, {FACTS["team"]} ahli in-house, PKP dan terdaftar di Inaproc/LKPP')]
+    dl = ''.join(f'<div><dt>{e(k)}</dt><dd>{e(v)}</dd></div>' for k, v in rows)
+    return (f'<section class="svd-sec" id="kantor"><div class="ct-wrap lc-nap"><div><div class="pd-block-head"><h2>Kantor Altora di {e(c["city"])}</h2></div>'
+            f'<div class="lc-facts"><dl>{dl}</dl><p class="lc-note">Diperbarui <time datetime="{TODAY}">{TODAY_ID}</time>.</p></div>'
+            f'<p class="lc-nap-contact"><a href="{e(maps_link(o))}" rel="noopener" target="_blank">Buka di Google Maps →</a></p></div>'
+            f'<div class="lc-nap-map">{map_html(o)}</div></div></section>')
+
+
 def plain_body(c, msg):
     why = ''.join(f'<article class="svd-do"><h3>{e(t)}</h3><p>{e(d)}</p></article>' for t, d in c['why'])
     needs = ''.join(f'<li><b>{e(t)}</b><span>{e(d)}</span></li>' for t, d in c['needs'])
@@ -340,7 +354,7 @@ def plain_body(c, msg):
 <section class="svd-sec" id="lihat-juga"><div class="ct-wrap">
 <div class="svd-related"><b>Lihat juga</b>{nearby}</div></div></section>
 <section class="svd-sec"><div class="ct-wrap svd-faq"><div class="pd-block-head"><h2>Pertanyaan umum</h2></div><div>{faq}</div></div></section>
-<section class="svd-sec"><div class="ct-wrap lc-office"><div><h2>Kantor</h2>{offices}<p><a href="tel:+6285190911170">+62 851-9091-1170</a> · <a href="mailto:hello@altora.id">hello@altora.id</a></p></div></div></section>
+{branch_html(c) if c.get("branch") else '<section class="svd-sec"><div class="ct-wrap lc-office"><div><h2>Kantor</h2>' + offices + '<p><a href="tel:+6285190911170">+62 851-9091-1170</a> · <a href="mailto:hello@altora.id">hello@altora.id</a></p></div></div></section>'}
 <section class="pd-cta"><div class="ct-wrap pd-cta-inner"><div><h2>Butuh software house di {e(c["city"])}?</h2><p>Ceritakan kebutuhan Anda. Diskusi awal gratis.</p></div><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Chat WhatsApp</a></div></section>
 </main>'''
 
@@ -401,6 +415,8 @@ def region_entry(k, r):
     from build_area import CITIES as AREA_CITIES
     o = next(x for x in OFFICES if x['key'] == r['office'])
     near = [n for n in r['near'] if n in AREA_CITIES][:3]
+    if k in OFFICE_CITIES:
+        return branch_entry(k, r, near)
     return dict(slug=f'software-house-{k}', city=r['name'], area=r['name'], office=r['office'],
         title=f'Software House {r["name"]} | Altora Indonesia',
         desc=f'Software house untuk {r["name"]}: aplikasi custom, website, dan SEO. Dilayani tim Altora dari {o["city"]}, Kalimantan Timur, sejak 2019.',
@@ -423,6 +439,8 @@ def nasional_entry(k, r):
     from build_area import CITIES as AREA_CITIES
     from regions_nasional import is_indexed
     near = [n for n in r['near'] if n in AREA_CITIES][:3]
+    if k in OFFICE_CITIES:
+        return branch_entry(k, r, near)
     return dict(slug=f'software-house-{k}', city=r['name'], area=r['name'], office='samarinda', remote=True, indexed=is_indexed(k),
         proof=r.get('proof', []), proof_head=f'Proyek kami untuk {r["name"]}', proof_note=f'Dikerjakan dari kantor pusat kami di Samarinda untuk klien di {r["name"]}.',
         title=f'Software House {r["name"]} | Aplikasi & Website | Altora',
@@ -440,8 +458,32 @@ def nasional_entry(k, r):
         nearby=[(f'/software-house-{n}', f'Software house {AREA_CITIES[n]["name"]}') for n in near] + [(f'/jasa-pembuatan-aplikasi-{k}', f'Jasa pembuatan aplikasi {r["name"]}'), (f'/jasa-pembuatan-website-{k}', f'Jasa pembuatan website {r["name"]}'), ('/area-layanan#nasional', 'Kota lain di Indonesia')])
 
 
+def branch_entry(k, r, near):
+    """Kota di luar Kaltim yang punya cabang Altora (mis. Bekasi): halaman lokal diindeks, layanan software/website/SEO, tanpa klaim perangkat."""
+    from build_area import CITIES as AREA_CITIES
+    o = OFFICE[OFFICE_CITIES[k]]
+    n = r['name']
+    addr = full_addr(o)
+    return dict(slug=f'software-house-{k}', city=n, area=n, office=o['key'], remote=False, indexed=True, branch=o,
+        proof=r.get('proof', []), proof_head='Contoh proyek software kami', proof_note=f'Proyek tim Altora; dikerjakan bersama cabang {n} untuk klien di {n} dan Jabodetabek.',
+        title=f'Software House {n} – Aplikasi, Website & SEO | Altora',
+        desc=f'Software house {n}: cabang Altora di Kaliabang Tengah, Bekasi Utara. Jasa pembuatan aplikasi, website, dan SEO untuk bisnis dan instansi di {n}.',
+        h1=f'Software house {n} untuk aplikasi, website, dan SEO',
+        lead=f'Altora Indonesia punya cabang di {n}, di {o["street"].split(",")[0]}, Kaliabang Tengah, Bekasi Utara. Dari sini kami membuat aplikasi web dan HP, website, dashboard, dan SEO untuk perusahaan, UMKM, dan instansi di {n} dan Jabodetabek.',
+        why=[(f'Cabang di {n}', f'Diskusi kebutuhan, demo, dan pelatihan pengguna bisa dilakukan langsung di {n}, tidak hanya lewat video call.'),
+             ('Tim in-house sejak 2019', f'Dikerjakan bersama tim inti Altora di Samarinda: {FACTS["team"]} ahli in-house dan {FACTS["projects"]} proyek terdeliver.'),
+             ('Bisa untuk instansi', 'Altora berstatus PKP dan terdaftar sebagai penyedia di Inaproc/LKPP, dengan penawaran, faktur, dan berita acara yang lengkap.')],
+        needs=r['needs'],
+        faq=[(f'Apakah Altora punya kantor di {n}?', f'Ya. Cabang Altora di {n} beralamat di {addr}. Kantor pusat kami di Samarinda, Kalimantan Timur. Telepon/WhatsApp {PHONE_DISPLAY}.'),
+             (f'Layanan apa yang tersedia di {n}?', 'Pembuatan aplikasi web dan HP, software custom, website, SEO, dashboard, dan integrasi sistem. Pengadaan dan pemasangan perangkat (CCTV, Starlink) saat ini khusus Kalimantan Timur.'),
+             ('Apakah bisa bertemu langsung?', f'Bisa. Diskusi kebutuhan, demo, dan pelatihan pengguna bisa dijadwalkan di cabang {n} atau di lokasi Anda.'),
+             ('Bagaimana dukungan setelah aplikasi jalan?', 'Pelatihan pengguna, lalu kendala ditangani lewat WhatsApp, tiket support, dan akses jarak jauh sesuai kesepakatan.')],
+        nearby=[(f'/jasa-pembuatan-aplikasi-{k}', f'Jasa pembuatan aplikasi {n}'), (f'/jasa-pembuatan-website-{k}', f'Jasa pembuatan website {n}'), (f'/jasa-seo-{k}', f'Jasa SEO {n}'),
+                ('/software-house-samarinda', 'Software house Samarinda (kantor pusat)')] + [(f'/software-house-{x}', f'Software house {AREA_CITIES[x]["name"]}') for x in near])
+
+
 from regions import REGIONS
-from regions_nasional import NASIONAL
+from regions_nasional import NASIONAL, OFFICE_CITIES
 CITIES += [region_entry(k, r) for k, r in REGIONS.items()]
 CITIES += [nasional_entry(k, r) for k, r in NASIONAL.items()]
 

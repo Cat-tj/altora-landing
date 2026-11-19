@@ -180,6 +180,10 @@ NASIONAL = {
 KALIMANTAN = {'banjarmasin', 'palangka-raya', 'barito-utara', 'pontianak', 'tarakan'}
 
 
+# Kota di luar Kaltim yang punya kantor cabang Altora (fakta lokal nyata), jadi halamannya diindeks. Kunci = key kantor di site_data.OFFICES.
+OFFICE_CITIES = {'bekasi': 'bekasi'}
+
+
 def is_indexed(key):
-    """True bila halaman kota <key> boleh diindeks (Kalimantan Timur, kota Kalimantan lain, atau bukan kota nasional)."""
-    return key not in NASIONAL or key in KALIMANTAN
+    """True bila halaman kota <key> boleh diindeks (Kalimantan Timur, kota Kalimantan lain, kota bercabang, atau bukan kota nasional)."""
+    return key not in NASIONAL or key in KALIMANTAN or key in OFFICE_CITIES

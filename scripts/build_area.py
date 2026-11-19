@@ -7,7 +7,7 @@ from urllib.parse import quote
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from site_data import OFFICES, ORG_ID, org, office_node, label_lc
 from regions import REGIONS
-from regions_nasional import NASIONAL, is_indexed
+from regions_nasional import NASIONAL, is_indexed, OFFICE_CITIES
 from portofolio_data import BY as PF_BY, card as pf_card
 
 root = pathlib.Path(__file__).resolve().parent.parent
@@ -40,6 +40,10 @@ REMOTE_SERVICES = ('website', 'aplikasi', 'seo')
 for _k, _r in NASIONAL.items():
     CITIES[_k] = dict(_r, local_proof=_r.get('proof', []), office='samarinda', scope='nasional',
                       base=f"Untuk klien di {_r['name']}, aplikasi dan website kami kerjakan jarak jauh dari kantor pusat di Samarinda: diskusi lewat video call, demo berkala di server uji, lalu serah terima, pelatihan, dan dukungan secara online. Pertemuan langsung bisa dijadwalkan bila diperlukan.")
+    if _k in OFFICE_CITIES:
+        _o = OFFICE_BY_KEY[OFFICE_CITIES[_k]]
+        CITIES[_k].update(office=_o['key'], base=f"Cabang Altora di {_r['name']}: {_o['street']}, {_o['district']}, {_r['name']}, {_o['region']} {_o['postal']}. "
+                          f"Dari cabang ini kami melayani software, aplikasi, website, dan SEO untuk klien di {_r['name']} dan sekitarnya; diskusi kebutuhan dan pelatihan pengguna bisa dilakukan langsung.")
 
 
 def is_nasional(ckey):
@@ -219,7 +223,7 @@ def page(skey, ckey):
                   '<p>Proyek nyata yang dikerjakan tim Altora. Nama klien tertera di setiap kartu.</p></div><div class="pf-grid">' + ''.join(pf_card(p) for p in proof) + '</div></div></section>')
     hero_alt = f'Ilustrasi layanan {s["short"].lower()} Altora Indonesia untuk {c["name"]}'
     clients_p = '' if c.get('needs') else f'<p>Klien kami di {e(c["name"])} antara lain {e(c["sectors"])}.</p>'
-    local_offices = [] if is_nasional(ckey) else [o for o in OFFICES if o['city'] == c['name']]
+    local_offices = [o for o in OFFICES if o['city'] == c['name']]
     ld = {'@context': 'https://schema.org', '@graph': [org()] + [office_node(o) for o in local_offices] + [
         {'@type': 'Service', '@id': SITE + url + '#layanan', 'name': h1, 'description': desc, 'url': SITE + url, 'serviceType': s['short'],
          'areaServed': {'@type': 'City', 'name': c['name']},
@@ -234,7 +238,7 @@ def page(skey, ckey):
 <div class="svd-hero-copy"><nav aria-label="Breadcrumb" class="bl-crumb"><a href="/area-layanan">Area layanan</a><span>/</span><span>{e(c["name"])}</span></nav>
 <p class="eyebrow eyebrow-purple">Altora Indonesia · {e(c["name"])}{", " + e(c["seat"]) if nas else ""}</p><h1>{e(h1)}</h1><p class="ct-lead">{e(fmt(s["lead"], c))}</p>
 <div class="svd-actions"><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Konsultasi gratis</a><a class="svd-link" href="#lihat-juga">Lihat juga</a></div></div>
-<figure class="svd-hero-pic"><img alt="{e(hero_alt)}" src="{s["hero"]}" style="object-position:50% 45%"/><span class="svd-chip svd-chip-0">{e(c["name"])}</span><span class="svd-chip svd-chip-1">{"Dikerjakan jarak jauh" if nas else "Tim lokal"}</span><span class="svd-chip svd-chip-2">Konsultasi gratis</span></figure>
+<figure class="svd-hero-pic"><img alt="{e(hero_alt)}" src="{s["hero"]}" style="object-position:50% 45%"/><span class="svd-chip svd-chip-0">{e(c["name"])}</span><span class="svd-chip svd-chip-1">{"Dikerjakan jarak jauh" if nas and not local_offices else ("Cabang " + c["name"] if nas else "Tim lokal")}</span><span class="svd-chip svd-chip-2">Konsultasi gratis</span></figure>
 </div></section>
 <section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>Yang kami kerjakan</h2></div><div class="svd-dos">{dos}</div></div></section>
 <section class="svd-sec"><div class="ct-wrap lc-office"><div><h2>{"Cara kami bekerja untuk klien di " + e(c["name"]) if nas else "Melayani " + e(c["name"])}</h2><p>{e(c["base"])}</p>{clients_p}</div></div></section>
@@ -266,9 +270,13 @@ CCTV_PERUSAHAAN = ('bontang', 'kutai-kartanegara', 'ikn')
 def hub(built):
     """Hub /area-layanan: Kalimantan Timur lengkap (semua layanan per kota), Kalimantan lain ringkas,
     dan kota di luar Kalimantan hanya sebagai daftar kecil 'juga melayani jarak jauh' (halamannya noindex)."""
-    rows, kal, remote = '', '', []
+    rows, kal, remote, cab = '', '', [], ''
     for ckey, cdat in CITIES.items():
         if is_nasional(ckey):
+            if ckey in OFFICE_CITIES:
+                links = ''.join(f'<a href="{u}">{e(h)}</a>' for (ck, u, h) in built if ck == ckey)
+                cab += f'<div class="pk-hubcity"><h3>{e(cdat["name"])} <small>{e(cdat["seat"])}</small></h3><p>{e(cdat["base"])}</p><div class="svd-related"><a href="/software-house-{ckey}">Software house {e(cdat["name"])}</a>{links}</div></div>'
+                continue
             if not is_indexed(ckey):
                 remote.append(f'<a href="/software-house-{ckey}">{e(cdat["name"])}</a>')
                 continue
@@ -283,14 +291,16 @@ def hub(built):
         rows += (f'<section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>{e(cdat["name"])}</h2><p>{e(cdat["base"])}</p></div>'
                  f'<div class="lc-svcs"><a class="lc-svc" href="/software-house-{ckey}"><b>Software house {e(cdat["name"])}</b></a>{links}</div></div></section>')
     body = ('<main class="ct-page svd-page lc-page"><section class="svd-hero"><div class="ct-wrap"><p class="eyebrow eyebrow-purple">Area layanan</p>'
-            '<h1>Area layanan Altora di Kalimantan Timur</h1><p class="ct-lead">Kantor pusat di Samarinda dan dua cabang di Balikpapan. Dari sana kami melayani seluruh Kalimantan Timur, termasuk Bontang, Kutai Kartanegara, Kutai Timur, Kutai Barat, Mahakam Ulu, Berau, Paser, Penajam Paser Utara, dan IKN Nusantara.</p>'
+            '<h1>Area layanan Altora di Kalimantan Timur</h1><p class="ct-lead">Kantor pusat di Samarinda, dua cabang di Balikpapan, dan cabang Bekasi untuk Jabodetabek. Dari Kaltim kami melayani seluruh Kalimantan Timur, termasuk Bontang, Kutai Kartanegara, Kutai Timur, Kutai Barat, Mahakam Ulu, Berau, Paser, Penajam Paser Utara, dan IKN Nusantara.</p>'
             '<div class="svd-related"><b>Mulai dari</b><a href="/software-house-samarinda">Software house Samarinda</a><a href="/software-house-balikpapan">Software house Balikpapan</a><a href="/software-house-kalimantan-timur">Software house Kalimantan Timur</a></div></div></section>'
             + rows +
             '<section class="svd-sec" id="kalimantan"><div class="ct-wrap"><div class="pd-block-head"><h2>Kalimantan lainnya</h2>'
             '<p>Untuk Kalimantan Utara, Kalimantan Selatan, Kalimantan Tengah, dan Kalimantan Barat, aplikasi dan website kami kerjakan dari Samarinda dengan demo berkala; pertemuan langsung dijadwalkan bila perlu.</p></div>'
             + kal + '</div></section>'
+            + ('<section class="svd-sec" id="cabang-jawa"><div class="ct-wrap"><div class="pd-block-head"><h2>Cabang di luar Kalimantan</h2>'
+               '<p>Untuk software, aplikasi, website, dan SEO. Pengadaan dan pemasangan perangkat tetap khusus Kalimantan Timur.</p></div>' + cab + '</div></section>' if cab else '') +
             '<section class="svd-sec" id="nasional"><div class="ct-wrap"><div class="pd-block-head"><h2>Juga melayani jarak jauh</h2>'
-            '<p>Software, website, dan SEO juga kami kerjakan jarak jauh untuk klien di kota lain di Indonesia. Kantor dan tim lapangan kami hanya ada di Kalimantan Timur.</p></div>'
+            '<p>Software, website, dan SEO juga kami kerjakan jarak jauh untuk klien di kota lain di Indonesia. Tim lapangan perangkat kami hanya ada di Kalimantan Timur.</p></div>'
             '<div class="svd-related lc-remote">' + ''.join(remote) + '</div></div></section>'
             '<section class="svd-sec"><div class="ct-wrap"><div class="svd-related"><b>Wilayah lain</b><a href="/software-house-kalimantan-timur">Software house Kalimantan Timur</a><a href="/contact">Lokasi lain? Hubungi kami</a></div></div></section>'
             '</main>')

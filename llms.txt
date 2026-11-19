@@ -17,6 +17,7 @@ Altora Indonesia (Altora) is a software house headquartered in Samarinda, East K
 - Kantor pusat Samarinda: Jl. Dayak ASB, Bukuan, Kec. Palaran, Samarinda, Kalimantan Timur, Indonesia
 - Cabang Balikpapan Utara: Jl. Soekarno Hatta, Muara Rapak, Balikpapan Utara, Kalimantan Timur, Indonesia
 - Cabang Balikpapan Pasar Baru: Pasar Baru, Balikpapan, Kalimantan Timur, Indonesia
+- Cabang Bekasi: Jl. Permata Hijau Permai, RT.001/RW.017, Kaliabang Tengah, Kec. Bekasi Utara, Jawa Barat, Indonesia
 - Peta kantor pusat: https://www.google.com/maps?q=-0.5810649,117.2105898 (perkiraan titik Kelurahan Bukuan, Palaran)
 
 ## Layanan
@@ -32,6 +33,7 @@ Altora Indonesia (Altora) is a software house headquartered in Samarinda, East K
 ## Area layanan
 - Langsung dari kantor: Samarinda, Balikpapan
 - Dari kantor terdekat: Bontang, Kutai Kartanegara, Kutai Timur, Kutai Barat, Mahakam Ulu, Berau, Paser, Penajam Paser Utara, IKN Nusantara
+- Cabang Bekasi (Jawa Barat): software, aplikasi, website, dan SEO untuk Bekasi dan Jabodetabek: https://altora.id/software-house-bekasi
 - Software dan website juga dikerjakan jarak jauh untuk klien di seluruh Indonesia
 
 ## Klien dan proyek nyata

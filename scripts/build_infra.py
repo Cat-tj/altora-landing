@@ -144,11 +144,11 @@ def page():
     steps = ''.join(f'<li><b>{e(s)}</b></li>' for s in STEPS)
     works = ''.join(pf_card(BY[k]) for k in INFRA_SLUGS)
     faq = ''.join(f'<details><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q, a in FAQ)
-    offices = ''.join(f'<p><b>{e(o["label"])}</b>, {e(o["street"])}, {e(o["city"])}</p>' for o in OFFICES)
+    offices = ''.join(f'<p><b>{e(o["label"])}</b>, {e(o["street"])}, {e(o["city"])}</p>' for o in OFFICES if o['region'] == 'Kalimantan Timur')
     related = ''.join(f'<a href="{u}">{e(t)}</a>' for u, t in [
         ('/pengadaan', 'Katalog pengadaan perangkat'), ('/services/cctv', 'Pasang CCTV (Samarinda)'), ('/services/iot-custom', 'IoT custom'), ('/services/tracking', 'Tracking armada & aset'),
         ('/it-support-samarinda', 'IT support Samarinda'), ('/software-house-kalimantan-timur', 'Software house Kalimantan Timur'), ('/industri/pertambangan', 'Solusi tambang')])
-    ld = {'@context': 'https://schema.org', '@graph': [org()] + [office_node(o) for o in OFFICES] + [
+    ld = {'@context': 'https://schema.org', '@graph': [org()] + [office_node(o) for o in OFFICES if o['region'] == 'Kalimantan Timur'] + [
         {'@type': 'Service', '@id': SITE + URL + '#layanan', 'name': 'Infrastruktur dan hardware di Kalimantan Timur', 'serviceType': 'Infrastruktur jaringan, Starlink, dan CCTV AI',
          'description': DESC, 'url': SITE + URL, 'provider': {'@id': ORG_ID},
          'areaServed': [{'@type': 'AdministrativeArea', 'name': 'Kalimantan Timur'}, {'@type': 'City', 'name': 'Balikpapan'}, {'@type': 'City', 'name': 'Samarinda'}],

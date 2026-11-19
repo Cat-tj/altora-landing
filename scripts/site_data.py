@@ -13,6 +13,9 @@ OFFICES = [
          district='Balikpapan Utara', region='Kalimantan Timur', postal='76125', hq=False),
     dict(key='balikpapan-pasar-baru', label='Cabang Balikpapan Pasar Baru', city='Balikpapan', street='Pasar Baru',
          district='Balikpapan', region='Kalimantan Timur', postal='', hq=False),
+    # Cabang Bekasi (dikonfirmasi pemilik 2026-11-20, titik dari link Google Maps pemilik). Layanan: software, website, SEO.
+    dict(key='bekasi', label='Cabang Bekasi', city='Bekasi', street='Jl. Permata Hijau Permai, RT.001/RW.017, Kaliabang Tengah',
+         district='Kec. Bekasi Utara', region='Jawa Barat', postal='17125', hq=False, geo=(-6.202971, 107.003423)),
 ]
 
 # Titik kantor pusat Samarinda (Jl. Dayak ASB, Bukuan, Kec. Palaran).
@@ -68,6 +71,8 @@ def maps_link(o):
     from urllib.parse import quote
     if o.get('hq'):
         return 'https://www.google.com/maps?q={},{}'.format(*OFFICE_SAMARINDA_GEO)
+    if o.get('geo'):
+        return 'https://www.google.com/maps?q={},{}'.format(*o['geo'])
     return 'https://www.google.com/maps/search/?api=1&query=' + quote(f"Altora Indonesia {one_line(o)}, {o['region']}")
 
 
@@ -86,14 +91,16 @@ FOUNDING_DATE = '2019'
 EMPLOYEES = 13
 DESCRIPTION = ('Altora Indonesia adalah software house yang berkantor pusat di Samarinda, Kalimantan Timur, sejak 2019, '
                'dengan dua cabang di Balikpapan. Altora membuat software custom, aplikasi web dan mobile, website, SEO, AI, dan IoT, '
-               'serta menyediakan pengadaan dan pemasangan perangkat untuk perusahaan dan instansi di Kalimantan Timur.')
+               'serta menyediakan pengadaan dan pemasangan perangkat untuk perusahaan dan instansi di Kalimantan Timur. '
+               'Cabang Bekasi, Jawa Barat, melayani software, website, dan SEO untuk klien di Bekasi dan Jabodetabek.')
 KNOWS_ABOUT = ['Software custom', 'Pembuatan aplikasi web', 'Pembuatan aplikasi mobile', 'Pembuatan website', 'Search engine optimization',
                'Artificial intelligence', 'Computer vision', 'Internet of Things', 'Fleet management', 'HRIS',
                'Pengadaan perangkat IT', 'CCTV', 'Jaringan komputer', 'Sistem informasi pemerintahan']
 AREA_SERVED = [{'@type': 'City', 'name': 'Samarinda'}, {'@type': 'City', 'name': 'Balikpapan'},
-               {'@type': 'AdministrativeArea', 'name': 'Kalimantan Timur'}, {'@type': 'Country', 'name': 'Indonesia'}]
+               {'@type': 'AdministrativeArea', 'name': 'Kalimantan Timur'}, {'@type': 'City', 'name': 'Bekasi'},
+               {'@type': 'Country', 'name': 'Indonesia'}]
 # halaman kota tiap kantor (dipakai sebagai url simpul kantor)
-OFFICE_PAGE = {'samarinda': '/software-house-samarinda', 'balikpapan-utara': '/software-house-balikpapan', 'balikpapan-pasar-baru': '/software-house-balikpapan'}
+OFFICE_PAGE = {'samarinda': '/software-house-samarinda', 'balikpapan-utara': '/software-house-balikpapan', 'balikpapan-pasar-baru': '/software-house-balikpapan', 'bekasi': '/software-house-bekasi'}
 
 
 def office_id(o):
@@ -131,9 +138,10 @@ def office_node(o):
          'name': f"{NAME} – {o['label']}", 'image': LOGO, 'url': SITE + OFFICE_PAGE.get(o['key'], '/'),
          'telephone': PHONE, 'email': EMAIL, 'address': postal_address(o),
          'hasMap': maps_link(o), 'parentOrganization': {'@id': ORG_ID},
-         'areaServed': [{'@type': 'City', 'name': o['city']}, {'@type': 'AdministrativeArea', 'name': 'Kalimantan Timur'}]}
-    if o.get('hq'):
-        n['geo'] = {'@type': 'GeoCoordinates', 'latitude': OFFICE_SAMARINDA_GEO[0], 'longitude': OFFICE_SAMARINDA_GEO[1]}
+         'areaServed': [{'@type': 'City', 'name': o['city']}, {'@type': 'AdministrativeArea', 'name': o['region']}]}
+    g = OFFICE_SAMARINDA_GEO if o.get('hq') else o.get('geo')
+    if g:
+        n['geo'] = {'@type': 'GeoCoordinates', 'latitude': g[0], 'longitude': g[1]}
     return n
 
 
@@ -143,7 +151,7 @@ def map_html(o=None):
     Gaya .ofc-map ada di assets/css/footer.css (dimuat di semua halaman lewat partial footer)."""
     if o is not None and not o.get('hq'):
         from urllib.parse import quote
-        q = quote(f"{with_city(o)}, {o['region']}")
+        q = '{},{}'.format(*o['geo']) if o.get('geo') else quote(f"{with_city(o)}, {o['region']}")
         return ('<figure class="ofc-map"><iframe allowfullscreen="" height="260" loading="lazy" referrerpolicy="no-referrer-when-downgrade" '
                 f'src="https://www.google.com/maps?q={q}&amp;z=15&amp;output=embed" title="Peta area {label_lc(o)} Altora: {one_line(o)}" width="600"></iframe>'
                 f'<figcaption><span><b>{o["label"]}</b>{with_city(o)}</span>'
@@ -162,7 +170,7 @@ HOME_FAQ = [
      'Lebih dari 50 proyek sudah diselesaikan oleh 13 ahli in-house.'),
     ('Di mana kantor Altora?',
      'Kantor pusat Altora Indonesia di Jl. Dayak ASB, Bukuan, Kecamatan Palaran, Kota Samarinda, Kalimantan Timur. '
-     'Cabang di Balikpapan Utara (Jl. Soekarno Hatta, Muara Rapak) dan di Pasar Baru, Balikpapan. Telepon/WhatsApp +62 851-9091-1170, email hello@altora.id.'),
+     'Cabang di Balikpapan Utara (Jl. Soekarno Hatta, Muara Rapak), di Pasar Baru, Balikpapan, dan di Bekasi (Jl. Permata Hijau Permai, Kaliabang Tengah, Bekasi Utara, Jawa Barat). Telepon/WhatsApp +62 851-9091-1170, email hello@altora.id.'),
     ('Apakah Altora software house di Samarinda?',
      'Ya. Altora Indonesia adalah software house yang berkantor pusat di Samarinda dan punya dua cabang di Balikpapan. '
      'Klien kami di Samarinda antara lain Pemerintah Kota Samarinda dan Universitas Mulawarman.'),

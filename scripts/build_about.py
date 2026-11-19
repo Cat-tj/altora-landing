@@ -70,7 +70,7 @@ def build():
 <section class="ab-hero"><div class="ct-wrap ab-hero-grid">
 <div class="ab-hero-copy"><p class="eyebrow eyebrow-purple">Tentang Altora</p>
 <h1>Jasa pembuatan software, website, dan SEO untuk bisnis dan instansi.</h1>
-<p class="ct-lead">Altora Indonesia berkantor pusat di Samarinda, dengan dua cabang di Balikpapan. Kami membuat aplikasi custom dan website sesuai kebutuhan Anda, lalu membantu agar mudah ditemukan di Google. Kami juga membangun dan memakai sendiri aplikasi seperti Altora Office, Altora Teams, dan Altora Control Center.</p>
+<p class="ct-lead">Altora Indonesia berkantor pusat di Samarinda, dengan dua cabang di Balikpapan dan satu cabang di Bekasi. Kami membuat aplikasi custom dan website sesuai kebutuhan Anda, lalu membantu agar mudah ditemukan di Google. Kami juga membangun dan memakai sendiri aplikasi seperti Altora Office, Altora Teams, dan Altora Control Center.</p>
 <div class="ab-actions"><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Diskusi dengan tim kami</a><a class="pd-link" href="/aplikasi">Lihat aplikasi kami →</a></div></div>
 <div class="ab-collage">{collage}</div>
 </div></section>
@@ -103,7 +103,7 @@ def build():
           {'@type': 'BreadcrumbList', 'itemListElement': [{'@type': 'ListItem', 'position': 1, 'name': 'Beranda', 'item': SITE + '/'},
                                                           {'@type': 'ListItem', 'position': 2, 'name': 'Tentang', 'item': SITE + '/about'}]}]}
     return shell('Tentang Altora Indonesia | Software House Samarinda sejak 2019',
-                 'Altora Indonesia: software house di Samarinda sejak 2019 dengan dua cabang di Balikpapan. 50+ proyek, 13 ahli in-house, PKP dan terdaftar di Inaproc/LKPP.',
+                 'Altora Indonesia: software house di Samarinda sejak 2019, cabang di Balikpapan dan Bekasi. 50+ proyek, 13 ahli in-house, PKP dan terdaftar di Inaproc/LKPP.',
                  '/about', SITE + COLLAGE[0], ld, body, extra_head='<link rel="stylesheet" href="/assets/css/local-seo.css?v=20261119a"/>')
 
 

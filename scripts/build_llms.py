@@ -63,6 +63,7 @@ Altora Indonesia (Altora) is a software house headquartered in Samarinda, East K
 ## Area layanan
 - Langsung dari kantor: Samarinda, Balikpapan
 - Dari kantor terdekat: Bontang, Kutai Kartanegara, Kutai Timur, Kutai Barat, Mahakam Ulu, Berau, Paser, Penajam Paser Utara, IKN Nusantara
+- Cabang Bekasi (Jawa Barat): software, aplikasi, website, dan SEO untuk Bekasi dan Jabodetabek: {SITE}/software-house-bekasi
 - Software dan website juga dikerjakan jarak jauh untuk klien di seluruh Indonesia
 
 ## Klien dan proyek nyata
