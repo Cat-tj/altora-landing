@@ -20,7 +20,7 @@ PF = {}   # portofolio proyek dihapus (pisah dari Sentra); tetap ada agar impor 
 
 CITIES = {
     'balikpapan': dict(name='Balikpapan',
-        base='Kami punya dua cabang di Balikpapan: Jl. Soekarno Hatta, Muara Rapak (Balikpapan Utara) dan Pasar Baru. Tim bisa datang untuk diskusi kebutuhan dan pelatihan pengguna di lokasi Anda di Balikpapan.',
+        base='Cabang kami di Balikpapan Utara: Jl. Soekarno Hatta, Muara Rapak. Tim bisa datang untuk diskusi kebutuhan dan pelatihan pengguna di lokasi Anda di Balikpapan.',
         sectors='perusahaan jasa migas, logistik, kontraktor, perkantoran, sekolah, klinik, dan UMKM',
         local_proof=[], office='balikpapan-utara', near=['samarinda', 'penajam-paser-utara', 'ikn']),
     'samarinda': dict(name='Samarinda',
@@ -291,7 +291,7 @@ def hub(built):
         rows += (f'<section class="svd-sec"><div class="ct-wrap"><div class="pd-block-head"><h2>{e(cdat["name"])}</h2><p>{e(cdat["base"])}</p></div>'
                  f'<div class="lc-svcs"><a class="lc-svc" href="/software-house-{ckey}"><b>Software house {e(cdat["name"])}</b></a>{links}</div></div></section>')
     body = ('<main class="ct-page svd-page lc-page"><section class="svd-hero"><div class="ct-wrap"><p class="eyebrow eyebrow-purple">Area layanan</p>'
-            '<h1>Area layanan Altora di Kalimantan Timur</h1><p class="ct-lead">Kantor pusat di Samarinda, dua cabang di Balikpapan, dan cabang Bekasi untuk Jabodetabek. Dari Kaltim kami melayani seluruh Kalimantan Timur, termasuk Bontang, Kutai Kartanegara, Kutai Timur, Kutai Barat, Mahakam Ulu, Berau, Paser, Penajam Paser Utara, dan IKN Nusantara.</p>'
+            '<h1>Area layanan Altora di Kalimantan Timur</h1><p class="ct-lead">Kantor pusat di Samarinda, cabang Balikpapan Utara, dan cabang Bekasi untuk Jabodetabek. Dari Kaltim kami melayani seluruh Kalimantan Timur, termasuk Bontang, Kutai Kartanegara, Kutai Timur, Kutai Barat, Mahakam Ulu, Berau, Paser, Penajam Paser Utara, dan IKN Nusantara.</p>'
             '<div class="svd-related"><b>Mulai dari</b><a href="/software-house-samarinda">Software house Samarinda</a><a href="/software-house-balikpapan">Software house Balikpapan</a><a href="/software-house-kalimantan-timur">Software house Kalimantan Timur</a></div></div></section>'
             + rows +
             '<section class="svd-sec" id="kalimantan"><div class="ct-wrap"><div class="pd-block-head"><h2>Kalimantan lainnya</h2>'
@@ -306,7 +306,7 @@ def hub(built):
             '</main>')
     ld = {'@context': 'https://schema.org', '@type': 'CollectionPage', '@id': SITE + '/area-layanan#halaman', 'name': 'Area layanan Altora',
           'url': SITE + '/area-layanan', 'inLanguage': 'id-ID', 'publisher': {'@id': ORG_ID}, 'about': {'@id': ORG_ID}}
-    return shell('Area Layanan Altora | Samarinda, Balikpapan & Kaltim', 'Area layanan Altora Indonesia: kantor pusat Samarinda, dua cabang Balikpapan, dan seluruh Kalimantan Timur untuk aplikasi, website, SEO, dan perangkat.', '/area-layanan', SITE + '/assets/img/altora-logo-600.png', ld, body)
+    return shell('Area Layanan Altora | Samarinda, Balikpapan & Kaltim', 'Area layanan Altora Indonesia: kantor pusat Samarinda, cabang Balikpapan, dan seluruh Kalimantan Timur untuk aplikasi, website, SEO, dan perangkat.', '/area-layanan', SITE + '/assets/img/altora-logo-600.png', ld, body)
 
 
 def update_sitemap(urls, drop=(), lastmod=None, new_date='2026-11-18'):

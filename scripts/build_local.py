@@ -105,7 +105,7 @@ CITIES = [
                 'Samarinda Seberang, Samarinda Ulu, Samarinda Utara, Sambutan, Sungai Kunjang, Sungai Pinang, dan Loa Janan Ilir, '
                 'juga ke Kutai Kartanegara dan Bontang sesuai jadwal.'),
          directions=('Kantor pusat berada di Kelurahan Bukuan, Kecamatan Palaran, di sisi selatan Sungai Mahakam. Kabari kami lewat WhatsApp sebelum datang '
-                     'supaya tim yang menangani kebutuhan Anda ada di kantor, lalu pakai tombol Petunjuk arah untuk rute dari lokasi Anda.'),
+                     'supaya tim yang menangani kebutuhan Anda ada di kantor, lalu buka lokasi kantor di Google Maps.'),
          faq=[('Apa software house di Samarinda yang bisa membuat aplikasi custom?',
                'Altora Indonesia adalah software house yang berkantor pusat di Jl. Dayak ASB, Bukuan, Kec. Palaran, Samarinda, sejak 2019. '
                'Kami membuat aplikasi web dan HP, website, SEO, AI, dan IoT, dengan lebih dari 50 proyek dan 13 ahli in-house.'),
@@ -126,17 +126,17 @@ CITIES = [
          nearby=[('/software-house-balikpapan', 'Software house Balikpapan'), ('/software-house-kalimantan-timur', 'Software house Kalimantan Timur'),
                  ('/software-house-kutai-kartanegara', 'Software house Kutai Kartanegara'), ('/software-house-bontang', 'Software house Bontang'),
                  ('/blog/cara-memilih-software-house-samarinda-balikpapan', 'Cara memilih software house'), ('/portofolio', 'Semua portofolio')]),
-    dict(slug='software-house-balikpapan', city='Balikpapan', area='Balikpapan', rich=True, offices=['balikpapan-utara', 'balikpapan-pasar-baru'],
+    dict(slug='software-house-balikpapan', city='Balikpapan', area='Balikpapan', rich=True, offices=['balikpapan-utara'],
          title='Software House Balikpapan – Pembuatan Aplikasi & Website | Altora',
-         desc='Software house Balikpapan dengan dua cabang (Balikpapan Utara & Pasar Baru): jasa pembuatan aplikasi, website, SEO, dan sistem lapangan.',
+         desc='Software house Balikpapan dengan cabang di Balikpapan Utara (Jl. Soekarno Hatta): jasa pembuatan aplikasi, website, SEO, dan sistem lapangan.',
          h1='Software house Balikpapan untuk aplikasi, website, dan sistem lapangan',
          eyebrow='Altora Indonesia · 2 cabang di Balikpapan',
-         lead='Altora Indonesia punya dua cabang di Balikpapan, di Balikpapan Utara dan Pasar Baru, dengan kantor pusat di Samarinda. Kami membuat aplikasi custom, website, SEO, dan sistem lapangan untuk perusahaan jasa migas, logistik, kontraktor, dan instansi di Balikpapan.',
-         about=['Altora Indonesia adalah software house dari Kalimantan Timur yang berdiri di Samarinda pada 2019. Di Balikpapan kami punya dua cabang: '
-                'Jl. Soekarno Hatta, Muara Rapak (Balikpapan Utara) dan Pasar Baru. Tim in-house kami terdiri dari 13 ahli dan sudah menyelesaikan lebih dari 50 proyek.',
+         lead='Altora Indonesia punya cabang di Balikpapan Utara, Jl. Soekarno Hatta, Muara Rapak, dengan kantor pusat di Samarinda. Kami membuat aplikasi custom, website, SEO, dan sistem lapangan untuk perusahaan jasa migas, logistik, kontraktor, dan instansi di Balikpapan.',
+         about=['Altora Indonesia adalah software house dari Kalimantan Timur yang berdiri di Samarinda pada 2019. Cabang Balikpapan kami ada di '
+                'Jl. Soekarno Hatta, Muara Rapak, Balikpapan Utara. Tim in-house kami terdiri dari 13 ahli dan sudah menyelesaikan lebih dari 50 proyek.',
                 'Untuk klien di Balikpapan kami membangun aplikasi pelaporan lapangan, monitoring armada, HRIS, dan website. Institut Teknologi Kalimantan dan STT Migas Balikpapan '
                 'termasuk klien kami. Altora berstatus PKP dan terdaftar sebagai penyedia di Inaproc/LKPP.'],
-         why=[('Dua cabang di Balikpapan', 'Balikpapan Utara (Jl. Soekarno Hatta, Muara Rapak) dan Pasar Baru. Diskusi kebutuhan dan pelatihan bisa dilakukan langsung di lokasi Anda.'),
+         why=[('Cabang di Balikpapan Utara', 'Jl. Soekarno Hatta, Muara Rapak. Diskusi kebutuhan dan pelatihan bisa dilakukan langsung di lokasi Anda.'),
               ('Terbiasa dengan operasi lapangan', 'Aplikasi dapat dirancang tetap berjalan saat sinyal lemah di site, lalu menyinkronkan data begitu terhubung.'),
               ('Dukungan setelah jalan', 'Kendala ditanggapi lewat WhatsApp dan akses jarak jauh, dan tim bisa datang ke lokasi bila diperlukan.')],
          needs=[('Jasa migas, kontraktor, dan logistik', 'Aplikasi pelaporan, approval, monitoring armada, dan dashboard yang menggantikan rekap manual di spreadsheet.'),
@@ -151,12 +151,12 @@ CITIES = [
                   ('/infrastruktur-hardware-kaltim', 'Infrastruktur & hardware Kaltim', 'Jaringan, CCTV AI, dan perangkat untuk site dan kantor.')],
          visit=('Tim kami melayani seluruh Balikpapan (Balikpapan Utara, Balikpapan Tengah, Balikpapan Kota, Balikpapan Selatan, Balikpapan Timur, dan Balikpapan Barat), '
                 'termasuk kawasan industri dan pergudangan, serta Penajam Paser Utara dan IKN Nusantara sesuai jadwal.'),
-         directions=('Cabang Balikpapan Utara berada di Jl. Soekarno Hatta, Muara Rapak; cabang kedua di Pasar Baru. Kabari kami lewat WhatsApp sebelum datang '
+         directions=('Cabang Balikpapan Utara berada di Jl. Soekarno Hatta, Muara Rapak. Kabari kami lewat WhatsApp sebelum datang '
                      'supaya kami pastikan tim ada di cabang yang Anda tuju, atau minta tim kami yang datang ke kantor Anda.'),
          faq=[('Apakah ada software house di Balikpapan yang punya kantor sendiri?',
-               'Altora Indonesia punya dua cabang di Balikpapan: Jl. Soekarno Hatta, Muara Rapak, Balikpapan Utara, dan Pasar Baru. Kantor pusat kami di Samarinda, berdiri sejak 2019.'),
+               'Altora Indonesia punya cabang di Balikpapan Utara: Jl. Soekarno Hatta, Muara Rapak. Kantor pusat kami di Samarinda, berdiri sejak 2019.'),
               ('Bisakah saya datang ke kantor Altora di Balikpapan?',
-               'Bisa. Kabari kami lewat WhatsApp +62 851-9091-1170 untuk mengatur jadwal di cabang Balikpapan Utara atau Pasar Baru. Tim kami juga bisa datang ke kantor Anda.'),
+               'Bisa. Kabari kami lewat WhatsApp +62 851-9091-1170 untuk mengatur jadwal di cabang Balikpapan Utara. Tim kami juga bisa datang ke kantor Anda.'),
               PRICE_QA('Balikpapan'), TIME_QA,
               ('Apa contoh proyek Altora di Balikpapan dan sekitarnya?',
                'Untuk operator logistik di Balikpapan kami membuat monitoring rute armada distribusi. Di Kalimantan Timur kami juga mengerjakan fleet management armada hauling tambang, '
@@ -170,19 +170,19 @@ CITIES = [
                  ('/software-house-penajam-paser-utara', 'Software house Penajam Paser Utara'), ('/software-house-ikn', 'Software house IKN Nusantara'),
                  ('/blog/cara-memilih-software-house-samarinda-balikpapan', 'Cara memilih software house'), ('/portofolio', 'Semua portofolio')]),
     dict(slug='software-house-kalimantan-timur', city='Kalimantan Timur', area='Kalimantan Timur', rich=True, regions=True,
-         offices=['samarinda', 'balikpapan-utara', 'balikpapan-pasar-baru'],
+         offices=['samarinda', 'balikpapan-utara'],
          title='Software House Kalimantan Timur – Aplikasi & Website | Altora',
          desc='Software house Kalimantan Timur sejak 2019: kantor pusat Samarinda dan 2 cabang Balikpapan. Aplikasi, website, SEO, AI, IoT, dan pengadaan perangkat.',
          h1='Software house Kalimantan Timur: Samarinda, Balikpapan, dan seluruh Kaltim',
          eyebrow='Altora Indonesia · Kalimantan Timur',
-         lead='Altora Indonesia adalah software house yang berkantor pusat di Samarinda, dengan dua cabang di Balikpapan. Sejak 2019 kami membuat aplikasi custom, website, SEO, AI, dan IoT, serta memasang perangkatnya, untuk perusahaan dan instansi di Kalimantan Timur.',
-         about=['Altora Indonesia berdiri di Samarinda pada 2019. Kantor pusatnya di Jl. Dayak ASB, Bukuan, Kec. Palaran, Samarinda, dan dua cabangnya di Balikpapan Utara '
-                '(Jl. Soekarno Hatta, Muara Rapak) dan Pasar Baru, Balikpapan. Dengan 13 ahli in-house, Altora sudah menyelesaikan lebih dari 50 proyek.',
+         lead='Altora Indonesia adalah software house yang berkantor pusat di Samarinda, dengan cabang di Balikpapan Utara. Sejak 2019 kami membuat aplikasi custom, website, SEO, AI, dan IoT, serta memasang perangkatnya, untuk perusahaan dan instansi di Kalimantan Timur.',
+         about=['Altora Indonesia berdiri di Samarinda pada 2019. Kantor pusatnya di Jl. Dayak ASB, Bukuan, Kec. Palaran, Samarinda, dan cabangnya di Balikpapan Utara '
+                '(Jl. Soekarno Hatta, Muara Rapak). Dengan 13 ahli in-house, Altora sudah menyelesaikan lebih dari 50 proyek.',
                 'Banyak pekerjaan di Kalimantan Timur berlangsung di lapangan: tambang, logistik sungai, perkebunan, dan layanan publik. Karena itu kami mengerjakan software dan perangkatnya '
                 'sekaligus, dari aplikasi pelaporan dan dashboard sampai kamera, sensor, dan jaringan. Altora berstatus PKP dan terdaftar sebagai penyedia di Inaproc/LKPP.'],
          why=[('Paham kebutuhan Kaltim', 'Tambang, logistik, perkebunan, dan pelayanan publik. Aplikasi dirancang untuk dipakai di kantor maupun di lokasi.'),
               ('Aplikasi yang tetap jalan di lapangan', 'Data tersimpan saat sinyal lemah, lalu tersinkron begitu terhubung.'),
-              ('Tiga kantor di Kaltim', 'Kantor pusat di Samarinda dan dua cabang di Balikpapan. Tim lapangan memasang dan merawat perangkat di seluruh Kaltim.')],
+              ('Dua kantor di Kaltim', 'Kantor pusat di Samarinda dan cabang di Balikpapan Utara. Tim lapangan memasang dan merawat perangkat di seluruh Kaltim.')],
          needs=[('Tambang, kontraktor, dan logistik', 'Fleet management, deteksi APD, pelaporan, dan approval untuk lokasi kerja.'),
                 ('Perkebunan dan pertanian', 'Sensor cuaca dan kelembapan lahan serta pencatatan lapangan yang tetap jalan saat sinyal lemah.'),
                 ('Pemerintah daerah, kampus, dan koperasi', 'Website resmi, portal data, aplikasi layanan publik, dan penilaian keuangan.')],
@@ -191,14 +191,14 @@ CITIES = [
          proof_head='Proyek nyata di Kalimantan Timur dan sekitarnya',
          proof_note='Klien kami antara lain Pemerintah Kota Samarinda, Universitas Mulawarman, Institut Teknologi Kalimantan, STT Migas Balikpapan, dan Diskominfosandi Kabupaten Barito Utara (Kalimantan Tengah).',
          intents=[('/software-house-samarinda', 'Software house Samarinda', 'Kantor pusat, Jl. Dayak ASB, Bukuan, Palaran.'),
-                  ('/software-house-balikpapan', 'Software house Balikpapan', 'Dua cabang: Balikpapan Utara dan Pasar Baru.'),
+                  ('/software-house-balikpapan', 'Software house Balikpapan', 'Cabang Balikpapan Utara, Jl. Soekarno Hatta.'),
                   ('/infrastruktur-hardware-kaltim', 'Infrastruktur & hardware Kaltim', 'Jaringan, CCTV AI, dan perangkat lapangan.'),
                   ('/pengadaan', 'Pengadaan perangkat', 'Katalog perangkat beserta pemasangannya.')],
          visit=('Dari Samarinda dan Balikpapan kami melayani Bontang, Kutai Kartanegara, Kutai Timur, Kutai Barat, Mahakam Ulu, Berau, Paser, Penajam Paser Utara, dan IKN Nusantara. '
                 'Diskusi dan pelatihan dijadwalkan bersama; pengerjaan software berjalan dengan demo berkala.'),
-         directions='Kantor pusat di Samarinda; cabang di Balikpapan Utara dan Pasar Baru. Kabari kami lewat WhatsApp sebelum berkunjung.',
+         directions='Kantor pusat di Samarinda; cabang di Balikpapan Utara. Kabari kami lewat WhatsApp sebelum berkunjung.',
          faq=[('Apa software house di Kalimantan Timur yang punya kantor sendiri?',
-               'Altora Indonesia: kantor pusat di Jl. Dayak ASB, Bukuan, Kec. Palaran, Samarinda, dan dua cabang di Balikpapan (Balikpapan Utara dan Pasar Baru). Beroperasi sejak 2019.'),
+               'Altora Indonesia: kantor pusat di Jl. Dayak ASB, Bukuan, Kec. Palaran, Samarinda, dan cabang di Balikpapan Utara (Jl. Soekarno Hatta, Muara Rapak). Beroperasi sejak 2019.'),
               ('Kota mana saja yang dilayani?',
                'Samarinda dan Balikpapan dilayani langsung dari kantor kami. Bontang, Kutai Kartanegara, Kutai Timur, Kutai Barat, Mahakam Ulu, Berau, Paser, Penajam Paser Utara, dan IKN '
                'dilayani dari kantor terdekat. Untuk software, kami juga melayani klien di seluruh Indonesia secara jarak jauh.'),
@@ -469,7 +469,7 @@ def branch_entry(k, r, near):
         title=f'Software House {n} – Aplikasi, Website & SEO | Altora',
         desc=f'Software house {n}: cabang Altora di Kaliabang Tengah, Bekasi Utara. Jasa pembuatan aplikasi, website, dan SEO untuk bisnis dan instansi di {n}.',
         h1=f'Software house {n} untuk aplikasi, website, dan SEO',
-        lead=f'Altora Indonesia punya cabang di {n}, di {o["street"].split(",")[0]}, Kaliabang Tengah, Bekasi Utara. Dari sini kami membuat aplikasi web dan HP, website, dashboard, dan SEO untuk perusahaan, UMKM, dan instansi di {n} dan Jabodetabek.',
+        lead=f'Altora Indonesia punya cabang di {n}, di Kaliabang Tengah, Bekasi Utara. Dari sini kami membuat aplikasi web dan HP, website, dashboard, dan SEO untuk perusahaan, UMKM, dan instansi di {n} dan Jabodetabek.',
         why=[(f'Cabang di {n}', f'Diskusi kebutuhan, demo, dan pelatihan pengguna bisa dilakukan langsung di {n}, tidak hanya lewat video call.'),
              ('Tim in-house sejak 2019', f'Dikerjakan bersama tim inti Altora di Samarinda: {FACTS["team"]} ahli in-house dan {FACTS["projects"]} proyek terdeliver.'),
              ('Bisa untuk instansi', 'Altora berstatus PKP dan terdaftar sebagai penyedia di Inaproc/LKPP, dengan penawaran, faktur, dan berita acara yang lengkap.')],

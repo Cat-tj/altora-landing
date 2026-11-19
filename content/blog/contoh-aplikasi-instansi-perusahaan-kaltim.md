@@ -66,7 +66,7 @@ Kalau Anda masih menimbang siapa yang mengerjakan, baca [software house atau fre
 
 ## Punya kebutuhan serupa?
 
-Altora Indonesia berkantor pusat di Samarinda sejak 2019 dan punya dua cabang di Balikpapan. Untuk organisasi di Samarinda, lihat [software house Samarinda](/software-house-samarinda); untuk Balikpapan, lihat [jasa pembuatan aplikasi Balikpapan](/software-house-balikpapan); untuk kabupaten lain, lihat [software house Kalimantan Timur](/software-house-kalimantan-timur). Semua proyek ada di [portofolio](/portofolio). [Ceritakan kebutuhan Anda](/contact), diskusi awal gratis.
+Altora Indonesia berkantor pusat di Samarinda sejak 2019 dan punya cabang di Balikpapan Utara dan Bekasi. Untuk organisasi di Samarinda, lihat [software house Samarinda](/software-house-samarinda); untuk Balikpapan, lihat [jasa pembuatan aplikasi Balikpapan](/software-house-balikpapan); untuk kabupaten lain, lihat [software house Kalimantan Timur](/software-house-kalimantan-timur). Semua proyek ada di [portofolio](/portofolio). [Ceritakan kebutuhan Anda](/contact), diskusi awal gratis.
 
 ## Pertanyaan umum
 

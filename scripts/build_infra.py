@@ -128,7 +128,7 @@ DOS = [
 STEPS = ['Survei lokasi & kebutuhan', 'Rancangan & penawaran', 'Pemasangan & konfigurasi', 'Uji & serah terima', 'Perawatan berkala']
 
 FAQ = [
-    ('Kota apa saja yang dilayani untuk infrastruktur dan hardware?', 'Kalimantan Timur: Balikpapan, Samarinda, IKN, Kutai, dan sekitarnya. Kantor pusat kami di Samarinda dan dua cabang di Balikpapan, sehingga tim bisa datang ke lokasi untuk survei dan pemasangan.'),
+    ('Kota apa saja yang dilayani untuk infrastruktur dan hardware?', 'Kalimantan Timur: Balikpapan, Samarinda, IKN, Kutai, dan sekitarnya. Kantor pusat kami di Samarinda dan cabang di Balikpapan Utara, sehingga tim bisa datang ke lokasi untuk survei dan pemasangan.'),
     ('Apakah pasang CCTV rumahan, smart lock, dan IT support bulanan juga melayani Balikpapan?', 'Belum. Layanan perangkat kecil itu saat ini hanya untuk Samarinda. Halaman ini untuk proyek infrastruktur perusahaan di Kalimantan Timur, seperti site terpencil, CCTV berbasis AI, dan jaringan multi-cabang.'),
     ('Apakah Altora mitra resmi Starlink?', 'Tidak. Altora bukan mitra resmi Starlink. Kami membantu survei lokasi, pemasangan, grounding, dan integrasi ke jaringan Anda. Soal terminal dan langganan, kami bahas saat konsultasi. Starlink adalah merek dagang SpaceX.'),
     ('Apa yang bisa dikenali oleh CCTV AI?', 'Contohnya pelanggaran APD (helm, rompi, sepatu safety), orang yang masuk area perimeter, dan jumlah orang. Jenis deteksi yang cocok kami tentukan saat survei, karena hasilnya dipengaruhi sudut kamera dan pencahayaan.'),

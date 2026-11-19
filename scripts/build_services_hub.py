@@ -25,7 +25,7 @@ CARDS = [
 HERO = '''<section class="svh-hero"><div class="ct-wrap svh-wrap"><div class="pg-copy">
 <p class="eyebrow eyebrow-purple">Layanan</p><h1>Software, AI, CCTV, dan IT support untuk bisnis dan instansi.</h1>
 <p class="ct-lead">Ceritakan masalahnya, kami bantu pilih solusinya: aplikasi web dan mobile, AI, IoT dan tracking, website dan SEO, infrastruktur dan hardware untuk Kalimantan Timur, serta CCTV, smart lock, dan IT support bulanan untuk Samarinda.</p>
-<p class="ct-lead">Kantor pusat kami di Samarinda dan dua cabang di Balikpapan: lihat <a href="/software-house-samarinda">software house Samarinda</a> atau <a href="/software-house-balikpapan">jasa pembuatan aplikasi Balikpapan</a>.</p>
+<p class="ct-lead">Kantor pusat kami di Samarinda, dengan cabang di Balikpapan Utara dan Bekasi: lihat <a href="/software-house-samarinda">software house Samarinda</a> atau <a href="/software-house-balikpapan">jasa pembuatan aplikasi Balikpapan</a>.</p>
 <div class="svd-actions"><a class="btn btn-purple" href="/contact">Konsultasi gratis</a><a class="svd-link" href="#layanan">Lihat layanan ↓</a></div>
 </div></div></section>'''
 

@@ -42,7 +42,7 @@ FAKTA = [
     ('Jenis usaha', 'Software house dan penyedia solusi teknologi: software custom, aplikasi web dan mobile, website, SEO, AI, IoT, serta pengadaan dan pemasangan perangkat.'),
     ('Berdiri', 'Altora Indonesia berdiri di Samarinda, Kalimantan Timur, pada 2019 dan sudah beroperasi lebih dari 6 tahun.'),
     ('Kantor pusat', 'Jl. Dayak ASB, Bukuan, Kecamatan Palaran, Kota Samarinda, Kalimantan Timur.'),
-    ('Cabang', 'Dua cabang di Balikpapan: Balikpapan Utara (Jl. Soekarno Hatta, Muara Rapak) dan Pasar Baru.'),
+    ('Cabang', 'Balikpapan Utara (Jl. Soekarno Hatta, Muara Rapak) dan Bekasi (Kaliabang Tengah, Bekasi Utara).'),
     ('Tim', '13 ahli in-house yang menangani analisis, desain, pengembangan, pengujian, pelatihan, dan dukungan.'),
     ('Proyek', 'Lebih dari 50 proyek telah diselesaikan untuk instansi, kampus, dan perusahaan.'),
     ('Klien', 'Antara lain Pemerintah Kota Samarinda, Universitas Mulawarman, Institut Teknologi Kalimantan, STT Migas Balikpapan, dan Diskominfosandi Kabupaten Barito Utara.'),
@@ -70,12 +70,12 @@ def build():
 <section class="ab-hero"><div class="ct-wrap ab-hero-grid">
 <div class="ab-hero-copy"><p class="eyebrow eyebrow-purple">Tentang Altora</p>
 <h1>Jasa pembuatan software, website, dan SEO untuk bisnis dan instansi.</h1>
-<p class="ct-lead">Altora Indonesia berkantor pusat di Samarinda, dengan dua cabang di Balikpapan dan satu cabang di Bekasi. Kami membuat aplikasi custom dan website sesuai kebutuhan Anda, lalu membantu agar mudah ditemukan di Google. Kami juga membangun dan memakai sendiri aplikasi seperti Altora Office, Altora Teams, dan Altora Control Center.</p>
+<p class="ct-lead">Altora Indonesia berkantor pusat di Samarinda, dengan cabang di Balikpapan Utara dan Bekasi. Kami membuat aplikasi custom dan website sesuai kebutuhan Anda, lalu membantu agar mudah ditemukan di Google. Kami juga membangun dan memakai sendiri aplikasi seperti Altora Office, Altora Teams, dan Altora Control Center.</p>
 <div class="ab-actions"><a class="btn btn-purple" href="{WA}{quote(msg)}" rel="noopener" target="_blank">Diskusi dengan tim kami</a><a class="pd-link" href="/aplikasi">Lihat aplikasi kami →</a></div></div>
 <div class="ab-collage">{collage}</div>
 </div></section>
 <section class="ab-sec ab-facts-sec" id="profil"><div class="ct-wrap ab-facts"><div><p class="eyebrow eyebrow-purple">Profil singkat</p><h2>Tentang Altora Indonesia</h2></div>
-<div class="ab-facts-text"><p>Altora Indonesia (Altora) adalah software house yang berkantor pusat di Jl. Dayak ASB, Bukuan, Kecamatan Palaran, Kota Samarinda, Kalimantan Timur. Altora berdiri di Samarinda pada 2019 dan memiliki dua kantor cabang di Balikpapan: Balikpapan Utara (Jl. Soekarno Hatta, Muara Rapak) dan Pasar Baru.</p>
+<div class="ab-facts-text"><p>Altora Indonesia (Altora) adalah software house yang berkantor pusat di Jl. Dayak ASB, Bukuan, Kecamatan Palaran, Kota Samarinda, Kalimantan Timur. Altora berdiri di Samarinda pada 2019 dan memiliki kantor cabang di Balikpapan Utara (Jl. Soekarno Hatta, Muara Rapak) dan di Bekasi (Kaliabang Tengah, Bekasi Utara, Jawa Barat).</p>
 <p>Altora membuat software custom, aplikasi web dan mobile, website, SEO, AI, dan IoT, serta menyediakan pengadaan dan pemasangan perangkat seperti CCTV, jaringan, server rack, GPS tracker, dan kit Starlink untuk perusahaan dan instansi di Kalimantan Timur. Pasang CCTV rumahan, smart lock, smart home, dan IT support bulanan dilayani khusus di Samarinda.</p>
 <p>Selama lebih dari 6 tahun, Altora telah menyelesaikan lebih dari 50 proyek bersama 13 ahli in-house. Klien Altora antara lain Pemerintah Kota Samarinda, Universitas Mulawarman, Institut Teknologi Kalimantan, STT Migas Balikpapan, dan Diskominfosandi Kabupaten Barito Utara. Altora berstatus PKP dan terdaftar sebagai penyedia di Inaproc/LKPP.</p>
 <p>Kontak: telepon/WhatsApp +62 851-9091-1170, email hello@altora.id, situs <a href="/">altora.id</a>. Halaman kota: <a href="/software-house-samarinda">software house Samarinda</a>, <a href="/software-house-balikpapan">software house Balikpapan</a>, dan <a href="/software-house-kalimantan-timur">software house Kalimantan Timur</a>.</p></div></div></section>

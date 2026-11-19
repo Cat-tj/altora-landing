@@ -66,7 +66,7 @@ Untuk daftar pertanyaan yang lebih lengkap, baca [8 pertanyaan sebelum memilih s
 
 ## Tentang Altora
 
-Altora Indonesia berkantor pusat di Jl. Dayak ASB, Bukuan, Kecamatan Palaran, Samarinda, sejak 2019, dengan dua cabang di Balikpapan (Balikpapan Utara dan Pasar Baru). Tim in-house kami membuat aplikasi dan memasang perangkatnya, untuk instansi, kampus, dan perusahaan di Kalimantan Timur. Contoh pekerjaannya ada di [contoh aplikasi untuk instansi dan perusahaan di Kaltim](/blog/contoh-aplikasi-instansi-perusahaan-kaltim).
+Altora Indonesia berkantor pusat di Jl. Dayak ASB, Bukuan, Kecamatan Palaran, Samarinda, sejak 2019, dengan cabang di Balikpapan Utara dan Bekasi. Tim in-house kami membuat aplikasi dan memasang perangkatnya, untuk instansi, kampus, dan perusahaan di Kalimantan Timur. Contoh pekerjaannya ada di [contoh aplikasi untuk instansi dan perusahaan di Kaltim](/blog/contoh-aplikasi-instansi-perusahaan-kaltim).
 
 Lihat [software house Samarinda](/software-house-samarinda), [jasa pembuatan aplikasi Balikpapan](/software-house-balikpapan), atau [ceritakan kebutuhan Anda](/contact).
 

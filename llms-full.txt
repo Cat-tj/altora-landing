@@ -16,8 +16,7 @@ Altora Indonesia (Altora) is a software house headquartered in Samarinda, East K
 ## Kantor
 - Kantor pusat Samarinda: Jl. Dayak ASB, Bukuan, Kec. Palaran, Samarinda, Kalimantan Timur, Indonesia
 - Cabang Balikpapan Utara: Jl. Soekarno Hatta, Muara Rapak, Balikpapan Utara, Kalimantan Timur, Indonesia
-- Cabang Balikpapan Pasar Baru: Pasar Baru, Balikpapan, Kalimantan Timur, Indonesia
-- Cabang Bekasi: Jl. Permata Hijau Permai, RT.001/RW.017, Kaliabang Tengah, Kec. Bekasi Utara, Jawa Barat, Indonesia
+- Cabang Bekasi: Kaliabang Tengah, Kec. Bekasi Utara, Jawa Barat, Indonesia
 - Peta kantor pusat: https://www.google.com/maps?q=-0.5810649,117.2105898 (perkiraan titik Kelurahan Bukuan, Palaran)
 
 ## Layanan
@@ -81,13 +80,13 @@ Altora Indonesia (Altora) is a software house headquartered in Samarinda, East K
 Altora Indonesia (Altora) adalah software house dan penyedia solusi teknologi yang berkantor pusat di Samarinda, Kalimantan Timur, sejak 2019. Altora membuat software custom, aplikasi web dan mobile, website, SEO, AI, dan IoT, serta menyediakan pengadaan dan pemasangan perangkat. Lebih dari 50 proyek sudah diselesaikan oleh 13 ahli in-house.
 
 ### Di mana kantor Altora?
-Kantor pusat Altora Indonesia di Jl. Dayak ASB, Bukuan, Kecamatan Palaran, Kota Samarinda, Kalimantan Timur. Cabang di Balikpapan Utara (Jl. Soekarno Hatta, Muara Rapak), di Pasar Baru, Balikpapan, dan di Bekasi (Jl. Permata Hijau Permai, Kaliabang Tengah, Bekasi Utara, Jawa Barat). Telepon/WhatsApp +62 851-9091-1170, email hello@altora.id.
+Kantor pusat Altora Indonesia di Jl. Dayak ASB, Bukuan, Kecamatan Palaran, Kota Samarinda, Kalimantan Timur. Cabang di Balikpapan Utara (Jl. Soekarno Hatta, Muara Rapak) dan di Bekasi (Kaliabang Tengah, Bekasi Utara, Jawa Barat). Telepon/WhatsApp +62 851-9091-1170, email hello@altora.id.
 
 ### Apakah Altora software house di Samarinda?
-Ya. Altora Indonesia adalah software house yang berkantor pusat di Samarinda dan punya dua cabang di Balikpapan. Klien kami di Samarinda antara lain Pemerintah Kota Samarinda dan Universitas Mulawarman.
+Ya. Altora Indonesia adalah software house yang berkantor pusat di Samarinda, dengan cabang di Balikpapan dan Bekasi. Klien kami di Samarinda antara lain Pemerintah Kota Samarinda dan Universitas Mulawarman.
 
 ### Apakah Altora juga melayani Balikpapan dan kota lain di Kalimantan Timur?
-Ya. Balikpapan dilayani dari dua cabang kami, dan kabupaten/kota lain di Kalimantan Timur (Bontang, Kutai Kartanegara, Kutai Timur, Berau, Paser, Penajam Paser Utara, IKN, dan lainnya) dilayani dari kantor terdekat. Software juga dikerjakan jarak jauh untuk klien di seluruh Indonesia.
+Ya. Balikpapan dilayani dari cabang Balikpapan Utara, dan kabupaten/kota lain di Kalimantan Timur (Bontang, Kutai Kartanegara, Kutai Timur, Berau, Paser, Penajam Paser Utara, IKN, dan lainnya) dilayani dari kantor terdekat. Software juga dikerjakan jarak jauh untuk klien di seluruh Indonesia.
 
 ### Layanan apa saja yang dikerjakan Altora?
 Software custom, aplikasi web dan mobile, website, SEO, AI (analitik CCTV, pengenalan wajah), IoT, tracking armada, serta pengadaan dan pemasangan perangkat seperti CCTV, jaringan, server rack, GPS tracker, dan kit Starlink untuk perusahaan dan instansi di Kalimantan Timur. Pasang CCTV rumahan, smart lock, smart home, dan IT support bulanan khusus Samarinda.

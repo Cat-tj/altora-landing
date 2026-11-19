@@ -112,7 +112,7 @@ def nap_block():
     """Nama-alamat-telepon yang terlihat di beranda (sama persis dengan schema dan Google Business Profile)."""
     return ('<address class="hm-nap"><b>Altora Indonesia</b>'
             '<span>Kantor pusat: Jl. Dayak ASB, Bukuan, Kec. Palaran, Kota Samarinda, Kalimantan Timur</span>'
-            '<span>Cabang: Jl. Soekarno Hatta, Muara Rapak, Balikpapan Utara · Pasar Baru, Balikpapan</span>'
+            '<span>Cabang: Jl. Soekarno Hatta, Muara Rapak, Balikpapan Utara · Kaliabang Tengah, Bekasi Utara</span>'
             f'<span><a href="tel:+6285190911170">{PHONE_DISPLAY}</a> · <a href="mailto:{EMAIL}">{EMAIL}</a> · <a href="/about">Profil lengkap</a></span></address>')
 
 

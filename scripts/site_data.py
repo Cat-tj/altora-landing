@@ -11,11 +11,10 @@ OFFICES = [
          district='Kec. Palaran', region='Kalimantan Timur', postal='', hq=True),
     dict(key='balikpapan-utara', label='Cabang Balikpapan Utara', city='Balikpapan', street='Jl. Soekarno Hatta, Muara Rapak',
          district='Balikpapan Utara', region='Kalimantan Timur', postal='76125', hq=False),
-    dict(key='balikpapan-pasar-baru', label='Cabang Balikpapan Pasar Baru', city='Balikpapan', street='Pasar Baru',
-         district='Balikpapan', region='Kalimantan Timur', postal='', hq=False),
-    # Cabang Bekasi (dikonfirmasi pemilik 2026-11-20, titik dari link Google Maps pemilik). Layanan: software, website, SEO.
-    dict(key='bekasi', label='Cabang Bekasi', city='Bekasi', street='Jl. Permata Hijau Permai, RT.001/RW.017, Kaliabang Tengah',
-         district='Kec. Bekasi Utara', region='Jawa Barat', postal='17125', hq=False, geo=(-6.202971, 107.003423)),
+    # Cabang Bekasi (dikonfirmasi pemilik 2026-11-20). Atas permintaan pemilik alamat sengaja ditampilkan samar
+    # (tingkat kelurahan, tanpa nama jalan, RT/RW, atau titik pin). Layanan: software, website, SEO.
+    dict(key='bekasi', label='Cabang Bekasi', city='Bekasi', street='Kaliabang Tengah',
+         district='Kec. Bekasi Utara', region='Jawa Barat', postal='17125', hq=False),
 ]
 
 # Titik kantor pusat Samarinda (Jl. Dayak ASB, Bukuan, Kec. Palaran).
@@ -90,7 +89,7 @@ ALT_NAMES = ['Altora', 'Altora Indonesia', 'Algora Teknologi Indonesia']
 FOUNDING_DATE = '2019'
 EMPLOYEES = 13
 DESCRIPTION = ('Altora Indonesia adalah software house yang berkantor pusat di Samarinda, Kalimantan Timur, sejak 2019, '
-               'dengan dua cabang di Balikpapan. Altora membuat software custom, aplikasi web dan mobile, website, SEO, AI, dan IoT, '
+               'dengan cabang di Balikpapan Utara. Altora membuat software custom, aplikasi web dan mobile, website, SEO, AI, dan IoT, '
                'serta menyediakan pengadaan dan pemasangan perangkat untuk perusahaan dan instansi di Kalimantan Timur. '
                'Cabang Bekasi, Jawa Barat, melayani software, website, dan SEO untuk klien di Bekasi dan Jabodetabek.')
 KNOWS_ABOUT = ['Software custom', 'Pembuatan aplikasi web', 'Pembuatan aplikasi mobile', 'Pembuatan website', 'Search engine optimization',
@@ -100,7 +99,7 @@ AREA_SERVED = [{'@type': 'City', 'name': 'Samarinda'}, {'@type': 'City', 'name':
                {'@type': 'AdministrativeArea', 'name': 'Kalimantan Timur'}, {'@type': 'City', 'name': 'Bekasi'},
                {'@type': 'Country', 'name': 'Indonesia'}]
 # halaman kota tiap kantor (dipakai sebagai url simpul kantor)
-OFFICE_PAGE = {'samarinda': '/software-house-samarinda', 'balikpapan-utara': '/software-house-balikpapan', 'balikpapan-pasar-baru': '/software-house-balikpapan', 'bekasi': '/software-house-bekasi'}
+OFFICE_PAGE = {'samarinda': '/software-house-samarinda', 'balikpapan-utara': '/software-house-balikpapan', 'bekasi': '/software-house-bekasi'}
 
 
 def office_id(o):
@@ -154,12 +153,10 @@ def map_html(o=None):
         q = '{},{}'.format(*o['geo']) if o.get('geo') else quote(f"{with_city(o)}, {o['region']}")
         return ('<figure class="ofc-map"><iframe allowfullscreen="" height="260" loading="lazy" referrerpolicy="no-referrer-when-downgrade" '
                 f'src="https://www.google.com/maps?q={q}&amp;z=15&amp;output=embed" title="Peta area {label_lc(o)} Altora: {one_line(o)}" width="600"></iframe>'
-                f'<figcaption><span><b>{o["label"]}</b>{with_city(o)}</span>'
-                f'<a href="https://www.google.com/maps/dir/?api=1&amp;destination={q}" rel="noopener" target="_blank">Petunjuk arah</a></figcaption></figure>')
+                f'<figcaption><span><b>{o["label"]}</b>{with_city(o)}</span></figcaption></figure>')
     return ('<figure class="ofc-map"><iframe allowfullscreen="" height="260" loading="lazy" referrerpolicy="no-referrer-when-downgrade" '
             f'src="{maps_embed()}" title="Peta lokasi kantor pusat Altora di Jl. Dayak ASB, Bukuan, Palaran, Samarinda" width="600"></iframe>'
-            '<figcaption><span><b>Kantor pusat Samarinda</b>Jl. Dayak ASB, Bukuan, Kec. Palaran, Samarinda</span>'
-            f'<a href="{maps_directions()}" rel="noopener" target="_blank">Petunjuk arah</a></figcaption></figure>')
+            '<figcaption><span><b>Kantor pusat Samarinda</b>Jl. Dayak ASB, Bukuan, Kec. Palaran, Samarinda</span></figcaption></figure>')
 
 
 # FAQ entitas di beranda (HTML statis + FAQPage). Jawaban ditulis sebagai kalimat lengkap yang bisa dikutip mesin AI.
@@ -170,12 +167,12 @@ HOME_FAQ = [
      'Lebih dari 50 proyek sudah diselesaikan oleh 13 ahli in-house.'),
     ('Di mana kantor Altora?',
      'Kantor pusat Altora Indonesia di Jl. Dayak ASB, Bukuan, Kecamatan Palaran, Kota Samarinda, Kalimantan Timur. '
-     'Cabang di Balikpapan Utara (Jl. Soekarno Hatta, Muara Rapak), di Pasar Baru, Balikpapan, dan di Bekasi (Jl. Permata Hijau Permai, Kaliabang Tengah, Bekasi Utara, Jawa Barat). Telepon/WhatsApp +62 851-9091-1170, email hello@altora.id.'),
+     'Cabang di Balikpapan Utara (Jl. Soekarno Hatta, Muara Rapak) dan di Bekasi (Kaliabang Tengah, Bekasi Utara, Jawa Barat). Telepon/WhatsApp +62 851-9091-1170, email hello@altora.id.'),
     ('Apakah Altora software house di Samarinda?',
-     'Ya. Altora Indonesia adalah software house yang berkantor pusat di Samarinda dan punya dua cabang di Balikpapan. '
+     'Ya. Altora Indonesia adalah software house yang berkantor pusat di Samarinda, dengan cabang di Balikpapan dan Bekasi. '
      'Klien kami di Samarinda antara lain Pemerintah Kota Samarinda dan Universitas Mulawarman.'),
     ('Apakah Altora juga melayani Balikpapan dan kota lain di Kalimantan Timur?',
-     'Ya. Balikpapan dilayani dari dua cabang kami, dan kabupaten/kota lain di Kalimantan Timur (Bontang, Kutai Kartanegara, Kutai Timur, Berau, Paser, '
+     'Ya. Balikpapan dilayani dari cabang Balikpapan Utara, dan kabupaten/kota lain di Kalimantan Timur (Bontang, Kutai Kartanegara, Kutai Timur, Berau, Paser, '
      'Penajam Paser Utara, IKN, dan lainnya) dilayani dari kantor terdekat. Software juga dikerjakan jarak jauh untuk klien di seluruh Indonesia.'),
     ('Layanan apa saja yang dikerjakan Altora?',
      'Software custom, aplikasi web dan mobile, website, SEO, AI (analitik CCTV, pengenalan wajah), IoT, tracking armada, serta pengadaan dan pemasangan perangkat '

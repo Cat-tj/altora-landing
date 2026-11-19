@@ -79,7 +79,7 @@ Kuncinya tetap sama: kode, akun, dan dokumentasi harus bisa berpindah tangan tan
 
 ## Tentang Altora
 
-Altora Indonesia adalah software house yang berkantor pusat di Samarinda sejak 2019, dengan dua cabang di Balikpapan. Tim in-house kami terdiri dari 13 ahli yang menangani analisis, desain, pengembangan, pengujian, pelatihan, dan dukungan. Altora berstatus PKP dan terdaftar sebagai penyedia di Inaproc/LKPP.
+Altora Indonesia adalah software house yang berkantor pusat di Samarinda sejak 2019, dengan cabang di Balikpapan Utara dan Bekasi. Tim in-house kami terdiri dari 13 ahli yang menangani analisis, desain, pengembangan, pengujian, pelatihan, dan dukungan. Altora berstatus PKP dan terdaftar sebagai penyedia di Inaproc/LKPP.
 
 Bila Anda di Samarinda, lihat [software house Samarinda](/software-house-samarinda); bila di Balikpapan, lihat [jasa pembuatan aplikasi Balikpapan](/software-house-balikpapan). Kalau pekerjaan Anda ternyata cukup ditangani freelancer, kami akan mengatakannya. [Ceritakan kebutuhan Anda](/contact).
 

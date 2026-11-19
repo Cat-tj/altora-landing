@@ -96,7 +96,7 @@ def page():
 <section class="pf-sec" id="proyek"><div class="pf-wrap"><div class="pf-head center"><h2>Eksplorasi proyek lainnya.</h2><p class="pf-lead">Pilih kategori untuk menyaring proyek.</p></div>
 <div aria-label="Filter kategori" class="pf-filters" role="group">{filters}</div>
 <div class="pf-grid">{cards}</div>
-<p class="pf-note">Mencari tim di dekat lokasi Anda? Lihat <a href="/software-house-samarinda">software house Samarinda</a> (kantor pusat), <a href="/software-house-balikpapan">jasa pembuatan aplikasi Balikpapan</a> (dua cabang), atau <a href="/blog/contoh-aplikasi-instansi-perusahaan-kaltim">contoh aplikasi untuk instansi dan perusahaan di Kaltim</a>.</p></div></section>
+<p class="pf-note">Mencari tim di dekat lokasi Anda? Lihat <a href="/software-house-samarinda">software house Samarinda</a> (kantor pusat), <a href="/software-house-balikpapan">jasa pembuatan aplikasi Balikpapan</a> (cabang Balikpapan Utara), atau <a href="/blog/contoh-aplikasi-instansi-perusahaan-kaltim">contoh aplikasi untuk instansi dan perusahaan di Kaltim</a>.</p></div></section>
 <section class="pf-sec pf-sec-alt pf-sec-tight"><div class="pf-wrap"><h2 class="pf-logos-h">Dipercaya pemerintahan, kampus, industri, F&amp;B, dan klien internasional</h2>
 <div class="pf-logos">{logos}</div><p class="pf-note">Detail teknis dan data sensitif klien tidak ditampilkan. Untuk kebutuhan serupa, ceritakan lewat WhatsApp.</p></div></section>
 """ + cta_html(msg) + tail_html()
