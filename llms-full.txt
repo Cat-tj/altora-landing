@@ -63,6 +63,13 @@ Altora Indonesia (Altora) is a software house headquartered in Samarinda, East K
 - Area layanan: https://altora.id/area-layanan
 - Artikel: https://altora.id/blog
 
+## Panduan memilih software house di Kalimantan Timur
+- Cara memilih software house di Samarinda dan Balikpapan (8 pertanyaan sebelum tanda tangan): https://altora.id/blog/cara-memilih-software-house-samarinda-balikpapan
+- Software house atau freelancer? Panduan untuk perusahaan dan instansi di Kaltim: https://altora.id/blog/software-house-vs-freelancer-kaltim
+- Vendor aplikasi lokal atau dari luar Kaltim? Pertimbangan untuk Samarinda dan Balikpapan: https://altora.id/blog/vendor-aplikasi-lokal-atau-luar-kaltim
+- Contoh aplikasi untuk instansi dan perusahaan di Kalimantan Timur: https://altora.id/blog/contoh-aplikasi-instansi-perusahaan-kaltim
+- Altora dalam angka & fakta: https://altora.id/about#fakta
+
 ## Profil resmi di luar situs (sameAs)
 - (belum ada profil eksternal resmi yang dicantumkan)
 
@@ -258,6 +265,9 @@ Kami melatih pengguna, lalu memberi dukungan lewat WhatsApp dan akses jarak jauh
 - Aplikasi Perkantoran: Dokumen, Lembar Kerja, Presentasi: https://altora.id/aplikasi-perkantoran
 
 ## Artikel
+- Software House vs Freelancer untuk Perusahaan di Kaltim: https://altora.id/blog/software-house-vs-freelancer-kaltim
+- Contoh Aplikasi untuk Instansi & Perusahaan di Kaltim: https://altora.id/blog/contoh-aplikasi-instansi-perusahaan-kaltim
+- Vendor Aplikasi Lokal atau Luar Kaltim? Pertimbangannya: https://altora.id/blog/vendor-aplikasi-lokal-atau-luar-kaltim
 - Checklist Keamanan Aplikasi Bisnis Sebelum Go-Live: https://altora.id/blog/checklist-keamanan-aplikasi-bisnis
 - Integrasi Sistem ERP untuk Perusahaan Logistik Maritim dan Tongkang di Kalimantan Timur: https://altora.id/blog/integrasi-erp-logistik-maritim-kaltim
 - Altora Store: Aplikasi Toko Suku Cadang & Industri: https://altora.id/blog/altora-store-aplikasi-toko-suku-cadang

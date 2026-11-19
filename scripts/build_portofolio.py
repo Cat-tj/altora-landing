@@ -23,6 +23,16 @@ PROOF = [('AI', 'Vision & analytics'), ('IoT', 'Perangkat & lapangan'), ('Softwa
 FEATURED = ['pompy-batara', 'smart-attendance-unmul', 'deteksi-apd-ai']   # sama dengan baris unggulan situs saudara
 HERO_SLUG = 'fleet-management-tambang'
 TRUST = ['Diskusi awal gratis', 'Tanpa kewajiban lanjut', 'Tim lokal Kaltim']
+# Proyek yang lokasinya sudah tertulis di situs (nama klien/teks proyek atau FAQ beranda: Universitas Mulawarman = klien di Samarinda)
+# -> halaman kota yang cocok. Proyek tanpa lokasi yang dinyatakan sengaja tidak dipetakan.
+CITY_PAGE = {'samarinda': ('/software-house-samarinda', 'Software house Samarinda', 'Kantor pusat Altora di Palaran, Samarinda'),
+             'balikpapan': ('/software-house-balikpapan', 'Jasa pembuatan aplikasi Balikpapan', 'Dua cabang Altora di Balikpapan'),
+             'kaltim': ('/software-house-kalimantan-timur', 'Software house Kalimantan Timur', 'Samarinda, Balikpapan, dan seluruh Kaltim')}
+PROJECT_CITY = {'cctv-ai-farmasi-unmul': 'samarinda', 'smartlock-farmasi-unmul': 'samarinda', 'smart-attendance-unmul': 'samarinda',
+                'website-feb-unmul': 'samarinda', 'website-farmasi-unmul': 'samarinda', 'antrian-poliklinik': 'samarinda',
+                'optimasi-rute-armada': 'balikpapan',
+                'fleet-management-tambang': 'kaltim', 'fleet-radio-kapal': 'kaltim', 'iot-monitoring-lahan-sawit': 'kaltim',
+                'transkripsi-rapat': 'kaltim', 'lentera-koperasi': 'kaltim'}
 KIND_LABEL = {'infra': 'Infrastruktur & IoT', 'ai': 'AI & vision', 'software': 'Software & data', 'web': 'Website'}
 
 
@@ -85,7 +95,8 @@ def page():
 <div class="pf-shots">{shots}</div></div></section>
 <section class="pf-sec" id="proyek"><div class="pf-wrap"><div class="pf-head center"><h2>Eksplorasi proyek lainnya.</h2><p class="pf-lead">Pilih kategori untuk menyaring proyek.</p></div>
 <div aria-label="Filter kategori" class="pf-filters" role="group">{filters}</div>
-<div class="pf-grid">{cards}</div></div></section>
+<div class="pf-grid">{cards}</div>
+<p class="pf-note">Mencari tim di dekat lokasi Anda? Lihat <a href="/software-house-samarinda">software house Samarinda</a> (kantor pusat), <a href="/software-house-balikpapan">jasa pembuatan aplikasi Balikpapan</a> (dua cabang), atau <a href="/blog/contoh-aplikasi-instansi-perusahaan-kaltim">contoh aplikasi untuk instansi dan perusahaan di Kaltim</a>.</p></div></section>
 <section class="pf-sec pf-sec-alt pf-sec-tight"><div class="pf-wrap"><h2 class="pf-logos-h">Dipercaya pemerintahan, kampus, industri, F&amp;B, dan klien internasional</h2>
 <div class="pf-logos">{logos}</div><p class="pf-note">Detail teknis dan data sensitif klien tidak ditampilkan. Untuk kebutuhan serupa, ceritakan lewat WhatsApp.</p></div></section>
 """ + cta_html(msg) + tail_html()
@@ -131,6 +142,10 @@ def detail(p):
     if p.get('link') and not ext:
         minis += (f'<a class="pf-mini" href="{esc(p["link"][0])}"><span class="pf-mi">{icon("doc")}</span>'
                   f'<span><b>{esc(p["link"][1])}</b><small>Artikel terkait</small></span>{icon("arrow")}</a>')
+    if p['slug'] in PROJECT_CITY:
+        cu, ct, cd = CITY_PAGE[PROJECT_CITY[p['slug']]]
+        minis += (f'<a class="pf-mini" href="{cu}"><span class="pf-mi">{icon("pin")}</span>'
+                  f'<span><b>{esc(ct)}</b><small>{esc(cd)}</small></span>{icon("arrow")}</a>')
     src = ''
     if p.get('source'):
         src = f'<p class="pf-src">Sumber: <a href="{esc(p["source"][0])}" rel="noopener" target="_blank">{esc(p["source"][1])}</a></p>'
@@ -144,7 +159,7 @@ def detail(p):
         {'@type': 'BreadcrumbList', 'itemListElement': [
             {'@type': 'ListItem', 'position': 1, 'name': 'Beranda', 'item': SITE + '/'},
             {'@type': 'ListItem', 'position': 2, 'name': 'Portofolio', 'item': SITE + URL},
-            {'@type': 'ListItem', 'position': 3, 'name': p['title'], 'item': SITE + url}]}]}
+            {'@type': 'ListItem', 'position': 3, 'name': short_title(p), 'item': SITE + url}]}]}
     img = SITE + IMG + p['img']
     return head_html(title, desc, url, img, ld) + f"""<main class="pf-page" id="main">
 <section class="pf-hero"><div class="pf-wrap pf-split"><div class="pf-ph"><nav aria-label="Breadcrumb" class="pf-crumb"><a href="/">Beranda</a><a href="{URL}">Portofolio</a><span>{esc(short_title(p))}</span></nav>

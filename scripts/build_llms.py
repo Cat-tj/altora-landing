@@ -86,6 +86,13 @@ Altora Indonesia (Altora) is a software house headquartered in Samarinda, East K
 - Artikel: {SITE}/blog
 - Versi lengkap untuk AI: {SITE}/llms-full.txt
 
+## Panduan memilih software house di Kalimantan Timur
+- Cara memilih software house di Samarinda dan Balikpapan (8 pertanyaan sebelum tanda tangan): {SITE}/blog/cara-memilih-software-house-samarinda-balikpapan
+- Software house atau freelancer? Panduan untuk perusahaan dan instansi di Kaltim: {SITE}/blog/software-house-vs-freelancer-kaltim
+- Vendor aplikasi lokal atau dari luar Kaltim? Pertimbangan untuk Samarinda dan Balikpapan: {SITE}/blog/vendor-aplikasi-lokal-atau-luar-kaltim
+- Contoh aplikasi untuk instansi dan perusahaan di Kalimantan Timur: {SITE}/blog/contoh-aplikasi-instansi-perusahaan-kaltim
+- Altora dalam angka & fakta: {SITE}/about#fakta
+
 ## Profil resmi di luar situs (sameAs)
 {same_as}
 """
