@@ -13,7 +13,7 @@ from portofolio_data import BY as PF, card as pf_card
 
 root = pathlib.Path(__file__).resolve().parent.parent
 CSS_VER = '20261016i'
-LOCAL_CSS = '/assets/css/local-seo.css?v=20261120a'
+LOCAL_CSS = '/assets/css/local-seo.css?v=20261120b'
 PF_CSS = '/assets/css/portofolio.css?v=20261118p'
 SITE = 'https://altora.id'
 WA = 'https://wa.me/6285190911170?text='

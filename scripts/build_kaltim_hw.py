@@ -16,7 +16,7 @@ root = pathlib.Path(__file__).resolve().parent.parent
 e = lambda t: html.escape(str(t), quote=True)
 TODAY = '2026-11-20'
 TODAY_ID = '20 November 2026'
-LOCAL_CSS = '<link rel="stylesheet" href="/assets/css/local-seo.css?v=20261120a"/>'
+LOCAL_CSS = '<link rel="stylesheet" href="/assets/css/local-seo.css?v=20261120b"/>'
 PF_CSS = '<link rel="stylesheet" href="/assets/css/portofolio.css?v=20261118p"/>'
 KIT = {it[0]: it for it in PG['starlink'][0][1]}
 
