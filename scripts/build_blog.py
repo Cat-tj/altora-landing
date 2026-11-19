@@ -31,6 +31,32 @@ BULAN = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustu
 e = lambda t: html.escape(t, quote=True)
 
 
+def img_size(src):
+    """(lebar, tinggi) asli gambar lokal WebP/PNG untuk atribut width/height (mencegah layout shift); None bila tak terbaca."""
+    f = root / src.split('?')[0].lstrip('/')
+    try:
+        b = f.read_bytes()[:40]
+    except OSError:
+        return None
+    if b[:4] == b'\x89PNG':
+        return int.from_bytes(b[16:20], 'big'), int.from_bytes(b[20:24], 'big')
+    if b[:4] == b'RIFF' and b[8:12] == b'WEBP':
+        k = b[12:16]
+        if k == b'VP8X':
+            return 1 + int.from_bytes(b[24:27], 'little'), 1 + int.from_bytes(b[27:30], 'little')
+        if k == b'VP8 ':
+            return int.from_bytes(b[26:28], 'little') & 0x3FFF, int.from_bytes(b[28:30], 'little') & 0x3FFF
+        if k == b'VP8L':
+            v = int.from_bytes(b[21:25], 'little')
+            return (v & 0x3FFF) + 1, ((v >> 14) & 0x3FFF) + 1
+    return None
+
+
+def wh(src):
+    d = img_size(src)
+    return f' height="{d[1]}" width="{d[0]}"' if d else ''
+
+
 def tanggal(iso):
     d = datetime.date.fromisoformat(iso)
     return f'{d.day} {BULAN[d.month - 1]} {d.year}'
@@ -106,7 +132,7 @@ def md_to_html(md):
         if fig:
             flush()
             cap = f'<figcaption>{inline(fig.group(3))}</figcaption>' if fig.group(3) else ''
-            out.append(f'<figure class="altora-diagram"><img alt="{e(fig.group(1))}" loading="lazy" src="{e(fig.group(2))}"/>{cap}</figure>')
+            out.append(f'<figure class="altora-diagram"><img alt="{e(fig.group(1))}" decoding="async"{wh(fig.group(2))} loading="lazy" src="{e(fig.group(2))}"/>{cap}</figure>')
             continue
         if s.startswith('> '):
             flush(); out.append(f'<blockquote><p>{inline(s[2:])}</p></blockquote>'); continue
@@ -124,6 +150,19 @@ def md_to_html(md):
         para.append(s.strip())
     flush()
     return '\n'.join(out), toc
+
+
+def faq_items(md):
+    """Tanya-jawab dari bagian '## Pertanyaan umum' (### pertanyaan + paragraf jawaban) untuk FAQPage. Tampil sebagai teks biasa."""
+    m = re.search(r'^## Pertanyaan umum\s*$(.*?)(?=^## |\Z)', md, re.M | re.S)
+    if not m:
+        return []
+    out = []
+    for q, a in re.findall(r'^### (.+?)\s*$(.*?)(?=^### |\Z)', m.group(1), re.M | re.S):
+        text = re.sub(r'\[([^\]]+)\]\([^)]+\)', r'\1', ' '.join(a.split())).replace('**', '')
+        if text:
+            out.append((q.strip(), text))
+    return out
 
 
 def head(title, desc, canonical, og_type='website', image=None, extra=''):
@@ -164,16 +203,21 @@ def build():
         minutes = max(1, round(words / 200))
         url = f'/blog/{p["slug"]}'
         updated = p.get('updated', p['date'])
+        crumb = p.get('seo_title', p['title'])  # nama halaman di breadcrumb, sama di HTML dan BreadcrumbList
         ld = {'@context': 'https://schema.org', '@graph': [org(),
             {'@type': 'BlogPosting', 'headline': p['title'], 'description': p['description'], 'datePublished': p['date'],
              'dateModified': updated, 'inLanguage': 'id-ID', 'mainEntityOfPage': SITE + url,
              'image': SITE + p.get('image', '/assets/img/altora-logo-600.png'),
              'author': {'@type': 'Organization', '@id': ORG_ID, 'name': 'Altora Indonesia', 'url': SITE + '/'},
-             'publisher': {'@id': ORG_ID}},
+             'publisher': {'@id': ORG_ID}, 'url': SITE + url, 'articleSection': p['category'], 'wordCount': words},
             {'@type': 'BreadcrumbList', 'itemListElement': [
                 {'@type': 'ListItem', 'position': 1, 'name': 'Beranda', 'item': SITE + '/'},
                 {'@type': 'ListItem', 'position': 2, 'name': 'Artikel', 'item': SITE + '/blog'},
-                {'@type': 'ListItem', 'position': 3, 'name': p['title'], 'item': SITE + url}]}]}
+                {'@type': 'ListItem', 'position': 3, 'name': crumb, 'item': SITE + url}]}]}
+        faq = faq_items(p['body_md'])
+        if faq:
+            ld['@graph'].append({'@type': 'FAQPage', '@id': SITE + url + '#faq', 'mainEntity': [
+                {'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in faq]})
         toc_html = ''
         if len(toc) >= 3:
             toc_html = ('<nav aria-label="Daftar isi" class="bl-toc"><b>Daftar isi</b><ol>'
@@ -192,10 +236,10 @@ def build():
                      f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>')
                 + '<main class="bl-page">'
                 + '<article class="bl-article"><header class="bl-head"><div class="bl-wrap bl-narrow">'
-                + '<nav aria-label="Breadcrumb" class="bl-crumb"><a href="/">Beranda</a><span>/</span><a href="/blog">Artikel</a></nav>'
+                + f'<nav aria-label="Breadcrumb" class="bl-crumb"><a href="/">Beranda</a><span>/</span><a href="/blog">Artikel</a><span>/</span><span aria-current="page">{e(crumb)}</span></nav>'
                 + f'<p class="eyebrow eyebrow-purple">{e(p["category"])}</p><h1>{e(p["title"])}</h1>'
                 + f'<p class="bl-lead">{e(p["description"])}</p>'
-                + f'<p class="bl-meta">Tim Altora Indonesia · <time datetime="{p["date"]}">{tanggal(p["date"])}</time> · {minutes} menit baca</p>'
+                + f'<p class="bl-meta">Tim Altora Indonesia · <time datetime="{p["date"]}">{tanggal(p["date"])}</time>' + (f' · Diperbarui <time datetime="{updated}">{tanggal(updated)}</time>' if updated != p['date'] else '') + f' · {minutes} menit baca</p>'
                 + '</div></header>'
                 + f'<div class="bl-wrap bl-narrow bl-body">{toc_html}{body}{related}'
                 + '<div class="bl-cta"><div><b>Punya kondisi serupa di organisasi Anda?</b><p>Ceritakan prosesnya. Kami bantu memetakan pendekatan yang paling proporsional.</p></div>'
@@ -212,7 +256,7 @@ def build():
     rest = posts
     if posts:
         f0 = posts[0]; rest = posts[1:]
-        feat = (f'<a class="bl-feature" data-cat="{e(f0["category"])}" href="/blog/{f0["slug"]}"><span class="bl-feature-img"><img alt="" src="{e(f0.get("image", "/assets/img/altora-logo-600.png"))}"/></span>'
+        feat = (f'<a class="bl-feature" data-cat="{e(f0["category"])}" href="/blog/{f0["slug"]}"><span class="bl-feature-img"><img alt="" fetchpriority="high"{wh(f0.get("image", "/assets/img/altora-logo-600.png"))} src="{e(f0.get("image", "/assets/img/altora-logo-600.png"))}"/></span>'
                 f'<span class="bl-feature-body"><small>Terbaru · {e(f0["category"])} · {tanggal(f0["date"])}</small><b>{e(f0["title"])}</b>'
                 f'<span>{e(f0["description"])}</span><em>Baca artikel</em></span></a>')
     topics = ('<section class="bl-topics"><div class="bl-wrap"><h2>Topik yang sering ditanyakan</h2><div class="bl-topic-grid">'
@@ -241,7 +285,7 @@ def build():
 
 def card(p):
     img = p.get('image')
-    pic = f'<div class="bl-card-img"><img alt="" loading="lazy" src="{e(img)}"/></div>' if img else ''
+    pic = f'<div class="bl-card-img"><img alt="" decoding="async"{wh(img)} loading="lazy" src="{e(img)}"/></div>' if img else ''
     return (f'<a class="bl-card" data-cat="{e(p["category"])}" href="/blog/{p["slug"]}">{pic}<div class="bl-card-body"><small>{e(p["category"])} · {tanggal(p["date"])}</small>'
             f'<h3>{e(p["title"])}</h3><p>{e(p["description"])}</p><span>Baca artikel</span></div></a>')
 

@@ -1,8 +1,10 @@
 """Sampul artikel (1200x630 webp) buatan sendiri: panel ungu brand, kategori, judul pendek, dan ikon sesuai topik.
-Jalankan: python3 scripts/build_blog_covers.py (butuh Google Chrome dan cwebp). Hasil: assets/img/blog/cover/<slug>.webp"""
-import pathlib, subprocess, tempfile, html
+Jalankan: python3 scripts/build_blog_covers.py [slug ...] (butuh Google Chrome atau Microsoft Edge, dan cwebp).
+Tanpa argumen semua sampul di COVERS dibuat ulang; dengan slug hanya sampul itu. Hasil: assets/img/blog/cover/<slug>.webp"""
+import pathlib, subprocess, sys, tempfile, html
 root = pathlib.Path(__file__).resolve().parent.parent
-CH = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
+CH = next((c for c in ('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+                       '/Applications/Microsoft Edge.app/Contents/MacOS/Microsoft Edge') if pathlib.Path(c).exists()), 'google-chrome')
 ICON = {
  'fork': '<path d="M60 150V90M60 90C60 60 100 60 100 30M60 90C60 60 20 60 20 30" /><circle cx="100" cy="24" r="10"/><circle cx="20" cy="24" r="10"/><circle cx="60" cy="156" r="10"/>',
  'check': '<rect x="22" y="20" width="96" height="124" rx="14"/><path d="M44 62l12 12 22-24M44 106l12 12 22-24"/><path d="M92 68h14M92 112h14"/>',
@@ -17,6 +19,9 @@ COVERS = {
  'cara-memilih-software-house-samarinda-balikpapan': ('Panduan memilih vendor', '8 pertanyaan sebelum memilih software house', 'check'),
  'merencanakan-pembuatan-aplikasi': ('Perencanaan', '7 hal yang menentukan cakupan proyek aplikasi', 'scope'),
  'membimbing-smpn-5-balikpapan-innovakids-2026': ('Cerita Altora', 'Membimbing SMPN 5 Balikpapan ke Juara 2 Innovakids 2026', 'find'),
+ 'software-house-vs-freelancer-kaltim': ('Panduan memilih vendor', 'Software house atau freelancer untuk perusahaan di Kaltim?', 'fork'),
+ 'vendor-aplikasi-lokal-atau-luar-kaltim': ('Panduan memilih vendor', 'Vendor aplikasi lokal atau dari luar Kaltim?', 'find'),
+ 'contoh-aplikasi-instansi-perusahaan-kaltim': ('Studi kasus', 'Contoh aplikasi untuk instansi dan perusahaan di Kaltim', 'doc'),
 }
 TPL = '''<!doctype html><meta charset="utf-8"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
 <style>*{box-sizing:border-box;margin:0}body{width:1200px;height:630px;font-family:"Plus Jakarta Sans",system-ui,sans-serif;color:#10224F;
@@ -31,6 +36,8 @@ h1{font-size:60px;line-height:1.1;letter-spacing:-.03em;font-weight:800}.b{margi
 <div class="ring"></div><div class="ring2"></div><div class="tile"><svg viewBox="0 0 160 170">%ICON%</svg></div>
 <div class="t"><div class="e">%CAT%</div><h1>%TITLE%</h1><div class="b">Altora Indonesia</div></div>'''
 for slug, (cat, title, ic) in COVERS.items():
+    if sys.argv[1:] and slug not in sys.argv[1:]:
+        continue
     h = TPL.replace('%ICON%', ICON[ic]).replace('%CAT%', html.escape(cat)).replace('%TITLE%', html.escape(title))
     with tempfile.TemporaryDirectory() as d:
         f = pathlib.Path(d, 'c.html'); f.write_text(h, encoding='utf-8'); png = pathlib.Path(d, 'c.png')
