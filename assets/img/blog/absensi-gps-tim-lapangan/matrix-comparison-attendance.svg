@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="auto" style="background:#FFFFFF;border:1px solid #ECE4F7;border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;">
+  <!-- Title -->
+  <rect x="0" y="0" width="800" height="60" fill="#FBF9FD"/>
+  <text x="30" y="38" font-size="16" font-weight="700" fill="#091E42">Matriks Evaluasi: Absensi GPS Mobile vs AI Wajah vs Fingerprint Mesin</text>
+
+  <!-- Table Header -->
+  <rect x="30" y="80" width="740" height="40" rx="6" fill="#F4F5F7"/>
+  <text x="50" y="105" font-size="12" font-weight="700" fill="#5E6C84">PARAMETER EVALUASI</text>
+  <text x="270" y="105" font-size="12" font-weight="700" fill="#7C5CE8">GPS + GEOFENCING</text>
+  <text x="440" y="105" font-size="12" font-weight="700" fill="#7C5CE8">PENGENALAN WAJAH</text>
+  <text x="610" y="105" font-size="12" font-weight="700" fill="#7C5CE8">MESIN FINGERPRINT</text>
+
+  <!-- Row 1: Mobilitas -->
+  <line x1="30" y1="120" x2="770" y2="120" stroke="#EBECF0"/>
+  <text x="50" y="145" font-size="13" font-weight="600" fill="#172B4D">Mobilitas Tim</text>
+  <text x="270" y="145" font-size="12" fill="#00875A" font-weight="600">Sangat Tinggi (Dinamis)</text>
+  <text x="440" y="145" font-size="12" fill="#00875A" font-weight="600">Tinggi (Mobile/Kios)</text>
+  <text x="610" y="145" font-size="12" fill="#DE350B">Rendah (Statis di Lokasi)</text>
+
+  <!-- Row 2: Biaya Pengadaan -->
+  <line x1="30" y1="170" x2="770" y2="170" stroke="#EBECF0"/>
+  <text x="50" y="195" font-size="13" font-weight="600" fill="#172B4D">Pengadaan Hardware</text>
+  <text x="270" y="195" font-size="12" fill="#00875A">Nol (Pakai HP Karyawan)</text>
+  <text x="440" y="195" font-size="12" fill="#00875A">Nol / Tablet Ringan</text>
+  <text x="610" y="195" font-size="12" fill="#DE350B">Biaya Beli Mesin &amp; Pasang</text>
+
+  <!-- Row 3: Pencegahan Kecurangan -->
+  <line x1="30" y1="220" x2="770" y2="220" stroke="#EBECF0"/>
+  <text x="50" y="245" font-size="13" font-weight="600" fill="#172B4D">Cegah Titip Absen</text>
+  <text x="270" y="245" font-size="12" fill="#FFAB00" font-weight="600">Sedang (Butuh Anti-Mock)</text>
+  <text x="440" y="245" font-size="12" fill="#00875A" font-weight="600">Sangat Kuat (Liveness AI)</text>
+  <text x="610" y="245" font-size="12" fill="#00875A" font-weight="600">Sangat Kuat (Biometrik)</text>
+
+  <!-- Row 4: Kondisi Lapangan Tambang/Kotor -->
+  <line x1="30" y1="270" x2="770" y2="270" stroke="#EBECF0"/>
+  <text x="50" y="295" font-size="13" font-weight="600" fill="#172B4D">Toleransi Lingkungan Kotor</text>
+  <text x="270" y="295" font-size="12" fill="#00875A">Sangat Baik (Sensor Radio)</text>
+  <text x="440" y="295" font-size="12" fill="#00875A">Baik (Kamera Tanpa Sentuh)</text>
+  <text x="610" y="295" font-size="12" fill="#DE350B">Rentan (Jari Basah/Lumpur)</text>
+
+  <!-- Row 5: Sinkronisasi Offline -->
+  <line x1="30" y1="320" x2="770" y2="320" stroke="#EBECF0"/>
+  <text x="50" y="345" font-size="13" font-weight="600" fill="#172B4D">Dukungan Blankspot</text>
+  <text x="270" y="345" font-size="12" fill="#00875A">Tersedia (Offline Buffer)</text>
+  <text x="440" y="345" font-size="12" fill="#00875A">Tersedia (Local AI Model)</text>
+  <text x="610" y="345" font-size="12" fill="#5E6C84">Tersimpan di Memori Alat</text>
+
+  <!-- Row 6: Kecepatan Rekap HR -->
+  <line x1="30" y1="370" x2="770" y2="370" stroke="#EBECF0"/>
+  <text x="50" y="395" font-size="13" font-weight="600" fill="#172B4D">Integrasi Payroll HR</text>
+  <text x="270" y="395" font-size="12" fill="#00875A" font-weight="600">Instan Real-Time Cloud</text>
+  <text x="440" y="395" font-size="12" fill="#00875A" font-weight="600">Instan Real-Time Cloud</text>
+  <text x="610" y="395" font-size="12" fill="#DE350B">Manual Tarik Flashdisk/LAN</text>
+</svg>

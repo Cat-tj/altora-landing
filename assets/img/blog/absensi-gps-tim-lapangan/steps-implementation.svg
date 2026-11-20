@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 380" width="100%" height="auto" style="background:#FFFFFF;border:1px solid #ECE4F7;border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;">
+  <rect x="0" y="0" width="800" height="50" fill="#FBF9FD"/>
+  <text x="30" y="32" font-size="16" font-weight="700" fill="#091E42">4 Langkah Implementasi Absensi Mobile Tanpa Gejolak Tim Lapangan</text>
+
+  <!-- Step 1 -->
+  <g transform="translate(30, 80)">
+    <circle cx="30" cy="30" r="24" fill="#7C5CE8"/>
+    <text x="30" y="37" font-size="16" font-weight="800" fill="#FFFFFF" text-anchor="middle">1</text>
+    <text x="70" y="24" font-size="14" font-weight="700" fill="#091E42">Pemetaan Titik Koordinat &amp; Radius Geofence</text>
+    <text x="70" y="44" font-size="12" fill="#5E6C84">Tentukan titik sentral kantor, workshop, lokasi tambang, dan proyek klien dengan radius toleransi 30–100 meter.</text>
+  </g>
+  <line x1="60" y1="138" x2="60" y2="152" stroke="#7C5CE8" stroke-width="2" stroke-dasharray="3,3"/>
+
+  <!-- Step 2 -->
+  <g transform="translate(30, 150)">
+    <circle cx="30" cy="30" r="24" fill="#7C5CE8"/>
+    <text x="30" y="37" font-size="16" font-weight="800" fill="#FFFFFF" text-anchor="middle">2</text>
+    <text x="70" y="24" font-size="14" font-weight="700" fill="#091E42">Sosialisasi Kebijakan Privasi &amp; Batasan Jam Kerja</text>
+    <text x="70" y="44" font-size="12" fill="#5E6C84">Tegaskan bahwa GPS hanya merekam koordinat saat tombol absen ditekan, bukan melacak kehidupan pribadi di luar jam kerja.</text>
+  </g>
+  <line x1="60" y1="208" x2="60" y2="222" stroke="#7C5CE8" stroke-width="2" stroke-dasharray="3,3"/>
+
+  <!-- Step 3 -->
+  <g transform="translate(30, 220)">
+    <circle cx="30" cy="30" r="24" fill="#7C5CE8"/>
+    <text x="30" y="37" font-size="16" font-weight="800" fill="#FFFFFF" text-anchor="middle">3</text>
+    <text x="70" y="24" font-size="14" font-weight="700" fill="#091E42">Uji Coba Lapangan di Wilayah Blankspot &amp; Koreksi Manual</text>
+    <text x="70" y="44" font-size="12" fill="#5E6C84">Verifikasi keandalan buffer offline saat sinyal operator hilang dan uji alur persetujuan koreksi manual oleh supervisor.</text>
+  </g>
+  <line x1="60" y1="278" x2="60" y2="292" stroke="#7C5CE8" stroke-width="2" stroke-dasharray="3,3"/>
+
+  <!-- Step 4 -->
+  <g transform="translate(30, 290)">
+    <circle cx="30" cy="30" r="24" fill="#7C5CE8"/>
+    <text x="30" y="37" font-size="16" font-weight="800" fill="#FFFFFF" text-anchor="middle">4</text>
+    <text x="70" y="24" font-size="14" font-weight="700" fill="#091E42">Integrasi Otomatis ke Payroll &amp; Perhitungan Lembur</text>
+    <text x="70" y="44" font-size="12" fill="#5E6C84">Hubungkan data kehadiran langsung ke kalkulasi gaji, tunjangan kehadiran, dan lembur tanpa perlu rekap Excel manual.</text>
+  </g>
+</svg>

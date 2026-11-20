@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" height="auto" style="background:#FBF9FD;border:1px solid #ECE4F7;border-radius:12px;font-family:'Plus Jakarta Sans',sans-serif;">
+  <defs>
+    <filter id="shadowBox" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#091E42" flood-opacity="0.08"/>
+    </filter>
+  </defs>
+
+  <rect x="0" y="0" width="800" height="50" fill="#FFFFFF"/>
+  <text x="30" y="32" font-size="16" font-weight="700" fill="#091E42">Alur Keputusan: Menentukan Metode Verifikasi Kehadiran Tim</text>
+
+  <!-- Step 1: Titik Awal -->
+  <g transform="translate(40, 80)">
+    <rect width="180" height="85" rx="8" fill="#FFFFFF" stroke="#7C5CE8" stroke-width="2" filter="url(#shadowBox)"/>
+    <text x="90" y="32" font-size="12" font-weight="700" fill="#091E42" text-anchor="middle">Dimana lokasi kerja</text>
+    <text x="90" y="52" font-size="12" font-weight="700" fill="#091E42" text-anchor="middle">harian tim Anda?</text>
+  </g>
+
+  <!-- Panah ke Statis vs Dinamis -->
+  <path d="M 220 122 L 280 122" stroke="#7C5CE8" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Percabangan 1: Statis Tetap -->
+  <g transform="translate(290, 70)">
+    <rect width="210" height="50" rx="6" fill="#F4F5F7" stroke="#EBECF0"/>
+    <text x="15" y="30" font-size="12" font-weight="600" fill="#172B4D">Tetap di Kantor / Gudang</text>
+  </g>
+
+  <!-- Percabangan 2: Lapangan Dinamis -->
+  <g transform="translate(290, 140)">
+    <rect width="210" height="50" rx="6" fill="#F4F0FD" stroke="#7C5CE8"/>
+    <text x="15" y="30" font-size="12" font-weight="600" fill="#7C5CE8">Berpindah / Multi-Titik Proyek</text>
+  </g>
+
+  <!-- Pertanyaan Kedua: Apakah tangan operator kotor/berdebu? -->
+  <path d="M 500 95 L 560 95" stroke="#7C5CE8" stroke-width="2"/>
+  <g transform="translate(560, 60)">
+    <rect width="200" height="70" rx="8" fill="#FFFFFF" stroke="#ECE4F7" filter="url(#shadowBox)"/>
+    <text x="15" y="28" font-size="11" font-weight="700" fill="#00875A">Pilihan Terbaik:</text>
+    <text x="15" y="48" font-size="12" font-weight="700" fill="#091E42">Fingerprint Pos Tetap</text>
+    <text x="15" y="62" font-size="10" fill="#5E6C84">atau Tablet Kios Wajah</text>
+  </g>
+
+  <!-- Dari Dinamis Lapangan ke Verifikasi Identitas Penting? -->
+  <path d="M 500 165 L 530 165 L 530 250 L 220 250 L 220 310" stroke="#7C5CE8" stroke-width="2" fill="none"/>
+  
+  <g transform="translate(40, 275)">
+    <rect width="210" height="85" rx="8" fill="#FFFFFF" stroke="#7C5CE8" stroke-width="2" filter="url(#shadowBox)"/>
+    <text x="105" y="32" font-size="12" font-weight="700" fill="#091E42" text-anchor="middle">Apakah risiko titip</text>
+    <text x="105" y="52" font-size="12" font-weight="700" fill="#091E42" text-anchor="middle">absen sangat tinggi?</text>
+  </g>
+
+  <!-- Jawaban Tidak -> GPS Geofence -->
+  <path d="M 250 317 L 310 317" stroke="#7C5CE8" stroke-width="2"/>
+  <g transform="translate(310, 285)">
+    <rect width="200" height="65" rx="8" fill="#FFFFFF" stroke="#00875A" stroke-width="1.5" filter="url(#shadowBox)"/>
+    <text x="15" y="26" font-size="11" font-weight="700" fill="#00875A">CUKUP GPS GEOFENCE</text>
+    <text x="15" y="46" font-size="11" fill="#172B4D">Praktis untuk sales keliling,</text>
+    <text x="15" y="59" font-size="10" fill="#5E6C84">kurir logistik cepat.</text>
+  </g>
+
+  <!-- Jawaban Ya -> Hibrida GPS + AI Wajah -->
+  <path d="M 510 317 L 560 317" stroke="#7C5CE8" stroke-width="2"/>
+  <g transform="translate(560, 280)">
+    <rect width="205" height="75" rx="8" fill="#F4F0FD" stroke="#7C5CE8" stroke-width="2" filter="url(#shadowBox)"/>
+    <text x="15" y="26" font-size="11" font-weight="700" fill="#7C5CE8">HIBRIDA GPS + AI WAJAH</text>
+    <text x="15" y="46" font-size="11" font-weight="600" fill="#091E42">Validasi Lokasi &amp; Identitas</text>
+    <text x="15" y="62" font-size="10" fill="#5E6C84">Ideal teknisi proyek, tambang, subkon.</text>
+  </g>
+</svg>
